@@ -1,0 +1,36 @@
+spring:
+  h2:
+    console:
+      enabled: true
+
+app:
+  datasource:
+    vehicle:
+      url: jdbc:h2:mem:vehicle
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+      jpa:
+        show-sql: true
+        properties:
+          hibernate:
+            '[default_schema]': vehicle
+      configuration:
+        pool-name: vehicle-pool-name
+        maximum-pool-size: 1
+        minimum-idle: 1
+
+    wild:
+      url: jdbc:h2:mem:vehicle
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+      jpa:
+        show-sql: true
+        properties:
+          hibernate:
+            '[default_schema]': wild
+      configuration:
+        pool-name: wild-pool-name
+        maximum-pool-size: 1
+        minimum-idle: 1
