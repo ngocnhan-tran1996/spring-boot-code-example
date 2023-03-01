@@ -5,12 +5,15 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import com.springboot.multipledatasource.service.DataService;
 import com.springboot.multipledatasource.vehicle.CarEntity;
 import com.springboot.multipledatasource.vehicle.CardRepository;
 import com.springboot.multipledatasource.wild.AnimalEntity;
 import com.springboot.multipledatasource.wild.AnimalRepository;
 
 @DataJpaTest
+@Import(DataService.class)
 class MultipleDatasourceApplicationIntegrationTest {
 
   @Autowired
