@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:vehicle
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    hikari:
+      pool-name: vehicle-pool-name
+      maximum-pool-size: 1
+      minimum-idle: 1
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        '[default_schema]': vehicle
