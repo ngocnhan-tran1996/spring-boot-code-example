@@ -1,7 +1,6 @@
 package com.springboot.multipledatasource.config;
 
 import java.util.Objects;
-import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -35,7 +34,7 @@ public class WildDatasourceConfig {
 
   @Bean
   @ConfigurationProperties("app.datasource.wild.configuration")
-  DataSource wildDatasource() {
+  HikariDataSource wildDatasource() {
     return wildDataSourceProperties()
         .initializeDataSourceBuilder()
         .type(HikariDataSource.class)
@@ -60,7 +59,7 @@ public class WildDatasourceConfig {
     return new JpaProperties();
   }
 
-  @Bean(name = "wildEntityManager")
+  @Bean
   LocalContainerEntityManagerFactoryBean wildEntityManager() {
 
     EntityManagerFactoryBuilder builder = new EntityManagerFactoryBuilder(

@@ -1,13 +1,13 @@
 package com.springboot.multipledatasource.config;
 
 import java.util.Objects;
-import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
@@ -35,7 +35,7 @@ public class VehicleDatasourceConfig {
 
   @Bean
   @ConfigurationProperties("app.datasource.vehicle.configuration")
-  DataSource vehicleDatasource() {
+  HikariDataSource vehicleDatasource() {
     return vehicleDataSourceProperties()
         .initializeDataSourceBuilder()
         .type(HikariDataSource.class)
@@ -61,6 +61,7 @@ public class VehicleDatasourceConfig {
   }
 
   @Bean
+  @Primary
   LocalContainerEntityManagerFactoryBean vehicleEntityManager() {
 
     EntityManagerFactoryBuilder builder = new EntityManagerFactoryBuilder(
