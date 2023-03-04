@@ -11,9 +11,9 @@ app:
       password:
       driver-class-name: org.h2.Driver
       jpa:
-        show-sql: true
         properties:
           hibernate:
+            '[show_sql]': true
             '[default_schema]': vehicle
       configuration:
         pool-name: vehicle-pool-name
@@ -26,9 +26,9 @@ app:
       password:
       driver-class-name: org.h2.Driver
       jpa:
-        show-sql: true
         properties:
           hibernate:
+            '[show_sql]': true
             '[default_schema]': wild
       configuration:
         pool-name: wild-pool-name
