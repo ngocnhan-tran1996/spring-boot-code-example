@@ -29,9 +29,11 @@ public class MultipleEntityManagerWithoutAnnotationService implements EntityMana
   @Override
   public void findAll() {
 
-    vehicleTransactionTemplate.execute(status -> vehicleEntityManager.createNativeQuery(
-        "INSERT INTO {h-schema}CAR(NAME) VALUES ('TEST')")
-        .executeUpdate());
+    vehicleTransactionTemplate.executeWithoutResult(status -> {
+      vehicleEntityManager.createNativeQuery(
+          "INSERT INTO {h-schema}CAR(NAME) VALUES ('TEST')")
+          .executeUpdate();
+    });
 
     String carQuery = "SELECT id, name FROM {h-schema}CAR";
 
