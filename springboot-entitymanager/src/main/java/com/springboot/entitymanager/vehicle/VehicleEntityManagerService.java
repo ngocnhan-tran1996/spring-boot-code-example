@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Tuple;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.springboot.entitymanager.dto.DatabaseDto;
@@ -14,6 +15,7 @@ import com.springboot.entitymanager.service.ManagerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+@Profile("multiple")
 @Log4j2
 @Service
 @Transactional(transactionManager = "vehicleTransactionManager")
