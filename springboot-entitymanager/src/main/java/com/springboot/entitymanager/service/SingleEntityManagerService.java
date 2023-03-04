@@ -7,12 +7,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.Tuple;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.springboot.entitymanager.dto.DatabaseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class SingleEntityManagerService implements EntityManagerService {
 
@@ -21,6 +23,10 @@ public class SingleEntityManagerService implements EntityManagerService {
 
   @Override
   public void findAll() {
+
+    entityManager.createNativeQuery(
+        "INSERT INTO {h-schema}CAR(NAME) VALUES ('TEST')")
+        .executeUpdate();
 
     String query = "SELECT id, name FROM {h-schema}CAR";
 
