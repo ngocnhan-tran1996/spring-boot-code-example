@@ -16,7 +16,7 @@ Choose one of below comment lines and config 2 files for a complete application 
 
 ### 1. `application.yaml`
 
-    ```yaml
+  ```yaml
     spring:
     profiles:
         active: multiple # for multiple data source
@@ -25,31 +25,31 @@ Choose one of below comment lines and config 2 files for a complete application 
     h2:
         console:
         enabled: true
-    ```
+  ```
 
 ### 2. `EntityManagerApplication.java`
 
-    ```java
+  ```java
 
     @SpringBootApplication
     public class EntityManagerApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(EntityManagerApplication.class, args);
-    }
+        public static void main(String[] args) {
+            SpringApplication.run(EntityManagerApplication.class, args);
+        }
 
-    // for multiple data source with annotation @Transactional
-    @Resource(name = "multipleEntityManagerWithAnnotationService")
-    // for multiple data source without annotation @Transactional
-    @Resource(name = "multipleEntityManagerWithoutAnnotationService")
-    // for single data source with annotation @Transactional
-    @Resource(name = "singleEntityManagerService")
-    EntityManagerService entityManagerService;
+        // for multiple data source with annotation @Transactional
+        @Resource(name = "multipleEntityManagerWithAnnotationService")
+        // for multiple data source without annotation @Transactional
+        @Resource(name = "multipleEntityManagerWithoutAnnotationService")
+        // for single data source with annotation @Transactional
+        @Resource(name = "singleEntityManagerService")
+        EntityManagerService entityManagerService;
 
-    @Bean
-    CommandLineRunner commandLineRunner() {
-        return args -> entityManagerService.findAll();
-    }
+        @Bean
+        CommandLineRunner commandLineRunner() {
+            return args -> entityManagerService.findAll();
+        }
 
     }
-    ```
+  ```
