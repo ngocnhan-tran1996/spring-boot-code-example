@@ -14,7 +14,7 @@
     <groupId>com.springboot</groupId>
     <artifactId>entitymanager</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>entitymanager</name>
+    <name>Spring Boot EntityManager Datasource</name>
 
     <properties>
         <java.version>17</java.version>
