@@ -31,9 +31,9 @@ public class MultipleEntityManagerWithoutAnnotationService implements EntityMana
   @Override
   public void findAll() {
 
-    vehicleTransactionTemplate.executeWithoutResult(status -> vehicleEntityManager.createNativeQuery(
-          "INSERT INTO {h-schema}CAR(NAME) VALUES ('TEST')")
-          .executeUpdate());
+    vehicleTransactionTemplate.executeWithoutResult(status -> vehicleEntityManager
+        .createNativeQuery("INSERT INTO {h-schema}CAR(NAME) VALUES ('TEST')")
+        .executeUpdate());
 
     String carQuery = "SELECT id, name FROM {h-schema}CAR";
 
@@ -52,8 +52,8 @@ public class MultipleEntityManagerWithoutAnnotationService implements EntityMana
 
     log.info("{}", cars.toString());
 
-    wildTransactionTemplate.executeWithoutResult(status -> wildEntityManager.createNativeQuery(
-        "INSERT INTO {h-schema}ANIMAL(NAME) VALUES ('TEST')")
+    wildTransactionTemplate.executeWithoutResult(status -> wildEntityManager
+        .createNativeQuery("INSERT INTO {h-schema}ANIMAL(NAME) VALUES ('TEST')")
         .executeUpdate());
 
     String wildQuery = "SELECT id, name FROM {h-schema}ANIMAL";
