@@ -53,3 +53,27 @@ Choose one of below comment lines and config 2 files for a complete application 
 
     }
   ```
+
+### 3. Run test
+
+  Please comment below code in `EntityManagerApplication.java`
+
+  ```java
+
+    @SpringBootApplication
+    public class EntityManagerApplication {
+
+        public static void main(String[] args) {
+            SpringApplication.run(EntityManagerApplication.class, args);
+        }
+
+        // @Resource(name = "multipleEntityManagerWithAnnotationService")
+        // EntityManagerService entityManagerService;
+        //
+        // @Bean
+        // CommandLineRunner commandLineRunner() {
+        // return args -> entityManagerService.findAll();
+        // }
+
+    }
+  ```
