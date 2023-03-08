@@ -1,4 +1,4 @@
-package com.springboot.entitymanager.service;
+package com.springboot.entitymanager.wild;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -20,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 @ExtendWith(MockitoExtension.class)
-class SingleEntityManagerServiceTest {
+class WildEntityManagerServiceTest {
 
   @Mock
   Query query;
@@ -33,10 +33,10 @@ class SingleEntityManagerServiceTest {
 
   @Spy
   @InjectMocks
-  SingleEntityManagerService singleEntityManagerService;
+  WildEntityManagerService wildEntityManagerService;
 
   @Test
-  void testFindAll() {
+  void testExecute() {
 
     // given
     var alias = new String[] {"ID", "NAME"};
@@ -44,10 +44,10 @@ class SingleEntityManagerServiceTest {
     NativeQueryTupleTransformer nativeQueryTupleTransformer = new NativeQueryTupleTransformer();
 
     tuples.add((Tuple) nativeQueryTupleTransformer.transformTuple(
-        new Object[] {1, "TOYOTA"},
+        new Object[] {1, "LION"},
         alias));
     tuples.add((Tuple) nativeQueryTupleTransformer.transformTuple(
-        new Object[] {2, "FORD"},
+        new Object[] {2, "CAT"},
         alias));
 
     // when
@@ -64,8 +64,8 @@ class SingleEntityManagerServiceTest {
         .getResultList();
 
     // then
-    singleEntityManagerService.findAll();
-    verify(singleEntityManagerService, atLeastOnce()).findAll();
+    wildEntityManagerService.execute();
+    verify(wildEntityManagerService, atLeastOnce()).execute();
   }
 
 }

@@ -1,9 +1,7 @@
 package com.springboot.entitymanager.dto;
 
-import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
 public class DatabaseDto {
 

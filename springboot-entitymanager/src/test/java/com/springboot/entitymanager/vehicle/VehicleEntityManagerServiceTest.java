@@ -1,4 +1,4 @@
-package com.springboot.entitymanager.service;
+package com.springboot.entitymanager.vehicle;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -20,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 @ExtendWith(MockitoExtension.class)
-class SingleEntityManagerServiceTest {
+class VehicleEntityManagerServiceTest {
 
   @Mock
   Query query;
@@ -33,10 +33,10 @@ class SingleEntityManagerServiceTest {
 
   @Spy
   @InjectMocks
-  SingleEntityManagerService singleEntityManagerService;
+  VehicleEntityManagerService vehicleEntityManagerService;
 
   @Test
-  void testFindAll() {
+  void testExecute() {
 
     // given
     var alias = new String[] {"ID", "NAME"};
@@ -64,8 +64,8 @@ class SingleEntityManagerServiceTest {
         .getResultList();
 
     // then
-    singleEntityManagerService.findAll();
-    verify(singleEntityManagerService, atLeastOnce()).findAll();
+    vehicleEntityManagerService.execute();
+    verify(vehicleEntityManagerService, atLeastOnce()).execute();
   }
 
 }
