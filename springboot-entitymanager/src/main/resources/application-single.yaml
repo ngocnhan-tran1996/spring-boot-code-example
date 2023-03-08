@@ -10,7 +10,7 @@ spring:
       minimum-idle: 1
 
   jpa:
-    show-sql: true
     properties:
       hibernate:
+        '[show_sql]': true
         '[default_schema]': vehicle
