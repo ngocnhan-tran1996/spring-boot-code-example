@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,10 +14,15 @@ import lombok.Setter;
 @Table(name = "CAR")
 public class CarEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-  
-    private String name;
-    
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+
+  private String name;
+
+  @Override
+  public String toString() {
+    return id + ": " + name;
+  }
+
 }

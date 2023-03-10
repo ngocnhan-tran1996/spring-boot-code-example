@@ -9,4 +9,5 @@ INSERT INTO VEHICLE.CAR (NAME) VALUES
     ('FORD'),
     ('HONDA'),
     ('HUYNDAI'),
+    ('AXE'),
     ('TOYOTA');

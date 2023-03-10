@@ -14,7 +14,7 @@ public class EntityManagerApplication {
     SpringApplication.run(EntityManagerApplication.class, args);
   }
 
-  @Resource(name = "multipleEntityManagerWithAnnotationService")
+  @Resource(name = "singleEntityManagerService")
   EntityManagerService entityManagerService;
 
   @Bean
