@@ -64,7 +64,8 @@ public final class DefaultEntityManagerPagination implements EntityManagerPagina
     }
 
     long count = this.count();
-    if (count == 0) {
+    if (count == 0
+        || Pagination.calculateTotalPages(count, size) < this.page + 1) {
 
       return new PaginationImpl<>(new ArrayList<>(), this.page, this.size, count);
     }

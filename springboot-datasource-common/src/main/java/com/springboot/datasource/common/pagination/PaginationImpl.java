@@ -24,7 +24,7 @@ public class PaginationImpl<T> implements Pagination<T> {
       throw new PaginationException("page");
     }
 
-    if (size <= 0) {
+    if (size < 0) {
 
       throw new PaginationException("size");
     }
@@ -49,13 +49,19 @@ public class PaginationImpl<T> implements Pagination<T> {
   @Override
   public long getTotalPages() {
 
-    return (long) Math.ceil((double) this.getTotalElements() / this.getSize());
+    return Pagination.calculateTotalPages(this.getTotalElements(), this.getSize());
   }
 
   @Override
   public long getTotalElements() {
 
     return this.totalElements;
+  }
+
+  @Override
+  public int getNumberOfElements() {
+
+    return this.getElements().size();
   }
 
   @Override

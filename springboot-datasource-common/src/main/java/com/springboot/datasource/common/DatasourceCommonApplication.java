@@ -5,7 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import com.springboot.datasource.common.repository.CardEntityManagerRepository;
+import com.springboot.datasource.common.service.CardEntityManagerService;
 
 @SpringBootApplication
 public class DatasourceCommonApplication {
@@ -15,14 +15,11 @@ public class DatasourceCommonApplication {
   }
 
   @Autowired
-  CardEntityManagerRepository cardEntityManagerRepository;
+  CardEntityManagerService cardEntityManagerService;
 
   @Bean
   CommandLineRunner commandLineRunner() {
-    return args -> {
-
-      cardEntityManagerRepository.execute();
-    };
+    return args -> cardEntityManagerService.execute();
   }
 
 }

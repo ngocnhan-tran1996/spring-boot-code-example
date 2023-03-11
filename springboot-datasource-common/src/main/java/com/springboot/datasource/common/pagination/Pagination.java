@@ -10,6 +10,8 @@ public interface Pagination<T> {
 
   long getTotalElements();
 
+  int getNumberOfElements();
+
   int getPage();
 
   int getSize();
@@ -21,4 +23,12 @@ public interface Pagination<T> {
   boolean hasNext();
 
   boolean hasPrevious();
+
+  static long calculateTotalPages(long count, int size) {
+
+    return size == 0
+        ? count
+        : (long) Math.ceil((double) count / size);
+  }
+
 }
