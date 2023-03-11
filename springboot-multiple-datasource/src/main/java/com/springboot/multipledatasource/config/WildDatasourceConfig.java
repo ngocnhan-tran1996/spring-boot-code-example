@@ -24,7 +24,7 @@ import com.zaxxer.hikari.HikariDataSource;
     transactionManagerRef = "wildTransactionManager")
 public class WildDatasourceConfig {
 
-  private static final String BASE_PACKAGE = "com.springboot.multipledatasource.wild";
+  public static final String BASE_PACKAGE = "com.springboot.multipledatasource.wild";
 
   @Bean
   @ConfigurationProperties("app.datasource.wild")
