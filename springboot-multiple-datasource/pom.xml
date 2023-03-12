@@ -8,7 +8,6 @@
         <groupId>com.springboot.code</groupId>
         <artifactId>example</artifactId>
         <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.springboot</groupId>
