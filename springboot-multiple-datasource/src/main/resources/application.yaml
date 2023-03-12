@@ -21,7 +21,7 @@ app:
         minimum-idle: 1
 
     wild:
-      url: jdbc:h2:mem:vehicle
+      url: jdbc:h2:mem:wild
       username: sa
       password:
       driver-class-name: org.h2.Driver

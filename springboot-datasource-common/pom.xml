@@ -10,20 +10,24 @@
         <version>${revision}</version>
     </parent>
 
-    <groupId>com.springboot</groupId>
-    <artifactId>multipledatasource</artifactId>
-    <name>Spring Boot Multiple Datasource</name>
+    <groupId>com.springboot.datasource</groupId>
+    <artifactId>common</artifactId>
+    <name>Spring Boot Common Datasource</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>
