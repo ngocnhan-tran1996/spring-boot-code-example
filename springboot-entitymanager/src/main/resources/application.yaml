@@ -1,7 +1,0 @@
-spring:
-  profiles: 
-    active: multiple
-
-  h2:
-    console:
-      enabled: true
