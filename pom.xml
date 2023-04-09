@@ -23,9 +23,8 @@
     </properties>
 
     <modules>
-        <module>springboot-datasource-common</module>
-        <module>springboot-entitymanager</module>
-        <module>springboot-multiple-datasource</module>
+        <module>springboot-database</module>
+        <module>springboot-rabbitmq</module>
     </modules>
 
     <dependencyManagement>

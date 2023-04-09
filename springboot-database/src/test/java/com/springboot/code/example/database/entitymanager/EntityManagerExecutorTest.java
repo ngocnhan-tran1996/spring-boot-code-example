@@ -24,7 +24,7 @@ import com.springboot.code.example.database.profiles.Profiles;
 
 @ActiveProfiles(profiles = Profiles.ENTITY_MANAGER)
 @ExtendWith(MockitoExtension.class)
-class EntityManagerDelegateTest {
+class EntityManagerExecutorTest {
 
   @Mock
   Query query;
@@ -43,7 +43,7 @@ class EntityManagerDelegateTest {
 
   @Spy
   @InjectMocks
-  EntityManagerDelegate entityManagerDelegate;
+  EntityManagerExecutor entityManagerExecutor;
 
   @Test
   void testSaveAndFindAll() {
@@ -74,8 +74,8 @@ class EntityManagerDelegateTest {
         .getResultList();
 
     // then
-    entityManagerDelegate.saveAndFindAll();
-    verify(entityManagerDelegate, atLeastOnce()).saveAndFindAll();
+    entityManagerExecutor.saveAndFindAll();
+    verify(entityManagerExecutor, atLeastOnce()).saveAndFindAll();
   }
 
   @Test
@@ -99,8 +99,8 @@ class EntityManagerDelegateTest {
         .getSingleResult();
 
     // then
-    entityManagerDelegate.paginate();
-    verify(entityManagerDelegate, atLeastOnce()).paginate();
+    entityManagerExecutor.paginate();
+    verify(entityManagerExecutor, atLeastOnce()).paginate();
   }
 
 }
