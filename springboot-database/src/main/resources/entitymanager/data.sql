@@ -1,0 +1,1 @@
+call system.p_drop_car_tbl ('system', 'car');

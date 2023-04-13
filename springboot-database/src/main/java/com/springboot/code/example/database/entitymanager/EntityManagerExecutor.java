@@ -24,6 +24,7 @@ public class EntityManagerExecutor {
   private final ModelMapper modelMapper;
   private final ObjectMapper objectMapper;
 
+  // native query
   public void saveAndFindAll() {
 
     entityManager.createNativeQuery(
@@ -48,6 +49,7 @@ public class EntityManagerExecutor {
     log.info("{}", cars.toString());
   }
 
+  // pagination query
   public void paginate() {
 
     select(0, 0);

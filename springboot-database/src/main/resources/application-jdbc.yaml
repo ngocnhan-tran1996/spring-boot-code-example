@@ -1,9 +1,4 @@
 spring:
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:entitymanager/data.sql
-
   datasource:
     url: jdbc:oracle:thin:@localhost:1521:FREE
     username: system

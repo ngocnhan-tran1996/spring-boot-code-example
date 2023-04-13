@@ -8,5 +8,6 @@ public final class Profiles {
 
   public static final String MULTIPLE_DATASOURCE = "multiple-datasource";
   public static final String ENTITY_MANAGER = "entitymanager";
+  public static final String JDBC = "jdbc";
 
 }
