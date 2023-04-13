@@ -14,9 +14,7 @@ public class MessageConsumer {
       "local_QUEUE_TEST_1",
       "local_QUEUE_TEST_2",
       "local_QUEUE_TEST_3",
-      "local_QUEUE_TEST_4",
-      "local_QUEUE_TEST_5",
-      "local_QUEUE_TEST_6"
+      "local_QUEUE_TEST_4"
   })
   void receive(Message message) {
 

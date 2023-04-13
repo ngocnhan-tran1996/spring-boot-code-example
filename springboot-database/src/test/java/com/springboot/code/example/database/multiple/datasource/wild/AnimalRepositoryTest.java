@@ -5,10 +5,10 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import com.springboot.code.example.database.multiple.datasource.DatasourceProfile;
+import com.springboot.code.example.database.multiple.datasource.MultipleDatasourceProfile;
 
 @DataJpaTest
-class AnimalRepositoryTest extends DatasourceProfile {
+class AnimalRepositoryTest extends MultipleDatasourceProfile {
 
   @Autowired
   AnimalRepository animalRepository;

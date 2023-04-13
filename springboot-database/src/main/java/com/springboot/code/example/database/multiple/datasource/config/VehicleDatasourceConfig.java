@@ -25,7 +25,8 @@ import com.zaxxer.hikari.HikariDataSource;
     transactionManagerRef = "vehicleTransactionManager")
 public class VehicleDatasourceConfig {
 
-  public static final String BASE_PACKAGE = "com.springboot.multipledatasource.vehicle";
+  public static final String BASE_PACKAGE =
+      "com.springboot.code.example.database.multiple.datasource.vehicle";
 
   @Bean
   @ConfigurationProperties("app.datasource.vehicle")

@@ -12,7 +12,7 @@ import com.springboot.code.example.database.multiple.datasource.vehicle.CardRepo
 import com.springboot.code.example.database.multiple.datasource.wild.AnimalRepository;
 
 @ExtendWith(MockitoExtension.class)
-class DatasourceExecutorTest extends DatasourceProfile {
+class DatasourceExecutorTest extends MultipleDatasourceProfile {
 
   @Mock
   CardRepository cardRepository;

@@ -10,8 +10,8 @@
         <version>${revision}</version>
     </parent>
 
-    <groupId>com.springboot</groupId>
-    <artifactId>rabbitmq</artifactId>
+    <groupId>com.springboot.code.example</groupId>
+    <artifactId>springboot-rabbitmq</artifactId>
 
     <dependencies>
         <dependency>

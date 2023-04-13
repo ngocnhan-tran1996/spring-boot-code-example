@@ -4,6 +4,6 @@ import org.springframework.test.context.ActiveProfiles;
 import com.springboot.code.example.database.profiles.Profiles;
 
 @ActiveProfiles(Profiles.MULTIPLE_DATASOURCE)
-public abstract class DatasourceProfile {
+public abstract class MultipleDatasourceProfile {
 
 }
