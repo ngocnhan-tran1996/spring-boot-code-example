@@ -1,17 +1,12 @@
 spring:
-  sql:
-    init:
-      mode: always
-      data-locations: classpath:entitymanager/data.sql
-
   datasource:
     url: jdbc:oracle:thin:@localhost:1521:FREE
-    username: system
+    username: user_nhan
     password: ngocnhan
     driver-class-name: oracle.jdbc.OracleDriver
     hikari:
-      schema: system
-      pool-name: system-pool-name
+      schema: user_nhan
+      pool-name: user-nhan-pool-name
       maximum-pool-size: 1
       minimum-idle: 1
 
