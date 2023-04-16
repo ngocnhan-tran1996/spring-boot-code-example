@@ -1,0 +1,1 @@
+call user_nhan.p_drop_car_tbl('user_nhan', 'car');

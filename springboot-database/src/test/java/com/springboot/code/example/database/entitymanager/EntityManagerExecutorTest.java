@@ -18,11 +18,10 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.test.context.ActiveProfiles;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springboot.code.example.database.profiles.Profiles;
+import com.springboot.code.example.database.entitymanager.annotation.EntityManagerConfiguration;
 
-@ActiveProfiles(profiles = Profiles.ENTITY_MANAGER)
+@EntityManagerConfiguration
 @ExtendWith(MockitoExtension.class)
 class EntityManagerExecutorTest {
 

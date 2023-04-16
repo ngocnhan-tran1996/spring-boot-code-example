@@ -2,4 +2,4 @@ spring:
   application:
     name: springboot-database
   profiles:
-    active: entitymanager
+    active: jdbc
