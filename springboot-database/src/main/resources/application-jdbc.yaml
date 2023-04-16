@@ -16,3 +16,8 @@ spring:
     properties:
       hibernate:
         '[show_sql]': true
+    properties.hibernate.dialect: org.hibernate.dialect.Oracle12cDialect
+
+logging:
+  level:
+    oracle.jdbc: trace
