@@ -3,10 +3,9 @@ package com.springboot.code.example.database.jdbc.support.oracle;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
+import org.springframework.util.Assert;
 import com.springboot.code.example.common.helper.Strings;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -20,12 +19,11 @@ public final class PropertyMapper {
 
   public static <T> T map(Map<String, Object> source, Class<T> destinationType) {
 
+    Assert.notNull(source, "source");
+    Assert.notNull(destinationType, "destinationType");
+
     try {
-      Map<String, Object> fieldSource = source.entrySet()
-          .stream()
-          .collect(Collectors.toMap(
-              entry -> Strings.toLowerCase(entry.getKey()),
-              Entry::getValue));
+
       Map<String, Object> result = new HashMap<>();
 
       for (Field field : destinationType.getDeclaredFields()) {
@@ -38,8 +36,8 @@ public final class PropertyMapper {
             .ifPresentOrElse(
                 colName -> result.put(name, source.get(colName)),
                 () -> {
-                  var defaultValue = fieldSource.get(Strings.underscoreName(name));
-                  var value = fieldSource.getOrDefault(name, defaultValue);
+                  var defaultValue = source.get(Strings.underscoreName(name));
+                  var value = source.getOrDefault(name, defaultValue);
                   result.put(name, value);
                 });
       }

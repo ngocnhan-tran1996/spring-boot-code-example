@@ -1,9 +1,5 @@
 package com.springboot.code.example.database.jdbc;
 
-import java.sql.SQLData;
-import java.sql.SQLException;
-import java.sql.SQLInput;
-import java.sql.SQLOutput;
 import java.sql.Types;
 import java.util.List;
 import java.util.Map;
@@ -11,14 +7,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
+import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
+import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonInput;
+import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
+import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonSQLData;
 import com.springboot.code.example.database.jdbc.support.oracle.OracleArrayValue;
-import com.springboot.code.example.database.jdbc.support.oracle.OracleColumn;
 import com.springboot.code.example.database.jdbc.support.oracle.PropertyMapper;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Service
 @RequiredArgsConstructor
@@ -28,99 +23,42 @@ public class OracleJdbcTemplateExecutor {
 
   public Map<String, Object> executeProcedureWithSQLData() {
 
-    jdbcTemplate.setResultsMapCaseInsensitive(true);
-    var jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-        .withCatalogName("PACK_EXAMPLE")
-        .withProcedureName("P_CONCATENATE_TEXT");
-
-    var parameters = new MapSqlParameterSource()
-        .addValue("IN_NAME", "1")
-        .addValue("IN_PERSONS", new OracleArrayValue<>(
+    return this.execute(
+        new OracleArrayValue<>(
             List.of(
                 new PersonSQLData("Paul", "12"),
                 new PersonSQLData("Victor", "13"))
                 .toArray(PersonSQLData[]::new),
-            "PACK_EXAMPLE.PERSON_ARRAY"),
-            Types.ARRAY);
-
-    return jdbcCall.execute(parameters);
+            JdbcConstant.PERSON_ARRAY));
   }
 
-  public PersonOuput executeProcedureWithSQLData1() {
+  public PersonOuput executeProcedureWithOracleArrayValue() {
+
+    return PropertyMapper.map(
+        this.execute(
+            new OracleArrayValue<>(
+                List.of(
+                    new PersonInput("Harry", "15"),
+                    new PersonInput("Judy", "16"))
+                    .toArray(PersonInput[]::new),
+                JdbcConstant.PERSON_RECORD,
+                JdbcConstant.PERSON_ARRAY)),
+        PersonOuput.class);
+  }
+
+  private Map<String, Object> execute(Object obj) {
 
     jdbcTemplate.setResultsMapCaseInsensitive(true);
-    var jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+    var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
         .withCatalogName("PACK_EXAMPLE")
-        .withProcedureName("P_CONCATENATE_TEXT");
+        .withProcedureName("concatenate_text_proc");
 
     var parameters = new MapSqlParameterSource()
         .addValue("IN_NAME", "1")
-        .addValue("IN_PERSONS",
-            new OracleArrayValue<>(
-                List.of(
-                    new PersonInput("Paul", "12"),
-                    new PersonInput("Victor", "13"))
-                    .toArray(PersonInput[]::new),
-                "PACK_EXAMPLE.PERSON_RECORD",
-                "PACK_EXAMPLE.PERSON_ARRAY"),
-            Types.ARRAY);
+        .addValue("IN_PERSONS", obj, Types.ARRAY)
+        .addValue("OUT_NBR", "1");
 
-    return PropertyMapper.map(jdbcCall.execute(parameters), PersonOuput.class);
-  }
-
-  @Getter
-  @Setter
-  @NoArgsConstructor
-  @AllArgsConstructor
-  static class PersonOuput {
-
-    @OracleColumn(name = "OUT_MSG")
-    private String outMsg;
-
-    @Override
-    public String toString() {
-      return outMsg;
-    }
-  }
-
-  @Getter
-  @Setter
-  @NoArgsConstructor
-  @AllArgsConstructor
-  static class PersonInput {
-
-    private String name;
-
-    @OracleColumn(name = "age")
-    private String anotherAge;
-
-  }
-
-  @Getter
-  @Setter
-  @NoArgsConstructor
-  @AllArgsConstructor
-  static class PersonSQLData implements SQLData {
-
-    private String name;
-    private String value;
-
-    @Override
-    public String getSQLTypeName() throws SQLException {
-      return "PACK_EXAMPLE.PERSON_RECORD";
-    }
-
-    @Override
-    public void readSQL(SQLInput stream, String typeName) throws SQLException {
-      setName(stream.readString());
-      setValue(stream.readString());
-    }
-
-    @Override
-    public void writeSQL(SQLOutput stream) throws SQLException {
-      stream.writeString(getName());
-      stream.writeString(getValue());
-    }
+    return simpleJdbcCall.execute(parameters);
   }
 
 }

@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import com.springboot.code.example.database.jdbc.annotation.JdbcConfiguration;
+import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
 
 @JdbcConfiguration
 @DataJpaTest
@@ -19,7 +20,7 @@ import com.springboot.code.example.database.jdbc.annotation.JdbcConfiguration;
 class JdbcTemplateExecutorDatabaseLayerTest {
 
   private static final Map<String, Object> EXPECT_OUTPUT = Map.of(
-      JdbcTemplateExecutorTest.EXPECT_OUTPUT_KEY, "Table was created - Table was inserted");
+      JdbcConstant.EXPECT_OUTPUT_KEY, "Table was created - Table was inserted");
 
   @Autowired
   DataSource dataSource;
