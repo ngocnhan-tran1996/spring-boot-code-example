@@ -17,7 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
-import com.springboot.code.example.database.constant.Strings;
+import com.springboot.code.example.common.helper.Strings;
 import com.springboot.code.example.database.jdbc.annotation.JdbcConfiguration;
 import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
 
@@ -26,9 +26,8 @@ import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
 class JdbcTemplateExecutorTest {
 
   private static final String EXPECT_OUTPUT_VALUE = "Table already exists";
-  public static final String EXPECT_OUTPUT_KEY = "OUT_MSG";
   public static final Map<String, Object> EXPECT_OUTPUT = Map.of(
-      EXPECT_OUTPUT_KEY, EXPECT_OUTPUT_VALUE);
+      JdbcConstant.EXPECT_OUTPUT_KEY, EXPECT_OUTPUT_VALUE);
 
   @Mock
   Connection connection;
@@ -131,7 +130,7 @@ class JdbcTemplateExecutorTest {
     doReturn(true, true, true, false)
         .when(procedureColumnsResultSet)
         .next();
-    doReturn(JdbcConstant.IN_SCHEMA, JdbcConstant.IN_TABLE_NAME, EXPECT_OUTPUT_KEY)
+    doReturn(JdbcConstant.IN_SCHEMA, JdbcConstant.IN_TABLE_NAME, JdbcConstant.EXPECT_OUTPUT_KEY)
         .when(procedureColumnsResultSet)
         .getString("COLUMN_NAME");
     doReturn(1, 1, 4)

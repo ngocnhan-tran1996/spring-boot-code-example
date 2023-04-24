@@ -28,12 +28,14 @@ public class VehicleDatasourceConfig {
   public static final String BASE_PACKAGE =
       "com.springboot.code.example.database.multiple.datasource.vehicle";
 
+  @Primary
   @Bean
   @ConfigurationProperties("app.datasource.vehicle")
   DataSourceProperties vehicleDataSourceProperties() {
     return new DataSourceProperties();
   }
 
+  @Primary
   @Bean
   @ConfigurationProperties("app.datasource.vehicle.configuration")
   HikariDataSource vehicleDatasource() {
@@ -43,6 +45,7 @@ public class VehicleDatasourceConfig {
         .build();
   }
 
+  @Primary
   @Bean
   DataSourceInitializer vehicleDatasourceInitializer() {
 
@@ -56,14 +59,15 @@ public class VehicleDatasourceConfig {
     return dataSourceInitializer;
   }
 
+  @Primary
   @Bean
   @ConfigurationProperties("app.datasource.vehicle.jpa")
   JpaProperties vehicleJpaProperties() {
     return new JpaProperties();
   }
 
-  @Bean
   @Primary
+  @Bean
   LocalContainerEntityManagerFactoryBean vehicleEntityManager() {
 
     EntityManagerFactoryBuilder builder = new EntityManagerFactoryBuilder(
@@ -77,6 +81,7 @@ public class VehicleDatasourceConfig {
         .build();
   }
 
+  @Primary
   @Bean
   PlatformTransactionManager vehicleTransactionManager() {
     var factory = Objects.requireNonNull(vehicleEntityManager().getObject());

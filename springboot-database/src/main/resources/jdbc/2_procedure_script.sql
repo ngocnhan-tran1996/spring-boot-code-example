@@ -1,17 +1,5 @@
-ALTER SESSION SET "_oracle_script"=true;
-
--- drop user
-DROP USER user_nhan cascade;
-
--- create user
-CREATE USER user_nhan IDENTIFIED BY ngocnhan;
-
--- grant privilege
-GRANT SELECT ON sys.dba_tables TO user_nhan;
-GRANT ALL PRIVILEGES TO user_nhan;
-
 -- create proc
-CREATE OR REPLACE PROCEDURE user_nhan.p_create_car_tbl (
+CREATE OR REPLACE PROCEDURE user_nhan.create_car_table_proc (
     in_schema IN dba_tables.owner%TYPE,
     in_table_name IN dba_tables.table_name%TYPE,
     out_msg OUT VARCHAR2)
@@ -48,9 +36,9 @@ BEGIN
         out_msg := 'Table already exists';
     END IF;
 END;
-
+/
 -- create proc
-CREATE OR REPLACE PROCEDURE user_nhan.p_drop_car_tbl (
+CREATE OR REPLACE PROCEDURE user_nhan.drop_car_table_proc (
     in_schema IN dba_tables.owner%TYPE,
     in_table_name IN dba_tables.table_name%TYPE)
 AS
