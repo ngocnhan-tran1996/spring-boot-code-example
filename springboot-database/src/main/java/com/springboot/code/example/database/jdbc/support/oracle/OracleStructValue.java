@@ -22,7 +22,7 @@ public class OracleStructValue<T> extends OracleTypeValue {
   protected Object createTypeValue(Connection connection, String typeName)
       throws SQLException {
 
-    return BeanPropertyStructMapper.newInstance(this.source.getClass())
+    return OracleStructMapper.newInstance(this.source.getClass())
         .toStruct(source, connection, typeName);
   }
 

@@ -11,9 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
-import com.springboot.code.example.database.jdbc.support.oracle.BeanPropertyMapper;
 import com.springboot.code.example.database.jdbc.support.oracle.OracleArrayValue;
 import com.springboot.code.example.database.jdbc.support.oracle.OracleColumn;
+import com.springboot.code.example.database.jdbc.support.oracle.PropertyMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -58,14 +58,14 @@ public class OracleJdbcTemplateExecutor {
         .addValue("IN_PERSONS",
             new OracleArrayValue<>(
                 List.of(
-                    new Person("Paul", "12"),
-                    new Person("Victor", "13"))
-                    .toArray(Person[]::new),
+                    new PersonInput("Paul", "12"),
+                    new PersonInput("Victor", "13"))
+                    .toArray(PersonInput[]::new),
                 "PACK_EXAMPLE.PERSON_RECORD",
                 "PACK_EXAMPLE.PERSON_ARRAY"),
             Types.ARRAY);
 
-    return BeanPropertyMapper.map(jdbcCall.execute(parameters), PersonOuput.class);
+    return PropertyMapper.map(jdbcCall.execute(parameters), PersonOuput.class);
   }
 
   @Getter
@@ -76,11 +76,10 @@ public class OracleJdbcTemplateExecutor {
 
     @OracleColumn(name = "OUT_MSG")
     private String outMsg;
-    private String age;
 
     @Override
     public String toString() {
-      return outMsg + " " + age;
+      return outMsg;
     }
   }
 
@@ -88,13 +87,13 @@ public class OracleJdbcTemplateExecutor {
   @Setter
   @NoArgsConstructor
   @AllArgsConstructor
-  static class Person {
+  static class PersonInput {
 
-    @OracleColumn(name = "")
     private String name;
 
     @OracleColumn(name = "age")
-    private String test;
+    private String anotherAge;
+
   }
 
   @Getter
