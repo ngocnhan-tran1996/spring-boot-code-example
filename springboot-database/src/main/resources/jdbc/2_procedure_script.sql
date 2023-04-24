@@ -1,5 +1,5 @@
 -- create proc
-CREATE OR REPLACE PROCEDURE user_nhan.p_create_car_tbl (
+CREATE OR REPLACE PROCEDURE user_nhan.create_car_table_proc (
     in_schema IN dba_tables.owner%TYPE,
     in_table_name IN dba_tables.table_name%TYPE,
     out_msg OUT VARCHAR2)
@@ -38,7 +38,7 @@ BEGIN
 END;
 /
 -- create proc
-CREATE OR REPLACE PROCEDURE user_nhan.p_drop_car_tbl (
+CREATE OR REPLACE PROCEDURE user_nhan.drop_car_table_proc (
     in_schema IN dba_tables.owner%TYPE,
     in_table_name IN dba_tables.table_name%TYPE)
 AS

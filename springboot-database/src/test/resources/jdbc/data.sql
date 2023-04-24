@@ -1,1 +1,1 @@
-call user_nhan.p_drop_car_tbl('user_nhan', 'car');
+call user_nhan.drop_car_table_proc('user_nhan', 'car');

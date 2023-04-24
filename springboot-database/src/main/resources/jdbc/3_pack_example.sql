@@ -1,14 +1,14 @@
 CREATE OR REPLACE PACKAGE user_nhan.pack_example
 IS
-    TYPE r_params IS RECORD (
-        name  VARCHAR2(30),
-        value VARCHAR2(100)
+    TYPE person_record IS RECORD (
+        name  VARCHAR2(100),
+        age VARCHAR2(100)
     );
 
-    TYPE in_params IS TABLE OF r_params INDEX BY BINARY_INTEGER;
+    TYPE person_array IS TABLE OF person_record INDEX BY BINARY_INTEGER;
 
     PROCEDURE p_concatenate_text(in_name IN VARCHAR2,
-                                 in_params IN pack_example.in_params,
+                                 in_persons IN pack_example.person_array,
                                  out_msg OUT VARCHAR2);
 
 END pack_example;
@@ -17,21 +17,21 @@ CREATE OR REPLACE PACKAGE BODY user_nhan.pack_example
 IS
 
     PROCEDURE p_concatenate_text(in_name IN VARCHAR2,
-                                 in_params IN pack_example.in_params,
+                                 in_persons IN pack_example.person_array,
                                  out_msg OUT VARCHAR2)
     AS
     BEGIN
-        FOR i IN 0 .. in_params.LAST
+        FOR i IN in_persons.FIRST .. in_persons.LAST
         LOOP
             IF (out_msg IS NULL)
                 THEN 
-                out_msg := in_params(i).value;
+                out_msg := ' NAME: ' || in_persons(i).name || ' AND AGE: ' || in_persons(i).age;
             ELSE
-                out_msg := out_msg || ' AND ' || in_params(i).value;
+                out_msg := out_msg || ' AND ' || ' NAME: ' || in_persons(i).name || ' AND AGE: ' || in_persons(i).age;
             END IF;
         END LOOP;
 
-        out_msg := 'NAME = ' || in_name || 'VALUE = ' || out_msg;
+        out_msg := 'IN_NAME = ' || in_name || ' AND IN_PARAMS = ' || out_msg;
     END p_concatenate_text;
 
 END pack_example;

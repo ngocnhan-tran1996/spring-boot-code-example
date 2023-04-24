@@ -5,9 +5,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import com.springboot.code.example.database.jdbc.JdbcTemplateExecutor;
+import com.springboot.code.example.database.jdbc.OracleJdbcTemplateExecutor;
 import com.springboot.code.example.database.profiles.ProfilePackages;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @SpringBootApplication(scanBasePackages = ProfilePackages.JDBC)
 public class DatabaseApplication {
 
@@ -16,10 +18,13 @@ public class DatabaseApplication {
   }
 
   @Autowired
-  JdbcTemplateExecutor jdbcTemplateExecutor;
+  OracleJdbcTemplateExecutor executor;
 
   @Bean
   CommandLineRunner c() {
-    return args -> jdbcTemplateExecutor.executeProcedureWith();
+    return args -> {
+      log.info("Result {}",
+          executor.executeProcedureWithSQLData1());
+    };
   }
 }
