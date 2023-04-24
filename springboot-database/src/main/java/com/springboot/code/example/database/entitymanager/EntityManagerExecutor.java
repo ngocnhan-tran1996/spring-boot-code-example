@@ -18,12 +18,13 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Service
 @RequiredArgsConstructor
-public class EntityManagerDelegate {
+public class EntityManagerExecutor {
 
   private final EntityManager entityManager;
   private final ModelMapper modelMapper;
   private final ObjectMapper objectMapper;
 
+  // native query
   public void saveAndFindAll() {
 
     entityManager.createNativeQuery(
@@ -48,6 +49,7 @@ public class EntityManagerDelegate {
     log.info("{}", cars.toString());
   }
 
+  // pagination query
   public void paginate() {
 
     select(0, 0);

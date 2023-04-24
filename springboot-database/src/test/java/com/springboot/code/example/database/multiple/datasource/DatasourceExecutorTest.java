@@ -8,14 +8,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import com.springboot.code.example.database.multiple.datasource.annotation.MultipleDatasourceConfiguration;
 import com.springboot.code.example.database.multiple.datasource.vehicle.CardRepository;
 import com.springboot.code.example.database.multiple.datasource.wild.AnimalRepository;
 
+@MultipleDatasourceConfiguration
 @ExtendWith(MockitoExtension.class)
-class DatasourceExecutorTest extends DatasourceProfile {
+class DatasourceExecutorTest {
 
   @Mock
   CardRepository cardRepository;
+
   @Mock
   AnimalRepository animalRepository;
 
