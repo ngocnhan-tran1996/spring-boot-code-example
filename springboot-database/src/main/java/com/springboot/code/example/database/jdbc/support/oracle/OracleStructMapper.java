@@ -14,16 +14,14 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.lang.Nullable;
-import org.springframework.util.ClassUtils;
 import com.springboot.code.example.common.helper.Strings;
-import io.vavr.control.Try;
 import lombok.extern.log4j.Log4j2;
 import oracle.jdbc.OracleDatabaseMetaData;
 import oracle.jdbc.OracleTypeMetaData;
 import oracle.jdbc.driver.OracleConnection;
 
 @Log4j2
-public class OracleStructMapper {
+public class OracleStructMapper implements OracleMapper {
 
   /** Map of the properties we provide mapping for. */
   @Nullable
@@ -55,29 +53,36 @@ public class OracleStructMapper {
 
     for (PropertyDescriptor pd : BeanUtils.getPropertyDescriptors(mappedClass)) {
 
-      if (pd.getWriteMethod() == null) {
-        continue;
-      }
-
       String name = pd.getName();
-      String lowerCaseName = name.toLowerCase();
-      this.mappedProperties.put(lowerCaseName, pd);
 
-      String underscoreName = Strings.underscoreName(name);
-      if (!lowerCaseName.equals(underscoreName)) {
-        this.mappedProperties.put(underscoreName, pd);
+      if (this.mappedProperties.containsKey(name)) {
+        throw new OracleTypeValueException(String.format("Field %s already exists", name));
       }
 
-      Try.run(() -> {
-        var oracleColumnAnnotation = mappedClass.getDeclaredField(name)
-            .getAnnotation(OracleColumn.class);
+      Optional.ofNullable(pd.getWriteMethod())
+          .ifPresent(method -> {
 
-        Optional.ofNullable(oracleColumnAnnotation)
-            .filter(annotation -> Strings.isNotBlank(annotation.name()))
-            .map(OracleColumn::name)
-            .ifPresent(colName -> this.mappedProperties.put(colName, pd));
-        this.mappedProperties.put(name, pd);
-      });
+            try {
+
+              var oracleColumnAnnotation = mappedClass.getDeclaredField(name)
+                  .getAnnotation(OracleColumn.class);
+
+              Optional.ofNullable(oracleColumnAnnotation)
+                  .filter(annotation -> Strings.isNotBlank(annotation.name()))
+                  .map(OracleColumn::name)
+                  .ifPresent(colName -> this.mappedProperties.put(colName, pd));
+            } catch (Exception e) {
+              log.warn("Can not find annotation field '{}'", name);
+            }
+
+            String lowerCaseName = name.toLowerCase();
+            this.mappedProperties.put(lowerCaseName, pd);
+
+            String underscoreName = Strings.underscoreName(name);
+            if (!lowerCaseName.equals(underscoreName)) {
+              this.mappedProperties.put(underscoreName, pd);
+            }
+          });
     }
   }
 
@@ -88,6 +93,7 @@ public class OracleStructMapper {
    * 
    * @see java.sql.ResultSetMetaData
    */
+  @Override
   public <T> Struct toStruct(T source, Connection connection, String typeName) throws SQLException {
 
     OracleTypeMetaData oracleTypeMetaData = connection
@@ -103,9 +109,9 @@ public class OracleStructMapper {
 
     int columns = rsmd.getColumnCount();
     Object[] values = new Object[columns];
+    BeanWrapper bw = new BeanWrapperImpl(source);
 
     for (int index = 1; index <= columns; index++) {
-      BeanWrapper bw = new BeanWrapperImpl(source);
 
       String column = JdbcUtils.lookupColumnName(rsmd, index)
           .toLowerCase();
@@ -122,8 +128,7 @@ public class OracleStructMapper {
       try {
 
         if (log.isDebugEnabled()) {
-          log.debug("Mapping column '{}' to property '{}' of type '{}'", column, name,
-              ClassUtils.getQualifiedName(pd.getPropertyType()));
+          log.debug("Mapping column '{}' to property '{}'", column, name);
         }
 
         values[index - 1] = bw.getPropertyValue(name);

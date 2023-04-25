@@ -49,6 +49,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.springboot.code.example</groupId>
+            <artifactId>springboot-common</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>

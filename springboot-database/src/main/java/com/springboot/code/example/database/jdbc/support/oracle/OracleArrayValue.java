@@ -17,8 +17,6 @@ public class OracleArrayValue<T> extends OracleTypeValue {
   /** The type name of the ARRAY **/
   private final String arrayTypeName;
 
-  private OracleStructMapper oracleStructMapper;
-
   @SuppressWarnings("unchecked")
   public OracleArrayValue(
       T[] values,
@@ -36,10 +34,6 @@ public class OracleArrayValue<T> extends OracleTypeValue {
 
     this(arrayValues, arrayTypeName);
     this.structTypeName = structTypeName;
-    this.oracleStructMapper = Optional.ofNullable(values)
-        .filter(v -> v.length > 0)
-        .map(v -> OracleStructMapper.newInstance(values[0].getClass()))
-        .orElse(null);
   }
 
   @Override
@@ -57,7 +51,7 @@ public class OracleArrayValue<T> extends OracleTypeValue {
       var length = this.values.length;
       Struct[] structValues = new Struct[length];
       for (int i = 0; i < length; i++) {
-        structValues[i] = oracleStructMapper.toStruct(values[i], connection, this.structTypeName);
+        structValues[i] = this.getMapper().toStruct(values[i], connection, this.structTypeName);
       }
 
       return oracleConnection
@@ -66,6 +60,15 @@ public class OracleArrayValue<T> extends OracleTypeValue {
 
     return oracleConnection
         .createOracleArray(typeName, this.values);
+  }
+
+  @Override
+  protected OracleMapper getMapper() {
+
+    return Optional.ofNullable(this.values)
+        .filter(v -> v.length > 0)
+        .map(v -> OracleStructMapper.newInstance(v[0].getClass()))
+        .orElse(null);
   }
 
 }

@@ -27,6 +27,8 @@ public abstract class OracleTypeValue extends AbstractSqlTypeValue {
 
   protected abstract String getTypeName();
 
+  protected abstract OracleMapper getMapper();
+
   protected abstract Object createTypeValue(Connection connection, String typeName)
       throws SQLException;
 
