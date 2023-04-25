@@ -19,6 +19,9 @@ import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDt
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 class OracleJdbcTemplateExecutorDatabaseLayerTest {
 
+  static final String outMsg =
+      "IN_NAME = 1 AND IN_PARAMS =  NAME: %s AND AGE: %s AND  NAME: %s AND AGE: %s";
+
   @Autowired
   DataSource dataSource;
 
@@ -29,22 +32,33 @@ class OracleJdbcTemplateExecutorDatabaseLayerTest {
   void testExecuteProcedure() {
 
     // given
-    var outMsg = "IN_NAME = 1 AND IN_PARAMS =  NAME: %s AND AGE: %s AND  NAME: %s AND AGE: %s";
-    var jdbcTemplateExecutor = new OracleJdbcTemplateExecutor(jdbcTemplate);
+    var oracleJdbcTemplateExecutor = new OracleJdbcTemplateExecutor(jdbcTemplate);
     var personOutput = new PersonOuput();
     personOutput.setOutMsg(String.format(outMsg, "Harry", "15", "Judy", "16"));
     personOutput.setNumber(BigDecimal.valueOf(2010));
 
     // then
-    assertThat(jdbcTemplateExecutor.executeProcedureWithOracleArrayValue())
+    assertThat(oracleJdbcTemplateExecutor.executeProcedureWithOracleArrayValue())
         .usingRecursiveComparison()
         .isEqualTo(personOutput);
 
-    assertThat(jdbcTemplateExecutor.executeProcedureWithSQLData())
-        .usingRecursiveComparison()
+    assertThat(oracleJdbcTemplateExecutor.executeProcedureWithSQLData())
         .isEqualTo(Map.of(
             JdbcConstant.EXPECT_OUTPUT_KEY, String.format(outMsg, "Paul", "12", "Victor", "13"),
-            "OUT_NBR", BigDecimal.valueOf(2010)));
+            JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY, BigDecimal.valueOf(2010)));
+  }
+
+  @Test
+  void testExecuteProcedureWithObject() {
+
+    // given
+    var oracleJdbcTemplateExecutor = new OracleJdbcTemplateExecutor(jdbcTemplate);
+
+    // then
+    assertThat(oracleJdbcTemplateExecutor.executeProcedureWithObject())
+        .isEqualTo(Map.of(
+            JdbcConstant.EXPECT_OUTPUT_KEY, String.format(outMsg, "Object", "1", "Object", "2"),
+            JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY, BigDecimal.valueOf(2010)));
   }
 
 }
