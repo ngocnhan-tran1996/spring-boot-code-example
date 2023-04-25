@@ -1,39 +1,42 @@
-package com.springboot.code.example.database.jdbc.support.oracle;
+package com.springboot.code.example.database.jdbc.support.oracle.value;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Struct;
 import java.util.Optional;
 import com.springboot.code.example.common.helper.Strings;
+import com.springboot.code.example.database.jdbc.support.oracle.mapper.OracleMapper;
+import com.springboot.code.example.database.jdbc.support.oracle.mapper.OracleStructMapper;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import oracle.jdbc.driver.OracleConnection;
 
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class OracleArrayValue<T> extends OracleTypeValue {
 
   private final T[] values;
 
   /** The type name of the STRUCT **/
-  private String structTypeName;
+  private final String structTypeName;
 
   /** The type name of the ARRAY **/
   private final String arrayTypeName;
 
-  @SuppressWarnings("unchecked")
-  public OracleArrayValue(
-      T[] values,
-      String arrayTypeName) {
+  public static <T> OracleArrayValue<T> add(T[] values, String arrayTypeName) {
 
-    this.values = Optional.ofNullable(values)
-        .orElse((T[]) new Object[0]);
-    this.arrayTypeName = arrayTypeName;
+    return add(values, null, arrayTypeName);
   }
 
-  public OracleArrayValue(
-      T[] arrayValues,
+  @SuppressWarnings("unchecked")
+  public static <T> OracleArrayValue<T> add(
+      T[] values,
       String structTypeName,
       String arrayTypeName) {
 
-    this(arrayValues, arrayTypeName);
-    this.structTypeName = structTypeName;
+    T[] newValues = Optional.ofNullable(values)
+        .orElse((T[]) new Object[0]);
+
+    return new OracleArrayValue<>(newValues, structTypeName, arrayTypeName);
   }
 
   @Override

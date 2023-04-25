@@ -11,8 +11,8 @@ import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonInput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonSQLData;
-import com.springboot.code.example.database.jdbc.support.oracle.OracleArrayValue;
-import com.springboot.code.example.database.jdbc.support.oracle.PropertyMapper;
+import com.springboot.code.example.database.jdbc.support.oracle.mapper.PropertyMapper;
+import com.springboot.code.example.database.jdbc.support.oracle.value.OracleArrayValue;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -24,7 +24,7 @@ public class OracleJdbcTemplateExecutor {
   public Map<String, Object> executeProcedureWithSQLData() {
 
     return this.execute(
-        new OracleArrayValue<>(
+        OracleArrayValue.add(
             List.of(
                 new PersonSQLData("Paul", "12"),
                 new PersonSQLData("Victor", "13"))
@@ -34,9 +34,9 @@ public class OracleJdbcTemplateExecutor {
 
   public PersonOuput executeProcedureWithOracleArrayValue() {
 
-    return PropertyMapper.map(
+    return PropertyMapper.fromTypeMap(
         this.execute(
-            new OracleArrayValue<>(
+            OracleArrayValue.add(
                 List.of(
                     new PersonInput("Harry", "15"),
                     new PersonInput("Judy", "16"))
@@ -44,6 +44,17 @@ public class OracleJdbcTemplateExecutor {
                 JdbcConstant.PERSON_RECORD,
                 JdbcConstant.PERSON_ARRAY)),
         PersonOuput.class);
+  }
+
+  public Map<String, Object> executeProcedureWithObject() {
+
+    return this.execute(
+        OracleArrayValue.add(
+            new Object[] {
+                new Object[] {"Object", "1"},
+                new Object[] {"Object", "2"}
+            },
+            JdbcConstant.PERSON_ARRAY));
   }
 
   private Map<String, Object> execute(Object obj) {
@@ -56,7 +67,7 @@ public class OracleJdbcTemplateExecutor {
     var parameters = new MapSqlParameterSource()
         .addValue("IN_NAME", "1")
         .addValue("IN_PERSONS", obj, Types.ARRAY)
-        .addValue("OUT_NBR", "1");
+        .addValue(JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY, "1");
 
     return simpleJdbcCall.execute(parameters);
   }

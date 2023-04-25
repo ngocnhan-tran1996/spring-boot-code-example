@@ -1,4 +1,4 @@
-package com.springboot.code.example.database.jdbc.support.oracle;
+package com.springboot.code.example.database.jdbc.support.oracle.mapper;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.util.Assert;
 import com.springboot.code.example.common.helper.Strings;
+import com.springboot.code.example.database.jdbc.support.oracle.OracleColumn;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,7 +18,7 @@ public final class PropertyMapper {
 
   private static final ModelMapper modelMapper = new ModelMapper();
 
-  public static <T> T map(Map<String, Object> source, Class<T> destinationType) {
+  public static <T> T fromTypeMap(Map<String, Object> source, Class<T> destinationType) {
 
     Assert.notNull(source, "source");
     Assert.notNull(destinationType, "destinationType");
