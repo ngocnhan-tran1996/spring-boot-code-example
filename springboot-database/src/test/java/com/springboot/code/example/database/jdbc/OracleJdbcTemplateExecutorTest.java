@@ -3,7 +3,7 @@ package com.springboot.code.example.database.jdbc;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.lenient;
+import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -20,14 +20,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.springboot.code.example.common.helper.Strings;
 import com.springboot.code.example.database.jdbc.annotation.JdbcConfiguration;
 import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
+import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
 
 @JdbcConfiguration
 @ExtendWith(MockitoExtension.class)
-class JdbcTemplateExecutorTest {
+class OracleJdbcTemplateExecutorTest {
 
-  private static final String EXPECT_OUTPUT_VALUE = "Table already exists";
   public static final Map<String, Object> EXPECT_OUTPUT = Map.of(
-      JdbcConstant.EXPECT_OUTPUT_KEY, EXPECT_OUTPUT_VALUE);
+      JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY, "1",
+      JdbcConstant.EXPECT_OUTPUT_KEY, Strings.EMPTY);
 
   @Mock
   Connection connection;
@@ -51,7 +52,7 @@ class JdbcTemplateExecutorTest {
   JdbcTemplate jdbcTemplate;
 
   @InjectMocks
-  JdbcTemplateExecutor jdbcTemplateExecutor;
+  OracleJdbcTemplateExecutor oracleJdbcTemplateExecutor;
 
   @BeforeEach
   public void init() throws Exception {
@@ -60,40 +61,33 @@ class JdbcTemplateExecutorTest {
   }
 
   @Test
-  void testExecuteProcedureWithDataSource() throws Exception {
-
-    // when
-    doReturn(EXPECT_OUTPUT_VALUE)
-        .when(callableStatement)
-        .getObject(3);
-    doReturn(-1)
-        .when(callableStatement)
-        .getUpdateCount();
+  void testExecuteProcedureWithSQLData() throws Exception {
 
     // then
-    var actualOutput = jdbcTemplateExecutor.executeProcedureWithDataSource();
+    var actualOutput = oracleJdbcTemplateExecutor.executeProcedureWithSQLData();
     assertThat(actualOutput)
         .isEqualTo(EXPECT_OUTPUT);
   }
 
   @Test
-  void testExecuteProcedureWithJdbcTemplate() throws Exception {
+  void testExecuteProcedureWithOracleArrayValue() throws Exception {
 
-    // when
-    doReturn(dataSource)
-        .when(jdbcTemplate)
-        .getDataSource();
-    doReturn(EXPECT_OUTPUT)
-        .when(jdbcTemplate)
-        .call(any(), any());
-
-    lenient()
-        .doReturn(1)
-        .when(callableStatement)
-        .getUpdateCount();
+    var expectedOutput = new PersonOuput();
+    expectedOutput.setNumber(BigDecimal.ONE);
+    expectedOutput.setOutMsg(Strings.EMPTY);
 
     // then
-    var actualOutput = jdbcTemplateExecutor.executeProcedureWithJdbcTemplate();
+    var actualOutput = oracleJdbcTemplateExecutor.executeProcedureWithOracleArrayValue();
+    assertThat(actualOutput)
+        .usingRecursiveComparison()
+        .isEqualTo(expectedOutput);
+  }
+
+  @Test
+  void testExecuteProcedureWithObject() throws Exception {
+
+    // then
+    var actualOutput = oracleJdbcTemplateExecutor.executeProcedureWithObject();
     assertThat(actualOutput)
         .isEqualTo(EXPECT_OUTPUT);
   }
@@ -103,6 +97,10 @@ class JdbcTemplateExecutorTest {
     doReturn(connection)
         .when(dataSource)
         .getConnection();
+
+    doReturn(dataSource)
+        .when(jdbcTemplate)
+        .getDataSource();
 
     doReturn(true)
         .when(databaseMetaData)
@@ -116,38 +114,42 @@ class JdbcTemplateExecutorTest {
 
     doReturn(proceduresResultSet)
         .when(databaseMetaData)
-        .getProcedures(Strings.EMPTY, JdbcConstant.USERNAME, JdbcConstant.CREATE_CAR_TABLE_PROC);
+        .getProcedures(
+            JdbcConstant.PACK_EXAMPLE,
+            JdbcConstant.USERNAME,
+            JdbcConstant.CONCATENATE_TEXT_PROC);
     doReturn(true, false)
         .when(proceduresResultSet)
         .next();
-    doReturn(JdbcConstant.CREATE_CAR_TABLE_PROC)
+    doReturn(JdbcConstant.CONCATENATE_TEXT_PROC)
         .when(proceduresResultSet)
         .getString("PROCEDURE_CAT");
 
     doReturn(procedureColumnsResultSet)
         .when(databaseMetaData)
-        .getProcedureColumns(
-            Strings.EMPTY,
-            JdbcConstant.USERNAME,
-            JdbcConstant.CREATE_CAR_TABLE_PROC,
-            null);
-    doReturn(true, true, true, false)
+        .getProcedureColumns(JdbcConstant.PACK_EXAMPLE, JdbcConstant.USERNAME,
+            JdbcConstant.CONCATENATE_TEXT_PROC, null);
+    doReturn(true, true, true, true, false)
         .when(procedureColumnsResultSet)
         .next();
-    doReturn(JdbcConstant.IN_SCHEMA, JdbcConstant.IN_TABLE_NAME, JdbcConstant.EXPECT_OUTPUT_KEY)
-        .when(procedureColumnsResultSet)
-        .getString("COLUMN_NAME");
-    doReturn(1, 1, 4)
+    doReturn(
+        JdbcConstant.IN_NAME,
+        JdbcConstant.IN_PERSONS,
+        JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY,
+        JdbcConstant.EXPECT_OUTPUT_KEY)
+            .when(procedureColumnsResultSet)
+            .getString("COLUMN_NAME");
+    doReturn(1, 1, 2, 4)
         .when(procedureColumnsResultSet)
         .getInt("COLUMN_TYPE");
 
     doReturn(databaseMetaData)
         .when(connection)
         .getMetaData();
-    lenient()
-        .doReturn(callableStatement)
-        .when(connection)
-        .prepareCall(String.format("{call %s(?, ?, ?)}", JdbcConstant.CREATE_CAR_TABLE_PROC));
+
+    doReturn(EXPECT_OUTPUT)
+        .when(jdbcTemplate)
+        .call(any(), any());
   }
 
 }

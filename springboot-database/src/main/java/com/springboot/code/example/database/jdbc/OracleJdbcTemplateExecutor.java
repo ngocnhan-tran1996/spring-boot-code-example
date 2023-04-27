@@ -62,11 +62,11 @@ public class OracleJdbcTemplateExecutor {
     jdbcTemplate.setResultsMapCaseInsensitive(true);
     var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
         .withCatalogName("PACK_EXAMPLE")
-        .withProcedureName("concatenate_text_proc");
+        .withProcedureName(JdbcConstant.CONCATENATE_TEXT_PROC);
 
     var parameters = new MapSqlParameterSource()
-        .addValue("IN_NAME", "1")
-        .addValue("IN_PERSONS", obj, Types.ARRAY)
+        .addValue(JdbcConstant.IN_NAME, "1")
+        .addValue(JdbcConstant.IN_PERSONS, obj, Types.ARRAY)
         .addValue(JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY, "1");
 
     return simpleJdbcCall.execute(parameters);

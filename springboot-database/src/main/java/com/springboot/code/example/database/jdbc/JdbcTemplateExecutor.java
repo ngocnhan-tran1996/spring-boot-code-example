@@ -20,7 +20,7 @@ public class JdbcTemplateExecutor {
     var template = new JdbcTemplate(dataSource);
     template.setResultsMapCaseInsensitive(true);
     this.simpleJdbcCall = new SimpleJdbcCall(template)
-        .withProcedureName(JdbcConstant.PROC_NAME);
+        .withProcedureName(JdbcConstant.CREATE_CAR_TABLE_PROC);
 
     this.jdbcTemplate = jdbcTemplate;
     jdbcTemplate.setResultsMapCaseInsensitive(true);
@@ -34,7 +34,7 @@ public class JdbcTemplateExecutor {
   public Map<String, Object> executeProcedureWithJdbcTemplate() {
 
     var jdbcCall = new SimpleJdbcCall(jdbcTemplate)
-        .withProcedureName(JdbcConstant.PROC_NAME);
+        .withProcedureName(JdbcConstant.CREATE_CAR_TABLE_PROC);
 
     return jdbcCall.execute(parameters());
   }
