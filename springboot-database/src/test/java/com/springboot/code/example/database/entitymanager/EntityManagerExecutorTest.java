@@ -17,7 +17,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springboot.code.example.database.entitymanager.annotation.EntityManagerConfiguration;
 
@@ -33,9 +32,6 @@ class EntityManagerExecutorTest {
 
   @Mock
   EntityManager entityManager;
-
-  @Spy
-  ModelMapper modelMapper;
 
   @Spy
   ObjectMapper objectMapper;
