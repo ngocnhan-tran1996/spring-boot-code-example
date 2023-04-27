@@ -8,7 +8,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.Tuple;
-import org.modelmapper.ModelMapper;
+import com.springboot.code.example.database.converter.PropertyConverter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -17,7 +17,6 @@ public final class DefaultEntityManagerPagination implements EntityManagerPagina
   private static final String COUNT_STATEMENT = "SELECT COUNT(1) FROM (%s) count_table";
 
   private final EntityManager entityManager;
-  private final ModelMapper modelMapper;
   private Query query;
   private int page;
   private int size;
@@ -79,7 +78,7 @@ public final class DefaultEntityManagerPagination implements EntityManagerPagina
           Map<String, Object> map = new HashMap<>();
           tuple.getElements().forEach(element -> map.put(element.getAlias(), tuple.get(element
               .getAlias())));
-          return modelMapper.map(map, clazz);
+          return PropertyConverter.convert(map, clazz);
         })
         .toList();
   }

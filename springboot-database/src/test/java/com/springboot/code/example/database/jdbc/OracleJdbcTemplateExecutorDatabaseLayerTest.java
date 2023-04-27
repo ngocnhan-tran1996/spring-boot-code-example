@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.util.Map;
 import javax.sql.DataSource;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -28,11 +29,17 @@ class OracleJdbcTemplateExecutorDatabaseLayerTest {
   @Autowired
   JdbcTemplate jdbcTemplate;
 
+  OracleJdbcTemplateExecutor oracleJdbcTemplateExecutor;
+
+  @BeforeEach
+  void init() {
+    oracleJdbcTemplateExecutor = new OracleJdbcTemplateExecutor(jdbcTemplate);
+  }
+
   @Test
-  void testExecuteProcedure() {
+  void testExecuteProcedureWithOracleArrayValue() {
 
     // given
-    var oracleJdbcTemplateExecutor = new OracleJdbcTemplateExecutor(jdbcTemplate);
     var personOutput = new PersonOuput();
     personOutput.setOutMsg(String.format(outMsg, "Harry", "15", "Judy", "16"));
     personOutput.setNumber(BigDecimal.valueOf(2010));
@@ -41,7 +48,12 @@ class OracleJdbcTemplateExecutorDatabaseLayerTest {
     assertThat(oracleJdbcTemplateExecutor.executeProcedureWithOracleArrayValue())
         .usingRecursiveComparison()
         .isEqualTo(personOutput);
+  }
 
+  @Test
+  void testExecuteProcedureWithSQLData() {
+
+    // then
     assertThat(oracleJdbcTemplateExecutor.executeProcedureWithSQLData())
         .isEqualTo(Map.of(
             JdbcConstant.EXPECT_OUTPUT_KEY, String.format(outMsg, "Paul", "12", "Victor", "13"),
@@ -50,9 +62,6 @@ class OracleJdbcTemplateExecutorDatabaseLayerTest {
 
   @Test
   void testExecuteProcedureWithObject() {
-
-    // given
-    var oracleJdbcTemplateExecutor = new OracleJdbcTemplateExecutor(jdbcTemplate);
 
     // then
     assertThat(oracleJdbcTemplateExecutor.executeProcedureWithObject())

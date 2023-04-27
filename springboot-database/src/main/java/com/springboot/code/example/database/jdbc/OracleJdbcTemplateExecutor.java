@@ -7,11 +7,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
+import com.springboot.code.example.database.converter.PropertyConverter;
 import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonInput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonSQLData;
-import com.springboot.code.example.database.jdbc.support.oracle.mapper.PropertyMapper;
 import com.springboot.code.example.database.jdbc.support.oracle.value.OracleArrayValue;
 import lombok.RequiredArgsConstructor;
 
@@ -34,7 +34,7 @@ public class OracleJdbcTemplateExecutor {
 
   public PersonOuput executeProcedureWithOracleArrayValue() {
 
-    return PropertyMapper.fromTypeMap(
+    return PropertyConverter.convert(
         this.execute(
             OracleArrayValue.add(
                 List.of(

@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.Tuple;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springboot.code.example.database.converter.PropertyConverter;
 import com.springboot.code.example.database.entitymanager.dto.DatabaseDto;
 import com.springboot.code.example.database.entitymanager.pagination.EntityManagerPagination;
 import com.springboot.code.example.database.multiple.datasource.vehicle.CarEntity;
@@ -21,7 +21,6 @@ import lombok.extern.log4j.Log4j2;
 public class EntityManagerExecutor {
 
   private final EntityManager entityManager;
-  private final ModelMapper modelMapper;
   private final ObjectMapper objectMapper;
 
   // native query
@@ -42,7 +41,7 @@ public class EntityManagerExecutor {
           Map<String, Object> map = new HashMap<>();
           tuple.getElements().forEach(element -> map.put(element.getAlias(), tuple.get(element
               .getAlias())));
-          return modelMapper.map(map, DatabaseDto.class);
+          return PropertyConverter.convert(map, DatabaseDto.class);
         })
         .toList();
 
@@ -62,7 +61,7 @@ public class EntityManagerExecutor {
 
   protected void select(int page, int size) {
 
-    var entityManagerPagination = EntityManagerPagination.create(entityManager, modelMapper);
+    var entityManagerPagination = EntityManagerPagination.create(entityManager);
     try {
       var cars = entityManagerPagination.query("SELECT id, name FROM {h-schema}CAR")
           .ofPageRequest(page, size)

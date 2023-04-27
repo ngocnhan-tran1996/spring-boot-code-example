@@ -13,7 +13,7 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.jdbc.support.JdbcUtils;
-import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import com.springboot.code.example.common.helper.Strings;
 import com.springboot.code.example.database.jdbc.support.oracle.OracleColumn;
 import com.springboot.code.example.database.jdbc.support.oracle.value.OracleTypeValueException;
@@ -26,7 +26,6 @@ import oracle.jdbc.driver.OracleConnection;
 public class OracleStructMapper implements OracleMapper {
 
   /** Map of the properties we provide mapping for. */
-  @Nullable
   private Map<String, PropertyDescriptor> mappedProperties;
 
   /**
@@ -47,6 +46,7 @@ public class OracleStructMapper implements OracleMapper {
    *        the class that each row should be mapped to.
    */
   private OracleStructMapper(Class<?> mappedClass) {
+    Assert.notNull(mappedClass, "mappedClass");
     initialize(mappedClass);
   }
 
@@ -63,9 +63,7 @@ public class OracleStructMapper implements OracleMapper {
 
       Optional.ofNullable(pd.getWriteMethod())
           .ifPresent(method -> {
-
             try {
-
               var oracleColumnAnnotation = mappedClass.getDeclaredField(name)
                   .getAnnotation(OracleColumn.class);
 
@@ -109,9 +107,9 @@ public class OracleStructMapper implements OracleMapper {
 
     var rsmd = ((OracleTypeMetaData.Struct) oracleTypeMetaData).getMetaData();
 
+    BeanWrapper bw = new BeanWrapperImpl(source);
     int columns = rsmd.getColumnCount();
     Object[] values = new Object[columns];
-    BeanWrapper bw = new BeanWrapperImpl(source);
 
     for (int index = 1; index <= columns; index++) {
 

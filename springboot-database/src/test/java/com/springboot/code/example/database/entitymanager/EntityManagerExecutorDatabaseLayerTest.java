@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Tuple;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
@@ -23,9 +22,6 @@ import com.springboot.code.example.database.multiple.datasource.vehicle.CarEntit
 @Sql(scripts = "classpath:entitymanager/data.sql",
     executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 class EntityManagerExecutorDatabaseLayerTest {
-
-  @Autowired
-  ModelMapper modelMapper;
 
   @Autowired
   EntityManager entityManager;
@@ -62,7 +58,7 @@ class EntityManagerExecutorDatabaseLayerTest {
 
   protected Pagination<CarEntity> select(int page, int size) {
 
-    var entityManagerPagination = EntityManagerPagination.create(entityManager, modelMapper);
+    var entityManagerPagination = EntityManagerPagination.create(entityManager);
     return entityManagerPagination.query("SELECT id, name FROM {h-schema}CAR")
         .ofPageRequest(page, size)
         .getPages(CarEntity.class);

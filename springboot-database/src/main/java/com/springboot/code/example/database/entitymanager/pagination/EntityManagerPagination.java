@@ -1,7 +1,6 @@
 package com.springboot.code.example.database.entitymanager.pagination;
 
 import javax.persistence.EntityManager;
-import org.modelmapper.ModelMapper;
 
 public interface EntityManagerPagination {
 
@@ -15,10 +14,9 @@ public interface EntityManagerPagination {
 
   <T> Pagination<T> getPages(Class<T> clazz);
 
-  static EntityManagerPagination create(
-      EntityManager entityManager,
-      ModelMapper modelMapper) {
-    return new DefaultEntityManagerPagination(entityManager, modelMapper);
+  static EntityManagerPagination create(EntityManager entityManager) {
+
+    return new DefaultEntityManagerPagination(entityManager);
   }
 
 }
