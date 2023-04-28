@@ -2,6 +2,8 @@ package com.springboot.code.example.database.jdbc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import com.springboot.code.example.database.jdbc.annotation.JdbcConfiguration;
 import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
+import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.Car;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
 
 @JdbcConfiguration
@@ -68,6 +71,34 @@ class OracleJdbcTemplateExecutorDatabaseLayerTest {
         .isEqualTo(Map.of(
             JdbcConstant.EXPECT_OUTPUT_KEY, String.format(outMsg, "Object", "1", "Object", "2"),
             JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY, BigDecimal.valueOf(2010)));
+  }
+
+  @Test
+  void testExecuteFunctionWithRowMapper() {
+
+    // given
+    List<Car> cars = new ArrayList<>();
+    cars.add(new Car(BigDecimal.ONE, "FORD"));
+    cars.add(new Car(BigDecimal.valueOf(2), "HONDA"));
+    cars.add(new Car(BigDecimal.valueOf(3), "HUYNDAI"));
+    cars.add(new Car(BigDecimal.valueOf(4), "TOYOTA"));
+
+    // then
+    assertThat(oracleJdbcTemplateExecutor.executeFunctionWithRowMapper())
+        .usingRecursiveComparison()
+        .isEqualTo(cars);
+  }
+
+  @Test
+  void testExecuteFunctionWithInOutParameter() {
+
+    // then
+    assertThat(oracleJdbcTemplateExecutor.executeFunctionWithInOutParameter())
+        .isEqualTo(
+            Map.of(
+                JdbcConstant.EXPECT_OUTPUT_KEY, "Not negative number",
+                JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY, BigDecimal.ONE,
+                "return", BigDecimal.valueOf(2)));
   }
 
 }

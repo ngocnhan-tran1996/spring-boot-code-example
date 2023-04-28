@@ -74,4 +74,20 @@ public final class OracleJdbcTemplateDto {
     }
   }
 
+
+  @Getter
+  @Setter
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class Car {
+
+    private BigDecimal id;
+    private String name;
+
+    @Override
+    public String toString() {
+      return "id: " + id + " name: " + name;
+    }
+  }
+
 }

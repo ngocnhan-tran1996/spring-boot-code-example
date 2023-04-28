@@ -13,6 +13,15 @@ IS
         out_nbr IN OUT NUMBER,
         out_msg OUT VARCHAR2);
 
+    FUNCTION CARD_INFO_FUNC
+        RETURN SYS_REFCURSOR;
+
+    FUNCTION PLUS_ONE (
+        in_number IN NUMBER,
+        out_nbr IN OUT NUMBER,
+        out_msg OUT VARCHAR2)
+        RETURN NUMBER;
+
 END pack_example;
 /
 CREATE OR REPLACE PACKAGE BODY user_nhan.pack_example
@@ -28,7 +37,7 @@ IS
         FOR i IN in_persons.FIRST .. in_persons.LAST
         LOOP
             IF (out_msg IS NULL)
-                THEN 
+                THEN
                 out_msg := ' NAME: ' || in_persons(i).name || ' AND AGE: ' || in_persons(i).age;
             ELSE
                 out_msg := out_msg || ' AND ' || ' NAME: ' || in_persons(i).name || ' AND AGE: ' || in_persons(i).age;
@@ -39,30 +48,46 @@ IS
         out_nbr := 2010;
     END concatenate_text_proc;
 
+    FUNCTION CARD_INFO_FUNC
+        RETURN SYS_REFCURSOR
+    AS
+        results SYS_REFCURSOR;
+    BEGIN
+        OPEN results
+        FOR
+            SELECT c.id, c.name
+            FROM USER_NHAN.CAR c;
+        RETURN results;
+
+        EXCEPTION
+            WHEN NO_DATA_FOUND
+                THEN
+                    OPEN results
+                    FOR
+                        SELECT
+                            NULL AS ID,
+                            NULL AS NAME
+                        FROM dual;
+                    RETURN results;
+    END CARD_INFO_FUNC;
+
+    FUNCTION PLUS_ONE (
+        in_number IN NUMBER,
+        out_nbr IN OUT NUMBER,
+        out_msg OUT VARCHAR2)
+        RETURN NUMBER
+    AS
+    BEGIN
+        IF (in_number < 0)
+            THEN
+            out_nbr := 0;
+            out_msg := 'Negative number';
+            RETURN in_number + ABS (in_number) + 1;
+        ELSE
+            out_nbr := 1;
+            out_msg := 'Not negative number';
+            RETURN in_number + 1;
+        END IF;
+    END PLUS_ONE;
+
 END pack_example;
-
--- execute pack_example.concatenate_text_proc
-DECLARE
-  IN_NAME VARCHAR2(200);
-  IN_PERSONS USER_NHAN.PACK_EXAMPLE.PERSON_ARRAY;
-  OUT_MSG VARCHAR2(200);
-  OUT_NBR NUMBER;
-BEGIN
-  IN_NAME := '1';
-  IN_PERSONS(0).name := '1';
-  IN_PERSONS(0).age := '1';
-  IN_PERSONS(1).name := '2';
-  IN_PERSONS(1).age := '2';
-  IN_PERSONS(2).name := '2';
-  IN_PERSONS(2).age := '2';
-
-  USER_NHAN.PACK_EXAMPLE.concatenate_text_proc(
-    IN_NAME => IN_NAME,
-    IN_PERSONS => IN_PERSONS,
-    OUT_NBR => OUT_NBR,
-    OUT_MSG => OUT_MSG
-  );
-
-  dbms_output.put_line(OUT_MSG);
-  dbms_output.put_line(OUT_NBR);
-END;

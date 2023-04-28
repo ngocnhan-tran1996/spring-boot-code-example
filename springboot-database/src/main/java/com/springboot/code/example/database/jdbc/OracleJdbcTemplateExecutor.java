@@ -1,14 +1,17 @@
 package com.springboot.code.example.database.jdbc;
 
+import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.List;
 import java.util.Map;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 import com.springboot.code.example.database.converter.PropertyConverter;
 import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
+import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.Car;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonInput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonSQLData;
@@ -61,7 +64,7 @@ public class OracleJdbcTemplateExecutor {
 
     jdbcTemplate.setResultsMapCaseInsensitive(true);
     var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-        .withCatalogName("PACK_EXAMPLE")
+        .withCatalogName(JdbcConstant.PACK_EXAMPLE)
         .withProcedureName(JdbcConstant.CONCATENATE_TEXT_PROC);
 
     var parameters = new MapSqlParameterSource()
@@ -69,6 +72,32 @@ public class OracleJdbcTemplateExecutor {
         .addValue(JdbcConstant.IN_PERSONS, obj, Types.ARRAY)
         .addValue(JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY, "1");
 
+    return simpleJdbcCall.execute(parameters);
+  }
+
+  @SuppressWarnings("unchecked")
+  public List<Car> executeFunctionWithRowMapper() {
+
+    jdbcTemplate.setResultsMapCaseInsensitive(true);
+    var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+        .withCatalogName(JdbcConstant.PACK_EXAMPLE)
+        .withFunctionName(JdbcConstant.CARD_INFO_FUNC)
+        .returningResultSet(JdbcConstant.RESULT, BeanPropertyRowMapper.newInstance(Car.class));
+
+    return (List<Car>) simpleJdbcCall.execute(new MapSqlParameterSource())
+        .get(JdbcConstant.RESULT);
+  }
+
+  public Map<String, Object> executeFunctionWithInOutParameter() {
+
+    jdbcTemplate.setResultsMapCaseInsensitive(true);
+    var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+        .withCatalogName(JdbcConstant.PACK_EXAMPLE)
+        .withFunctionName("PLUS_ONE");
+
+    var parameters = new MapSqlParameterSource()
+        .addValue("IN_NUMBER", BigDecimal.ONE)
+        .addValue(JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY, "1");
     return simpleJdbcCall.execute(parameters);
   }
 
