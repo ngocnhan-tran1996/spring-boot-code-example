@@ -20,6 +20,6 @@ public final class JdbcConstant {
   public static final String IN_PERSONS = "IN_PERSONS";
   public static final String RESULT = "result";
   public static final String CARD_INFO_FUNC = "CARD_INFO_FUNC";
-  public static final String PLUS_ONE = "PLUS_ONE";
+  public static final String PLUS_ONE_FUNC = "PLUS_ONE_FUNC";
 
 }

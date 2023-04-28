@@ -93,7 +93,7 @@ public class OracleJdbcTemplateExecutor {
     jdbcTemplate.setResultsMapCaseInsensitive(true);
     var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
         .withCatalogName(JdbcConstant.PACK_EXAMPLE)
-        .withFunctionName("PLUS_ONE");
+        .withFunctionName(JdbcConstant.PLUS_ONE_FUNC);
 
     var parameters = new MapSqlParameterSource()
         .addValue("IN_NUMBER", BigDecimal.ONE)

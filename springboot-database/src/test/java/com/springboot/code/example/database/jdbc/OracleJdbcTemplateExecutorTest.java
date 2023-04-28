@@ -142,7 +142,7 @@ class OracleJdbcTemplateExecutorTest {
 
     // when
     this.initializeWithMetaData(
-        JdbcConstant.PLUS_ONE,
+        JdbcConstant.PLUS_ONE_FUNC,
         expectOutput);
 
     // then
