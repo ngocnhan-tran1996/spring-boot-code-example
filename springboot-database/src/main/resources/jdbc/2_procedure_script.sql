@@ -22,6 +22,7 @@ BEGIN
             name VARCHAR (255) NOT NULL
         )';
         EXECUTE IMMEDIATE sql_stmt;
+        COMMIT;
         out_msg := 'Table was created';
 
         insert_sql_stmt:='
@@ -31,6 +32,7 @@ BEGIN
             (''HUYNDAI''),
             (''TOYOTA'')';
         EXECUTE IMMEDIATE insert_sql_stmt;
+        COMMIT;
         out_msg := out_msg || ' - ' || 'Table was inserted';
     ELSE
         out_msg := 'Table already exists';
@@ -55,5 +57,6 @@ BEGIN
         THEN
         sql_stmt := 'DROP TABLE ' || in_schema || '.' || in_table_name;
         EXECUTE IMMEDIATE sql_stmt;
+        COMMIT;
     END IF;
 END;

@@ -2,6 +2,8 @@ package com.springboot.code.example.database.jdbc.support.oracle.mapper;
 
 import java.beans.PropertyDescriptor;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.sql.Struct;
@@ -23,10 +25,13 @@ import oracle.jdbc.OracleTypeMetaData;
 import oracle.jdbc.driver.OracleConnection;
 
 @Log4j2
-public class OracleStructMapper implements OracleMapper {
+public class OracleStructMapper<T> implements OracleMapper<T> {
 
   /** Map of the properties we provide mapping for. */
   private Map<String, PropertyDescriptor> mappedProperties;
+
+  /** The class we are mapping to. */
+  private Class<T> mappedClass;
 
   /**
    * Static factory method to create a new BeanPropertyStructMapper
@@ -35,8 +40,8 @@ public class OracleStructMapper implements OracleMapper {
    * @param mappedClass
    *        the class that each row should be mapped to
    */
-  public static OracleStructMapper newInstance(Class<?> mappedClass) {
-    return new OracleStructMapper(mappedClass);
+  public static <T> OracleStructMapper<T> newInstance(Class<T> mappedClass) {
+    return new OracleStructMapper<>(mappedClass);
   }
 
   /**
@@ -45,13 +50,14 @@ public class OracleStructMapper implements OracleMapper {
    * @param mappedClass
    *        the class that each row should be mapped to.
    */
-  private OracleStructMapper(Class<?> mappedClass) {
+  private OracleStructMapper(Class<T> mappedClass) {
     Assert.notNull(mappedClass, "mappedClass");
     initialize(mappedClass);
   }
 
-  protected void initialize(Class<?> mappedClass) {
+  protected void initialize(Class<T> mappedClass) {
     this.mappedProperties = new HashMap<>();
+    this.mappedClass = mappedClass;
 
     for (PropertyDescriptor pd : BeanUtils.getPropertyDescriptors(mappedClass)) {
 
@@ -94,7 +100,7 @@ public class OracleStructMapper implements OracleMapper {
    * @see java.sql.ResultSetMetaData
    */
   @Override
-  public <T> Struct toStruct(T source, Connection connection, String typeName) throws SQLException {
+  public Struct toStruct(T source, Connection connection, String typeName) throws SQLException {
 
     OracleTypeMetaData oracleTypeMetaData = connection
         .getMetaData()
@@ -140,6 +146,56 @@ public class OracleStructMapper implements OracleMapper {
 
     return connection.unwrap(OracleConnection.class)
         .createStruct(typeName, values);
+  }
+
+  /**
+   * Extract the values for all columns in the current row.
+   * <p>
+   * Utilizes public setters and result set meta-data.
+   * 
+   * @see java.sql.ResultSetMetaData
+   */
+  @Override
+  public T mapRow(ResultSet rs, int rowNumber) throws SQLException {
+
+    T mappedObject = BeanUtils.instantiateClass(this.mappedClass);
+
+    BeanWrapperImpl bw = new BeanWrapperImpl();
+    bw.setBeanInstance(mappedObject);
+
+    ResultSetMetaData rsmd = rs.getMetaData();
+    int columnCount = rsmd.getColumnCount();
+
+    for (int index = 1; index <= columnCount; index++) {
+
+      String column = JdbcUtils.lookupColumnName(rsmd, index)
+          .toLowerCase();
+      PropertyDescriptor pd = this.mappedProperties.get(column);
+
+      if (pd == null
+          || !bw.isWritableProperty(pd.getName())) {
+
+        log.warn("Unable to access the getter/setter method");
+        continue;
+      }
+
+      var name = pd.getName();
+      try {
+
+        if (rowNumber == 0 && log.isDebugEnabled()) {
+          log.debug("Mapping column '{}' to property '{}'", column, name);
+        }
+
+        Object value = JdbcUtils.getResultSetValue(rs, index, pd.getPropertyType());
+        bw.setPropertyValue(pd.getName(), value);
+
+      } catch (NotReadablePropertyException ex) {
+        throw new OracleTypeValueException(
+            String.format("Unable to map column '%s' to property '%s'", column, name));
+      }
+    }
+
+    return mappedObject;
   }
 
 }

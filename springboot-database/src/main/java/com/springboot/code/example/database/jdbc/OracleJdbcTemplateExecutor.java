@@ -16,7 +16,7 @@ import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDt
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonInput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonSQLData;
-import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonTable;
+import com.springboot.code.example.database.jdbc.support.oracle.mapper.OracleStructMapper;
 import com.springboot.code.example.database.jdbc.support.oracle.value.OracleArrayValue;
 import lombok.RequiredArgsConstructor;
 
@@ -103,7 +103,7 @@ public class OracleJdbcTemplateExecutor {
     return simpleJdbcCall.execute(parameters);
   }
 
-  public List<PersonTable> executeFunctionWithTable() {
+  public List<PersonInput> executeFunctionWithTable() {
 
     var parameters = new MapSqlParameterSource()
         .addValue("in_name", "Nhan")
@@ -113,7 +113,7 @@ public class OracleJdbcTemplateExecutor {
     return namedParameterJdbcTemplate.query(
         "SELECT name, age FROM TABLE(PACK_EXAMPLE.DUAL_INFO_FUNC(:in_name,:in_age))",
         parameters,
-        BeanPropertyRowMapper.newInstance(PersonTable.class));
+        OracleStructMapper.newInstance(PersonInput.class));
   }
 
 }

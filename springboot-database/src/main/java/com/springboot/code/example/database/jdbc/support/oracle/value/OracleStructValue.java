@@ -35,9 +35,10 @@ public class OracleStructValue<T> extends OracleTypeValue {
   }
 
   @Override
-  protected OracleMapper getMapper() {
+  @SuppressWarnings("unchecked")
+  protected OracleMapper<T> getMapper() {
 
-    return OracleStructMapper.newInstance(this.source.getClass());
+    return (OracleMapper<T>) OracleStructMapper.newInstance(this.source.getClass());
   }
 
 }

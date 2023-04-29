@@ -24,8 +24,8 @@ import com.springboot.code.example.common.helper.Strings;
 import com.springboot.code.example.database.jdbc.annotation.JdbcConfiguration;
 import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.Car;
+import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonInput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
-import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonTable;
 
 @JdbcConfiguration
 @ExtendWith(MockitoExtension.class)
@@ -163,12 +163,12 @@ class OracleJdbcTemplateExecutorTest {
   void testExecuteFunctionWithTable() throws Exception {
 
     // given
-    var expectedOutput = new PersonTable("Nhan", "18");
+    var expectedOutput = List.of(new PersonInput("Nhan", "18"));
 
     // when
     doReturn(expectedOutput)
         .when(jdbcTemplate)
-        .query((PreparedStatementCreator) any(), (RowMapper<PersonTable>) any());
+        .query((PreparedStatementCreator) any(), (RowMapper<PersonInput>) any());
 
     // then
     assertThat(oracleJdbcTemplateExecutor.executeFunctionWithTable())

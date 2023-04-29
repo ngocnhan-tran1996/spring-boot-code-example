@@ -16,8 +16,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.springboot.code.example.database.jdbc.annotation.JdbcConfiguration;
 import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.Car;
+import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonInput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
-import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonTable;
 
 @JdbcConfiguration
 @DataJpaTest
@@ -108,7 +108,7 @@ class OracleJdbcTemplateExecutorDatabaseLayerTest {
     // then
     assertThat(oracleJdbcTemplateExecutor.executeFunctionWithTable())
         .usingRecursiveComparison()
-        .isEqualTo(new PersonTable("Nhan", "18"));
+        .isEqualTo(List.of(new PersonInput("Nhan", "18")));
   }
 
 }

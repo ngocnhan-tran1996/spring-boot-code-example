@@ -45,6 +45,11 @@ public final class OracleJdbcTemplateDto {
     @OracleColumn(name = "age")
     private String anotherAge;
 
+    @Override
+    public String toString() {
+      return this.name + " and " + this.anotherAge;
+    }
+
   }
 
   @Getter
@@ -74,7 +79,6 @@ public final class OracleJdbcTemplateDto {
     }
   }
 
-
   @Getter
   @Setter
   @NoArgsConstructor
@@ -87,21 +91,6 @@ public final class OracleJdbcTemplateDto {
     @Override
     public String toString() {
       return "id: " + id + " name: " + name;
-    }
-  }
-
-  @Getter
-  @Setter
-  @NoArgsConstructor
-  @AllArgsConstructor
-  public static class PersonTable {
-
-    private String name;
-    private String age;
-
-    @Override
-    public String toString() {
-      return "name: " + this.name + " age: " + this.age;
     }
   }
 

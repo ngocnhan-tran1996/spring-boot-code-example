@@ -66,9 +66,10 @@ public class OracleArrayValue<T> extends OracleTypeValue {
   }
 
   @Override
-  protected OracleMapper getMapper() {
+  @SuppressWarnings("unchecked")
+  protected OracleMapper<T> getMapper() {
 
-    return Optional.ofNullable(this.values)
+    return (OracleMapper<T>) Optional.ofNullable(this.values)
         .filter(v -> v.length > 0)
         .map(v -> OracleStructMapper.newInstance(v[0].getClass()))
         .orElse(null);
