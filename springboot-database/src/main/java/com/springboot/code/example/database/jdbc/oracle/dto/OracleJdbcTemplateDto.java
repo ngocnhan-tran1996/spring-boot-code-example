@@ -90,4 +90,19 @@ public final class OracleJdbcTemplateDto {
     }
   }
 
+  @Getter
+  @Setter
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class PersonTable {
+
+    private String name;
+    private String age;
+
+    @Override
+    public String toString() {
+      return "name: " + this.name + " age: " + this.age;
+    }
+  }
+
 }

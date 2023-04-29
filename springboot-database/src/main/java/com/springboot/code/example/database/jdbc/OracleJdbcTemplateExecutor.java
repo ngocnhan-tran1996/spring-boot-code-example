@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 import com.springboot.code.example.database.converter.PropertyConverter;
@@ -15,6 +16,7 @@ import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDt
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonInput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonSQLData;
+import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonTable;
 import com.springboot.code.example.database.jdbc.support.oracle.value.OracleArrayValue;
 import lombok.RequiredArgsConstructor;
 
@@ -99,6 +101,19 @@ public class OracleJdbcTemplateExecutor {
         .addValue("IN_NUMBER", BigDecimal.ONE)
         .addValue(JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY, "1");
     return simpleJdbcCall.execute(parameters);
+  }
+
+  public List<PersonTable> executeFunctionWithTable() {
+
+    var parameters = new MapSqlParameterSource()
+        .addValue("in_name", "Nhan")
+        .addValue("in_age", "18");
+
+    var namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+    return namedParameterJdbcTemplate.query(
+        "SELECT name, age FROM TABLE(PACK_EXAMPLE.DUAL_INFO_FUNC(:in_name,:in_age))",
+        parameters,
+        BeanPropertyRowMapper.newInstance(PersonTable.class));
   }
 
 }

@@ -1,11 +1,13 @@
 CREATE OR REPLACE PACKAGE user_nhan.pack_example
 IS
     TYPE person_record IS RECORD (
-        name  VARCHAR2(100),
+        name VARCHAR2(100),
         age VARCHAR2(100)
     );
 
     TYPE person_array IS TABLE OF person_record INDEX BY BINARY_INTEGER;
+
+    TYPE person_table IS TABLE OF person_record;
 
     PROCEDURE concatenate_text_proc (
         in_name IN VARCHAR2,
@@ -16,12 +18,17 @@ IS
     FUNCTION CARD_INFO_FUNC
         RETURN SYS_REFCURSOR;
 
-    FUNCTION PLUS_ONE (
+    FUNCTION PLUS_ONE_FUNC (
         in_number IN NUMBER,
         out_nbr IN OUT NUMBER,
         out_msg OUT VARCHAR2)
         RETURN NUMBER;
 
+     FUNCTION DUAL_INFO_FUNC (
+        in_name VARCHAR2,
+        in_age VARCHAR2)
+        RETURN person_table
+        PIPELINED;
 END pack_example;
 /
 CREATE OR REPLACE PACKAGE BODY user_nhan.pack_example
@@ -71,7 +78,7 @@ IS
                     RETURN results;
     END CARD_INFO_FUNC;
 
-    FUNCTION PLUS_ONE (
+    FUNCTION PLUS_ONE_FUNC (
         in_number IN NUMBER,
         out_nbr IN OUT NUMBER,
         out_msg OUT VARCHAR2)
@@ -88,6 +95,23 @@ IS
             out_msg := 'Not negative number';
             RETURN in_number + 1;
         END IF;
-    END PLUS_ONE;
+    END PLUS_ONE_FUNC;
+
+    FUNCTION DUAL_INFO_FUNC (
+        in_name VARCHAR2,
+        in_age VARCHAR2)
+        RETURN person_table
+        PIPELINED
+    AS
+        table_output pack_example.person_record;
+    BEGIN
+        SELECT
+            in_name,
+            in_age
+        INTO table_output
+        FROM dual;
+        PIPE ROW (table_output);
+        RETURN;
+    END DUAL_INFO_FUNC;
 
 END pack_example;

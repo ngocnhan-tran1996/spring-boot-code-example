@@ -17,6 +17,7 @@ import com.springboot.code.example.database.jdbc.annotation.JdbcConfiguration;
 import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.Car;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
+import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonTable;
 
 @JdbcConfiguration
 @DataJpaTest
@@ -99,6 +100,15 @@ class OracleJdbcTemplateExecutorDatabaseLayerTest {
                 JdbcConstant.EXPECT_OUTPUT_KEY, "Not negative number",
                 JdbcConstant.EXPECT_OUTPUT_NUMBER_KEY, BigDecimal.ONE,
                 "return", BigDecimal.valueOf(2)));
+  }
+
+  @Test
+  void testExecuteFunctionWithTable() {
+
+    // then
+    assertThat(oracleJdbcTemplateExecutor.executeFunctionWithTable())
+        .usingRecursiveComparison()
+        .isEqualTo(new PersonTable("Nhan", "18"));
   }
 
 }

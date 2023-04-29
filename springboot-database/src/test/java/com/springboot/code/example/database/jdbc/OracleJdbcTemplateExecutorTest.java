@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +18,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import com.springboot.code.example.common.helper.Strings;
 import com.springboot.code.example.database.jdbc.annotation.JdbcConfiguration;
 import com.springboot.code.example.database.jdbc.constant.JdbcConstant;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.Car;
 import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonOuput;
+import com.springboot.code.example.database.jdbc.oracle.dto.OracleJdbcTemplateDto.PersonTable;
 
 @JdbcConfiguration
 @ExtendWith(MockitoExtension.class)
@@ -51,6 +55,9 @@ class OracleJdbcTemplateExecutorTest {
 
   @Mock
   JdbcTemplate jdbcTemplate;
+
+  @Mock
+  PreparedStatement preparedStatement;
 
   @InjectMocks
   OracleJdbcTemplateExecutor oracleJdbcTemplateExecutor;
@@ -149,6 +156,23 @@ class OracleJdbcTemplateExecutorTest {
     assertThat(oracleJdbcTemplateExecutor.executeFunctionWithInOutParameter())
         .usingRecursiveComparison()
         .isEqualTo(expectOutput);
+  }
+
+  @SuppressWarnings("unchecked")
+  @Test
+  void testExecuteFunctionWithTable() throws Exception {
+
+    // given
+    var expectedOutput = new PersonTable("Nhan", "18");
+
+    // when
+    doReturn(expectedOutput)
+        .when(jdbcTemplate)
+        .query((PreparedStatementCreator) any(), (RowMapper<PersonTable>) any());
+
+    // then
+    assertThat(oracleJdbcTemplateExecutor.executeFunctionWithTable())
+        .isEqualTo(expectedOutput);
   }
 
   private void initializeWithMetaData(

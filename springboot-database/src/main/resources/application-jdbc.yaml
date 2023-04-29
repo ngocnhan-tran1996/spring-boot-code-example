@@ -19,6 +19,7 @@ spring:
 
 logging:
   level:
-    org.springframework.jdbc.core: trace
-    oracle:
-      jdbc: debug
+    org:
+      springframework:
+        jdbc:
+          core: trace
