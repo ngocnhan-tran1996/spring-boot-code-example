@@ -35,6 +35,12 @@
                 <artifactId>modelmapper</artifactId>
                 <version>3.0.0</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.springboot.code.example</groupId>
+                <artifactId>springboot-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
