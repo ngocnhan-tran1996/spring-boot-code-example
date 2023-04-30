@@ -111,7 +111,7 @@ public class OracleStructMapper<T> implements OracleMapper<T> {
       throw new SQLDataException(typeName + " is not struct");
     }
 
-    var rsmd = ((OracleTypeMetaData.Struct) oracleTypeMetaData).getMetaData();
+    ResultSetMetaData rsmd = ((OracleTypeMetaData.Struct) oracleTypeMetaData).getMetaData();
 
     BeanWrapper bw = new BeanWrapperImpl(source);
     int columns = rsmd.getColumnCount();
