@@ -9,9 +9,7 @@
 
         <RollingFile name="RollingFile"
             filePattern="logs/${spring:spring.application.name}-%d{yyyy-MM-dd-HH-mm}.log">
-            <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-            </PatternLayout>
+            <JsonTemplateLayout eventTemplateUri="classpath:EcsLayout.json"/>
             <Policies>
                 <OnStartupTriggeringPolicy />
                 <TimeBasedTriggeringPolicy />
