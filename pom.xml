@@ -26,6 +26,7 @@
         <module>springboot-database</module>
         <module>springboot-elastic</module>
         <module>springboot-common</module>
+        <module>springboot-log4j2</module>
     </modules>
 
     <dependencyManagement>
