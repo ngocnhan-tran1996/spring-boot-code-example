@@ -40,7 +40,7 @@ services:
     ports: 
       - "1521:1521"
     environment:
-      - ORACLE_PWD=ngocnhan=ngocnhan
+      - ORACLE_PWD=ngocnhan
 
 networks:
   default:

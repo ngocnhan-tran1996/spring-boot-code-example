@@ -1,7 +1,7 @@
 package com.springboot.code.example.database.jdbc;
 
 import java.util.Map;
-import jakarta.sql.DataSource;
+import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;

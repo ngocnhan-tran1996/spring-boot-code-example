@@ -2,7 +2,7 @@ package com.springboot.code.example.database.jdbc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Map;
-import jakarta.sql.DataSource;
+import javax.sql.DataSource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
