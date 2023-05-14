@@ -34,6 +34,14 @@ services:
     depends_on:
       - elasticsearch
 
+  oracle-db:
+    container_name: "oracle-db"
+    image: "container-registry.oracle.com/database/free:latest"
+    ports: 
+      - "1521:1521"
+    environment:
+      - ORACLE_PWD=ngocnhan=ngocnhan
+
 networks:
   default:
     name: elastic
