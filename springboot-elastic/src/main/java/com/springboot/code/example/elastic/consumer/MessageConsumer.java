@@ -18,7 +18,6 @@ public class MessageConsumer {
         new String(message.getBody()),
         messageProperties.getConsumerQueue(),
         messageProperties.getReceivedExchange());
-    throw new IllegalArgumentException("Retry");
   }
 
   public void receiveListener(Message message) {
