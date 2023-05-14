@@ -14,17 +14,17 @@ Database in use: **H2, ORACLE**
 
 ### 0. **Installation**
 
-    - [Docker](https://www.docker.com/)
+- [Docker](https://www.docker.com/)
 
 ### 1. **Oracle Database**
 
-    **Step 1:** Run `springboot-docker/docker-compose.yml` to start oracle database. Remove unused container if you don't need it
+**Step 1:** Run `springboot-docker/docker-compose.yml` to start oracle database. Remove unused container if you don't need it
 
-    ```powershell
-        spring-boot-code-example> docker compose -f "springboot-docker\docker-compose.yml" up -d --build
-    ```
+```powershell
+    spring-boot-code-example> docker compose -f "springboot-docker\docker-compose.yml" up -d --build
+```
 
-    **Step 2:** Run script in order with user `sys` in folder `springboot-database\src\main\resources\jdbc`
+**Step 2:** Run script in order with user `sys` in folder `springboot-database\src\main\resources\jdbc`
 
 
 ## III. Getting Started
