@@ -2,8 +2,8 @@ package com.springboot.code.example.database.entitymanager;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.Tuple;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Tuple;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

@@ -1,7 +1,7 @@
 package com.springboot.code.example.database.multiple.datasource.vehicle;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import com.springboot.code.example.database.multiple.datasource.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
