@@ -33,16 +33,20 @@ To get enrollment token, run below code
 If kibana require **verification code**, you just watch kibana's log
 
 **Step 2.2:**
+
 ![kibana-login.png](images/kibana-login.png)
-username: elastic
-password: ngocnhan
+
+> username: elastic <br />
+> password: ngocnhan
 
 **Step 3.1:**
+
 To show this page, choose Menu -> Observability -> APM
 Click "Add the APM integration"
 ![elastic-apm.png](images/elastic-apm.png)
 
 **Step 3.2:**
+
 Click "Add Elastic APM"
 ![elastic-apm-install.png](images/elastic-apm-install.png)
 
@@ -50,8 +54,10 @@ Click "Save and continue"
 ![elastic-apm-save-install.png](images/elastic-apm-save-install.png)
 
 **Step 3.3:**
+
 Download [**APM Server**](https://www.elastic.co/downloads/apm)
 Extract it and open cmd.
+
 **Example:** I extract in folder `C:\Users\NHAN\Downloads\apm-server-8.7.1`
 ![apm-cmd.png](images/apm-cmd.png)
 
@@ -83,15 +89,18 @@ Run APM Server
 ![apm-cmd-run.png](images/apm-cmd-run.png)
 
 **Step 3.4:**
+
 Go back **Step 3.1:** and check
 ![elastic-apm-success.png](images/elastic-apm-success.png)
 
 ### 2. **RabbitMQ**
 
 **Step 3.5:** Open `http://localhost:15672` to login RabbitMQ
+
 ![rabbitmq-login.png](images/rabbitmq-login.png)
-username: ngocnhan
-password: ngocnhan
+
+>username: ngocnhan <br/>
+>password: ngocnhan
 
 
 ## III. Getting Started
