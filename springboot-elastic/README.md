@@ -14,7 +14,9 @@ This is a simple demo about spring and elastic.
 
 - [Docker](https://www.docker.com/)
 
-**Step 1:** Run `springboot-docker/docker-compose.yml` to start RabbitMQ, Elastic and Kibana. Remove unused container if you don't need it
+**Step 1:**
+
+Run `springboot-docker/docker-compose.yml` to start RabbitMQ, Elastic and Kibana. Remove unused container if you don't need it
 
 ```powershell
     spring-boot-code-example> docker compose -f "springboot-docker\docker-compose.yml" up -d --build
@@ -22,7 +24,9 @@ This is a simple demo about spring and elastic.
 
 ### 1. **Elastic and Kibana**
 
-**Step 2.1:** Open `http://localhost:5601/` to login Kibana
+**Step 2.1:**
+
+Open `http://localhost:5601/` to login Kibana
 
 ![kibana-enrollment-token.png](images/kibana-enrollment-token.png)
 
