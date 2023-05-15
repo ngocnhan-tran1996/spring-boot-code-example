@@ -24,7 +24,7 @@ Run `springboot-docker/docker-compose.yml` to start RabbitMQ, Elastic and Kibana
 
 ### 1. **Elastic and Kibana**
 
-**Step 2.1:**
+**Step 1:**
 
 Open `http://localhost:5601/` to login Kibana
 
@@ -36,20 +36,22 @@ To get enrollment token, run below code
 ```
 If kibana require **verification code**, you just watch kibana's log
 
-**Step 2.2:**
+**Step 2:**
 
 ![kibana-login.png](images/kibana-login.png)
 
 > username: elastic <br />
 > password: ngocnhan
 
-**Step 3.1:**
+### 2. **APM Server**
+
+**Step 1:**
 
 To show this page, choose Menu -> Observability -> APM
 Click "Add the APM integration"
 ![elastic-apm.png](images/elastic-apm.png)
 
-**Step 3.2:**
+**Step 2:**
 
 Click "Add Elastic APM"
 ![elastic-apm-install.png](images/elastic-apm-install.png)
@@ -57,7 +59,7 @@ Click "Add Elastic APM"
 Click "Save and continue"
 ![elastic-apm-save-install.png](images/elastic-apm-save-install.png)
 
-**Step 3.3:**
+**Step 3:**
 
 Download [**APM Server**](https://www.elastic.co/downloads/apm)
 Extract it and open cmd.
@@ -86,26 +88,85 @@ Copy and paste
     ssl.certificate_authorities: ["http_ca.crt"]
 ```
 
+**Step 4:**
+
 Run APM Server
 ```powershell
     ./apm-server -e
 ```
 ![apm-cmd-run.png](images/apm-cmd-run.png)
 
-**Step 3.4:**
+**Step 5:**
 
 Go back **Step 3.1:** and check
 ![elastic-apm-success.png](images/elastic-apm-success.png)
 
 ### 2. **RabbitMQ**
 
-**Step 3.5:** Open `http://localhost:15672` to login RabbitMQ
+**Step 1:**
+
+Open `http://localhost:15672` to login RabbitMQ
 
 ![rabbitmq-login.png](images/rabbitmq-login.png)
 
 >username: ngocnhan <br/>
 >password: ngocnhan
 
+### 3. **Logstash**
+
+**Step 1:**
+
+Download [**Logstash**](https://www.elastic.co/downloads/logstash)
+Extract it and open cmd.
+
+**Example:** I extract in folder `C:\Users\NHAN\Downloads\logstash-8.7.1`
+![logstash-cmd.png](images/logstash-cmd.png)
+
+**Step 2:**
+
+Copy cert from Elastic to APM
+
+```powershell
+    docker cp elasticsearch:/usr/share/elasticsearch/config/certs/http_ca.crt <Path>\logstash-8.7.1
+```
+
+**Example:**
+
+```powershell
+    docker cp elasticsearch:/usr/share/elasticsearch/config/certs/http_ca.crt C:\Users\NHAN\Downloads\logstash-8.7.1
+```
+
+**Step 3:**
+
+Create logstash.conf at `<Path>\logstash-8.7.1` and copy paste below code, replace `<Path>` into your path.
+
+```
+input {
+    file {
+        type => "log4j2"
+        path => "<Path>/spring-boot-code-example/logs/*.log"
+        codec => "json"
+    }
+}
+
+output {
+    if [type]=="log4j2" {
+        elasticsearch {
+            user => elastic
+            password => ngocnhan
+            cacert => "http_ca.crt"
+            ssl => true
+            index => "log4j2-%{+YYYY.MM.dd}"
+        }
+    }
+}
+```
+
+**Step 4:**
+
+Run logstash `bin/logstash -f logstash.conf`
+
+![logstash-cmd-run.png](images/logstash-cmd-run.png)
 
 ## III. Getting Started
 
@@ -135,3 +196,4 @@ Go back **Step 3.1:** and check
 
 1. [Run Elasticsearch locally](https://www.elastic.co/guide/en/elasticsearch/reference/current/run-elasticsearch-locally.html)
 2. [Centralize spring boot log to ELK Elasticsearch, Logstash, Kibana](https://www.youtube.com/watch?v=hvYUwUmHB6M)
+3. [Send the Logs of a Java App to the Elastic Stack (ELK)](https://www.baeldung.com/java-application-logs-to-elastic-stack)
