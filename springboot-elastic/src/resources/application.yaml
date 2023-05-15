@@ -10,14 +10,6 @@ spring:
     port: 5672
     username: ngocnhan
     password: ngocnhan
-    listener:
-      simple:
-        prefetch: 1
-        retry:
-          enabled: true
-          max-attempts: 3
-          initial-interval: 3s
-          max-interval: 3s
 
 app:
   queue:

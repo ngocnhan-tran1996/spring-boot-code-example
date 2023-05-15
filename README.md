@@ -11,7 +11,19 @@ Modules:
 ```
     └── springboot-common
     └── springboot-database
+    └── springboot-docker
+    └── springboot-elastic
 ```
 
 1. `springboot-common`: helper or utility package
-2. `springboot-database`: config multiple datasource, call procedure and function via jdbc, etc...
+2. `springboot-database`: 
+
+    - config multiple datasource 
+    - call procedure and function via jdbc
+    - Pagination by `EntityManager`
+
+3. `springboot-docker` contains `docker-compose.yml` for this source
+4. `springboot-elastic`:
+
+    - config elastic, kibana, apm and logstash
+    - trace consumer with transaction name `RabbitMQ receive from queueName`
