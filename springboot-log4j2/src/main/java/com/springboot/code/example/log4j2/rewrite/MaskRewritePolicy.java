@@ -1,4 +1,4 @@
-package com.springboot.code.example.common.logging.rewrite;
+package com.springboot.code.example.log4j2.rewrite;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +22,8 @@ import com.springboot.code.example.common.helper.Strings;
 public final class MaskRewritePolicy extends AbstractMaskRewritePolicy {
 
   private static final Pattern FIELD_NAME_PATTERN = Pattern.compile("^(?:\\w+(?:,\\w+)?)*+$");
-  private static final String FIELD_NAME_REGEX = "(?:\\\"?(?:%s)\\\"?)[:=]\\s*(\\S*)";
+  private static final String FIELD_NAME_REGEX =
+      "\\\\?\"?(?:%s)\\\\?\"? ?[:=] ?\\\\?\"(.*)\\\\?\"";
 
   private final List<Pattern> patterns = new ArrayList<>();
 

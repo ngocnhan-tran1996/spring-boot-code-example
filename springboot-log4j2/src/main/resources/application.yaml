@@ -15,5 +15,5 @@ app:
   queue:
     name: local_QUEUE_TEST
   mask:
-    sensitive-keywords: password,test
+    sensitive-keywords: key
     patterns: \"password\"\s*:\s*\"(.*)\", \"address\"\s*:\s*\"(.*?)\"

@@ -1,4 +1,4 @@
-package com.springboot.code.example.common.logging.rewrite;
+package com.springboot.code.example.log4j2.rewrite;
 
 import org.apache.logging.log4j.core.appender.rewrite.RewritePolicy;
 
