@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration name="SpringBootCommon">
+<Configuration name="SpringBootCommon" xmlns:xi="http://www.w3.org/2001/XInclude"
+    packages="com.springboot">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout
@@ -20,9 +21,11 @@
         <Rewrite name="Rewrite">
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFile" />
-            <MaskRewritePolicy
-                keywords="${spring:app.mask.sensitive-keywords:-}"
-                patterns="${spring:app.mask.patterns:-}" />
+            <MaskRewritePolicy keywords="${spring:app.mask.sensitive-keywords:-}">
+                <xi:include href="log4j2-mask-pattern.xml">
+                    <xi:fallback />
+                </xi:include>
+            </MaskRewritePolicy>
         </Rewrite>
     </Appenders>
 
