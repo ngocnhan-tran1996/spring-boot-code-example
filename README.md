@@ -13,6 +13,7 @@ Modules:
     └── springboot-database
     └── springboot-docker
     └── springboot-elastic
+    └── springboot-log4j2
 ```
 
 1. `springboot-common`: helper or utility package
@@ -20,10 +21,15 @@ Modules:
 
     - config multiple datasource 
     - call procedure and function via jdbc
-    - Pagination by `EntityManager`
+    - pagination by `EntityManager`
 
 3. `springboot-docker` contains `docker-compose.yml` for this source
 4. `springboot-elastic`:
 
     - config elastic, kibana, apm and logstash
     - trace consumer with transaction name `RabbitMQ receive from queueName`
+5. `springboot-log4j2`:
+
+    - auto add uuid when receive message
+    - config save file log json format
+    - mask sensitive data by format key-value

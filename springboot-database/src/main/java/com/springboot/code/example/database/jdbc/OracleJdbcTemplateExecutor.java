@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.List;
 import java.util.Map;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -84,7 +83,7 @@ public class OracleJdbcTemplateExecutor {
     var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
         .withCatalogName(JdbcConstant.PACK_EXAMPLE)
         .withFunctionName(JdbcConstant.CARD_INFO_FUNC)
-        .returningResultSet(JdbcConstant.RESULT, BeanPropertyRowMapper.newInstance(Car.class));
+        .returningResultSet(JdbcConstant.RESULT, OracleStructMapper.newInstance(Car.class));
 
     return (List<Car>) simpleJdbcCall.execute(new MapSqlParameterSource())
         .get(JdbcConstant.RESULT);
