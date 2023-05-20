@@ -1,29 +1,27 @@
 package com.springboot.code.example.log4j2.rewrite;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import java.util.stream.IntStream;
 import org.apache.logging.log4j.core.Core;
-import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
+import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.config.plugins.PluginValue;
-import org.apache.logging.log4j.core.impl.Log4jLogEvent;
-import org.apache.logging.log4j.message.SimpleMessage;
+import com.springboot.code.example.common.helper.CollectionUtils;
 import com.springboot.code.example.common.helper.Strings;
 
 @Plugin(name = "MaskRewritePolicy", category = Core.CATEGORY_NAME, elementType = "rewritePolicy")
 public final class MaskRewritePolicy extends AbstractMaskRewritePolicy {
 
-  private static final Pattern FIELD_NAME_PATTERN = Pattern.compile("^(?:\\w+(?:,\\w+)?)*+$");
+  private static final Pattern FIELD_NAME_PATTERN = Pattern.compile("^\\w+(?:,\\w+)*+$");
   private static final String FIELD_NAME_REGEX =
-      "\\\\?\"?(?:%s)\\\\?\"? ?[:=] ?\\\\?\"(.*)\\\\?\"";
+      "\\\\?\"?(?:%s)\\\\?\"?\\s*[:=]\\s*\\\\?\"?([^\\\\\"]*)";
 
   private final List<Pattern> patterns = new ArrayList<>();
 
@@ -32,31 +30,19 @@ public final class MaskRewritePolicy extends AbstractMaskRewritePolicy {
     this.patterns.addAll(patterns);
   }
 
-  @Override
-  public LogEvent rewrite(final LogEvent event) {
-
-    String formattedMessage = event.getMessage()
-        .getFormattedMessage();
-    var messageBuilder = new StringBuilder(formattedMessage);
-    this.mask(messageBuilder);
-
-    var simpleMessage = new SimpleMessage(messageBuilder.toString());
-    return new Log4jLogEvent.Builder(event)
-        .setMessage(simpleMessage)
-        .build();
-  }
-
   @PluginFactory
   public static MaskRewritePolicy createMaskRewritePolicy(
       @PluginValue("keywords") final String keywords,
-      @PluginValue("patterns") final String patterns) {
+      @PluginElement("MaskPattern") final MaskPatternPlugin[] patterns) {
 
-    if (Strings.isAllBlank(keywords, patterns)) {
+    if (Strings.isBlank(keywords)
+        && CollectionUtils.isEmpty(patterns)) {
 
       return null;
     }
 
     List<Pattern> regexPatterns = new ArrayList<>();
+
     Optional.ofNullable(keywords)
         .map(FIELD_NAME_PATTERN::matcher)
         .map(Matcher::matches)
@@ -70,12 +56,11 @@ public final class MaskRewritePolicy extends AbstractMaskRewritePolicy {
           addRegexPattern(keywordRegex, regexPatterns);
         });
 
-    Optional.ofNullable(patterns)
-        .map(p -> p.split(Strings.COMMA))
-        .map(Arrays::asList)
-        .orElse(Collections.emptyList())
+    CollectionUtils.asList(patterns)
         .stream()
-        .forEach(pattern -> addRegexPattern(pattern, regexPatterns));
+        .filter(Objects::nonNull)
+        .filter(pattern -> Strings.isNotBlank(pattern.getValue()))
+        .forEach(pattern -> addRegexPattern(pattern.getValue(), regexPatterns));
 
     return regexPatterns.isEmpty()
         ? null

@@ -12,6 +12,7 @@
 
     <groupId>com.springboot.code.example</groupId>
     <artifactId>springboot-rabbitmq</artifactId>
+    <name>springboot-rabbitmq</name>
 
     <dependencies>
         <dependency>
@@ -20,15 +21,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>com.springboot.code.example</groupId>
+            <artifactId>springboot-common</artifactId>
         </dependency>
     </dependencies>
 
