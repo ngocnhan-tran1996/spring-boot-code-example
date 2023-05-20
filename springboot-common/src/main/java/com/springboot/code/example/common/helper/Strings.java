@@ -90,6 +90,11 @@ public final class Strings {
 
   public static String toString(Object object) {
 
+    if (object == null) {
+
+      return null;
+    }
+
     try {
 
       return OBJECT_MAPPER.writeValueAsString(object);
