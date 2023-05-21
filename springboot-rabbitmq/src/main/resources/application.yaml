@@ -13,6 +13,7 @@ spring:
     listener:
       simple:
         prefetch: 1
+        concurrency: 3
         retry:
           enabled: true
           max-attempts: 5

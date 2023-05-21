@@ -3,3 +3,7 @@ spring:
     name: springboot-database
   profiles:
     active: jdbc
+
+logging:
+  level:
+    '[com.zaxxer.hikari.pool.HikariPool]': DEBUG
