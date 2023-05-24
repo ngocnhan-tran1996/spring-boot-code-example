@@ -1,1 +1,11 @@
-= Welcome to module `springboot-database`!
+include::ROOT:partial$header.adoc[]
+
+== Reference Guide
+
+. https://www.javaguides.net/2018/09/spring-boot-jpa-multiple-data-sources-example.html[Multiple DataSource]
+. https://blogs.oracle.com/connect/post/on-looping-first-and-last[For loop in Oracle]
+. https://stackoverflow.com/questions/50697679/get-metadata-without-deprecated-structdescriptor-in-oracle[Get metadata without deprecated StructDescriptor in Oracle]
+. https://github.com/spring-attic/spring-data-jdbc-ext/blob/master/spring-data-oracle/src/main/java/org/springframework/data/jdbc/support/oracle/SqlReturnArray.java[Source code handle complex type oracle]
+. https://github.com/spring-projects/spring-framework/blob/6.0.x/spring-jdbc/src/test/java/org/springframework/jdbc/core/simple/SimpleJdbcCallTests.java[Test SimpleJdbcCall]
+https://docs.oracle.com/en/java/javase/17/docs/api//constant-values.html#java.sql.DatabaseMetaData.procedureColumnOut[Constant for testing SimpleJdbcCall]
+. https://www.logicbig.com/tutorials/spring-framework/spring-data-access-with-jdbc/simple-jdbc-ref-cursor.html[Returning REF Cursor from a SimpleJdbcCall]

@@ -1,0 +1,85 @@
+:page-title: EntityManager
+
+include::ROOT:partial$sub-header.adoc[]
+
+This modules use oracle database. xref:ROOT:docker-in-use.adoc[More detail in here] before you want to continue reading.
+
+=== Structure of Code
+[source]
+--
+com
++- springboot
+    +- code
+        +- example
+            +- database
+                +- DatabaseApplication.java
+                |
+                +- entitymanager
+                    +- EntityManagerExecutor.java
+--
+
+=== Config YAML File
+
+.`application.yaml`: *just copy below code into this file*
+[%collapsible]
+======
+[,yaml]
+----
+spring:
+    application:
+        name: springboot-database
+    profiles:
+        active: entitymanager
+----
+======
+
+.`application-entitymanager.yaml`: you can change something if you know what are you doing
+[%collapsible]
+======
+[,yaml]
+----
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:FREE
+    username: user_nhan
+    password: ngocnhan
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      schema: user_nhan
+      pool-name: user-nhan-pool-name
+      maximum-pool-size: 1
+      minimum-idle: 1
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        '[show_sql]': true
+----
+======
+
+=== Testing
+.Run below test file for executing code
+* EntityManagerExecutorTest.java
+* EntityManagerExecutorDatabaseLayerTest.java
+
+=== Run Application
+.copy below code and paste into `DatabaseApplication.java`
+[,java]
+----
+package com.springboot.code.example.database;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.springboot.code.example.database.profiles.ProfilePackages;
+
+@SpringBootApplication(scanBasePackages = ProfilePackages.ENTITY_MANAGER)
+public class DatabaseApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DatabaseApplication.class, args);
+    }
+
+}
+----
