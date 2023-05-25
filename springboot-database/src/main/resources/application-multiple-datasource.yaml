@@ -1,36 +1,31 @@
-spring:
-  h2:
-    console:
-      enabled: true
-
 app:
   datasource:
     vehicle:
-      url: jdbc:h2:mem:vehicle
-      username: sa
-      password:
-      driver-class-name: org.h2.Driver
+      url: jdbc:oracle:thin:@localhost:1521:FREE
+      username: user_vehicle
+      password: ngocnhan
+      driver-class-name: oracle.jdbc.OracleDriver
       jpa:
         properties:
           hibernate:
             '[show_sql]': true
-            '[default_schema]': vehicle
-      configuration:
+      hikari:
         pool-name: vehicle-pool-name
         maximum-pool-size: 1
         minimum-idle: 1
+        schema: user_vehicle
 
     wild:
-      url: jdbc:h2:mem:wild
-      username: sa
-      password:
-      driver-class-name: org.h2.Driver
+      url: jdbc:oracle:thin:@localhost:1521:FREE
+      username: user_wild
+      password: ngocnhan
+      driver-class-name: oracle.jdbc.OracleDriver
       jpa:
         properties:
           hibernate:
             '[show_sql]': true
-            '[default_schema]': wild
-      configuration:
+      hikari:
         pool-name: wild-pool-name
         maximum-pool-size: 1
         minimum-idle: 1
+        schema: user_wild

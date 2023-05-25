@@ -1,16 +1,14 @@
 package com.springboot.code.example.database.multiple.datasource.config;
 
 import java.util.Objects;
+import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.init.DataSourceInitializer;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -34,24 +32,12 @@ public class WildDatasourceConfig {
   }
 
   @Bean
-  @ConfigurationProperties("app.datasource.wild.configuration")
-  HikariDataSource wildDatasource() {
+  @ConfigurationProperties("app.datasource.wild.hikari")
+  DataSource wildDatasource() {
     return wildDataSourceProperties()
         .initializeDataSourceBuilder()
         .type(HikariDataSource.class)
         .build();
-  }
-
-  @Bean
-  DataSourceInitializer wildDatasourceInitializer() {
-
-    ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-    resourceDatabasePopulator.addScript(new ClassPathResource("multiple-datasource/wild-data.sql"));
-
-    DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
-    dataSourceInitializer.setDataSource(wildDatasource());
-    dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
-    return dataSourceInitializer;
   }
 
   @Bean
