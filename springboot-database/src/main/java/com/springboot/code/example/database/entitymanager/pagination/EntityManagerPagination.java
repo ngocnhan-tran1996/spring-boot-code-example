@@ -1,6 +1,6 @@
 package com.springboot.code.example.database.entitymanager.pagination;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 public interface EntityManagerPagination {
 
