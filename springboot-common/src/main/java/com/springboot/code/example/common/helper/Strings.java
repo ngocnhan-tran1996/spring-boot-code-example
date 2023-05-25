@@ -3,6 +3,9 @@ package com.springboot.code.example.common.helper;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +14,9 @@ public final class Strings {
 
   public static final String EMPTY = "";
   public static final String COMMA = ",";
+  private static final ObjectMapper OBJECT_MAPPER = JsonMapper.builder()
+      .findAndAddModules()
+      .build();
 
   public static String getIfNull(final String a, final String b) {
 
@@ -35,12 +41,6 @@ public final class Strings {
 
     return input == null
         || input.isBlank();
-  }
-
-  public static boolean isAllBlank(final String... values) {
-
-    return stream(values)
-        .allMatch(String::isBlank);
   }
 
   public static String getIfNotBlank(final String... values) {
@@ -86,5 +86,21 @@ public final class Strings {
     }
 
     return result.toString();
+  }
+
+  public static String toString(Object object) {
+
+    if (object == null) {
+
+      return null;
+    }
+
+    try {
+
+      return OBJECT_MAPPER.writeValueAsString(object);
+    } catch (JsonProcessingException e) {
+
+      return null;
+    }
   }
 }

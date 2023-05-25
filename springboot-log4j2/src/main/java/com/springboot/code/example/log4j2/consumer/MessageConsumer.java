@@ -1,6 +1,5 @@
 package com.springboot.code.example.log4j2.consumer;
 
-import org.apache.logging.log4j.ThreadContext;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -20,7 +19,6 @@ public class MessageConsumer {
         new String(message.getBody()),
         messageProperties.getConsumerQueue(),
         messageProperties.getReceivedExchange());
-    log.info("id {}", ThreadContext.get("ID"));
   }
 
 }

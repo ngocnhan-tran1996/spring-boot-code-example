@@ -13,8 +13,14 @@ spring:
     listener:
       simple:
         prefetch: 1
+        concurrency: 3
         retry:
           enabled: true
-          max-attempts: 3
+          max-attempts: 5
           initial-interval: 3s
           max-interval: 3s
+
+app:
+  queue:
+    name: local_QUEUE_TEST
+    names: local_QUEUE_TEST_1,local_QUEUE_TEST_2,local_QUEUE_TEST_3

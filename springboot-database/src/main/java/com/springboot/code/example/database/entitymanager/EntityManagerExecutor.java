@@ -6,8 +6,7 @@ import java.util.Map;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Tuple;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springboot.code.example.common.helper.Strings;
 import com.springboot.code.example.database.converter.PropertyConverter;
 import com.springboot.code.example.database.entitymanager.dto.DatabaseDto;
 import com.springboot.code.example.database.entitymanager.pagination.EntityManagerPagination;
@@ -21,7 +20,6 @@ import lombok.extern.log4j.Log4j2;
 public class EntityManagerExecutor {
 
   private final EntityManager entityManager;
-  private final ObjectMapper objectMapper;
 
   // native query
   public void saveAndFindAll() {
@@ -62,17 +60,13 @@ public class EntityManagerExecutor {
   protected void select(int page, int size) {
 
     var entityManagerPagination = EntityManagerPagination.create(entityManager);
-    try {
-      var cars = entityManagerPagination.query("SELECT id, name FROM {h-schema}CAR")
-          .ofPageRequest(page, size)
-          .getPages(CarEntity.class);
-      log.info("Page: {} and size: {}, cars: {}",
-          page,
-          size,
-          objectMapper.writeValueAsString(cars));
-    } catch (JsonProcessingException e1) {
-      // nothing to do
-    }
+    var cars = entityManagerPagination.query("SELECT id, name FROM {h-schema}CAR")
+        .ofPageRequest(page, size)
+        .getPages(CarEntity.class);
+    log.info("Page: {} and size: {}, cars: {}",
+        page,
+        size,
+        Strings.toString(cars));
   }
 
 }

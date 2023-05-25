@@ -9,6 +9,7 @@ spring:
       pool-name: user-nhan-pool-name
       maximum-pool-size: 1
       minimum-idle: 1
+      max-lifetime: 120000
 
   jpa:
     hibernate:

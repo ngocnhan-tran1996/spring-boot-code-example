@@ -15,5 +15,7 @@ app:
   queue:
     name: local_QUEUE_TEST
   mask:
-    sensitive-keywords: password,test
-    patterns: \"password\"\s*:\s*\"(.*)\", \"address\"\s*:\s*\"(.*?)\"
+    sensitive-keywords: key,password,test
+
+log4j2:
+  configurationFile: log4j2.xml,log4j2-dev.xml
