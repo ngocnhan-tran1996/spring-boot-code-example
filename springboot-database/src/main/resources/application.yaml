@@ -2,7 +2,7 @@ spring:
   application:
     name: springboot-database
   profiles:
-    active: jdbc
+    active: multiple-datasource
 
 logging:
   level:
