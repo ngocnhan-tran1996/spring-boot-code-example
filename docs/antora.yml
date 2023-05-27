@@ -2,5 +2,6 @@ name: springboot-code-example
 title: Spring Boot Code Example
 version: 2.7.x
 nav:
-- springboot-database/docs/modulesROOT/nav.adoc
+- modules/ROOT/nav.adoc
+- springboot-database/docs/modules/ROOT/nav.adoc
 - springboot-database/springboot-database-multiple-datasource/docs/modules/ROOT/nav.adoc
