@@ -1,0 +1,5 @@
+name: springboot-database-multiple-datasource-docs
+title: springboot-database: Multiple Datasource
+version: 2.7.x
+nav:
+- modules/ROOT/nav.adoc

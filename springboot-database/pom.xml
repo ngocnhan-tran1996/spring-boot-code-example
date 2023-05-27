@@ -13,7 +13,12 @@
 
     <groupId>com.springboot.code.example</groupId>
     <artifactId>springboot-database</artifactId>
+    <packaging>pom</packaging>
     <name>springboot-database</name>
+
+    <modules>
+        <module>springboot-database-multiple-datasource</module>
+    </modules>
 
     <dependencies>
         <dependency>
@@ -36,5 +41,4 @@
             <artifactId>springboot-common</artifactId>
         </dependency>
     </dependencies>
-
 </project>

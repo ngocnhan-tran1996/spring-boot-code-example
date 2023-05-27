@@ -1,10 +1,13 @@
 package com.springboot.code.example.database.entitymanager.pagination;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaQuery;
 
 public interface EntityManagerPagination {
 
   EntityManagerPagination query(String query);
+
+  <T> EntityManagerPagination query(CriteriaQuery<T> criteriaQuery);
 
   EntityManagerPagination parameter(int position, Object value);
 

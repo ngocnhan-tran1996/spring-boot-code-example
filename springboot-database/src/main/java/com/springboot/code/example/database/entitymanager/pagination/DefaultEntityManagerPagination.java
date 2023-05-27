@@ -5,10 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import com.springboot.code.example.database.converter.PropertyConverter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.Tuple;
-import com.springboot.code.example.database.converter.PropertyConverter;
+import jakarta.persistence.criteria.CriteriaQuery;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -25,6 +26,13 @@ public final class DefaultEntityManagerPagination implements EntityManagerPagina
   public EntityManagerPagination query(String query) {
 
     this.query = entityManager.createNativeQuery(query, Tuple.class);
+    return this;
+  }
+
+  @Override
+  public <T> EntityManagerPagination query(CriteriaQuery<T> criteriaQuery) {
+
+    this.query = entityManager.createQuery(criteriaQuery);
     return this;
   }
 
