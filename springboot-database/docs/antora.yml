@@ -1,6 +1,6 @@
-name: springboot-database-docs
+name: springboot-database
 title: Spring Boot Database
 version: 2.7.x
 nav:
-- modules/ROOT/nav.adoc
-- modules/module-one/nav.adoc
+- ROOT/nav.adoc
+- springboot-database/springboot-database-multiple-datasource/docs/modules/ROOT/nav.adoc
