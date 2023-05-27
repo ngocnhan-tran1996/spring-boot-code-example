@@ -1,5 +1,5 @@
-name: springboot-database
-title: Spring Boot Database
+name: springboot-code-example
+title: Spring Boot Code Example
 version: 2.7.x
 nav:
 - springboot-database/docs/modulesROOT/nav.adoc
