@@ -1,0 +1,18 @@
+site:
+  title: Spring Boot Code Example Docs
+  start_page: springboot-code-example::index.adoc
+
+content:
+  sources:
+  # - url: .
+  #   start_paths:
+  #     - springboot-docs/2.7.x 
+      # - springboot-docs/3.0.x
+  - url: .
+    branches: [maven/3.0.x]
+    start_path: docs
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
