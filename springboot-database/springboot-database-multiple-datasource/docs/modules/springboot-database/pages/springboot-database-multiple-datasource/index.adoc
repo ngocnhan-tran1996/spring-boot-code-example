@@ -1,0 +1,2 @@
+= Welcome to {page-component-title}
+:description: Welcome to My Spring Boot Code Example

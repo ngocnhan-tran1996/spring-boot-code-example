@@ -10,7 +10,10 @@ content:
       # - springboot-docs/3.0.x
   - url: .
     branches: [maven/3.0.x]
-    start_path: docs
+    start_paths:
+    - docs
+    - springboot-database/docs
+    - springboot-database/springboot-database-multiple-datasource/docs
 
 ui:
   bundle:
