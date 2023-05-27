@@ -1,0 +1,6 @@
+name: springboot-database-docs
+title: Spring Boot Database
+version: 2.7.x
+nav:
+- modules/ROOT/nav.adoc
+- modules/module-one/nav.adoc

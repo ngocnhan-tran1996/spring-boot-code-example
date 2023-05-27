@@ -1,13 +1,118 @@
-= Welcome to My Spring Boot Code Example
-:description: Welcome to My Spring Boot Code Example
+= Test
 
-== About me
+== TEST
 
-Hi, I'm Nhan and I'm a Java developer, so I'm very (x10) lazy. This is why I create a spring boot example, this {page-component-title} for future... or maybe I just copy when I feel tired
+=== Structure of Code
+[source]
+--
+com
++- springboot
+    +- code
+        +- example
+            +- database
+                +- DatabaseApplication.java
+                |
+                +- multiple
+                    +- datasource
+                        +- DatasourceExecutor.java
+                        |
+                        +- config
+                        |   +- VehicleDatasourceConfig.java
+                        |   +- WildDatasourceConfig.java
+                        |
+                        +- entity
+                        |   +- BaseEntity.java
+                        |
+                        +- vehicle
+                        |   +- CardRepository.java
+                        |   +- CarEntity.java
+                        |
+                        +- wild
+                            +- AnimalEntity.java
+                            +- AnimalRepository.java
+--
 
-== What You Need
+=== Config YAML File
 
-* https://www.oracle.com/java/technologies/downloads/[Java 17] or higher
-* https://maven.apache.org/download.cgi/[Maven 3.8.5] or higher
-* https://www.docker.com/products/docker-desktop/[Docker]
-* https://docs.spring.io/spring-boot/docs/current/reference/html/[Spring Boot version *{page-component-display-version}*]
+.`application.yaml`: *just copy below code into this file*
+[%collapsible]
+======
+[,yaml]
+----
+    spring:
+        application:
+            name: springboot-database
+        profiles:
+            active: multiple-datasource
+----
+======
+
+.`application-multiple-datasource.yaml`: you can change something if you know what are you doing
+[%collapsible]
+======
+[,yaml]
+----
+spring:
+  h2:
+    console:
+      enabled: true
+
+app:
+  datasource:
+    vehicle:
+      url: jdbc:h2:mem:vehicle
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+      jpa:
+        properties:
+          hibernate:
+            '[show_sql]': true
+            '[default_schema]': vehicle
+      configuration:
+        pool-name: vehicle-pool-name
+        maximum-pool-size: 1
+        minimum-idle: 1
+
+    wild:
+      url: jdbc:h2:mem:wild
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
+      jpa:
+        properties:
+          hibernate:
+            '[show_sql]': true
+            '[default_schema]': wild
+      configuration:
+        pool-name: wild-pool-name
+        maximum-pool-size: 1
+        minimum-idle: 1
+----
+======
+
+=== Testing
+.Run below test file for executing code
+* DatasourceExecutorTest.java
+* AnimalRepositoryTest.java
+* CardRepositoryTest.java
+
+=== Run Application
+.copy below code and paste into `DatabaseApplication.java`
+[,java]
+----
+package com.springboot.code.example.database;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.springboot.code.example.database.profiles.ProfilePackages;
+
+@SpringBootApplication(scanBasePackages = ProfilePackages.MULTIPLE_DATASOURCE)
+public class DatabaseApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DatabaseApplication.class, args);
+    }
+
+}
+----
