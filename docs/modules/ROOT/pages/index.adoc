@@ -14,14 +14,14 @@ Hi, I'm Nhan and I'm a Java developer, so I'm very (x10) lazy. This is why I cre
 
 == Overview
 
-.Structure of source
+.*Structure of source*
 [source]
 ----
 spring-boot-code-example
 ├── springboot-common
 ├── springboot-database
-│   ├── springboot-database-multiple-datasource
-│   └──
+│   ├── springboot-database-entity-manager
+│   └── springboot-database-multiple-datasource
 ├── .dockerignore
 ├── .gitignore
 ├── antora-playbook.yml
