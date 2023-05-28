@@ -14,6 +14,7 @@ Example::
     . Use JPA for saving new object, deleting existed object and finding all object in connected databases
 
 .*Structure of Code*
+.{empty}
 [source]
 ----
 com.springboot.code.example.database.multiple.datasource

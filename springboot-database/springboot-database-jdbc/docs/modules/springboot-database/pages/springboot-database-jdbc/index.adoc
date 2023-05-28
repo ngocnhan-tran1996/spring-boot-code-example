@@ -1,0 +1,52 @@
+:page-module-title: Spring Boot JDBC
+
+include::ROOT:partial$header.adoc[]
+
+[IMPORTANT]
+.Module {page-module-title}
+====
+This module *DON'T* show how to use `JdbcTemplate`!
+====
+
+Example::
+  ✓ `SimpleJdbcCall.withProcedureName(procedureName)`:::
+    . Execute Procedure
+    . Map Oracle Database type to Java type
++
+.Oracle Database type
+====
+
+.{empty}
+[,sql]
+----
+TYPE person_record IS RECORD (
+        name VARCHAR2(100),
+        age VARCHAR2(100)
+    );
+
+TYPE person_array IS TABLE OF person_record INDEX BY BINARY_INTEGER;
+
+TYPE person_table IS TABLE OF person_record;
+----
+
+====
++
+  ✓ `SimpleJdbcCall.withFunctionName(functionName)`:::
+    . Execute Function with `RowMapper`
+    . Execute Function with Parameter
+  ✓ `NamedParameterJdbcTemplate.query(sql,  paramSource, rowMapper)`:::
+    . Execute Function return table
+
+.*Structure of Code*
+.{empty}
+[source]
+----
+com.springboot.code.example.database.jdbc
++- JdbcApplication.java
+|
++- example
+|   +- JdbcComplexTypeExample.java
+----
+
+.Run below test file for executing code
+* `JdbcComplexTypeExampleTest.java`

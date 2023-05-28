@@ -19,6 +19,7 @@ Example::
     . Convert `jakarta.persistence.Tuple.java` to desired object
 
 .*Structure of Code*
+.{empty}
 [source]
 ----
 com.springboot.code.example.database.entity.manager
