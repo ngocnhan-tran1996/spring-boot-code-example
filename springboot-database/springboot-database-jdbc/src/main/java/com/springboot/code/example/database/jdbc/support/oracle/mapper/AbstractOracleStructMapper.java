@@ -1,4 +1,4 @@
-package com.springboot.code.example.database.jdbc.example.support.oracle.mapper;
+package com.springboot.code.example.database.jdbc.support.oracle.mapper;
 
 import java.beans.PropertyDescriptor;
 import java.sql.Connection;
@@ -14,8 +14,8 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.jdbc.support.JdbcUtils;
 import com.springboot.code.example.common.helper.Strings;
-import com.springboot.code.example.database.jdbc.example.support.oracle.value.OracleTypeValueException;
 import com.springboot.code.example.database.jdbc.function.PropertyHandlerFunction;
+import com.springboot.code.example.database.jdbc.support.oracle.value.OracleTypeValueException;
 import lombok.extern.log4j.Log4j2;
 import oracle.jdbc.OracleDatabaseMetaData;
 import oracle.jdbc.OracleTypeMetaData;

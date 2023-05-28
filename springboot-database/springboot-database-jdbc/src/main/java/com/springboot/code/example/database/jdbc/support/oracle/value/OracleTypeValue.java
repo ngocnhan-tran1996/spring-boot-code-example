@@ -1,10 +1,10 @@
-package com.springboot.code.example.database.jdbc.example.support.oracle.value;
+package com.springboot.code.example.database.jdbc.support.oracle.value;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.support.AbstractSqlTypeValue;
 import com.springboot.code.example.common.helper.Strings;
-import com.springboot.code.example.database.jdbc.example.support.oracle.mapper.OracleMapper;
+import com.springboot.code.example.database.jdbc.support.oracle.mapper.OracleMapper;
 
 public abstract class OracleTypeValue extends AbstractSqlTypeValue {
 

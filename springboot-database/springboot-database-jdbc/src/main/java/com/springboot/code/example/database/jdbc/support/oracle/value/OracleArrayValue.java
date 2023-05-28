@@ -1,12 +1,12 @@
-package com.springboot.code.example.database.jdbc.example.support.oracle.value;
+package com.springboot.code.example.database.jdbc.support.oracle.value;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Struct;
 import java.util.Optional;
 import com.springboot.code.example.common.helper.Strings;
-import com.springboot.code.example.database.jdbc.example.support.oracle.mapper.OracleMapper;
-import com.springboot.code.example.database.jdbc.example.support.oracle.mapper.OracleStructMapper;
+import com.springboot.code.example.database.jdbc.support.oracle.mapper.OracleMapper;
+import com.springboot.code.example.database.jdbc.support.oracle.mapper.OracleStructMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import oracle.jdbc.driver.OracleConnection;

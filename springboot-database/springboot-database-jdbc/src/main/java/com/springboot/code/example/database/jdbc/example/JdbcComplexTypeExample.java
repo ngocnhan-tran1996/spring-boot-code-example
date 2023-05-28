@@ -15,8 +15,8 @@ import com.springboot.code.example.database.jdbc.dto.JdbcComplexTypeDto.Car;
 import com.springboot.code.example.database.jdbc.dto.JdbcComplexTypeDto.PersonInput;
 import com.springboot.code.example.database.jdbc.dto.JdbcComplexTypeDto.PersonOuput;
 import com.springboot.code.example.database.jdbc.dto.JdbcComplexTypeDto.PersonSQLData;
-import com.springboot.code.example.database.jdbc.example.support.oracle.mapper.OracleStructMapper;
-import com.springboot.code.example.database.jdbc.example.support.oracle.value.OracleArrayValue;
+import com.springboot.code.example.database.jdbc.support.oracle.mapper.OracleStructMapper;
+import com.springboot.code.example.database.jdbc.support.oracle.value.OracleArrayValue;
 import lombok.RequiredArgsConstructor;
 
 @Service

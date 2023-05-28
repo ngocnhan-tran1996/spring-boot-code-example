@@ -1,0 +1,37 @@
+:page-module-title: Spring Boot Entity Manager
+
+include::partial$header.adoc[header]
+
+=== What code in module {page-module-title} describe
+
+[IMPORTANT]
+.module {page-module-title}
+====
+This module *DON'T* show how to use `EntityManager`!
+====
+
+{empty}::
+  ✓ `EntityManager.createQuery(criteriaQuery)`:::
+    . Find native query
+    . Convert `jakarta.persistence.Tuple.java` to desired object
+
+  ✓ `EntityManager.createNativeQuery(sqlString, resultClass)`:::
+    . Run insert statement
+    . Run select statement
+    . Convert `jakarta.persistence.Tuple.java` to desired object
+
+=== Structure of Code
+
+.{empty}
+[source]
+----
+com.springboot.code.example.database.entity.manager
++- EntityManagerApplication.java
+|
++- example
+|   +- EntityManagerExample.java
+----
+
+=== Testing
+.Run below test file for executing code
+* `EntityManagerExampleTest.java`
