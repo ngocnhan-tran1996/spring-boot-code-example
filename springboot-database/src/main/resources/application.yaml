@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: springboot-database
-  profiles:
-    active: multiple-datasource
-
-logging:
-  level:
-    '[com.zaxxer.hikari.pool.HikariPool]': DEBUG

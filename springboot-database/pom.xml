@@ -18,6 +18,8 @@
 
     <modules>
         <module>springboot-database-multiple-datasource</module>
+        <module>springboot-database-entity-manager</module>
+        <module>springboot-database-jdbc</module>
     </modules>
 
     <dependencies>

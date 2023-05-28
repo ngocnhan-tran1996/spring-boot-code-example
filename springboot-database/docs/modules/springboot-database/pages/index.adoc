@@ -1,1 +1,5 @@
-= Welcome to {page-component-title}
+:page-module-title: Spring Boot Database
+
+include::ROOT:partial$header.adoc[]
+
+== Reference Guide

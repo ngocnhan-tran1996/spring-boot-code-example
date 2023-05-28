@@ -11,3 +11,30 @@ Hi, I'm Nhan and I'm a Java developer, so I'm very (x10) lazy. This is why I cre
 * https://maven.apache.org/download.cgi/[Maven 3.8.5] or higher
 * https://www.docker.com/products/docker-desktop/[Docker]
 * https://docs.spring.io/spring-boot/docs/current/reference/html/[Spring Boot version *{page-component-display-version}*]
+
+== Overview
+
+.Structure of source
+[source]
+----
+spring-boot-code-example
+├── springboot-common
+├── springboot-database
+│   ├── springboot-database-multiple-datasource
+│   └──
+├── .dockerignore
+├── .gitignore
+├── antora-playbook.yml
+├── pom.xml
+└── README.md
+----
+
+[NOTE]
+.Structure of source
+====
+
+springboot-common:: helper or utility package
+
+springboot-database:: some code example relative database
+
+====

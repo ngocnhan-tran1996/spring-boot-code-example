@@ -17,7 +17,7 @@ public class MultipleDatasourceExample {
   private final CardRepository cardRepository;
   private final AnimalRepository animalRepository;
 
-  public List<BaseEntity> execute() {
+  public List<BaseEntity> getAllBaseEntity() {
 
     var newCar = new CarEntity();
     newCar.setName("BENZ");

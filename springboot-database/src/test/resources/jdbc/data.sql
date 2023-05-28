@@ -1,1 +1,0 @@
-call user_nhan.drop_car_table_proc('user_nhan', 'car');
