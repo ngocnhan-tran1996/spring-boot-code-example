@@ -10,14 +10,14 @@ Hi, I'm Nhan and I'm a Java developer, so I'm very (x10) lazy. This is why I cre
 * https://www.oracle.com/java/technologies/downloads/[Java 17] or higher
 * https://maven.apache.org/download.cgi/[Maven 3.8.5] or higher
 * https://www.docker.com/products/docker-desktop/[Docker]
-* https://docs.spring.io/spring-boot/docs/current/reference/html/[Spring Boot version *{page-component-display-version}*]
+* https://spring.io/[Spring Boot version *{page-component-display-version}*]
 
 == Overview
 
-.*Structure of source*
+.Structure of source
 [source]
 ----
-spring-boot-code-example
+`spring-boot-code-example`
 ├── springboot-common
 ├── springboot-database
 │   ├── springboot-database-entity-manager
@@ -30,11 +30,11 @@ spring-boot-code-example
 ----
 
 [NOTE]
-.Structure of source
+.Modules's Feature
 ====
 
-springboot-common:: helper or utility package
+`springboot-common`:: helper or utility package
 
-springboot-database:: some code example relative database
+`springboot-database`:: some code example relative database
 
 ====

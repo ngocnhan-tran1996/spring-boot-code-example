@@ -4,4 +4,17 @@ include::ROOT:partial$header.adoc[]
 
 === Overview
 
-== Reference Guide
+.Structure of source
+[source]
+----
+springboot-database
++- springboot-database-entity-manager
++- springboot-database-
+\- springboot-database-
+----
+
+=== What You Need
+
+
+
+=== Reference Guide

@@ -8,26 +8,33 @@ include::ROOT:partial$header.adoc[]
 This module *DON'T* show how to use `EntityManager`!
 ====
 
-Example::
-  ✓ `EntityManager.createQuery(criteriaQuery)`:::
-    . Find native query
-    . Convert `jakarta.persistence.Tuple.java` to desired object
+=== Demonstration of Example
 
-  ✓ `EntityManager.createNativeQuery(sqlString, resultClass)`:::
+  ✓ `EntityManager.createQuery(criteriaQuery)`::
+    . Find native query
+    . Convert `List<Object[]>` to desired object
+
+  ✓ `EntityManager.createNativeQuery(sqlString, resultClass)`::
     . Run insert statement
     . Run select statement
     . Convert `jakarta.persistence.Tuple.java` to desired object
 
-.*Structure of Code*
-.{empty}
+.Structure of source
 [source]
 ----
-com.springboot.code.example.database.entity.manager
-+- EntityManagerApplication.java
-|
-+- example
-|   +- EntityManagerExample.java
+springboot-database-entity-manager
+  +- main
+  | +- com.springboot.code.example.database.entity.manager
+  |   +- `EntityManagerApplication.java`
+  |   |
+  |   +- example
+  |   |  +- `EntityManagerExample.java`
+  |
+  +- test
+    +- com.springboot.code.example.database.entity.manager
+      +- example
+      |  +- `EntityManagerExampleTests.java`
 ----
 
 .Run below test file for executing code
-* `EntityManagerExampleTest.java`
+* `EntityManagerExampleTests.java`

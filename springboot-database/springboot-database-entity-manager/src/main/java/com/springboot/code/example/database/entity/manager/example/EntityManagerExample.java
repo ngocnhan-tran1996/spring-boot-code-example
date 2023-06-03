@@ -90,11 +90,8 @@ public class EntityManagerExample {
     // set parameter
     final List<JdbcParameterBinder> parameterBinders = jdbcSelect.getParameterBinders();
     IntStream.range(0, parameterBinders.size())
-        .forEach(index -> {
-
-          Optional.ofNullable(valuesByJdbcParam.get(parameterBinders.get(index)))
-              .ifPresent(value -> nativeQuery.setParameter(index + 1, value));
-        });
+        .forEach(index -> Optional.ofNullable(valuesByJdbcParam.get(parameterBinders.get(index)))
+            .ifPresent(value -> nativeQuery.setParameter(index + 1, value)));
 
     return ((List<Object[]>) nativeQuery.getResultList())
         .stream()
