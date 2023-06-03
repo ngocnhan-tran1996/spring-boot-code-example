@@ -1,6 +1,5 @@
 package com.springboot.code.example.database.entity.manager.entity;
 
-import com.springboot.code.example.common.helper.Strings;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,11 +19,5 @@ public class CarEntity {
   private int id;
 
   private String name;
-
-  @Override
-  public String toString() {
-
-    return this.getId() + Strings.SPACE + this.getName();
-  }
 
 }
