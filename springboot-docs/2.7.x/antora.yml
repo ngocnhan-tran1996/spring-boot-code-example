@@ -1,5 +1,0 @@
-name: springboot-docs
-title: Spring Boot Version 2.7.x
-version: 2.7.x
-nav:
-- modules/ROOT/nav.adoc

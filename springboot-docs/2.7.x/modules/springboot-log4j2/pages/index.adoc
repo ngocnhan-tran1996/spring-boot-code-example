@@ -1,1 +1,0 @@
-= Welcome to module `springboot-log4j2`!

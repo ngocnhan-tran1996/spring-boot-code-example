@@ -1,5 +1,0 @@
-= Welcome to module `*{page-title}*`
-
-For more detail, you can read code or run unit test to know how to use it.
-
-== What module `*{page-title}*` have

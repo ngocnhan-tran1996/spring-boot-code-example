@@ -1,5 +1,0 @@
-= Welcome to module `*{page-module}*`
-
-For more detail, you can read code or run unit test to know how to use it.
-
-== What `*{page-module}*` have
