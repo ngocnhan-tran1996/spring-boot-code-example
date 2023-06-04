@@ -32,6 +32,7 @@ public class VehicleDatasourceConfig {
     return new DataSourceProperties();
   }
 
+  @Primary
   @Bean
   @ConfigurationProperties("app.datasource.vehicle.hikari")
   HikariDataSource vehicleDatasource() {
@@ -42,6 +43,7 @@ public class VehicleDatasourceConfig {
         .build();
   }
 
+  @Primary
   @Bean
   @ConfigurationProperties("app.datasource.vehicle.jpa")
   JpaProperties vehicleJpaProperties() {

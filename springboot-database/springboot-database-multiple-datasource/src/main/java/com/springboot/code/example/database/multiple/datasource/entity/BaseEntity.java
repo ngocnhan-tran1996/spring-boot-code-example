@@ -1,6 +1,5 @@
 package com.springboot.code.example.database.multiple.datasource.entity;
 
-import com.springboot.code.example.common.helper.Strings;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,8 +14,8 @@ public abstract class BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  protected int id;
 
-  private String name;
+  protected String name;
 
 }
