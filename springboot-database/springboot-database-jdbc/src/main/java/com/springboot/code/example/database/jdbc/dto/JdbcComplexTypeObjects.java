@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class JdbcComplexTypeDto {
+public class JdbcComplexTypeObjects {
 
   @Getter
   @Setter
@@ -29,11 +29,6 @@ public class JdbcComplexTypeDto {
     @OracleColumn(name = "out_nbR")
     private BigDecimal number;
 
-    @Override
-    public String toString() {
-      return this.outMsg + " and " + this.number;
-    }
-
   }
 
   @Getter
@@ -46,11 +41,6 @@ public class JdbcComplexTypeDto {
 
     @OracleColumn(name = "age")
     private String anotherAge;
-
-    @Override
-    public String toString() {
-      return this.name + " and " + this.anotherAge;
-    }
 
   }
 
@@ -90,10 +80,6 @@ public class JdbcComplexTypeDto {
     private BigDecimal id;
     private String name;
 
-    @Override
-    public String toString() {
-      return "id: " + id + " name: " + name;
-    }
   }
 
 }

@@ -19,10 +19,4 @@ public abstract class BaseEntity {
 
   private String name;
 
-  @Override
-  public String toString() {
-
-    return this.getId() + Strings.SPACE + this.getName();
-  }
-
 }

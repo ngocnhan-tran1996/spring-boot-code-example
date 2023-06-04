@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: springboot-database-entity-manager
+    name: springboot-database-jdbc
 
   datasource:
     url: jdbc:oracle:thin:@localhost:1521:FREE

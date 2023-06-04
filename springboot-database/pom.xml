@@ -17,9 +17,9 @@
     <name>springboot-database</name>
 
     <modules>
-        <module>springboot-database-multiple-datasource</module>
         <module>springboot-database-entity-manager</module>
         <module>springboot-database-jdbc</module>
+        <!-- <module>springboot-database-multiple-datasource</module> -->
     </modules>
 
     <dependencies>
