@@ -1,4 +1,4 @@
-:page-module-title: Spring Boot JDBC
+:page-module-title: Spring Boot Database JDBC
 
 include::ROOT:partial$header.adoc[]
 

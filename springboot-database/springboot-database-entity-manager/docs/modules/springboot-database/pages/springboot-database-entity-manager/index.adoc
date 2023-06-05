@@ -1,4 +1,4 @@
-:page-module-title: Spring Boot Entity Manager
+:page-module-title: Spring Boot Database Entity Manager
 
 include::ROOT:partial$header.adoc[]
 

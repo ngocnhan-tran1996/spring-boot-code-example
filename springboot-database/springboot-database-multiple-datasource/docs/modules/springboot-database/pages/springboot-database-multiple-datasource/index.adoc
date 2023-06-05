@@ -1,5 +1,4 @@
-:page-module-title: Spring Boot Multiple DataSource
-:page-module-important-description: This module *DON'T* show how config multiple database properly!
+:page-module-title: Spring Boot Database Multiple DataSource
 
 include::ROOT:partial$header.adoc[]
 
@@ -9,20 +8,27 @@ include::ROOT:partial$header.adoc[]
 This module *DON'T* show how config multiple database properly!
 ====
 
-Example::
+=== Demonstration of Example
+
   ✓ Connect Multiple Database:::
     . Use JPA for saving new object, deleting existed object and finding all object in connected databases
 
-.*Structure of Code*
-.{empty}
+.Structure of source
 [source]
 ----
-com.springboot.code.example.database.multiple.datasource
-+- MultipleDatasourceApplication.java
-|
-+- example
-|   +- MultipleDatasourceExample.java
+springboot-database-entity-manager
+  +- main
+  | +- com.springboot.code.example.database.jdbc
+  |   +- `MultipleDatasourceApplication.java`
+  |   |
+  |   +- example
+  |   |  +- `MultipleDatasourceExample.java`
+  |
+  +- test
+    +- com.springboot.code.example.database.jdbc
+      +- example
+      |  +- `MultipleDatasourceExampleTests.java`
 ----
 
 .Run below test file for executing code
-* `MultipleDatasourceExampleTest.java`
+* `MultipleDatasourceExampleTests.java`

@@ -9,8 +9,8 @@ include::ROOT:partial$header.adoc[]
 ----
 springboot-database
 +- springboot-database-entity-manager
-+- springboot-database-
-\- springboot-database-
++- springboot-database-jdbc
+\- springboot-database-multiple-datasource
 ----
 
 === What You Need
