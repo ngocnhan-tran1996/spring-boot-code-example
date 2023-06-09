@@ -18,20 +18,24 @@ Hi, I'm Nhan and I'm a Java developer, so I'm very (x10) lazy. This is why I cre
 [source]
 ----
 `spring-boot-code-example`
+├── docker
+├── docs
 ├── springboot-common
 ├── springboot-database
 │   ├── springboot-database-entity-manager
+│   ├── springboot-database-jdbc
 │   └── springboot-database-multiple-datasource
 ├── .dockerignore
 ├── .gitignore
-├── antora-playbook.yml
-├── pom.xml
-└── README.md
+├── README.md
+└── pom.xml
 ----
 
 [NOTE]
 .Modules's Feature
 ====
+
+`docker`:: contains `docker-compose.yml` which be used in whole repository
 
 `springboot-common`:: helper or utility package
 

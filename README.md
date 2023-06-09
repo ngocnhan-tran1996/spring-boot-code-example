@@ -1,35 +1,37 @@
-# Spring Boot Code Example
+# Welcome to My Spring Boot Code Example
 
-## I. Requirement
-- Java 17 or higher
-- Maven 3.8.5 or higher
+## About me
 
-## II. Spring version *3.0.x*
+Hi, I’m Nhan and I’m a Java developer, so I’m very (x10) lazy. This is why I create a spring boot example, this Spring Boot Code Example for future…​ or maybe I just copy when I feel tired
 
-Modules:
+## What You Need
+
+* [Java 17](https://www.oracle.com/java/technologies/downloads/) or higher
+* [Maven 3.8.5](https://maven.apache.org/download.cgi/) or higher
+* [Docker](https://www.docker.com/products/docker-desktop/)
+* [Spring Boot version **3.0.x**](https://spring.io/)
+
+## Overview
+
+### Structure of source
 
 ```
-    └── springboot-common
-    └── springboot-database
-    └── springboot-docker
-    └── springboot-elastic
-    └── springboot-log4j2
+`spring-boot-code-example`
+├── docker
+├── docs
+├── springboot-common
+├── springboot-database
+│   ├── springboot-database-entity-manager
+│   ├── springboot-database-jdbc
+│   └── springboot-database-multiple-datasource
+├── .dockerignore
+├── .gitignore
+├── README.md
+└── pom.xml
 ```
 
-1. `springboot-common`: helper or utility package
-2. `springboot-database`: 
+### Modules's Feature
 
-    - config multiple datasource 
-    - call procedure and function via jdbc
-    - pagination by `EntityManager`
-
-3. `springboot-docker` contains `docker-compose.yml` for this source
-4. `springboot-elastic`:
-
-    - config elastic, kibana, apm and logstash
-    - trace consumer with transaction name `RabbitMQ receive from queueName`
-5. `springboot-log4j2`:
-
-    - auto add uuid when receive message
-    - config save file log json format
-    - mask sensitive data by format key-value
+1. `docker`: contains `docker-compose.yml` which use in whole repository
+2. `springboot-common`: helper or utility package
+3. `springboot-database`: some code example relative database
