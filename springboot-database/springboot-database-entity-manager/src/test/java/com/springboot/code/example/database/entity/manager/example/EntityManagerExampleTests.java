@@ -2,6 +2,7 @@ package com.springboot.code.example.database.entity.manager.example;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,13 @@ class EntityManagerExampleTests {
 
     // given
     entityManagerExample = new EntityManagerExample(testEntityManager.getEntityManager());
+  }
+
+  @AfterEach
+  void destroy() {
+
+    testEntityManager.flush();
+    testEntityManager.clear();
   }
 
   @Test

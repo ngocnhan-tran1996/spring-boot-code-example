@@ -54,3 +54,7 @@ Flow `MultipleDatasourceExample.java`::
 
 And I wrote unit test but only first database successful rollback, second database committed. *This is very risk.* So I research... and *result is JTA*, _if you know how to rollback both database without JTA, please teach me._
 ====
+
+== Reference
+.https://www.fabiomaffioletti.me/blog/2014/04/15/distributed-transactions-multiple-databases-spring-boot-spring-data-jpa-atomikos/[Distributed transactions with multiple databases, Spring Boot, Spring Data JPA and Atomikos]
+.https://www.atomikos.com/Documentation/SpringIntegration[Spring Integration]
