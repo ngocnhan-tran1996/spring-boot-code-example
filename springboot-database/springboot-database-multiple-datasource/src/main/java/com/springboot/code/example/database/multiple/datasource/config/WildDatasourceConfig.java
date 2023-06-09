@@ -1,24 +1,24 @@
 package com.springboot.code.example.database.multiple.datasource.config;
 
-import java.util.Objects;
+import java.sql.SQLException;
+import org.hibernate.engine.transaction.jta.platform.internal.AtomikosJtaPlatform;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
+import com.atomikos.spring.AtomikosDataSourceBean;
 import com.zaxxer.hikari.HikariDataSource;
+import oracle.jdbc.xa.client.OracleXADataSource;
 
 @Configuration
 @EnableJpaRepositories(
     basePackages = WildDatasourceConfig.BASE_PACKAGE,
     entityManagerFactoryRef = "wildEntityManager",
-    transactionManagerRef = "wildTransactionManager")
+    transactionManagerRef = "transactionManager")
 public class WildDatasourceConfig {
 
   public static final String BASE_PACKAGE =
@@ -48,23 +48,33 @@ public class WildDatasourceConfig {
   }
 
   @Bean
-  LocalContainerEntityManagerFactoryBean wildEntityManager() {
+  LocalContainerEntityManagerFactoryBean wildEntityManager(JpaVendorAdapter jpaVendorAdapter)
+      throws SQLException {
 
-    EntityManagerFactoryBuilder builder = new EntityManagerFactoryBuilder(
-        new HibernateJpaVendorAdapter(),
-        wildJpaProperties().getProperties(),
-        null);
+    var datasource = new OracleXADataSource();
+    datasource.setURL(wildDataSourceProperties().getUrl());
+    datasource.setUser(wildDataSourceProperties().getUsername());
+    datasource.setPassword(wildDataSourceProperties().getPassword());
 
-    return builder
-        .dataSource(wildDatasource())
-        .packages(BASE_PACKAGE)
-        .build();
-  }
+    var xaDataSource = new AtomikosDataSourceBean();
+    xaDataSource.setXaDataSourceClassName(wildDataSourceProperties().getDriverClassName());
+    xaDataSource.setXaDataSource(datasource);
+    xaDataSource.setUniqueResourceName("wild");
+    xaDataSource.setMinPoolSize(wildDatasource().getMinimumIdle());
+    xaDataSource.setMaxPoolSize(wildDatasource().getMaximumPoolSize());
 
-  @Bean
-  PlatformTransactionManager wildTransactionManager() {
-    var factory = Objects.requireNonNull(wildEntityManager().getObject());
-    return new JpaTransactionManager(factory);
+    wildJpaProperties().getProperties().put("hibernate.transaction.jta.platform",
+        AtomikosJtaPlatform.class.getName());
+    wildJpaProperties().getProperties().put("javax.persistence.transactionType", "JTA");
+
+    var entityManager = new LocalContainerEntityManagerFactoryBean();
+    entityManager.setDataSource(wildDatasource());
+    entityManager.setJtaDataSource(xaDataSource);
+    entityManager.setJpaVendorAdapter(jpaVendorAdapter);
+    entityManager.setPackagesToScan(BASE_PACKAGE);
+    entityManager.setPersistenceUnitName("wild");
+    entityManager.setJpaPropertyMap(wildJpaProperties().getProperties());
+    return entityManager;
   }
 
 }

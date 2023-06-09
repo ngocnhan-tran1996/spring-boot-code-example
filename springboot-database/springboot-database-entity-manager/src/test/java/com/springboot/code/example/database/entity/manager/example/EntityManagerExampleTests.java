@@ -46,6 +46,7 @@ class EntityManagerExampleTests {
     // then
     assertThat(actualOutput)
         .hasSize(5)
+        .usingRecursiveFieldByFieldElementComparator()
         .isEqualTo(expectOutput);
   }
 
@@ -63,7 +64,8 @@ class EntityManagerExampleTests {
     // then
     assertThat(entityManagerExample.saveAndFindAll())
         .hasSize(6)
-        .contains(expectOutput.toArray(CarEntity[]::new));
+        .usingRecursiveFieldByFieldElementComparator()
+        .containsAll(expectOutput);
   }
 
 }

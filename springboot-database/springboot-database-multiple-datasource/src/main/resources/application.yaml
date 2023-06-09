@@ -18,7 +18,7 @@ app:
             '[show_sql]': true
       hikari:
         pool-name: user-nhan-pool-name
-        maximum-pool-size: 1
+        maximum-pool-size: 10
         minimum-idle: 1
         schema: user_nhan
 
@@ -33,7 +33,7 @@ app:
             '[show_sql]': true
       hikari:
         pool-name: user-extra-pool-name
-        maximum-pool-size: 1
+        maximum-pool-size: 10
         minimum-idle: 1
         schema: user_extra
 

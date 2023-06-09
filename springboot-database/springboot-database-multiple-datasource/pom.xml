@@ -14,4 +14,11 @@
     <artifactId>springboot-database-multiple-datasource</artifactId>
     <name>springboot-database-multiple-datasource</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.atomikos</groupId>
+            <artifactId>transactions-spring-boot3-starter</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+    </dependencies>
 </project>
