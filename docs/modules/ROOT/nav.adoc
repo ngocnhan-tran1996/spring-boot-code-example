@@ -2,6 +2,6 @@
 
 .The Modules
 * xref:springboot-database:index.adoc[springboot-database]
-** xref:springboot-database:springboot-database-entity-manager/index.adoc[├── entity-manager]
-** xref:springboot-database:springboot-database-jdbc/index.adoc[├── jdbc]
-** xref:springboot-database:springboot-database-multiple-datasource/index.adoc[└── multiple-datasource]
+** xref:springboot-database:springboot-database-entity-manager/index.adoc[entity-manager]
+** xref:springboot-database:springboot-database-jdbc/index.adoc[jdbc]
+** xref:springboot-database:springboot-database-multiple-datasource/index.adoc[multiple-datasource]
