@@ -1,0 +1,47 @@
+services:
+  rabbitmq:
+    container_name: "rabbitmq"
+    image: "rabbitmq:management"
+    ports: 
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=ngocnhan
+      - RABBITMQ_DEFAULT_PASS=ngocnhan
+
+  elasticsearch:
+    container_name: "elasticsearch"
+    image: "docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}"
+    ports: 
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms256m -Xms256m"
+      - "node.name=elasticsearch"
+      - ELASTIC_PASSWORD=ngocnhan
+    networks:
+      - default
+
+  kibana:
+    container_name: "kibana"
+    image: "docker.elastic.co/kibana/kibana:${STACK_VERSION}"
+    ports: 
+      - "5601:5601"
+    networks:
+      - default
+    depends_on:
+      - elasticsearch
+
+  oracle-db:
+    container_name: "oracle-db"
+    image: "container-registry.oracle.com/database/free:latest"
+    ports: 
+      - "1521:1521"
+    environment:
+      - ORACLE_PWD=ngocnhan
+
+networks:
+  default:
+    name: elastic
+    driver: bridge
