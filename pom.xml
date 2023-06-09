@@ -19,15 +19,11 @@
 
     <properties>
         <java.version>17</java.version>
-        <revision>1.0.0-SNAPSHOT</revision>
+        <revision>1.0.0</revision>
     </properties>
 
     <modules>
         <module>springboot-database</module>
-        <module>springboot-elastic</module>
-        <module>springboot-common</module>
-        <module>springboot-log4j2</module>
-        <module>springboot-rabbitmq</module>
     </modules>
 
     <dependencyManagement>

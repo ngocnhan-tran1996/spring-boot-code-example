@@ -1,0 +1,40 @@
+= Welcome to My Spring Boot Code Example
+:description: Welcome to My Spring Boot Code Example
+
+== About me
+
+Hi, I'm Nhan and I'm a Java developer, so I'm very (x10) lazy. This is why I create a spring boot example, this {page-component-title} for future... or maybe I just copy when I feel tired
+
+== What You Need
+
+* https://www.oracle.com/java/technologies/downloads/[Java 17] or higher
+* https://maven.apache.org/download.cgi/[Maven 3.8.5] or higher
+* https://www.docker.com/products/docker-desktop/[Docker]
+* https://spring.io/[Spring Boot version *{page-component-display-version}*]
+
+== Overview
+
+.Structure of source
+[source]
+----
+`spring-boot-code-example`
+├── springboot-common
+├── springboot-database
+│   ├── springboot-database-entity-manager
+│   └── springboot-database-multiple-datasource
+├── .dockerignore
+├── .gitignore
+├── antora-playbook.yml
+├── pom.xml
+└── README.md
+----
+
+[NOTE]
+.Modules's Feature
+====
+
+`springboot-common`:: helper or utility package
+
+`springboot-database`:: some code example relative database
+
+====

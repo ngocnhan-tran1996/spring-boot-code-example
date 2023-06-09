@@ -1,0 +1,61 @@
+:page-module-title: Spring Boot Database Multiple DataSource
+
+include::ROOT:partial$header.adoc[]
+
+[IMPORTANT]
+.Module {page-module-title}
+====
+This module *DON'T* show how config multiple database properly!
+====
+
+=== Demonstration of Example
+
+  ✓ Connect Multiple Database:::
+    . Use JPA for saving new object, deleting existed object and finding all object in connected databases
+    . Use JTA for rollback transaction
+
+.Structure of source
+[source]
+----
+springboot-database-entity-manager
+  +- main
+  | +- com.springboot.code.example.database.multiple.datasource
+  |   +- `MultipleDatasourceApplication.java`
+  |   |
+  |   +- config
+  |   |  +- `AtomikosConfiguration.java` // config transaction
+  |   |  +- `VehicleDatasourceConfig.java` // config first database
+  |   |  +- `WildDatasourceConfig.java`  // config second database
+  |   |
+  |   +- example
+  |   |  +- `MultipleDatasourceExample.java`
+  |
+  +- test
+    +- com.springboot.code.example.database.multiple.datasource
+      +- example
+      |  +- `MultipleDatasourceExampleTests.java`
+----
+
+.Run below test file for executing code
+* `MultipleDatasourceExampleTests.java`
+
+[NOTE]
+.Why use JTA
+====
+Flow `MultipleDatasourceExample.java`::
+  First Database:::
+    . insert record
+    . delete record
+  Seconde Database:::
+    . insert record
+    . delete record
+  Result:::
+    * list data of first database and second database
+
+And I wrote unit test but only first database successful rollback, second database committed. *This is very risk.* So I research... and *result is JTA*, _if you know how to rollback both database without JTA, please teach me._
+====
+
+=== Reference
+. https://www.fabiomaffioletti.me/blog/2014/04/15/distributed-transactions-multiple-databases-spring-boot-spring-data-jpa-atomikos/[Distributed transactions with multiple databases, Spring Boot, Spring Data JPA and Atomikos]
+. https://www.atomikos.com/Documentation/SpringIntegration[Spring Integration]
+. https://medium.com/@inzuael/how-to-use-multiple-datasources-with-springboot-exposed-jpa-6bd705bfe994[How to use multiple datasources with SpringBoot + Exposed/JPA]

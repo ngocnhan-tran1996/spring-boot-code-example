@@ -1,6 +1,7 @@
 package com.springboot.code.example.common.helper;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,16 +14,17 @@ import lombok.NoArgsConstructor;
 public final class Strings {
 
   public static final String EMPTY = "";
+  public static final String SPACE = " ";
   public static final String COMMA = ",";
   private static final ObjectMapper OBJECT_MAPPER = JsonMapper.builder()
       .findAndAddModules()
       .build();
 
-  public static String getIfNull(final String a, final String b) {
+  public static String getIfNull(final String input, final String defaultInput) {
 
-    return a == null
-        ? b
-        : a;
+    return input == null
+        ? defaultInput
+        : input;
   }
 
   public static String toLowerCase(final String input) {
@@ -88,7 +90,7 @@ public final class Strings {
     return result.toString();
   }
 
-  public static String toString(Object object) {
+  public static String toString(final Object object) {
 
     if (object == null) {
 
@@ -103,4 +105,17 @@ public final class Strings {
       return null;
     }
   }
+
+  public static String toUpperCase(final String input) {
+
+    return input == null
+        ? null
+        : input.toUpperCase();
+  }
+
+  public static boolean notEquals(final String input, final String compareInput) {
+
+    return !Objects.equals(input, compareInput);
+  }
+
 }

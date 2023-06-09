@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: springboot-database-multiple-source
+
+app:
+  datasource:
+    vehicle:
+      url: jdbc:oracle:thin:@localhost:1521:FREE
+      username: user_nhan
+      password: ngocnhan
+      driver-class-name: oracle.jdbc.OracleDriver
+      jpa:
+        properties:
+          hibernate:
+            '[show_sql]': true
+      hikari:
+        pool-name: user-nhan-pool-name
+        maximum-pool-size: 10
+        minimum-idle: 1
+        schema: user_nhan
+
+    wild:
+      url: jdbc:oracle:thin:@localhost:1521:FREE
+      username: user_extra
+      password: ngocnhan
+      driver-class-name: oracle.jdbc.OracleDriver
+      jpa:
+        properties:
+          hibernate:
+            '[show_sql]': true
+      hikari:
+        pool-name: user-extra-pool-name
+        maximum-pool-size: 10
+        minimum-idle: 1
+        schema: user_extra
+
+logging:
+  level:
+    '[com.zaxxer.hikari.pool.HikariPool]': DEBUG

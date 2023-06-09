@@ -1,0 +1,5 @@
+name: springboot-code-example
+title: Spring Boot Code Example
+version: 3.0.x
+nav:
+- modules/ROOT/nav.adoc

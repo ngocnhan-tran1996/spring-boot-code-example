@@ -1,0 +1,40 @@
+:page-module-title: Spring Boot Database Entity Manager
+
+include::ROOT:partial$header.adoc[]
+
+[IMPORTANT]
+.Module {page-module-title}
+====
+This module *DON'T* show how to use `EntityManager`!
+====
+
+=== Demonstration of Example
+
+  ✓ `EntityManager.createQuery(criteriaQuery)`::
+    . Find native query
+    . Convert `List<Object[]>` to desired object
+
+  ✓ `EntityManager.createNativeQuery(sqlString, resultClass)`::
+    . Run insert statement
+    . Run select statement
+    . Convert `jakarta.persistence.Tuple.java` to desired object
+
+.Structure of source
+[source]
+----
+springboot-database-entity-manager
+  +- main
+  | +- com.springboot.code.example.database.entity.manager
+  |   +- `EntityManagerApplication.java`
+  |   |
+  |   +- example
+  |   |  +- `EntityManagerExample.java`
+  |
+  +- test
+    +- com.springboot.code.example.database.entity.manager
+      +- example
+      |  +- `EntityManagerExampleTests.java`
+----
+
+.Run below test file for executing code
+* `EntityManagerExampleTests.java`
