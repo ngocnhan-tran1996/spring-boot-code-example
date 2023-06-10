@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import com.springboot.code.example.database.multiple.datasource.config.AtomikosConfiguration;
+import com.springboot.code.example.database.multiple.datasource.config.AtomikosConfig;
 import com.springboot.code.example.database.multiple.datasource.config.VehicleDatasourceConfig;
 import com.springboot.code.example.database.multiple.datasource.config.WildDatasourceConfig;
 import com.springboot.code.example.database.multiple.datasource.entity.BaseEntity;
@@ -21,7 +21,7 @@ import com.springboot.code.example.database.multiple.datasource.wild.AnimalRepos
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@Import({VehicleDatasourceConfig.class, WildDatasourceConfig.class, AtomikosConfiguration.class})
+@Import({VehicleDatasourceConfig.class, WildDatasourceConfig.class, AtomikosConfig.class})
 class MultipleDatasourceExampleTests {
 
   @Autowired

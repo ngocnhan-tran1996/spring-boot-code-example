@@ -13,8 +13,8 @@
 
     <groupId>com.springboot.code.example</groupId>
     <artifactId>springboot-database</artifactId>
-    <packaging>pom</packaging>
     <name>springboot-database</name>
+    <packaging>pom</packaging>
 
     <modules>
         <module>springboot-database-entity-manager</module>

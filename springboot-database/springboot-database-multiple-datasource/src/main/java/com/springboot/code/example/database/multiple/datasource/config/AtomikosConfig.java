@@ -16,12 +16,12 @@ import jakarta.transaction.TransactionManager;
 import jakarta.transaction.UserTransaction;
 
 @Configuration
-public class AtomikosConfiguration {
+public class AtomikosConfig {
 
   @Bean
   JpaVendorAdapter jpaVendorAdapter() {
 
-    HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
+    var hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
     hibernateJpaVendorAdapter.setShowSql(true);
     hibernateJpaVendorAdapter.setGenerateDdl(true);
     hibernateJpaVendorAdapter.setDatabase(Database.ORACLE);
@@ -31,7 +31,7 @@ public class AtomikosConfiguration {
   @Bean(name = "userTransaction")
   UserTransaction userTransaction() throws SystemException {
 
-    UserTransactionImp userTransactionImp = new UserTransactionImp();
+    var userTransactionImp = new UserTransactionImp();
     userTransactionImp.setTransactionTimeout(10000);
     return userTransactionImp;
   }
@@ -39,7 +39,7 @@ public class AtomikosConfiguration {
   @Bean(name = "atomikosTransactionManager", initMethod = "init", destroyMethod = "close")
   TransactionManager atomikosTransactionManager() {
 
-    UserTransactionManager userTransactionManager = new UserTransactionManager();
+    var userTransactionManager = new UserTransactionManager();
     userTransactionManager.setForceShutdown(false);
     return userTransactionManager;
   }
