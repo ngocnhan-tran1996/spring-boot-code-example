@@ -1,4 +1,4 @@
-:page-module-title: Spring Boot Database
+:page-module-title: Spring Boot Transaction
 
 include::ROOT:partial$header.adoc[]
 
@@ -7,15 +7,12 @@ include::ROOT:partial$header.adoc[]
 .Structure of source
 [source]
 ----
-springboot-database
+springboot-transaction
 +- database
   +- oracle
     +- 1_user_script.sql
     +- 2_table_script.sql
-    +- 3_package_script.sql
-+- springboot-database-entity-manager
-+- springboot-database-jdbc
-\- springboot-database-multiple-datasource
+\- springboot-transaction-multiple-datasource
 ----
 
 === What You Need
@@ -64,9 +61,11 @@ docker compose up
 ===============================
 * `1_user_script.sql`
 * `2_table_script.sql`
-* `3_package_script.sql`
 ===============================
 
 === Reference Guide
 . https://docs.docker.com/[Docker]
 . https://container-registry.oracle.com/[Oracle Container Registry]
+. https://dzone.com/articles/most-common-spring-transactional-mistakes[Spring `@Transactional` Mistakes Everyone Makes]
+. https://github.com/spring-projects/spring-data-commons/issues/2232[Deprecate ChainedTransactionManager]
+. https://www.atomikos.com/Documentation/ConfiguringOracleForXA[Configuring Oracle for XA]

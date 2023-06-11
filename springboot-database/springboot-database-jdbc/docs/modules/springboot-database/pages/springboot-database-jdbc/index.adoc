@@ -37,7 +37,7 @@ TYPE person_table IS TABLE OF person_record;
 .Structure of source
 [source]
 ----
-springboot-database-entity-manager
+springboot-database-jdbc
   +- main
   | +- com.springboot.code.example.database.jdbc
   |   +- `JdbcApplication.java`

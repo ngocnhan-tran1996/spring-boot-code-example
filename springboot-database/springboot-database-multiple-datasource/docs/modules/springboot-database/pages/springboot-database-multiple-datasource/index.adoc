@@ -17,7 +17,7 @@ This module *DON'T* show how config multiple database properly!
 .Structure of source
 [source]
 ----
-springboot-database-entity-manager
+springboot-database-multiple-datasource
   +- main
   | +- com.springboot.code.example.database.multiple.datasource
   |   +- `MultipleDatasourceApplication.java`
@@ -53,6 +53,8 @@ Flow `MultipleDatasourceExample.java`::
     * list data of first database and second database
 
 And I wrote unit test but only first database successful rollback, second database committed. *This is very risk.* So I research... and *result is JTA*, _if you know how to rollback both database without JTA, please teach me._
+
+xref:springboot-transaction:springboot-transaction-multiple-datasource/index.adoc[Check out here for more detail...]
 ====
 
 === Reference
