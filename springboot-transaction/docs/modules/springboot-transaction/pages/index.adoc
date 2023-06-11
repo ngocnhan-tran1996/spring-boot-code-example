@@ -69,3 +69,4 @@ docker compose up
 . https://dzone.com/articles/most-common-spring-transactional-mistakes[Spring `@Transactional` Mistakes Everyone Makes]
 . https://github.com/spring-projects/spring-data-commons/issues/2232[Deprecate ChainedTransactionManager]
 . https://www.atomikos.com/Documentation/ConfiguringOracleForXA[Configuring Oracle for XA]
+. https://spring.io/blog/2011/08/15/configuring-spring-and-jta-without-full-java-ee/[Configuring Spring and JTA without full Java EE]
