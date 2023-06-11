@@ -1,0 +1,45 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: springboot-transaction-multiple-source
+
+app:
+  datasource:
+    vehicle:
+      url: jdbc:oracle:thin:@localhost:1521:FREE
+      username: user_transaction
+      password: ngocnhan
+      driver-class-name: oracle.jdbc.OracleDriver
+      jpa:
+        properties:
+          hibernate:
+            '[show_sql]': true
+      hikari:
+        pool-name: user_transaction-pool-name
+        maximum-pool-size: 10
+        minimum-idle: 1
+        schema: user_transaction
+
+    wild:
+      url: jdbc:oracle:thin:@localhost:1521:FREE
+      username: user_transaction
+      password: ngocnhan
+      driver-class-name: oracle.jdbc.OracleDriver
+      jpa:
+        properties:
+          hibernate:
+            '[show_sql]': true
+      hikari:
+        pool-name: user_transaction-pool-name
+        maximum-pool-size: 10
+        minimum-idle: 1
+        schema: user_transaction
+
+logging:
+  level:
+     org:
+      springframework:
+        '[orm.jpa]': TRACE
+        '[transaction]': TRACE
