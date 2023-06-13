@@ -24,6 +24,7 @@ import com.springboot.code.example.transaction.multiple.datasource.jta.wild.Anim
 import com.springboot.code.example.transaction.multiple.datasource.jta.wild.AnimalJtaRepository;
 
 @DataJpaTest
+@Transactional(transactionManager = "transactionManager")
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Import({
     DataProperties.class,
@@ -76,7 +77,6 @@ class MultipleDatasourceJtaExampleTests {
   }
 
   @Test
-  @Transactional(transactionManager = "transactionManager")
   void testGetAnimals() {
 
     this.deleteAndSaveAnimals();
