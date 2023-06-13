@@ -16,9 +16,10 @@ import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.springboot.code.example.common.helper.Strings;
-import com.springboot.code.example.transaction.multiple.datasource.config.MultipleDatasourceConfig;
+import com.springboot.code.example.transaction.multiple.datasource.config.ChainedTransactionManagerConfig;
 import com.springboot.code.example.transaction.multiple.datasource.config.VehicleDatasourceConfig;
 import com.springboot.code.example.transaction.multiple.datasource.config.WildDatasourceConfig;
+import com.springboot.code.example.transaction.multiple.datasource.config.properties.DataProperties;
 import com.springboot.code.example.transaction.multiple.datasource.entity.BaseEntity;
 import com.springboot.code.example.transaction.multiple.datasource.vehicle.CarEntity;
 import com.springboot.code.example.transaction.multiple.datasource.vehicle.CarRepository;
@@ -30,9 +31,10 @@ import lombok.extern.log4j.Log4j2;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Import({
+    DataProperties.class,
     VehicleDatasourceConfig.class,
     WildDatasourceConfig.class,
-    MultipleDatasourceConfig.class})
+    ChainedTransactionManagerConfig.class})
 class MultipleDatasourceExampleTests {
 
   @Autowired

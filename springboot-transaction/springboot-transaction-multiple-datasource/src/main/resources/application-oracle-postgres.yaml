@@ -1,0 +1,31 @@
+app:
+  datasource:
+    vehicle:
+      url: jdbc:oracle:thin:@localhost:1521:FREE
+      username: user_transaction
+      password: ngocnhan
+      driver-class-name: oracle.jdbc.OracleDriver
+      jpa:
+        properties:
+          hibernate:
+            '[show_sql]': true
+      hikari:
+        pool-name: user_transaction-pool-name
+        maximum-pool-size: 10
+        minimum-idle: 1
+        schema: user_transaction
+
+    wild:
+      url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: ngocnhan
+      driver-class-name: org.postgresql.Driver
+      jpa:
+        properties:
+          hibernate:
+            '[show_sql]': true
+      hikari:
+        pool-name: postgres-pool-name
+        maximum-pool-size: 10
+        minimum-idle: 1
+        schema: public

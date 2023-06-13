@@ -1,9 +1,8 @@
 package com.springboot.code.example.transaction.multiple.datasource.config;
 
 import java.util.Objects;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,41 +26,16 @@ public class VehicleDatasourceConfig {
 
   @Primary
   @Bean
-  @ConfigurationProperties("app.datasource.vehicle")
-  DataSourceProperties vehicleDataSourceProperties() {
-
-    return new DataSourceProperties();
-  }
-
-  @Primary
-  @Bean
-  @ConfigurationProperties("app.datasource.vehicle.hikari")
-  HikariDataSource vehicleDatasource() {
-
-    return vehicleDataSourceProperties()
-        .initializeDataSourceBuilder()
-        .type(HikariDataSource.class)
-        .build();
-  }
-
-  @Primary
-  @Bean
-  @ConfigurationProperties("app.datasource.vehicle.jpa")
-  JpaProperties vehicleJpaProperties() {
-
-    return new JpaProperties();
-  }
-
-  @Primary
-  @Bean
-  LocalContainerEntityManagerFactoryBean vehicleEntityManager() {
+  LocalContainerEntityManagerFactoryBean vehicleEntityManager(
+      @Qualifier("vehicleDatasource") HikariDataSource vehicleDatasource,
+      @Qualifier("vehicleJpaProperties") JpaProperties vehicleJpaProperties) {
 
     var builder = new EntityManagerFactoryBuilder(
         new HibernateJpaVendorAdapter(),
-        vehicleJpaProperties().getProperties(),
+        vehicleJpaProperties.getProperties(),
         null);
 
-    return builder.dataSource(vehicleDatasource())
+    return builder.dataSource(vehicleDatasource)
         .packages(BASE_PACKAGE)
         .persistenceUnit("vehicle")
         .build();
@@ -69,9 +43,10 @@ public class VehicleDatasourceConfig {
 
   @Primary
   @Bean
-  PlatformTransactionManager vehicleTransactionManager() {
+  PlatformTransactionManager vehicleTransactionManager(
+      @Qualifier("vehicleEntityManager") LocalContainerEntityManagerFactoryBean vehicleEntityManager) {
 
-    return new JpaTransactionManager(Objects.requireNonNull(vehicleEntityManager().getObject()));
+    return new JpaTransactionManager(Objects.requireNonNull(vehicleEntityManager.getObject()));
   }
 
 }
