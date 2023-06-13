@@ -47,7 +47,7 @@ public class VehicleJtaDatasourceConfig {
     entityManager.setJtaDataSource(xaDataSource);
     entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
     entityManager.setPackagesToScan(BASE_PACKAGE);
-    entityManager.setPersistenceUnitName("vehicle_jta");
+    entityManager.setPersistenceUnitName(xaDataSource.getUniqueResourceName());
     entityManager.setJpaPropertyMap(vehicleJpaProperties.getProperties());
     return entityManager;
   }

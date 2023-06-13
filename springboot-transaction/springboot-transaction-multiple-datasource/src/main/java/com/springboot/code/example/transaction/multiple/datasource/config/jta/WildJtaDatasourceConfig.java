@@ -48,10 +48,10 @@ public class WildJtaDatasourceConfig {
     xaDataSource.setMaxPoolSize(wildDatasource.getMaximumPoolSize());
 
     var entityManager = new LocalContainerEntityManagerFactoryBean();
-    entityManager.setJtaDataSource(wildDatasource);
-    entityManager.setJpaVendorAdapter(hibernateJpaVendorAdapter);
+    entityManager.setJtaDataSource(xaDataSource);
+    entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
     entityManager.setPackagesToScan(BASE_PACKAGE);
-    entityManager.setPersistenceUnitName("wild_jta");
+    entityManager.setPersistenceUnitName(xaDataSource.getUniqueResourceName());
     entityManager.setJpaPropertyMap(wildJpaProperties.getProperties());
     return entityManager;
   }
