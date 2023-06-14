@@ -6,9 +6,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import com.atomikos.spring.AtomikosDataSourceBean;
 import com.zaxxer.hikari.HikariDataSource;
 import oracle.jdbc.xa.client.OracleXADataSource;
@@ -23,12 +24,12 @@ public class VehicleJtaDatasourceConfig {
   public static final String BASE_PACKAGE =
       "com.springboot.code.example.transaction.multiple.datasource.jta.vehicle";
 
+  @Primary
   @Bean
   LocalContainerEntityManagerFactoryBean vehicleJtaEntityManager(
       @Qualifier("vehicleDataSourceProperties") DataSourceProperties vehicleDataSourceProperties,
       @Qualifier("vehicleDatasource") HikariDataSource vehicleDatasource,
-      @Qualifier("vehicleJpaProperties") JpaProperties vehicleJpaProperties,
-      JpaVendorAdapter jpaVendorAdapter)
+      @Qualifier("vehicleJpaProperties") JpaProperties vehicleJpaProperties)
       throws SQLException {
 
     var datasource = new OracleXADataSource();
@@ -37,18 +38,16 @@ public class VehicleJtaDatasourceConfig {
     datasource.setPassword(vehicleDataSourceProperties.getPassword());
 
     var xaDataSource = new AtomikosDataSourceBean();
-    xaDataSource.setXaDataSourceClassName(vehicleDataSourceProperties.getDriverClassName());
     xaDataSource.setXaDataSource(datasource);
     xaDataSource.setUniqueResourceName("vehicle");
     xaDataSource.setMinPoolSize(vehicleDatasource.getMinimumIdle());
     xaDataSource.setMaxPoolSize(vehicleDatasource.getMaximumPoolSize());
 
     var entityManager = new LocalContainerEntityManagerFactoryBean();
-    entityManager.setDataSource(vehicleDatasource);
     entityManager.setJtaDataSource(xaDataSource);
-    entityManager.setJpaVendorAdapter(jpaVendorAdapter);
+    entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
     entityManager.setPackagesToScan(BASE_PACKAGE);
-    entityManager.setPersistenceUnitName("vehicle");
+    entityManager.setPersistenceUnitName(xaDataSource.getUniqueResourceName());
     entityManager.setJpaPropertyMap(vehicleJpaProperties.getProperties());
     return entityManager;
   }

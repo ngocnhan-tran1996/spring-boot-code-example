@@ -13,11 +13,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.transaction.annotation.Transactional;
-import com.springboot.code.example.transaction.multiple.datasource.config.MultipleDatasourceConfig;
-import com.springboot.code.example.transaction.multiple.datasource.config.VehicleDatasourceConfig;
-import com.springboot.code.example.transaction.multiple.datasource.config.WildDatasourceConfig;
+import com.springboot.code.example.transaction.multiple.datasource.config.JtaTransactionManagerConfig;
 import com.springboot.code.example.transaction.multiple.datasource.config.jta.VehicleJtaDatasourceConfig;
 import com.springboot.code.example.transaction.multiple.datasource.config.jta.WildJtaDatasourceConfig;
+import com.springboot.code.example.transaction.multiple.datasource.config.properties.DataProperties;
 import com.springboot.code.example.transaction.multiple.datasource.entity.BaseEntity;
 import com.springboot.code.example.transaction.multiple.datasource.jta.vehicle.CarJtaEntity;
 import com.springboot.code.example.transaction.multiple.datasource.jta.vehicle.CarJtaRepository;
@@ -28,11 +27,10 @@ import com.springboot.code.example.transaction.multiple.datasource.jta.wild.Anim
 @Transactional(transactionManager = "transactionManager")
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Import({
-    VehicleDatasourceConfig.class,
-    WildDatasourceConfig.class,
+    DataProperties.class,
     VehicleJtaDatasourceConfig.class,
     WildJtaDatasourceConfig.class,
-    MultipleDatasourceConfig.class})
+    JtaTransactionManagerConfig.class})
 class MultipleDatasourceJtaExampleTests {
 
   @Autowired

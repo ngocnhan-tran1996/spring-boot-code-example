@@ -1,9 +1,8 @@
 package com.springboot.code.example.transaction.multiple.datasource.config;
 
 import java.util.Objects;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,47 +24,26 @@ public class WildDatasourceConfig {
       "com.springboot.code.example.transaction.multiple.datasource.wild";
 
   @Bean
-  @ConfigurationProperties("app.datasource.wild")
-  DataSourceProperties wildDataSourceProperties() {
-
-    return new DataSourceProperties();
-  }
-
-  @Bean
-  @ConfigurationProperties("app.datasource.wild.hikari")
-  HikariDataSource wildDatasource() {
-
-    return wildDataSourceProperties()
-        .initializeDataSourceBuilder()
-        .type(HikariDataSource.class)
-        .build();
-  }
-
-  @Bean
-  @ConfigurationProperties("app.datasource.wild.jpa")
-  JpaProperties wildJpaProperties() {
-    return new JpaProperties();
-  }
-
-
-  @Bean("wildEntityManager")
-  LocalContainerEntityManagerFactoryBean wildEntityManager() {
+  LocalContainerEntityManagerFactoryBean wildEntityManager(
+      @Qualifier("wildDatasource") HikariDataSource wildDatasource,
+      @Qualifier("wildJpaProperties") JpaProperties wildJpaProperties) {
 
     var builder = new EntityManagerFactoryBuilder(
         new HibernateJpaVendorAdapter(),
-        wildJpaProperties().getProperties(),
+        wildJpaProperties.getProperties(),
         null);
 
-    return builder.dataSource(wildDatasource())
+    return builder.dataSource(wildDatasource)
         .packages(BASE_PACKAGE)
         .persistenceUnit("wild")
         .build();
   }
 
-  @Bean("wildTransactionManager")
-  PlatformTransactionManager wildTransactionManager() {
+  @Bean
+  PlatformTransactionManager wildTransactionManager(
+      @Qualifier("wildEntityManager") LocalContainerEntityManagerFactoryBean wildEntityManager) {
 
-    return new JpaTransactionManager(Objects.requireNonNull(wildEntityManager().getObject()));
+    return new JpaTransactionManager(Objects.requireNonNull(wildEntityManager.getObject()));
   }
 
 }
