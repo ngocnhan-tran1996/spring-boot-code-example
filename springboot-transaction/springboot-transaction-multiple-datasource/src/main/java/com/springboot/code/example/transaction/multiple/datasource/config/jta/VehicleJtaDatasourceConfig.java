@@ -1,8 +1,7 @@
 package com.springboot.code.example.transaction.multiple.datasource.config.jta;
 
-import java.sql.SQLException;
+import java.util.Properties;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,21 +26,20 @@ public class VehicleJtaDatasourceConfig {
   @Primary
   @Bean
   LocalContainerEntityManagerFactoryBean vehicleJtaEntityManager(
-      @Qualifier("vehicleDataSourceProperties") DataSourceProperties vehicleDataSourceProperties,
       @Qualifier("vehicleDatasource") HikariDataSource vehicleDatasource,
-      @Qualifier("vehicleJpaProperties") JpaProperties vehicleJpaProperties)
-      throws SQLException {
+      @Qualifier("vehicleJpaProperties") JpaProperties vehicleJpaProperties) {
 
-    var datasource = new OracleXADataSource();
-    datasource.setURL(vehicleDataSourceProperties.getUrl());
-    datasource.setUser(vehicleDataSourceProperties.getUsername());
-    datasource.setPassword(vehicleDataSourceProperties.getPassword());
+    var properties = new Properties();
+    properties.setProperty("URL", vehicleDatasource.getJdbcUrl());
+    properties.setProperty("user", vehicleDatasource.getUsername());
+    properties.setProperty("password", vehicleDatasource.getPassword());
 
     var xaDataSource = new AtomikosDataSourceBean();
-    xaDataSource.setXaDataSource(datasource);
+    xaDataSource.setXaDataSourceClassName(OracleXADataSource.class.getName());
     xaDataSource.setUniqueResourceName("vehicle");
     xaDataSource.setMinPoolSize(vehicleDatasource.getMinimumIdle());
     xaDataSource.setMaxPoolSize(vehicleDatasource.getMaximumPoolSize());
+    xaDataSource.setXaProperties(properties);
 
     var entityManager = new LocalContainerEntityManagerFactoryBean();
     entityManager.setJtaDataSource(xaDataSource);

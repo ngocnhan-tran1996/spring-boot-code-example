@@ -1,16 +1,13 @@
 package com.springboot.code.example.transaction.multiple.datasource.config.jta;
 
 import java.sql.SQLException;
-import javax.sql.XADataSource;
-import org.postgresql.xa.PGXADataSource;
+import java.util.Properties;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.atomikos.spring.AtomikosDataSourceBean;
@@ -30,22 +27,20 @@ public class WildJtaDatasourceConfig {
 
   @Bean
   LocalContainerEntityManagerFactoryBean wildJtaEntityManager(
-      @Qualifier("wildDataSourceProperties") DataSourceProperties wildDataSourceProperties,
       @Qualifier("wildDatasource") HikariDataSource wildDatasource,
       @Qualifier("wildJpaProperties") JpaProperties wildJpaProperties) throws SQLException {
 
-    var hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-    hibernateJpaVendorAdapter.setShowSql(true);
-    hibernateJpaVendorAdapter.setGenerateDdl(true);
-    hibernateJpaVendorAdapter.setDatabase(Database.ORACLE);
-
-    var datasource = this.chooseDataSource(wildDataSourceProperties);
+    var properties = new Properties();
+    properties.setProperty("URL", wildDatasource.getJdbcUrl());
+    properties.setProperty("user", wildDatasource.getUsername());
+    properties.setProperty("password", wildDatasource.getPassword());
 
     var xaDataSource = new AtomikosDataSourceBean();
-    xaDataSource.setXaDataSource(datasource);
+    xaDataSource.setXaDataSourceClassName(OracleXADataSource.class.getName());
     xaDataSource.setUniqueResourceName("wild");
     xaDataSource.setMinPoolSize(wildDatasource.getMinimumIdle());
     xaDataSource.setMaxPoolSize(wildDatasource.getMaximumPoolSize());
+    xaDataSource.setXaProperties(properties);
 
     var entityManager = new LocalContainerEntityManagerFactoryBean();
     entityManager.setJtaDataSource(xaDataSource);
@@ -54,26 +49,6 @@ public class WildJtaDatasourceConfig {
     entityManager.setPersistenceUnitName(xaDataSource.getUniqueResourceName());
     entityManager.setJpaPropertyMap(wildJpaProperties.getProperties());
     return entityManager;
-  }
-
-  private XADataSource chooseDataSource(
-      DataSourceProperties dataSourceProperties)
-      throws SQLException {
-
-    if (dataSourceProperties.getDriverClassName().contains("postgres")) {
-
-      var datasource = new PGXADataSource();
-      datasource.setURL(dataSourceProperties.getUrl());
-      datasource.setUser(dataSourceProperties.getUsername());
-      datasource.setPassword(dataSourceProperties.getPassword());
-      return datasource;
-    }
-
-    var datasource = new OracleXADataSource();
-    datasource.setURL(dataSourceProperties.getUrl());
-    datasource.setUser(dataSourceProperties.getUsername());
-    datasource.setPassword(dataSourceProperties.getPassword());
-    return datasource;
   }
 
 }
