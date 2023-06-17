@@ -13,4 +13,6 @@ public interface CarRepository extends CrudRepository<CarEntity, Integer> {
       nativeQuery = true)
   int updateHistory();
 
+  Integer deleteCarById(Integer id);
+
 }

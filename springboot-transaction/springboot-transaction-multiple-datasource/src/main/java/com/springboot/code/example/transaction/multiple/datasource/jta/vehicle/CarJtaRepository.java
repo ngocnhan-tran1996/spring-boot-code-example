@@ -13,4 +13,6 @@ public interface CarJtaRepository extends CrudRepository<CarJtaEntity, Integer> 
       nativeQuery = true)
   int updateHistory();
 
+  Integer deleteCarById(Integer id);
+
 }

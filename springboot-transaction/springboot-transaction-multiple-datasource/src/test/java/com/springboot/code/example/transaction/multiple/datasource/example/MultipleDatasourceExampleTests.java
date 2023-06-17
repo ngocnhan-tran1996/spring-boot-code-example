@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import com.springboot.code.example.common.helper.Strings;
 import com.springboot.code.example.transaction.multiple.datasource.config.ChainedTransactionManagerConfig;
 import com.springboot.code.example.transaction.multiple.datasource.config.VehicleDatasourceConfig;
 import com.springboot.code.example.transaction.multiple.datasource.config.WildDatasourceConfig;
@@ -25,9 +23,7 @@ import com.springboot.code.example.transaction.multiple.datasource.vehicle.CarEn
 import com.springboot.code.example.transaction.multiple.datasource.vehicle.CarRepository;
 import com.springboot.code.example.transaction.multiple.datasource.wild.AnimalEntity;
 import com.springboot.code.example.transaction.multiple.datasource.wild.AnimalRepository;
-import lombok.extern.log4j.Log4j2;
 
-@Log4j2
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Import({
@@ -127,14 +123,6 @@ class MultipleDatasourceExampleTests {
 
     assertThatThrownBy(multipleDatasourceExample::getAllWithException)
         .isInstanceOf(JpaSystemException.class);
-  }
-
-  @AfterEach
-  void afterTransaction() {
-
-    log.info("After tranasction...");
-    log.info("Cars are {}", Strings.toString(carRepository.findAll()));
-    log.info("Animals are {}", Strings.toString(animalRepository.findAll()));
   }
 
   void deleteAndSaveCars() {
