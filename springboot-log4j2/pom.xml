@@ -12,4 +12,5 @@
     <groupId>com.springboot.code.example</groupId>
     <artifactId>springboot-log4j2</artifactId>
     <name>springboot-log4j2</name>
+
 </project>
