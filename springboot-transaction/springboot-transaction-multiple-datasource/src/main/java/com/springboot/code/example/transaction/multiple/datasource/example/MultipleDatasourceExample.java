@@ -31,6 +31,18 @@ public class MultipleDatasourceExample {
   }
 
   @Transactional(value = "chainedTransactionManager")
+  public List<BaseEntity> getAllWithInvalidDataAccessResourceUsageException() {
+
+    List<BaseEntity> baseEntities = new ArrayList<>();
+    baseEntities.addAll(this.getCars());
+    baseEntities.addAll(this.getAnimals());
+
+    carRepository.updateHistory("test");
+
+    return baseEntities;
+  }
+
+  @Transactional(value = "chainedTransactionManager")
   public List<BaseEntity> getAll() {
 
     List<BaseEntity> baseEntities = new ArrayList<>();
@@ -49,6 +61,14 @@ public class MultipleDatasourceExample {
 
     List<BaseEntity> baseEntities = new ArrayList<>();
     carRepository.findAll().forEach(baseEntities::add);
+    return baseEntities;
+  }
+
+  @Transactional(value = "vehicleTransactionManager")
+  public List<BaseEntity> getCarsWithException() {
+
+    List<BaseEntity> baseEntities = this.getCars();
+    carRepository.updateHistory("test");
     return baseEntities;
   }
 
