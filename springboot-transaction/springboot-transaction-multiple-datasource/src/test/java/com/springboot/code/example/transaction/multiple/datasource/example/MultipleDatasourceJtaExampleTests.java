@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.transaction.annotation.Transactional;
 import com.springboot.code.example.transaction.multiple.datasource.config.JtaTransactionManagerConfig;
@@ -77,6 +78,15 @@ class MultipleDatasourceJtaExampleTests {
   }
 
   @Test
+  void testGetCarsWithException() {
+
+    this.deleteAndSaveCars();
+
+    assertThatThrownBy(multipleDatasourceJtaExample::getCarsWithException)
+        .isInstanceOf(InvalidDataAccessResourceUsageException.class);
+  }
+
+  @Test
   void testGetAnimals() {
 
     this.deleteAndSaveAnimals();
@@ -120,6 +130,18 @@ class MultipleDatasourceJtaExampleTests {
     // then
     assertThatThrownBy(multipleDatasourceJtaExample::getAllWithException)
         .isInstanceOf(JpaSystemException.class);
+  }
+
+  @Test
+  void testGetAllWithInvalidDataAccessResourceUsageException() {
+
+    // given
+    this.deleteAndSaveCars();
+    this.deleteAndSaveAnimals();
+
+    assertThatThrownBy(
+        multipleDatasourceJtaExample::getAllWithInvalidDataAccessResourceUsageException)
+            .isInstanceOf(InvalidDataAccessResourceUsageException.class);
   }
 
   void deleteAndSaveCars() {
