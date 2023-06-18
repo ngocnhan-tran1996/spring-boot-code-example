@@ -93,6 +93,7 @@ class MultipleDatasourceExampleTests {
         .containsAll(expectOutput);
   }
 
+
   @Test
   @Transactional(value = "chainedTransactionManager")
   void testGetAll() {
