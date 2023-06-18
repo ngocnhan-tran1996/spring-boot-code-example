@@ -37,6 +37,17 @@ public class MultipleDatasourceJtaExample {
     return baseEntities;
   }
 
+  public List<BaseEntity> getAllWithInvalidDataAccessResourceUsageException() {
+
+    List<BaseEntity> baseEntities = new ArrayList<>();
+    baseEntities.addAll(this.getCars());
+    baseEntities.addAll(this.getAnimals());
+
+    carJtaRepository.updateHistory("test");
+
+    return baseEntities;
+  }
+
   public List<BaseEntity> getCars() {
 
     var newCar = new CarJtaEntity();
@@ -48,6 +59,14 @@ public class MultipleDatasourceJtaExample {
     carJtaRepository.findAll().forEach(baseEntities::add);
     return baseEntities;
   }
+
+  public List<BaseEntity> getCarsWithException() {
+
+    List<BaseEntity> baseEntities = this.getCars();
+    carJtaRepository.updateHistory("test");
+    return baseEntities;
+  }
+
 
   public List<BaseEntity> getAnimals() {
 
