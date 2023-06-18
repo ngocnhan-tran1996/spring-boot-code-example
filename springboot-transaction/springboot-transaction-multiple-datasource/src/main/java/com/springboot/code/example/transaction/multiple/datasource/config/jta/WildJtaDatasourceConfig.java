@@ -2,6 +2,7 @@ package com.springboot.code.example.transaction.multiple.datasource.config.jta;
 
 import java.sql.SQLException;
 import java.util.Properties;
+import org.postgresql.xa.PGXADataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
@@ -35,8 +36,12 @@ public class WildJtaDatasourceConfig {
     properties.setProperty("user", wildDatasource.getUsername());
     properties.setProperty("password", wildDatasource.getPassword());
 
+    String xaDataSourceClassName = wildDatasource.getJdbcUrl().contains("oracle")
+        ? OracleXADataSource.class.getName()
+        : PGXADataSource.class.getName();
+
     var xaDataSource = new AtomikosDataSourceBean();
-    xaDataSource.setXaDataSourceClassName(OracleXADataSource.class.getName());
+    xaDataSource.setXaDataSourceClassName(xaDataSourceClassName);
     xaDataSource.setUniqueResourceName("wild");
     xaDataSource.setMinPoolSize(wildDatasource.getMinimumIdle());
     xaDataSource.setMaxPoolSize(wildDatasource.getMaximumPoolSize());
