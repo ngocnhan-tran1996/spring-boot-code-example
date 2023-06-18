@@ -45,7 +45,7 @@ public class MultipleDatasourceExample {
     var newCar = new CarEntity();
     newCar.setName("BENZ");
     carRepository.save(newCar);
-    carRepository.deleteById(1);
+    carRepository.deleteCarById(1);
 
     List<BaseEntity> baseEntities = new ArrayList<>();
     carRepository.findAll().forEach(baseEntities::add);
@@ -58,7 +58,7 @@ public class MultipleDatasourceExample {
     var newAnimal = new AnimalEntity();
     newAnimal.setName("DOG");
     animalRepository.save(newAnimal);
-    animalRepository.deleteById(1);
+    animalRepository.deleteAnimalById(1);
 
     List<BaseEntity> baseEntities = new ArrayList<>();
     animalRepository.findAll().forEach(baseEntities::add);

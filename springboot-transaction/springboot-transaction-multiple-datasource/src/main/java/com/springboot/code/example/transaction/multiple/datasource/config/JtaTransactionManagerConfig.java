@@ -1,5 +1,8 @@
 package com.springboot.code.example.transaction.multiple.datasource.config;
 
+import javax.transaction.SystemException;
+import javax.transaction.TransactionManager;
+import javax.transaction.UserTransaction;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -7,9 +10,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.jta.JtaTransactionManager;
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.icatch.jta.UserTransactionManager;
-import jakarta.transaction.SystemException;
-import jakarta.transaction.TransactionManager;
-import jakarta.transaction.UserTransaction;
 
 @Configuration
 public class JtaTransactionManagerConfig {

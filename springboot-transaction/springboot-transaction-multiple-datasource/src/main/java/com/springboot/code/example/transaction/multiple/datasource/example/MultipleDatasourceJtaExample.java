@@ -42,7 +42,7 @@ public class MultipleDatasourceJtaExample {
     var newCar = new CarJtaEntity();
     newCar.setName("BENZ");
     carJtaRepository.save(newCar);
-    carJtaRepository.deleteById(1);
+    carJtaRepository.deleteCarById(1);
 
     List<BaseEntity> baseEntities = new ArrayList<>();
     carJtaRepository.findAll().forEach(baseEntities::add);
@@ -54,7 +54,7 @@ public class MultipleDatasourceJtaExample {
     var newAnimal = new AnimalJtaEntity();
     newAnimal.setName("DOG");
     animalJtaRepository.save(newAnimal);
-    animalJtaRepository.deleteById(1);
+    animalJtaRepository.deleteAnimalById(1);
 
     List<BaseEntity> baseEntities = new ArrayList<>();
     animalJtaRepository.findAll().forEach(baseEntities::add);
