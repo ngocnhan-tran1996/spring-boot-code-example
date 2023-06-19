@@ -4,15 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
-import org.springframework.orm.jpa.JpaSystemException;
+import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.springboot.code.example.transaction.multiple.datasource.config.ChainedTransactionManagerConfig;
@@ -25,8 +22,7 @@ import com.springboot.code.example.transaction.multiple.datasource.vehicle.CarRe
 import com.springboot.code.example.transaction.multiple.datasource.wild.AnimalEntity;
 import com.springboot.code.example.transaction.multiple.datasource.wild.AnimalRepository;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = Replace.NONE)
+@SpringBootTest
 @Import({
     DataProperties.class,
     VehicleDatasourceConfig.class,
@@ -40,27 +36,20 @@ class MultipleDatasourceExampleTests {
   @Autowired
   AnimalRepository animalRepository;
 
+  @Autowired
   MultipleDatasourceExample multipleDatasourceExample;
 
-  private static final List<CarEntity> cars = List.of(
+  private static final List<CarEntity> CARS = List.of(
       new CarEntity(1, "Car 1"),
       new CarEntity(2, "Car 2"),
       new CarEntity(3, "Car 3"),
       new CarEntity(4, "Car 4"));
 
-  private static final List<AnimalEntity> animals = List.of(
+  private static final List<AnimalEntity> ANIMALS = List.of(
       new AnimalEntity(1, "Animal 1"),
       new AnimalEntity(2, "Animal 2"),
       new AnimalEntity(3, "Animal 3"),
       new AnimalEntity(4, "Animal 4"));
-
-  @BeforeEach
-  void init() {
-
-    multipleDatasourceExample = new MultipleDatasourceExample(
-        carRepository,
-        animalRepository);
-  }
 
   @Test
   @Transactional(value = "vehicleTransactionManager")
@@ -68,7 +57,7 @@ class MultipleDatasourceExampleTests {
 
     this.deleteAndSaveCars();
 
-    List<String> expectOutput = cars.stream()
+    List<String> expectOutput = CARS.stream()
         .map(BaseEntity::getName)
         .toList();
 
@@ -94,7 +83,7 @@ class MultipleDatasourceExampleTests {
 
     this.deleteAndSaveAnimals();
 
-    List<String> expectOutput = animals.stream()
+    List<String> expectOutput = ANIMALS.stream()
         .map(BaseEntity::getName)
         .toList();
 
@@ -112,8 +101,8 @@ class MultipleDatasourceExampleTests {
     this.deleteAndSaveCars();
     this.deleteAndSaveAnimals();
 
-    List<BaseEntity> entities = new ArrayList<>(cars);
-    entities.addAll(animals);
+    List<BaseEntity> entities = new ArrayList<>(CARS);
+    entities.addAll(ANIMALS);
     List<String> expectOutput = entities.stream()
         .map(BaseEntity::getName)
         .toList();
@@ -133,7 +122,47 @@ class MultipleDatasourceExampleTests {
     this.deleteAndSaveAnimals();
 
     assertThatThrownBy(multipleDatasourceExample::getAllWithException)
-        .isInstanceOf(JpaSystemException.class);
+        .isInstanceOf(UnexpectedRollbackException.class);
+  }
+
+  @Test
+  @Transactional(value = "vehicleTransactionManager")
+  void testGetAllVehicleTransactionManager() {
+
+    // given
+    this.deleteAndSaveCars();
+    this.deleteAndSaveAnimals();
+
+    List<BaseEntity> entities = new ArrayList<>(CARS);
+    entities.addAll(ANIMALS);
+    List<String> expectOutput = entities.stream()
+        .map(BaseEntity::getName)
+        .toList();
+
+    assertThat(multipleDatasourceExample.getAllVehicleTransactionManager())
+        .hasSize(10)
+        .extracting(BaseEntity::getName)
+        .containsAll(expectOutput);
+  }
+
+  @Test
+  @Transactional(value = "wildTransactionManager")
+  void testGetAllWildTransactionManager() {
+
+    // given
+    this.deleteAndSaveCars();
+    this.deleteAndSaveAnimals();
+
+    List<BaseEntity> entities = new ArrayList<>(CARS);
+    entities.addAll(ANIMALS);
+    List<String> expectOutput = entities.stream()
+        .map(BaseEntity::getName)
+        .toList();
+
+    assertThat(multipleDatasourceExample.getAllWildTransactionManager())
+        .hasSize(10)
+        .extracting(BaseEntity::getName)
+        .containsAll(expectOutput);
   }
 
   @Test
@@ -148,17 +177,16 @@ class MultipleDatasourceExampleTests {
         .isInstanceOf(InvalidDataAccessResourceUsageException.class);
   }
 
-
   void deleteAndSaveCars() {
 
     carRepository.deleteAll();
-    carRepository.saveAll(cars);
+    carRepository.saveAll(CARS);
   }
 
   void deleteAndSaveAnimals() {
 
     animalRepository.deleteAll();
-    animalRepository.saveAll(animals);
+    animalRepository.saveAll(ANIMALS);
   }
 
 }

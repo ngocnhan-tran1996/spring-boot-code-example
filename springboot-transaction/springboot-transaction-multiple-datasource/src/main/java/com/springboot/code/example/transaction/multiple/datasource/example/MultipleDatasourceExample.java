@@ -42,6 +42,18 @@ public class MultipleDatasourceExample {
     return baseEntities;
   }
 
+  @Transactional(value = "vehicleTransactionManager")
+  public List<BaseEntity> getAllVehicleTransactionManager() {
+
+    return this.getAll();
+  }
+
+  @Transactional(value = "wildTransactionManager")
+  public List<BaseEntity> getAllWildTransactionManager() {
+
+    return this.getAll();
+  }
+
   @Transactional(value = "chainedTransactionManager")
   public List<BaseEntity> getAll() {
 

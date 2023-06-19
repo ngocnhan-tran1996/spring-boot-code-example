@@ -67,7 +67,6 @@ public class MultipleDatasourceJtaExample {
     return baseEntities;
   }
 
-
   public List<BaseEntity> getAnimals() {
 
     var newAnimal = new AnimalJtaEntity();
