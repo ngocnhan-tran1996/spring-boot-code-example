@@ -1,0 +1,23 @@
+site:
+  title: Spring Boot Code Example Docs
+  start_page: springboot-code-example::index.adoc
+
+content:
+  sources:
+  - url: .
+    branches: [2.7.x]
+    start_paths:
+    - docs
+    - springboot-database/docs
+    - springboot-database/springboot-database-entity-manager/docs
+    - springboot-database/springboot-database-jdbc/docs
+    - springboot-database/springboot-database-multiple-datasource/docs
+    - springboot-transaction/docs
+    - springboot-transaction/springboot-transaction-jpa/docs
+    - springboot-transaction/springboot-transaction-multiple-datasource/docs
+    - springboot-transaction/springboot-transaction-rabbitmq-datasource/docs
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
