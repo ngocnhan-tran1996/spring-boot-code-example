@@ -22,41 +22,12 @@ springboot-database
 
 All demo in module `*{page-module-title}*` use Oracle database. So you can install via https://www.docker.com/products/docker-desktop/[Docker]
 
-==== Docker Desktop
-
 Open CMD (or PowerShell) and paste the following:
 
+.Oracle Database Docker
 [,console]
 ----
 docker run -p 1521:1521 -e ORACLE_PWD=ngocnhan -d --name oracle-db container-registry.oracle.com/database/free:latest
-----
-
-==== Docker Compose
-. Create a file called docker-compose.yml in your project directory and paste the following:
-+
-.Oracle Docker
-[,yaml]
-----
-services:
-  oracle-db:
-    container_name: "oracle-db"
-    image: "container-registry.oracle.com/database/free:latest"
-    ports: 
-      - "1521:1521"
-    environment:
-      - ORACLE_PWD=ngocnhan
-
-networks:
-  default:
-    name: elastic
-    driver: bridge
-----
-+
-. From your project directory, start up your application by running `docker compose up`.
-
-[,console]
-----
-docker compose up
 ----
 
 .Run script in folder `database/oracle` in following order
