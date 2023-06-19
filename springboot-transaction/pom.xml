@@ -17,6 +17,7 @@
     <modules>
         <module>springboot-transaction-multiple-datasource</module>
         <module>springboot-transaction-rabbitmq-datasource</module>
+        <module>springboot-transaction-jpa</module>
     </modules>
 
     <dependencies>
