@@ -6,4 +6,6 @@
 ** xref:springboot-database:springboot-database-jdbc/index.adoc[jdbc]
 ** xref:springboot-database:springboot-database-multiple-datasource/index.adoc[multiple-datasource]
 * xref:springboot-transaction:index.adoc[springboot-transaction]
+** xref:springboot-transaction:springboot-transaction-jpa/index.adoc[jpa]
 ** xref:springboot-transaction:springboot-transaction-multiple-datasource/index.adoc[multiple-datasource]
+** xref:springboot-transaction:springboot-transaction-rabbitmq-datasource/index.adoc[rabbitmq-datasource]

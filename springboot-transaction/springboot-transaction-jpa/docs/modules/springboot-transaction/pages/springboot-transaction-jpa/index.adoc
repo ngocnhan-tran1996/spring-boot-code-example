@@ -1,0 +1,36 @@
+:page-module-title: Spring Boot Transaction JPA
+
+include::ROOT:partial$header.adoc[]
+
+[IMPORTANT]
+.Module {page-module-title}
+====
+This module *DON'T* show how to use `JPA`!
+====
+
+=== Demonstration of Example
+
+  ✓ Use insert native query::
+    . Without `@Modifying`
+    . With `@Modifying`
+    . With `@Modifying` and `@Transactional`
+
+.Structure of source
+[source]
+----
+springboot-transaction-jpa
+  +- main
+  | +- com.springboot.code.example.transaction.jpa
+  |   +- `JpaApplication.java`
+  |   |
+  |   +- example
+  |   | +- `JpaExample.java`
+  |
+  +- test
+    +- com.springboot.code.example.transaction.jpa
+      +- example
+      | +- `JpaExampleTests.java`
+----
+
+.Run below test file for executing code
+* `JpaExampleTests.java`
