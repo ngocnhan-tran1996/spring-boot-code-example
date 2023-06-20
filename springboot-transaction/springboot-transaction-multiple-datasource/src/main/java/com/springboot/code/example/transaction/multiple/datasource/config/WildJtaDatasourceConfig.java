@@ -1,4 +1,4 @@
-package com.springboot.code.example.transaction.multiple.datasource.config.jta;
+package com.springboot.code.example.transaction.multiple.datasource.config;
 
 import java.sql.SQLException;
 import java.util.Properties;

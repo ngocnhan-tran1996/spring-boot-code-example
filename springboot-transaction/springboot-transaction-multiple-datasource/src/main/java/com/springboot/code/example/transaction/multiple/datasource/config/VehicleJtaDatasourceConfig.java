@@ -1,4 +1,4 @@
-package com.springboot.code.example.transaction.multiple.datasource.config.jta;
+package com.springboot.code.example.transaction.multiple.datasource.config;
 
 import java.util.Properties;
 import org.springframework.beans.factory.annotation.Qualifier;
