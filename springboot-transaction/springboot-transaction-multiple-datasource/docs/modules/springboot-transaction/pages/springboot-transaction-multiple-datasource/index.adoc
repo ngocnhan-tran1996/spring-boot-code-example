@@ -24,19 +24,22 @@ springboot-transaction-multiple-datasource
   |   +- `MultipleDatasourceApplication.java`
   |   |
   |   +- config
-  |   |  +- `MultipleDatasourceConfig.java` // config transaction
-  |   |  +- `VehicleDatasourceConfig.java` // config first database
-  |   |  +- `WildDatasourceConfig.java`  // config second database
+  |   | +- `ChainedTransactionManagerConfig.java`
+  |   | +- `JtaTransactionManagerConfig.java`
+  |   | +- `VehicleDatasourceConfig.java`
+  |   | +- `WildDatasourceConfig.java`
+  |   | +- `VehicleJtaDatasourceConfig.java`
+  |   | +- `WildJtaDatasourceConfig.java`
   |   |
   |   +- example
-  |   |  +- `MultipleDatasourceExample.java`
-  |   |  +- `MultipleDatasourceJtaExample.java`
+  |   | +- `MultipleDatasourceExample.java`
+  |   | +- `MultipleDatasourceJtaExample.java`
   |
   +- test
     +- com.springboot.code.example.transaction.multiple.datasource
       +- example
-      |  +- `MultipleDatasourceExampleTests.java`
-      |  +- `MultipleDatasourceJtaExampleTests.java`
+      | +- `MultipleDatasourceExampleTests.java`
+      | +- `MultipleDatasourceJtaExampleTests.java`
 ----
 
 .Run below test file for executing code
@@ -53,3 +56,12 @@ springboot-transaction-multiple-datasource
 
 You can run test or create API, queue or batch, etc to test and see result from selecting database
 ====
+
+=== Reference Guide
+. https://docs.docker.com/[Docker]
+. https://container-registry.oracle.com/[Oracle Container Registry]
+. https://hub.docker.com/_/postgres[PostgreSQL Docker]
+. https://dzone.com/articles/most-common-spring-transactional-mistakes[Spring `@Transactional` Mistakes Everyone Makes]
+. https://github.com/spring-projects/spring-data-commons/issues/2232[Deprecate ChainedTransactionManager]
+. https://www.atomikos.com/Documentation/ConfiguringOracleForXA[Configuring Oracle for XA]
+. https://spring.io/blog/2011/08/15/configuring-spring-and-jta-without-full-java-ee/[Configuring Spring and JTA without full Java EE]
