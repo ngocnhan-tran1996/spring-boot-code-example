@@ -56,8 +56,3 @@ And I wrote unit test but only first database successful rollback, second databa
 
 xref:springboot-transaction:springboot-transaction-multiple-datasource/index.adoc[Check out here for more detail...]
 ====
-
-=== Reference
-. https://www.fabiomaffioletti.me/blog/2014/04/15/distributed-transactions-multiple-databases-spring-boot-spring-data-jpa-atomikos/[Distributed transactions with multiple databases, Spring Boot, Spring Data JPA and Atomikos]
-. https://www.atomikos.com/Documentation/SpringIntegration[Spring Integration]
-. https://medium.com/@inzuael/how-to-use-multiple-datasources-with-springboot-exposed-jpa-6bd705bfe994[How to use multiple datasources with SpringBoot + Exposed/JPA]
