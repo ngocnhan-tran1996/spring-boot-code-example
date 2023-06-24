@@ -60,4 +60,3 @@ docker run -p 5050:80 -e PGADMIN_DEFAULT_EMAIL=ngocnhan@mail.com -e PGADMIN_DEFA
 . https://docs.docker.com/[Docker]
 . https://container-registry.oracle.com/[Oracle Container Registry]
 . https://hub.docker.com/_/postgres[PostgreSQL Docker]
-. https://dzone.com/articles/most-common-spring-transactional-mistakes[Spring `@Transactional` Mistakes Everyone Makes]
