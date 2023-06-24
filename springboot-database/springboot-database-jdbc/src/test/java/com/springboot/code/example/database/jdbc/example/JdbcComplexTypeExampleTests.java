@@ -141,4 +141,33 @@ class JdbcComplexTypeExampleTests {
         .isEqualTo(expectOutput);
   }
 
+  @Test
+  void testExecuteOutputComplexTypeProcedure() {
+
+    // given
+    List<PersonInput> personInputs = List.of(
+        new PersonInput("0", "0"),
+        new PersonInput("1", "1"),
+        new PersonInput("2", "2"),
+        new PersonInput("3", "3"),
+        new PersonInput("4", "4"),
+        new PersonInput("5", "5"));
+
+    Map<String, Object> expectOutput = new LinkedCaseInsensitiveMap<>(2);
+    expectOutput.put("out_numbers", new Object[] {
+        BigDecimal.ZERO,
+        BigDecimal.ONE,
+        BigDecimal.valueOf(2),
+        BigDecimal.valueOf(3),
+        BigDecimal.valueOf(4),
+        BigDecimal.valueOf(5)});
+    expectOutput.put("OUT_PERSONS", personInputs.toArray());
+    var actualOutput = jdbcComplexTypeExample.executeOutputComplexTypeProcedure();
+
+    // then
+    assertThat(actualOutput)
+        .usingRecursiveComparison()
+        .isEqualTo(expectOutput);
+  }
+
 }

@@ -5,6 +5,8 @@ IS
         age VARCHAR2(100)
     );
 
+    TYPE number_array IS TABLE OF NUMBER INDEX BY BINARY_INTEGER;
+
     TYPE person_array IS TABLE OF person_record INDEX BY BINARY_INTEGER;
 
     TYPE person_table IS TABLE OF person_record;
@@ -14,6 +16,10 @@ IS
         in_persons IN example_pack.person_array,
         out_nbr IN OUT NUMBER,
         out_msg OUT VARCHAR2);
+
+    PROCEDURE output_complex_type_proc (
+        out_persons OUT example_pack.person_array,
+        out_numbers OUT example_pack.number_array);
 
     FUNCTION CARD_INFO_FUNC
         RETURN SYS_REFCURSOR;
@@ -52,6 +58,23 @@ IS
         out_msg := 'IN_NAME = ' || in_name || ' AND IN_PARAMS = ' || out_msg;
         out_nbr := 2010;
     END concatenate_text_proc;
+
+    PROCEDURE output_complex_type_proc (
+        out_persons OUT example_pack.person_array,
+        out_numbers OUT example_pack.number_array)
+    AS
+        persons example_pack.person_array;
+        numbers example_pack.number_array;
+    BEGIN
+        FOR i IN 0..5
+        LOOP
+            persons(i).name := i;
+            persons(i).age:= i;
+            numbers(i) := i;
+        END LOOP;
+        out_persons := persons;
+        out_numbers := numbers;
+    END output_complex_type_proc;
 
     FUNCTION CARD_INFO_FUNC
         RETURN SYS_REFCURSOR
