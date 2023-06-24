@@ -3,10 +3,12 @@ package com.springboot.code.example.database.jdbc.support.oracle.mapper;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Struct;
-import org.springframework.jdbc.core.RowMapper;
+import oracle.jdbc.OracleStruct;
 
-public interface OracleMapper<T> extends RowMapper<T> {
+public interface OracleMapper<T> {
 
   Struct toStruct(T source, Connection connection, String typeName) throws SQLException;
+
+  T fromStruct(OracleStruct struct);
 
 }

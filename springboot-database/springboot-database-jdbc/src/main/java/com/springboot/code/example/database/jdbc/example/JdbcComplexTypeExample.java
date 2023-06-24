@@ -16,7 +16,10 @@ import com.springboot.code.example.database.jdbc.dto.JdbcComplexTypeObjects.Pers
 import com.springboot.code.example.database.jdbc.dto.JdbcComplexTypeObjects.PersonOuput;
 import com.springboot.code.example.database.jdbc.dto.JdbcComplexTypeObjects.PersonSQLData;
 import com.springboot.code.example.database.jdbc.support.oracle.mapper.OracleStructMapper;
+import com.springboot.code.example.database.jdbc.support.oracle.value.OracleArrayReturnType;
 import com.springboot.code.example.database.jdbc.support.oracle.value.OracleArrayValue;
+import com.springboot.code.example.database.jdbc.support.oracle.value.OracleStructArrayReturnType;
+import com.springboot.code.example.database.jdbc.support.oracle.value.OracleStructArrayValue;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -40,7 +43,7 @@ public class JdbcComplexTypeExample {
 
     return PropertyConverter.convert(
         this.executeProcedure(
-            OracleArrayValue.add(
+            OracleStructArrayValue.add(
                 List.of(
                     new PersonInput("Harry", "15"),
                     new PersonInput("Judy", "16"))
@@ -113,6 +116,22 @@ public class JdbcComplexTypeExample {
         sql,
         new MapSqlParameterSource(),
         OracleStructMapper.newInstance(PersonInput.class));
+  }
+
+  public Map<String, Object> executeOutputComplexTypeProcedure() {
+
+    jdbcTemplate.setResultsMapCaseInsensitive(true);
+    var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+        .withCatalogName(JdbcComplexTypes.PACK_EXAMPLE)
+        .withProcedureName("output_complex_type_proc")
+        .declareParameters(
+            OracleStructArrayReturnType.toSqlOutParameter(
+                "out_persons",
+                "EXAMPLE_PACK.PERSON_ARRAY",
+                PersonInput.class),
+            OracleArrayReturnType.toSqlOutParameter("out_numbers", "example_pack.number_array"));
+
+    return simpleJdbcCall.execute(new MapSqlParameterSource());
   }
 
 }
