@@ -13,4 +13,21 @@
     <artifactId>springboot-log4j2</artifactId>
     <name>springboot-log4j2</name>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.springboot.code.example</groupId>
+            <artifactId>springboot-common</artifactId>
+        </dependency>
+    </dependencies>
 </project>
