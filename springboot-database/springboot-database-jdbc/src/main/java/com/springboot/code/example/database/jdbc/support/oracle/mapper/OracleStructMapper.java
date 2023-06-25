@@ -81,7 +81,6 @@ public class OracleStructMapper<T> extends AbstractOracleStructMapper<T> {
     }
   }
 
-
   @Override
   protected PropertyDescriptor getPropertyDescriptor(String column) {
 

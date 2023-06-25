@@ -12,17 +12,20 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.NotReadablePropertyException;
+import org.springframework.beans.PropertyAccessorFactory;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
 import com.springboot.code.example.common.helper.Strings;
 import com.springboot.code.example.database.jdbc.function.PropertyHandlerFunction;
 import com.springboot.code.example.database.jdbc.support.oracle.value.OracleTypeValueException;
 import lombok.extern.log4j.Log4j2;
 import oracle.jdbc.OracleDatabaseMetaData;
+import oracle.jdbc.OracleStruct;
 import oracle.jdbc.OracleTypeMetaData;
 import oracle.jdbc.driver.OracleConnection;
 
 @Log4j2
-public abstract class AbstractOracleStructMapper<T> implements OracleMapper<T> {
+public abstract class AbstractOracleStructMapper<T> implements OracleMapper<T>,  RowMapper<T> {
 
   /**
    * Extract the values for all columns in the current row.
@@ -58,6 +61,41 @@ public abstract class AbstractOracleStructMapper<T> implements OracleMapper<T> {
   }
 
   /**
+   * Extract the values for all attributes in the struct.
+   * <p>
+   * Utilizes public setters and result set metadata.
+   * 
+   * @see java.sql.ResultSetMetaData
+   */
+  @Override
+  public T fromStruct(OracleStruct struct) {
+
+    T mappedObject = BeanUtils.instantiateClass(this.getMappedClass());
+
+    BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(mappedObject);
+
+    try {
+      ResultSetMetaData rsmd = ((OracleTypeMetaData.Struct) struct.getOracleMetaData())
+          .getMetaData();
+      Object[] values = struct.getAttributes();
+
+      this.handlePropertyDescriptor(
+          rsmd,
+          pd -> bw.isWritableProperty(pd.getName()),
+          (index, pd) -> {
+
+            Object value = values[index - 1];
+            bw.setPropertyValue(pd.getName(), value);
+          });
+
+      return mappedObject;
+    } catch (SQLException e) {
+
+      return null;
+    }
+  }
+
+  /**
    * Extract the values for all columns in the current row.
    * <p>
    * Utilizes public setters and result set meta-data.
@@ -69,8 +107,7 @@ public abstract class AbstractOracleStructMapper<T> implements OracleMapper<T> {
 
     T mappedObject = BeanUtils.instantiateClass(this.getMappedClass());
 
-    BeanWrapperImpl bw = new BeanWrapperImpl();
-    bw.setBeanInstance(mappedObject);
+    BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(mappedObject);
 
     ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -85,7 +122,6 @@ public abstract class AbstractOracleStructMapper<T> implements OracleMapper<T> {
 
     return mappedObject;
   }
-
 
   protected void handlePropertyDescriptor(
       ResultSetMetaData rsmd,
