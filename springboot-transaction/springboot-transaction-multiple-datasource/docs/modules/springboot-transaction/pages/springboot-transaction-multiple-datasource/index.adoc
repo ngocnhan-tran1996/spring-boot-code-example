@@ -58,10 +58,10 @@ You can run test or create API, queue or batch, etc to test and see result from 
 ====
 
 === Reference Guide
-. https://docs.docker.com/[Docker]
-. https://container-registry.oracle.com/[Oracle Container Registry]
-. https://hub.docker.com/_/postgres[PostgreSQL Docker]
 . https://dzone.com/articles/most-common-spring-transactional-mistakes[Spring `@Transactional` Mistakes Everyone Makes]
 . https://github.com/spring-projects/spring-data-commons/issues/2232[Deprecate ChainedTransactionManager]
 . https://www.atomikos.com/Documentation/ConfiguringOracleForXA[Configuring Oracle for XA]
 . https://spring.io/blog/2011/08/15/configuring-spring-and-jta-without-full-java-ee/[Configuring Spring and JTA without full Java EE]
+. https://www.fabiomaffioletti.me/blog/2014/04/15/distributed-transactions-multiple-databases-spring-boot-spring-data-jpa-atomikos/[Distributed transactions with multiple databases, Spring Boot, Spring Data JPA and Atomikos]
+. https://www.atomikos.com/Documentation/SpringIntegration[Spring Integration]
+. https://medium.com/@inzuael/how-to-use-multiple-datasources-with-springboot-exposed-jpa-6bd705bfe994[How to use multiple datasources with SpringBoot + Exposed/JPA]
