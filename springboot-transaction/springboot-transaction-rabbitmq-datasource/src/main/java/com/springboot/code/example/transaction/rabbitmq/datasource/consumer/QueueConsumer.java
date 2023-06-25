@@ -23,7 +23,6 @@ public class QueueConsumer {
   @RabbitListener(queuesToDeclare = @Queue(name = QueueNames.TRANSACTION_PRODUCER))
   public void listenInTransaction(Message message) {
 
-    rabbitTemplate.setChannelTransacted(false);
     updateFailureData(message, QueueNames.TRANSACTION_CONSUMER);
   }
 
@@ -45,7 +44,6 @@ public class QueueConsumer {
   @RabbitListener(queuesToDeclare = @Queue(name = QueueNames.OUT_TRANSACTION_PRODUCER))
   public void listenWithoutTransaction(Message message) {
 
-    rabbitTemplate.setChannelTransacted(false);
     updateFailureData(message, QueueNames.OUT_TRANSACTION_CONSUMER);
   }
 
