@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: springboot-log4j2
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: ngocnhan
+    password: ngocnhan
+
+app:
+  queue:
+    name: local_QUEUE_TEST
+  mask:
+    sensitive-keywords: key,password,test
+
+log4j2:
+  configurationFile: log4j2.xml,log4j2-dev.xml
