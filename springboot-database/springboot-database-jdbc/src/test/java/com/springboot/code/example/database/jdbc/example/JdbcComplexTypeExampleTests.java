@@ -161,7 +161,7 @@ class JdbcComplexTypeExampleTests {
         BigDecimal.valueOf(3),
         BigDecimal.valueOf(4),
         BigDecimal.valueOf(5)});
-    expectOutput.put("OUT_PERSONS", personInputs.toArray());
+    expectOutput.put("out_persons", personInputs.toArray());
     var actualOutput = jdbcComplexTypeExample.executeOutputComplexTypeProcedure();
 
     // then
