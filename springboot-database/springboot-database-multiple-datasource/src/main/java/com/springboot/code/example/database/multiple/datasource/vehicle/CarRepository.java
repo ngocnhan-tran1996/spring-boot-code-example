@@ -4,4 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CarRepository extends CrudRepository<CarEntity, Integer> {
 
+  Integer deleteCarById(Integer id);
+
 }
