@@ -1,33 +1,28 @@
 package com.springboot.code.example.database.entity.manager.example;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.IntStream;
-import org.hibernate.engine.spi.SessionFactoryImplementor;
-import org.hibernate.query.spi.MutableQueryOptions;
-import org.hibernate.query.sqm.internal.QuerySqmImpl;
-import org.hibernate.query.sqm.sql.internal.StandardSqmTranslator;
-import org.hibernate.query.sqm.tree.expression.SqmJpaCriteriaParameterWrapper;
-import org.hibernate.sql.ast.SqlAstTranslator;
-import org.hibernate.sql.ast.spi.StandardSqlAstTranslator;
-import org.hibernate.sql.ast.tree.select.SelectStatement;
-import org.hibernate.sql.exec.spi.JdbcParameterBinder;
-import org.hibernate.sql.exec.spi.JdbcSelect;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Tuple;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Root;
+import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory;
+import org.hibernate.hql.spi.QueryTranslator;
+import org.hibernate.hql.spi.QueryTranslatorFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.springboot.code.example.common.converter.PropertyConverter;
+import com.springboot.code.example.common.helper.Strings;
 import com.springboot.code.example.database.entity.manager.entity.CarEntity;
 import com.springboot.code.example.database.entity.manager.response.CarResponse;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import jakarta.persistence.Tuple;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Expression;
-import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -55,43 +50,30 @@ public class EntityManagerExample {
                 .when(expression, root.get("name"))
                 .otherwise("6")));
 
-    QuerySqmImpl<?> querySqmImpl = entityManager.createQuery(criteriaQuery)
-        .unwrap(QuerySqmImpl.class);
-    final SessionFactoryImplementor sessionFactory = querySqmImpl.getSessionFactory();
-    final MutableQueryOptions queryOptions = querySqmImpl.getQueryOptions();
-    final StandardSqmTranslator<SelectStatement> sqmTranslator = new StandardSqmTranslator<>(
-        querySqmImpl.getSqmStatement(),
-        queryOptions,
-        querySqmImpl.getDomainParameterXref(),
-        querySqmImpl.getQueryParameterBindings(),
-        querySqmImpl.getSession().getLoadQueryInfluencers(),
-        sessionFactory,
-        true);
-    final SqlAstTranslator<JdbcSelect> sqlAstTranslator = new StandardSqlAstTranslator<>(
-        sessionFactory,
-        sqmTranslator.translate().getSqlAst());
-    final JdbcSelect jdbcSelect = sqlAstTranslator.translate(null, queryOptions);
+    var query = entityManager.createQuery(criteriaQuery)
+        .unwrap(Query.class);
 
-    Query nativeQuery = entityManager.createNativeQuery(jdbcSelect.getSql());
+    String hqlQueryString = query.getQueryString();
+    QueryTranslatorFactory queryTranslatorFactory = new ASTQueryTranslatorFactory();
+    QueryTranslator queryTranslator = queryTranslatorFactory.createQueryTranslator(
+        Strings.EMPTY,
+        hqlQueryString,
+        Collections.emptyMap(),
+        entityManager.unwrap(SessionImplementor.class).getFactory(),
+        null);
+    queryTranslator.compile(Collections.emptyMap(), false);
 
-    Map<JdbcParameterBinder, Object> valuesByJdbcParam = new HashMap<>();
-    sqmTranslator.getJdbcParamsBySqmParam()
-        .entrySet()
-        .forEach(entry -> entry.getValue()
-            .forEach(values -> values.forEach(value -> {
+    String sqlQueryString = queryTranslator.getSQLString();
 
-              var key = value.getParameterBinder();
-              var object = (SqmJpaCriteriaParameterWrapper<?>) entry.getKey();
-              var objectValue = object.getJpaCriteriaParameter()
-                  .getValue();
-              valuesByJdbcParam.put(key, objectValue);
-            })));
+    var nativeQuery = entityManager.createNativeQuery(sqlQueryString);
 
     // set parameter
-    final List<JdbcParameterBinder> parameterBinders = jdbcSelect.getParameterBinders();
-    IntStream.range(0, parameterBinders.size())
-        .forEach(index -> Optional.ofNullable(valuesByJdbcParam.get(parameterBinders.get(index)))
-            .ifPresent(value -> nativeQuery.setParameter(index + 1, value)));
+    query.getParameterMetadata()
+        .getNamedParameters()
+        .forEach(namedParameter -> Arrays.stream(namedParameter.getSourceLocations())
+            .forEach(location -> nativeQuery.setParameter(
+                location + 1,
+                query.getParameterValue(namedParameter.getName()))));
 
     return ((List<Object[]>) nativeQuery.getResultList())
         .stream()
