@@ -6,11 +6,6 @@
       "description": "Config external xml file for Log4j2"
     },
     {
-      "name": "app.queue.name",
-      "type": "java.lang.String",
-      "description": "Queue name is created when starting app"
-    },
-    {
       "name": "app.mask.sensitive-keywords",
       "type": "java.lang.String",
       "description": "Keywords need to be sensitive"
