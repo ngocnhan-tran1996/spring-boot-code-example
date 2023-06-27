@@ -20,6 +20,8 @@ import com.springboot.code.example.common.helper.Strings;
 public final class MaskRewritePolicy extends AbstractMaskRewritePolicy {
 
   private static final Pattern FIELD_NAME_PATTERN = Pattern.compile("^\\w+(?:,\\w+)*+$");
+
+  // regex pattern: \\?"?(?:password)\\?"?\s*[:=]\s*\\?"?([^\\"]*)
   private static final String FIELD_NAME_REGEX =
       "\\\\?\"?(?:%s)\\\\?\"?\\s*[:=]\\s*\\\\?\"?([^\\\\\"]*)";
 
