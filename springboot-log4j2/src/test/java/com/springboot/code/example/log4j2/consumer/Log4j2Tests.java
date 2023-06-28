@@ -12,7 +12,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @SpringBootTest
 @ExtendWith(OutputCaptureExtension.class)
-class MessageConsumerTests {
+class Log4j2Tests {
 
   private static final List<String> OUTPUT = List.of(
       "\"password\" = \"test\"",
