@@ -13,4 +13,10 @@
     <artifactId>springboot-log4j2</artifactId>
     <name>springboot-log4j2</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.springboot.code.example</groupId>
+            <artifactId>springboot-common</artifactId>
+        </dependency>
+    </dependencies>
 </project>
