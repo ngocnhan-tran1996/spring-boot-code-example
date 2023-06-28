@@ -1,0 +1,42 @@
+:page-module-title: Spring Boot Log4j2
+
+include::ROOT:partial$header.adoc[]
+
+[IMPORTANT]
+.Module {page-module-title}
+====
+This module *DON'T* show how to use `Log4j2`!
+====
+
+=== Demonstration of Example
+
+  ✓ Use Log4j2::
+    . Mask keyword and pattern
+    . Export file json log
+
+.Structure of source
+[source]
+----
+springboot-log4j2
+  +- main
+  | +- com.springboot.code.example.log4j2
+  |   +- `Log4j2Application.java`
+  |   |
+  |   +- rewrite
+  |   |  +- `AbstractMaskRewritePolicy.java`
+  |   |  +- `MaskPatternPlugin.java`
+  |   |  +- `MaskRewritePolicy.java`
+  |
+  +- test
+    +- com.springboot.code.example.database.entity.manager
+      +- example
+      |  +- `Log4j2Tests.java`
+----
+
+.Run below test file for executing code
+* `Log4j2Tests.java`
+
+=== Reference Guide
+. https://logging.apache.org/log4j/2.x/manual/appenders.html#RewriteAppender[RewriteAppender]
+. https://petrepopescu.tech/2022/02/masking-log-output-in-log4j2/[Masking log output in Log4j2]
+. https://petrepopescu.tech/logmasker-log-masking-library-for-log4j-and-logback/[LOGMASKER – LOG MASKING LIBRARY FOR LOG4J AND LOGBACK]
