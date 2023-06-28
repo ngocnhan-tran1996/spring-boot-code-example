@@ -25,6 +25,7 @@ Hi, I'm Nhan and I'm a Java developer, so I'm very (x10) lazy. This is why I cre
 │   ├── springboot-database-entity-manager
 │   ├── springboot-database-jdbc
 │   └── springboot-database-multiple-datasource
+├── springboot-log4j2
 ├── springboot-transaction
 │   ├── springboot-transaction-jpa
 │   ├── springboot-transaction-multiple-datasource
@@ -44,6 +45,8 @@ Hi, I'm Nhan and I'm a Java developer, so I'm very (x10) lazy. This is why I cre
 `springboot-common`:: helper or utility package
 
 `springboot-database`:: some code example relative database
+
+`springboot-log4j2`:: mask sensitive data
 
 `springboot-transaction`:: some code example relative transaction
 ====

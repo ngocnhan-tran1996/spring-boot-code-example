@@ -35,3 +35,8 @@ springboot-log4j2
 
 .Run below test file for executing code
 * `Log4j2Tests.java`
+
+=== Reference Guide
+. https://logging.apache.org/log4j/2.x/manual/appenders.html#RewriteAppender[RewriteAppender]
+. https://petrepopescu.tech/2022/02/masking-log-output-in-log4j2/[Masking log output in Log4j2]
+. https://petrepopescu.tech/logmasker-log-masking-library-for-log4j-and-logback/[LOGMASKER – LOG MASKING LIBRARY FOR LOG4J AND LOGBACK]
