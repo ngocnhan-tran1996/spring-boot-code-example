@@ -8,7 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.util.Assert;
 import com.springboot.code.example.common.helper.Strings;
 import com.springboot.code.example.common.support.oracle.OracleColumn;
-import com.springboot.code.example.database.jdbc.support.oracle.value.OracleTypeValueException;
+import com.springboot.code.example.database.jdbc.support.oracle.OracleTypeValueException;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
