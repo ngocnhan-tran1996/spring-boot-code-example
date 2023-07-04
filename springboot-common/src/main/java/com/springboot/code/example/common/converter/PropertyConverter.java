@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.util.Assert;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 import com.springboot.code.example.common.helper.Strings;
@@ -27,8 +27,8 @@ public final class PropertyConverter {
       Map<String, Object> ignoreCaseMap = new LinkedCaseInsensitiveMap<>(source.size());
       ignoreCaseMap.putAll(source);
 
-      T output = BeanUtils.instantiateClass(destinationType);
-      BeanWrapper bw = new BeanWrapperImpl(output);
+      T mappedObject = BeanUtils.instantiateClass(destinationType);
+      BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(mappedObject);
 
       for (Field field : destinationType.getDeclaredFields()) {
 
@@ -51,7 +51,7 @@ public final class PropertyConverter {
                 });
       }
 
-      return output;
+      return mappedObject;
     } catch (Exception e) {
 
       log.error("Can not map to {}", destinationType, e.getCause());
