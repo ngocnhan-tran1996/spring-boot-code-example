@@ -1,4 +1,4 @@
-package com.springboot.code.example.database.jdbc.support.oracle.value;
+package com.springboot.code.example.database.jdbc.support.oracle;
 
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -18,7 +18,6 @@ Hi, I'm Nhan and I'm a Java developer, so I'm very (x10) lazy. This is why I cre
 [source]
 ----
 `spring-boot-code-example`
-├── docker
 ├── docs
 ├── springboot-common
 ├── springboot-database
