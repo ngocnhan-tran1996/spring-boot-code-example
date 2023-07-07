@@ -7,28 +7,28 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.transaction.annotation.Transactional;
-import com.springboot.code.example.transaction.multiple.datasource.config.JtaTransactionManagerConfig;
-import com.springboot.code.example.transaction.multiple.datasource.config.VehicleJtaDatasourceConfig;
-import com.springboot.code.example.transaction.multiple.datasource.config.WildJtaDatasourceConfig;
-import com.springboot.code.example.transaction.multiple.datasource.config.properties.DataProperties;
+import com.springboot.code.example.transaction.multiple.datasource.config.ChainedTransactionManagerConfig;
+import com.springboot.code.example.transaction.multiple.datasource.config.VehicleDatasourceConfig;
+import com.springboot.code.example.transaction.multiple.datasource.config.WildDatasourceConfig;
 import com.springboot.code.example.transaction.multiple.datasource.entity.BaseEntity;
 import com.springboot.code.example.transaction.multiple.datasource.jta.vehicle.CarJtaEntity;
 import com.springboot.code.example.transaction.multiple.datasource.jta.vehicle.CarJtaRepository;
 import com.springboot.code.example.transaction.multiple.datasource.jta.wild.AnimalJtaEntity;
 import com.springboot.code.example.transaction.multiple.datasource.jta.wild.AnimalJtaRepository;
 
+@ImportAutoConfiguration(
+    exclude = {
+        VehicleDatasourceConfig.class,
+        WildDatasourceConfig.class,
+        ChainedTransactionManagerConfig.class
+    })
 @SpringBootTest
 @Transactional(transactionManager = "transactionManager")
-@Import({
-    DataProperties.class,
-    VehicleJtaDatasourceConfig.class,
-    WildJtaDatasourceConfig.class,
-    JtaTransactionManagerConfig.class})
 class MultipleDatasourceJtaExampleTests {
 
   @Autowired
