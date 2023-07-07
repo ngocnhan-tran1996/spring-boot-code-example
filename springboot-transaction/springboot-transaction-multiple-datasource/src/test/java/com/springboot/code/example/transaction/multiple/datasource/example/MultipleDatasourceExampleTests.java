@@ -6,28 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import com.springboot.code.example.transaction.multiple.datasource.config.ChainedTransactionManagerConfig;
-import com.springboot.code.example.transaction.multiple.datasource.config.VehicleDatasourceConfig;
-import com.springboot.code.example.transaction.multiple.datasource.config.WildDatasourceConfig;
-import com.springboot.code.example.transaction.multiple.datasource.config.properties.DataProperties;
+import com.springboot.code.example.transaction.multiple.datasource.config.JtaTransactionManagerConfig;
+import com.springboot.code.example.transaction.multiple.datasource.config.VehicleJtaDatasourceConfig;
+import com.springboot.code.example.transaction.multiple.datasource.config.WildJtaDatasourceConfig;
 import com.springboot.code.example.transaction.multiple.datasource.entity.BaseEntity;
 import com.springboot.code.example.transaction.multiple.datasource.vehicle.CarEntity;
 import com.springboot.code.example.transaction.multiple.datasource.vehicle.CarRepository;
 import com.springboot.code.example.transaction.multiple.datasource.wild.AnimalEntity;
 import com.springboot.code.example.transaction.multiple.datasource.wild.AnimalRepository;
 
+@ImportAutoConfiguration(
+    exclude = {
+        VehicleJtaDatasourceConfig.class,
+        WildJtaDatasourceConfig.class,
+        JtaTransactionManagerConfig.class
+    })
 @SpringBootTest
-@Import({
-    DataProperties.class,
-    VehicleDatasourceConfig.class,
-    WildDatasourceConfig.class,
-    ChainedTransactionManagerConfig.class})
 class MultipleDatasourceExampleTests {
 
   @Autowired
