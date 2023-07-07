@@ -21,7 +21,7 @@ springboot-transaction
 
 === What You Need
 
-All demo in module `*{page-module-title}*` use Oracle database and Postgres. So you can install via https://www.docker.com/products/docker-desktop/[Docker]
+All demo in module `*{page-module-title}*` use Oracle, Postgres and RabbitMQ. So you can install via https://www.docker.com/products/docker-desktop/[Docker]
 
 Open CMD (or PowerShell) and paste the following:
 
@@ -41,6 +41,12 @@ docker run -p 5432:5432 -e POSTGRES_PASSWORD=ngocnhan -d --name postgres postgre
 [,console]
 ----
 docker run -p 5050:80 -e PGADMIN_DEFAULT_EMAIL=ngocnhan@mail.com -e PGADMIN_DEFAULT_PASSWORD=ngocnhan -d --name pgadmin4 dpage/pgadmin4
+----
+
+.RabbitMQ
+[,console]
+----
+docker run -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=ngocnhan -e RABBITMQ_DEFAULT_PASS=ngocnhan -d --name rabbitmq rabbitmq:management
 ----
 
 .Run script in folder `database/oracle` in following order
