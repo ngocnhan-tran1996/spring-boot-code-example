@@ -1,0 +1,30 @@
+:page-module-title: Spring Boot Common
+
+include::ROOT:partial$header.adoc[]
+
+=== Demonstration of Example
+
+  ✓ Helper package::
+    . `CollectionUtils.java`
+    . `Strings.java`
+
+.Structure of source
+[source]
+----
+springboot-common
+  +- main
+  | +- com.springboot.code.example.common
+  |   +- helper
+  |   |  +- `CollectionUtils.java`
+  |   |  +- `Strings.java`
+  |
+  +- test
+    +- com.springboot.code.example.common
+      +- helper
+      |  +- `CollectionUtils.java`
+      |  +- `Strings.java`
+----
+
+.Run below test file for executing code
+* `CollectionUtils.java`
+* `Strings.java`
