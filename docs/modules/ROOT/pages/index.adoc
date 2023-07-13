@@ -29,7 +29,6 @@ Hi, I'm Nhan and I'm a Java developer, so I'm very (x10) lazy. This is why I cre
 │   ├── springboot-transaction-jpa
 │   ├── springboot-transaction-multiple-datasource
 │   └── springboot-transaction-rabbitmq-datasource
-├── .dockerignore
 ├── .gitignore
 ├── README.md
 └── pom.xml
