@@ -1,0 +1,34 @@
+:page-module-title: Spring Boot Transaction JDBC
+
+include::ROOT:partial$header.adoc[]
+
+[IMPORTANT]
+.Module {page-module-title}
+====
+This module *DON'T* show how to use `JDBC`!
+====
+
+=== Demonstration of Example
+
+  ✓ Use insert native query::
+    . With `@Transactional`
+
+.Structure of source
+[source]
+----
+springboot-transaction-jdbc
+  +- main
+  | +- com.springboot.code.example.transaction.jdbc
+  |   +- `JdbcApplication.java`
+  |   |
+  |   +- example
+  |   | +- `JdbcExample.java`
+  |
+  +- test
+    +- com.springboot.code.example.transaction.jdbc
+      +- example
+      | +- `JdbcExampleTests.java`
+----
+
+.Run below test file for executing code
+* `JdbcExampleTests.java`
