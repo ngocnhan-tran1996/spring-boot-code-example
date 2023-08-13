@@ -1,0 +1,33 @@
+:page-module-title: Spring Boot RabbitMQ
+
+include::ROOT:partial$header.adoc[]
+
+[IMPORTANT]
+.Module {page-module-title}
+====
+This module *DON'T* show how to use `RabbitMQ`!
+====
+
+=== Demonstration of Example
+
+  ✓ Auto listening new queue by id
+
+.Structure of source
+[source]
+----
+springboot-rabbitmq
+  +- main
+  | +- com.springboot.code.example.rabbitmq
+  |   +- `RabbitMQAppication.java`
+  |   |
+  |   +- example
+  |   |  +- `RabbitMQExample.java`
+  |
+  +- test
+    +- com.springboot.code.example.rabbitmq
+      +- example
+      |  +- `RabbitMQExampleTests.java`
+----
+
+.Run below test file for executing code
+* `RabbitMQExampleTests.java`
