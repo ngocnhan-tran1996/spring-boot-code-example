@@ -8,6 +8,14 @@ include::ROOT:partial$header.adoc[]
 This module *DON'T* show how to use `MinIO`!
 ====
 
+=== What You Need
+
+.MinIO Server
+[,console]
+----
+docker run -p 9000:9000 -p 9090:9090 --name minio -e "MINIO_ROOT_USER=ngocnhan" -e "MINIO_ROOT_PASSWORD=ngocnhan" quay.io/minio/minio server /data --console-address ":9090"
+----
+
 === Demonstration of Example
 
   ✓ Upload image
