@@ -12,3 +12,4 @@
 ** xref:springboot-transaction:springboot-transaction-multiple-datasource/index.adoc[multiple-datasource]
 ** xref:springboot-transaction:springboot-transaction-rabbitmq-datasource/index.adoc[rabbitmq-datasource]
 * xref:springboot-minio:index.adoc[springboot-minio]
+* xref:springboot-rabbitmq:index.adoc[springboot-rabbitmq]
