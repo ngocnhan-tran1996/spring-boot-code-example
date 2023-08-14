@@ -30,7 +30,7 @@ IS
         out_msg OUT VARCHAR2)
         RETURN NUMBER;
 
-     FUNCTION PERSON_INFO_FUNC
+    FUNCTION PERSON_INFO_FUNC
         RETURN person_table
         PIPELINED;
 END example_pack;
