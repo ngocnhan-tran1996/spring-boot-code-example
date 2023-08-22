@@ -24,19 +24,18 @@ public class OracleStructArrayReturnType<T> extends AbstractSqlReturnType {
     List<T> values = new ArrayList<>();
 
     var structValues = (Object[]) array.getArray();
-    for (int x = 0; x < structValues.length; x++) {
+    for (Object struct : structValues) {
 
-      Object struct = structValues[x];
       if (struct instanceof Struct) {
 
         values.add(oracleMapper.fromStruct((OracleStruct) struct));
-      } else {
-
-        String errorMsg = struct == null
-            ? "'null'"
-            : struct.getClass().getName();
-        throw new OracleTypeValueException("Expected STRUCT but got " + errorMsg);
+        continue;
       }
+
+      String errorMsg = struct == null
+          ? "'null'"
+          : struct.getClass().getName();
+      throw new OracleTypeValueException("Expected STRUCT but got " + errorMsg);
     }
 
     return values.toArray();
