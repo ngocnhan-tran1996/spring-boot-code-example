@@ -12,14 +12,14 @@
     </parent>
 
     <groupId>com.springboot.code</groupId>
-    <artifactId>example</artifactId>
+    <artifactId>example-2.7.x</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
     <name>Spring Boot Code Example</name>
 
     <properties>
         <java.version>17</java.version>
-        <revision>1.0.0</revision>
+        <revision>2.7.x</revision>
     </properties>
 
     <modules>
