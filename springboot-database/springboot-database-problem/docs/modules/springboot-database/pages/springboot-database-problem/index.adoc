@@ -39,3 +39,8 @@ springboot-database-problem
 
 .Run below test file for executing code
 * `JpaBindingTests.java`
+
+=== Reference Guide
+. https://github.com/openjdk/jmh[Java Microbenchmark Harness (JMH)]
+. https://gist.github.com/msievers/ce80d343fc15c44bea6cbb741dde7e45[How to integrate JMH benchmarks with Spring]
+. https://dzone.com/articles/jmh-benchmark-rest-apis[JMH: Benchmark REST APIs]
