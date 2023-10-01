@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.springboot.code</groupId>
         <artifactId>example</artifactId>
-        <version>${revision}</version>
+        <version>3.0.x</version>
     </parent>
 
     <groupId>com.springboot.code.example</groupId>

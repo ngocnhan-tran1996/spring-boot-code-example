@@ -13,13 +13,12 @@
 
     <groupId>com.springboot.code</groupId>
     <artifactId>example-3.0.x</artifactId>
-    <version>${revision}</version>
+    <version>3.0.x</version>
     <packaging>pom</packaging>
     <name>Spring Boot Code Example</name>
 
     <properties>
         <java.version>17</java.version>
-        <revision>3.0.x</revision>
     </properties>
 
     <modules>
@@ -36,7 +35,7 @@
             <dependency>
                 <groupId>com.springboot.code.example</groupId>
                 <artifactId>springboot-common</artifactId>
-                <version>${revision}</version>
+                <version>3.0.x</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
