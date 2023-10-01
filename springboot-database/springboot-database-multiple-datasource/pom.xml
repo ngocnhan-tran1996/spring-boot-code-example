@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.springboot.code.example</groupId>
         <artifactId>springboot-database</artifactId>
-        <version>3.0.x</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>springboot-database-multiple-datasource</artifactId>

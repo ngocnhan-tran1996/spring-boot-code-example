@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.springboot.code.example</groupId>
     <artifactId>springboot-transaction</artifactId>
-    <version>3.0.x</version>
+    <version>${revision}</version>
   </parent>
 
   <artifactId>springboot-transaction-jpa</artifactId>
