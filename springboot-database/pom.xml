@@ -20,6 +20,7 @@
         <module>springboot-database-entity-manager</module>
         <module>springboot-database-jdbc</module>
         <module>springboot-database-multiple-datasource</module>
+        <module>springboot-database-problem</module>
     </modules>
 
     <dependencies>
