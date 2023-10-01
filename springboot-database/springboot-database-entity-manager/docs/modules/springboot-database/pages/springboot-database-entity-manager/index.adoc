@@ -38,3 +38,7 @@ springboot-database-entity-manager
 
 .Run below test file for executing code
 * `EntityManagerExampleTests.java`
+
+=== Reference Guide
+. https://stackoverflow.com/questions/70811338/jpa-criteria-api-select-count-from-subquery-with-joins-and-group-by-for-pagi[JPA Criteria API: select count(*) from subquery with joins and group by for pagination implementation]
+. https://stackoverflow.com/questions/5423937/how-do-i-count-the-number-of-rows-returned-by-subquery/66323540#66323540[How do I count the number of rows returned by subquery?]
