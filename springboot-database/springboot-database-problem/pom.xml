@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.springboot.code.example</groupId>
+        <artifactId>springboot-database</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>springboot-database-problem</artifactId>
+    <name>springboot-database-problem</name>
+
+    <properties>
+        <jhm.version>1.37</jhm.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>${jhm.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>${jhm.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
