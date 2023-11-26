@@ -3,48 +3,16 @@
 
 == About me
 
-Hi, I'm Nhan and I'm a Java developer, so I'm very (x10) lazy. This is why I create a spring boot example, this {page-component-title} for future... or maybe I just copy when I feel tired
+Hi, I am Nhan and a Java developer, I think that. I am too lazy to code, but in the real world, I am not clever and that's why this repo was appeared.
+
+This repo that I save "my stupid moment" may be will help me in the future. I hope so.
+
+[quote]
+Human always think they know everything, but they don't!
 
 == What You Need
 
 * https://www.oracle.com/java/technologies/downloads/[Java 17] or higher
+* https://spring.io/[Spring Boot version *{page-component-display-version}*]
 * https://maven.apache.org/download.cgi/[Maven 3.8.5] or higher
 * https://www.docker.com/products/docker-desktop/[Docker]
-* https://spring.io/[Spring Boot version *{page-component-display-version}*]
-
-== Overview
-
-.Structure of source
-[source]
-----
-`spring-boot-code-example`
-├── docs
-├── springboot-common
-├── springboot-database
-│   ├── springboot-database-entity-manager
-│   ├── springboot-database-jdbc
-│   └── springboot-database-multiple-datasource
-├── springboot-log4j2
-├── springboot-transaction
-│   ├── springboot-transaction-jpa
-│   ├── springboot-transaction-multiple-datasource
-│   └── springboot-transaction-rabbitmq-datasource
-├── .gitignore
-├── README.md
-└── pom.xml
-----
-
-[NOTE]
-.Modules's Feature
-====
-
-`docker`:: contains `docker-compose.yml` which be used in whole repository
-
-`springboot-common`:: helper or utility package
-
-`springboot-database`:: some code example relative database
-
-`springboot-log4j2`:: mask sensitive data
-
-`springboot-transaction`:: some code example relative transaction
-====
