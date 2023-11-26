@@ -76,9 +76,13 @@ class TestCaseProvider implements ArgumentsProvider, AnnotationConsumer<TestCase
 
   private static Arguments toArguments(Object item) {
 
+    if (item instanceof TestArguments args) {
+      return arguments(args.getInput(), args.getExpectedOutput());
+    }
+
     // Nothing to do except cast.
-    if (item instanceof Arguments) {
-      return (Arguments) item;
+    if (item instanceof Arguments args) {
+      return args;
     }
 
     // Pass all multidimensional arrays "as is", in contrast to Object[].
@@ -89,8 +93,8 @@ class TestCaseProvider implements ArgumentsProvider, AnnotationConsumer<TestCase
 
     // Special treatment for one-dimensional reference arrays.
     // See https://github.com/junit-team/junit5/issues/1665
-    if (item instanceof Object[]) {
-      return arguments((Object[]) item);
+    if (item instanceof Object[] args) {
+      return arguments(args);
     }
 
     // Pass everything else "as is".

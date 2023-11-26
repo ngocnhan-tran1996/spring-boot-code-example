@@ -11,6 +11,11 @@ public final class Patterns {
 
   public static String[] getClassNameAndVariableName(String input) {
 
+    if (Strings.isBlank(input)) {
+
+      return new String[0];
+    }
+
     var matcher = Pattern.compile(PACKAGE_PATTERN)
         .matcher(input);
 

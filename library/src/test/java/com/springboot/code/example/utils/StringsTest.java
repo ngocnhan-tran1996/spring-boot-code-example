@@ -8,8 +8,16 @@ class StringsTest {
 
   @ParameterizedTest
   @TestCase
-  void testIsNotBlank(String input, boolean expected) {
+  void testIsBlank(String input, boolean expectedOutput) {
 
-    assertThat(Strings.isBlank(input)).isEqualTo(expected);
+    assertThat(Strings.isBlank(input)).isEqualTo(expectedOutput);
   }
+
+  @ParameterizedTest
+  @TestCase
+  void testJoin(String[] input, String expectedOutput) {
+
+    assertThat(Strings.join(input)).isEqualTo(expectedOutput);
+  }
+
 }

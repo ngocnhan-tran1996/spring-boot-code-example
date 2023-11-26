@@ -4,13 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.params.ParameterizedTest;
 import com.springboot.code.example.TestCase;
 
-class CollectionUtilsTest {
+class PatternsTest {
 
   @ParameterizedTest
   @TestCase
-  void testIsEmpty(String[] input, boolean expectedOutput) {
+  public void testGetClassNameAndVariableName(String input, String[] expectedOutput) {
 
-    assertThat(CollectionUtils.isEmpty(input)).isEqualTo(expectedOutput);
+    assertThat(Patterns.getClassNameAndVariableName(input)).isEqualTo(expectedOutput);
   }
 
 }

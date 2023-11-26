@@ -1,14 +1,21 @@
 package com.springboot.code.example.utils.testcase;
 
 import java.util.List;
-import org.junit.jupiter.params.provider.Arguments;
+import com.springboot.code.example.TestArguments;
 
 class StringsTestCase {
 
-  static List<Arguments> testIsNotBlankArguments = List.of(
-      Arguments.of(null, true), // null strings should be considered blank
-      Arguments.of("", true),
-      Arguments.of(" ", true),
-      Arguments.of("not blank", false));
+  static List<TestArguments<String, Boolean>> testIsBlankArguments = List.of(
+      TestArguments.of(null, true),
+      TestArguments.of("", true),
+      TestArguments.of(" ", true),
+      TestArguments.of("null", false),
+      TestArguments.of("not blank", false));
+
+  static List<TestArguments<String[], String>> testJoinArguments = List.of(
+      TestArguments.of(null, null),
+      TestArguments.of(new String[] {"Hello", "World"}, "HelloWorld"),
+      TestArguments.of(new String[] {null, null}, "nullnull"),
+      TestArguments.of(new String[] {"Hello", ",", " ", "World", "!"}, "Hello, World!"));
 
 }
