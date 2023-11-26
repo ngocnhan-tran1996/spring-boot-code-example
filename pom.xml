@@ -7,28 +7,22 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.11</version>
+        <version>3.0.13</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.springboot.code</groupId>
     <artifactId>example</artifactId>
-    <version>${revision}</version>
+    <version>3.0.x</version>
     <packaging>pom</packaging>
     <name>Spring Boot Code Example</name>
 
     <properties>
         <java.version>17</java.version>
-        <revision>3.0.x</revision>
     </properties>
 
     <modules>
-        <module>springboot-common</module>
-        <module>springboot-database</module>
-        <module>springboot-log4j2</module>
-        <module>springboot-transaction</module>
-        <module>springboot-minio</module>
-        <module>springboot-rabbitmq</module>
+        <module>library</module>
     </modules>
 
     <dependencyManagement>
@@ -36,7 +30,7 @@
             <dependency>
                 <groupId>com.springboot.code.example</groupId>
                 <artifactId>springboot-common</artifactId>
-                <version>${revision}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
