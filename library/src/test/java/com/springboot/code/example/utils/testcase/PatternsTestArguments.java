@@ -3,7 +3,7 @@ package com.springboot.code.example.utils.testcase;
 import java.util.List;
 import com.springboot.code.example.TestArguments;
 
-class PatternsTestCase {
+class PatternsTestArguments {
 
   private static String[] EMPTY_ARRAY = {};
 

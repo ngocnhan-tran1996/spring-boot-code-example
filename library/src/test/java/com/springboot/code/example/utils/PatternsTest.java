@@ -8,7 +8,7 @@ class PatternsTest {
 
   @ParameterizedTest
   @TestCase
-  public void testGetClassNameAndVariableName(String input, String[] expectedOutput) {
+  void testGetClassNameAndVariableName(String input, String[] expectedOutput) {
 
     assertThat(Patterns.getClassNameAndVariableName(input)).isEqualTo(expectedOutput);
   }

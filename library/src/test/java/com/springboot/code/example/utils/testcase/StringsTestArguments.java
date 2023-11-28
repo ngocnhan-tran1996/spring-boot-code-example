@@ -3,7 +3,7 @@ package com.springboot.code.example.utils.testcase;
 import java.util.List;
 import com.springboot.code.example.TestArguments;
 
-class StringsTestCase {
+class StringsTestArguments {
 
   static List<TestArguments<String, Boolean>> testIsBlankArguments = List.of(
       TestArguments.of(null, true),

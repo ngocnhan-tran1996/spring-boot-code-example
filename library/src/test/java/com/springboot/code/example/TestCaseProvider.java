@@ -14,7 +14,7 @@ import com.springboot.code.example.utils.Strings;
 class TestCaseProvider implements ArgumentsProvider, AnnotationConsumer<TestCase> {
 
   private static final String TEST = "Test";
-  private static final String CASE = "Case";
+  private static final String ARGUMENTS = "Arguments";
 
   private String variableName;
 
@@ -42,8 +42,8 @@ class TestCaseProvider implements ArgumentsProvider, AnnotationConsumer<TestCase
       String packageName = Strings.join(testClass.getPackageName(), ".testcase.");
       String testSimpleClassName = testClass.getSimpleName();
       String testCaseClassName = testSimpleClassName.endsWith(TEST)
-          ? Strings.join(testSimpleClassName, CASE)
-          : Strings.join(testSimpleClassName, TEST, CASE);
+          ? Strings.join(testSimpleClassName, ARGUMENTS)
+          : Strings.join(testSimpleClassName, TEST, ARGUMENTS);
       String fullyVariableName = testMethodName + "Arguments";
 
       return tryToReadFieldValue(packageName + testCaseClassName, fullyVariableName, testClassName);

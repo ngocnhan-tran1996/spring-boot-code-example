@@ -9,7 +9,7 @@ public final class Patterns {
 
   private static final String PACKAGE_PATTERN = "([\\w.]+)#(\\w+)";
 
-  public static String[] getClassNameAndVariableName(String input) {
+  public static String[] getClassNameAndVariableName(final String input) {
 
     if (Strings.isBlank(input)) {
 
