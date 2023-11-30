@@ -3,7 +3,7 @@ package com.springboot.code.example.rabbitmq.listener;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -15,11 +15,12 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
+import com.springboot.code.example.TestCase;
 import com.springboot.code.example.rabbitmq.AbstractIntegrationTest;
 import lombok.extern.log4j.Log4j2;
 
 @SpringBootTest
-class ListenerTests extends AbstractIntegrationTest {
+class ListenerTest extends AbstractIntegrationTest {
 
   @Autowired
   RabbitAdmin rabbitAdmin;
@@ -33,12 +34,13 @@ class ListenerTests extends AbstractIntegrationTest {
   @Autowired
   Queue q1;
 
-  @Test
-  void testListener() throws Exception {
+  @ParameterizedTest
+  @TestCase
+  void testListener(String input, String output) throws Exception {
 
-    rabbitTemplate.convertAndSend(q1.getName(), "Hello from RabbitMQ!");
+    rabbitTemplate.convertAndSend(q1.getName(), input);
     listener.latch.await(100, TimeUnit.MILLISECONDS);
-    assertThat(listener.receiveMsg).isEqualTo("Hello from RabbitMQ!");
+    assertThat(listener.receiveMsg).isEqualTo(output);
   }
 
   @TestConfiguration

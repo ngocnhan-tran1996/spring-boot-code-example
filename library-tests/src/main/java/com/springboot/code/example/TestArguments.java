@@ -18,4 +18,9 @@ public class TestArguments<I, O> {
     return new TestArguments<I, O>(input, expectedOutput);
   }
 
+  public static <I> TestArguments<I, I> ofSame(I input) {
+
+    return new TestArguments<>(input, input);
+  }
+
 }

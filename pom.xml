@@ -25,6 +25,7 @@
 
     <modules>
         <module>library</module>
+        <module>library-tests</module>
         <module>rabbitmq</module>
     </modules>
 
@@ -34,6 +35,13 @@
                 <groupId>com.springboot.code</groupId>
                 <artifactId>library</artifactId>
                 <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.springboot.code</groupId>
+                <artifactId>library-tests</artifactId>
+                <version>${revision}</version>
+                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -94,13 +102,6 @@
                         </exclude>
                     </excludes>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
