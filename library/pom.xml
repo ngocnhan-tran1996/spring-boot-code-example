@@ -6,13 +6,30 @@
     <parent>
         <groupId>com.springboot.code</groupId>
         <artifactId>example</artifactId>
-        <version>3.0.x</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>library</artifactId>
-    <name>Spring Boot Code Example Library</name>
 
     <properties>
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-spring-boot</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-layout-template-json</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
