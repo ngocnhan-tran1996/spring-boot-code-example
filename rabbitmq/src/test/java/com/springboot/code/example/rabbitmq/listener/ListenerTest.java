@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import org.springframework.amqp.core.AnonymousQueue;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -32,7 +33,7 @@ class ListenerTest extends AbstractIntegrationTest {
   Listener listener;
 
   @Autowired
-  Queue q1;
+  Queue anonymousQueue;
 
   @TestCase
   void testListener(String input, String output, Class<Throwable> exClass) throws Exception {
@@ -40,26 +41,27 @@ class ListenerTest extends AbstractIntegrationTest {
     if (Objects.nonNull(exClass)) {
 
       assertThatExceptionOfType(exClass)
-          .isThrownBy(() -> rabbitTemplate.convertAndSend(q1.getName(), input));
+          .isThrownBy(() -> rabbitTemplate.convertAndSend(anonymousQueue.getName(), input));
       return;
     }
 
-    rabbitTemplate.convertAndSend(q1.getName(), input);
+    rabbitTemplate.convertAndSend(anonymousQueue.getName(), input);
     listener.latch.await(100, TimeUnit.MILLISECONDS);
     assertThat(listener.receiveMsg).isEqualTo(output);
   }
 
   @TestConfiguration
-  static class Config {
+  static class ListenerConfig {
 
     @Bean
-    Queue q1() {
+    Queue anonymousQueue() {
 
-      return new Queue("listen.queue", false, true, true);
+      return new AnonymousQueue();
     }
 
     @Bean
     Listener listener() {
+
       return new Listener();
     }
 
@@ -70,7 +72,7 @@ class ListenerTest extends AbstractIntegrationTest {
     String receiveMsg = "";
     CountDownLatch latch = new CountDownLatch(1);
 
-    @RabbitListener(queues = "#{q1.name}")
+    @RabbitListener(queues = "#{anonymousQueue.name}")
     void foo(@Payload String msg, @Header(AmqpHeaders.CONSUMER_QUEUE) String queueName) {
 
       this.receiveMsg = msg;
