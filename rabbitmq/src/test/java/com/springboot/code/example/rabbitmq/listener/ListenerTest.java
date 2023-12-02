@@ -1,9 +1,10 @@
 package com.springboot.code.example.rabbitmq.listener;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -15,9 +16,8 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
-import com.springboot.code.example.TestCase;
 import com.springboot.code.example.rabbitmq.AbstractIntegrationTest;
-import lombok.extern.log4j.Log4j2;
+import com.springboot.code.example.testcase.TestCase;
 
 @SpringBootTest
 class ListenerTest extends AbstractIntegrationTest {
@@ -34,9 +34,15 @@ class ListenerTest extends AbstractIntegrationTest {
   @Autowired
   Queue q1;
 
-  @ParameterizedTest
   @TestCase
-  void testListener(String input, String output) throws Exception {
+  void testListener(String input, String output, Class<Throwable> exClass) throws Exception {
+
+    if (Objects.nonNull(exClass)) {
+
+      assertThatExceptionOfType(exClass)
+          .isThrownBy(() -> rabbitTemplate.convertAndSend(q1.getName(), input));
+      return;
+    }
 
     rabbitTemplate.convertAndSend(q1.getName(), input);
     listener.latch.await(100, TimeUnit.MILLISECONDS);
@@ -59,7 +65,6 @@ class ListenerTest extends AbstractIntegrationTest {
 
   }
 
-  @Log4j2
   static class Listener {
 
     String receiveMsg = "";
@@ -68,7 +73,6 @@ class ListenerTest extends AbstractIntegrationTest {
     @RabbitListener(queues = "#{q1.name}")
     void foo(@Payload String msg, @Header(AmqpHeaders.CONSUMER_QUEUE) String queueName) {
 
-      log.info("Receive {} from queue {}", msg, queueName);
       this.receiveMsg = msg;
     }
 

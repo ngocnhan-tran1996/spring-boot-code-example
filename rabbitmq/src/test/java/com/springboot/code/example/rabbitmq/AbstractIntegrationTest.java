@@ -13,7 +13,8 @@ public abstract class AbstractIntegrationTest {
 
   @Container
   static final RabbitMQContainer RABBIT_MQ_CONTAINER = new RabbitMQContainer(RABBIT)
-      .withCreateContainerCmdModifier(cmd -> cmd.withName(RABBIT));
+      .withCreateContainerCmdModifier(cmd -> cmd.withName(RABBIT))
+      .withReuse(true);
 
   @DynamicPropertySource
   static void overrideProperties(DynamicPropertyRegistry registry) {
