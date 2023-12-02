@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.amqp.core.AnonymousQueue;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,6 @@ import com.springboot.code.example.testcase.TestCase;
 class ListenerTest extends AbstractIntegrationTest {
 
   @Autowired
-  RabbitAdmin rabbitAdmin;
-
-  @Autowired
   RabbitTemplate rabbitTemplate;
 
   @Autowired
@@ -35,8 +31,11 @@ class ListenerTest extends AbstractIntegrationTest {
   @Autowired
   Queue anonymousQueue;
 
+  @Autowired
+  Queue rpcQueue;
+
   @TestCase
-  void testListener(String input, String output, Class<Throwable> exClass) throws Exception {
+  void testReceive(String input, String output, Class<Throwable> exClass) throws Exception {
 
     if (Objects.nonNull(exClass)) {
 
@@ -50,11 +49,33 @@ class ListenerTest extends AbstractIntegrationTest {
     assertThat(listener.receiveMsg).isEqualTo(output);
   }
 
+  @TestCase
+  void testRPC(String input, String output, Class<Throwable> exClass) throws Exception {
+
+    if (Objects.nonNull(exClass)) {
+
+      assertThatExceptionOfType(exClass)
+          .isThrownBy(() -> rabbitTemplate.convertSendAndReceive(anonymousQueue.getName(), input));
+      return;
+    }
+
+    String actualOutput = (String) rabbitTemplate.convertSendAndReceive(
+        rpcQueue.getName(),
+        input);
+    assertThat(actualOutput).isEqualTo(output);
+  }
+
   @TestConfiguration
   static class ListenerConfig {
 
     @Bean
     Queue anonymousQueue() {
+
+      return new AnonymousQueue();
+    }
+
+    @Bean
+    Queue rpcQueue() {
 
       return new AnonymousQueue();
     }
@@ -73,9 +94,15 @@ class ListenerTest extends AbstractIntegrationTest {
     CountDownLatch latch = new CountDownLatch(1);
 
     @RabbitListener(queues = "#{anonymousQueue.name}")
-    void foo(@Payload String msg, @Header(AmqpHeaders.CONSUMER_QUEUE) String queueName) {
+    void receive(@Payload String msg, @Header(AmqpHeaders.CONSUMER_QUEUE) String queueName) {
 
       this.receiveMsg = msg;
+    }
+
+    @RabbitListener(queues = "#{rpcQueue.name}")
+    String rpc(String msg) {
+
+      return msg + "_RPC";
     }
 
   }

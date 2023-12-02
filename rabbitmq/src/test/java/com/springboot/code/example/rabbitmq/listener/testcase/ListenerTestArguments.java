@@ -5,9 +5,14 @@ import com.springboot.code.example.testcase.TestArguments;
 
 class ListenerTestArguments {
 
-  static List<TestArguments<String, String>> testListenerArguments = List.of(
+  static List<TestArguments<String, String>> testReceiveArguments = List.of(
       TestArguments.ofSame("Hello from RabbitMQ!"),
       TestArguments.of(null, "NPE was raised", NullPointerException.class),
       TestArguments.ofSame(""));
+
+  static List<TestArguments<String, String>> testRPCArguments = List.of(
+      TestArguments.of("Hello from RabbitMQ!", "Hello from RabbitMQ!_RPC"),
+      TestArguments.of(null, "NPE was raised", NullPointerException.class),
+      TestArguments.of("", "_RPC"));
 
 }
