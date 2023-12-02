@@ -39,7 +39,7 @@ class ListenerTest extends AbstractIntegrationTest {
     }
 
     rabbitTemplate.convertAndSend(anonymousQueue.getName(), input);
-    listener.latch.await(100, TimeUnit.MILLISECONDS);
+    this.listener.latch.await(100, TimeUnit.MILLISECONDS);
     assertThat(listener.receiveMsg).isEqualTo(output);
   }
 

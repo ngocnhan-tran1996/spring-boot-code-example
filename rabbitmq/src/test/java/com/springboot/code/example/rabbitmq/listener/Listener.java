@@ -9,7 +9,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 class Listener {
 
   String receiveMsg = "";
-  CountDownLatch latch = new CountDownLatch(1);
+  final CountDownLatch latch = new CountDownLatch(1);
 
   @RabbitListener(queues = "#{anonymousQueue.name}")
   void receive(@Payload String msg, @Header(AmqpHeaders.CONSUMER_QUEUE) String queueName) {
