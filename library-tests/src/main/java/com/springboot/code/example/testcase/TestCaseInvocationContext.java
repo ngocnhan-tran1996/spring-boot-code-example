@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import org.junit.jupiter.api.extension.Extension;
 import org.junit.jupiter.api.extension.TestTemplateInvocationContext;
+import com.springboot.code.example.utils.Strings;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -17,8 +18,8 @@ class TestCaseInvocationContext implements TestTemplateInvocationContext {
   @Override
   public String getDisplayName(int invocationIndex) {
 
-    var input = Objects.toString(this.arguments[0]);
-    var expectedOutput = Objects.toString(this.arguments[1]);
+    var input = Strings.toJsonString(this.arguments[0]);
+    var expectedOutput = Strings.toJsonString(this.arguments[1]);
 
     if (Objects.isNull(this.arguments[2])) {
 
@@ -27,7 +28,7 @@ class TestCaseInvocationContext implements TestTemplateInvocationContext {
     }
 
     return EXCEPTION_DISPLAY_NAME
-        .formatted(invocationIndex, Objects.toString(this.arguments[2]), input);
+        .formatted(invocationIndex, Strings.toJsonString(this.arguments[2]), input);
   }
 
   @Override
