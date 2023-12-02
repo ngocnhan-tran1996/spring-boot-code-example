@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class TestCaseUtils {
 
-  public static final String DISPLAY_NAME = "%s. Got expected result=[%s] from input=[%s]";
-  public static final String EXCEPTION_DISPLAY_NAME = "%s. Raise exception=[%s] from input=[%s]";
+  public static final String DISPLAY_NAME = "%s. Got expected result=%s from input=%s";
+  public static final String EXCEPTION_DISPLAY_NAME = "%s. Raise exception=%s from input=%s";
   public static final String ARGUMENTS = "Arguments";
 
   public static ConditionViolationException loadClass(String className) {

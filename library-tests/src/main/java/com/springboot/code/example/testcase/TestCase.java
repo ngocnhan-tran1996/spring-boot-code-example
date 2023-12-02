@@ -11,10 +11,12 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 @Documented
 @Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
 @TestTemplate
 @ExtendWith(TestCaseExtension.class)
-@Retention(RetentionPolicy.RUNTIME)
 @ArgumentsSource(TestCaseProvider.class)
 public @interface TestCase {
+
+  String value() default "";
 
 }

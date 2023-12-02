@@ -10,16 +10,19 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.support.AnnotationConsumer;
-import org.junit.platform.commons.util.CollectionUtils;
 import org.junit.platform.commons.util.ReflectionUtils;
+import com.springboot.code.example.utils.CollectionUtils;
+import com.springboot.code.example.utils.Patterns;
 import com.springboot.code.example.utils.Strings;
 
 class TestCaseProvider implements ArgumentsProvider, AnnotationConsumer<TestCase> {
 
+  private String variableName;
+
   @Override
   public void accept(TestCase annotation) {
 
-    // do nothing
+    this.variableName = annotation.value();
   }
 
   @Override
@@ -29,17 +32,39 @@ class TestCaseProvider implements ArgumentsProvider, AnnotationConsumer<TestCase
     String testMethodName = context.getRequiredTestMethod()
         .getName();
     return Stream.ofNullable(findValue(testClass, testMethodName))
-        .flatMap(CollectionUtils::toStream)
+        .flatMap(org.junit.platform.commons.util.CollectionUtils::toStream)
         .map(TestCaseProvider::toArguments);
   }
 
   private Object findValue(Class<?> testClass, String testMethodName) {
 
     String testClassName = testClass.getName();
-    String testCaseClassName = Strings.join(testClass.getSimpleName(), ARGUMENTS);
-    String packageName = Strings.join(testClass.getPackageName(), ".testcase.");
-    String className = Strings.join(packageName, testCaseClassName);
-    String variableName = Strings.join(testMethodName, ARGUMENTS);
+    if (Strings.isBlank(this.variableName)) {
+
+      String packageName = Strings.join(testClass.getPackageName(), ".testcase.");
+      String testCaseClassName = Strings.join(testClass.getSimpleName(), ARGUMENTS);
+      String fullyClassName = Strings.join(packageName, testCaseClassName);
+
+      return tryToReadFieldValue(
+          fullyClassName,
+          Strings.join(testMethodName, ARGUMENTS),
+          testClassName);
+    }
+
+    String[] parts = Patterns.getClassNameAndVariableName(this.variableName);
+
+    if (CollectionUtils.isEmpty(parts)) {
+
+      return tryToReadFieldValue(testClassName, this.variableName, testClassName);
+    }
+
+    return tryToReadFieldValue(parts[0], parts[1], testClassName);
+  }
+
+  private static Object tryToReadFieldValue(
+      String className,
+      String variableName,
+      String testClassName) {
 
     Class<?> clazz = ReflectionUtils.tryToLoadClass(className)
         .getOrThrow(cause -> loadClass(className));

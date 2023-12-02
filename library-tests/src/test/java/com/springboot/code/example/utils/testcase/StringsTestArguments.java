@@ -18,4 +18,19 @@ class StringsTestArguments {
       TestArguments.of(new String[] {null, null}, "nullnull"),
       TestArguments.of(new String[] {"Hello", ",", " ", "World", "!"}, "Hello, World!"));
 
+  static List<TestArguments<? extends Object, String>> testToSafeStringArguments = List.of(
+      TestArguments.of(null, "null"),
+      TestArguments.ofSame("HelloWorld"),
+      TestArguments.of(1, "1"),
+      TestArguments.of(new StringsTestArguments(), "null"));
+
+  static List<TestArguments<String[], String>> testGetIfNotBlankArguments = List.of(
+      TestArguments.of((String[]) null, null), TestArguments.of((String[]) null, null),
+      TestArguments.of(new String[0], null),
+      TestArguments.of(new String[] {null, "", " "}, null),
+      TestArguments.of(new String[] {null, null, " "}, null),
+      TestArguments.of(new String[] {null, "zz"}, "zz"),
+      TestArguments.of(new String[] {"abc"}, "abc"),
+      TestArguments.of(new String[] {null, "xyz"}, "xyz"),
+      TestArguments.of(new String[] {null, "xyz", "abc"}, "xyz"));
 }

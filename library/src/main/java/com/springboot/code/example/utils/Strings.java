@@ -38,11 +38,16 @@ public final class Strings {
     return text.toString();
   }
 
-  public static String toJsonString(final Object object) {
+  public static String toSafeString(final Object object) {
 
     if (object == null) {
 
-      return null;
+      return "null";
+    }
+
+    if (object instanceof String text) {
+
+      return text;
     }
 
     try {
@@ -50,7 +55,7 @@ public final class Strings {
       return MAPPER.writeValueAsString(object);
     } catch (JsonProcessingException e) {
 
-      return null;
+      return "null";
     }
   }
 

@@ -18,8 +18,8 @@ class TestCaseInvocationContext implements TestTemplateInvocationContext {
   @Override
   public String getDisplayName(int invocationIndex) {
 
-    var input = Strings.toJsonString(this.arguments[0]);
-    var expectedOutput = Strings.toJsonString(this.arguments[1]);
+    var input = Strings.toSafeString(this.arguments[0]);
+    var expectedOutput = Strings.toSafeString(this.arguments[1]);
 
     if (Objects.isNull(this.arguments[2])) {
 
@@ -28,7 +28,7 @@ class TestCaseInvocationContext implements TestTemplateInvocationContext {
     }
 
     return EXCEPTION_DISPLAY_NAME
-        .formatted(invocationIndex, Strings.toJsonString(this.arguments[2]), input);
+        .formatted(invocationIndex, Strings.toSafeString(this.arguments[2]), input);
   }
 
   @Override
