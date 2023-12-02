@@ -2,7 +2,9 @@ package com.springboot.code.example.testcase;
 
 import static com.springboot.code.example.testcase.TestCaseUtils.config;
 import static com.springboot.code.example.testcase.TestCaseUtils.configArguments;
+import static org.junit.platform.commons.util.AnnotationUtils.findRepeatableAnnotations;
 import static org.junit.platform.commons.util.AnnotationUtils.isAnnotated;
+import java.lang.reflect.Method;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -10,10 +12,11 @@ import org.junit.jupiter.api.extension.TestTemplateInvocationContext;
 import org.junit.jupiter.api.extension.TestTemplateInvocationContextProvider;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
+import org.junit.jupiter.params.provider.ArgumentsSource;
+import org.junit.jupiter.params.support.AnnotationConsumerInitializer;
+import org.junit.platform.commons.util.ReflectionUtils;
 
 class TestCaseExtension implements TestTemplateInvocationContextProvider {
-
-  private static final ArgumentsProvider ARGUMENTS_PROVIDER = new TestCaseProvider();
 
   @Override
   public boolean supportsTestTemplate(ExtensionContext context) {
@@ -27,38 +30,61 @@ class TestCaseExtension implements TestTemplateInvocationContextProvider {
   public Stream<TestTemplateInvocationContext> provideTestTemplateInvocationContexts(
       ExtensionContext context) {
 
+    Method templateMethod = context.getRequiredTestMethod();
+    String templateMethodName = templateMethod.getName();
     var invocationCount = new AtomicLong(0);
 
+    return findRepeatableAnnotations(templateMethod, ArgumentsSource.class)
+        .stream()
+        .map(ArgumentsSource::value)
+        .map(this::instantiateArgumentsProvider)
+        .map(provider -> AnnotationConsumerInitializer.initialize(templateMethod, provider))
+        .flatMap(provider -> arguments(provider, context))
+        .map(Arguments::get)
+        // length = 3 means input, output, exClass
+        .filter(arguments -> arguments.length == 3)
+        .map(arguments -> {
+
+          invocationCount.incrementAndGet();
+          return createInvocationContext(arguments, templateMethodName);
+        })
+        .onClose(() -> {
+
+          if (invocationCount.get() > 0) {
+
+            return;
+          }
+
+          throw configArguments();
+        });
+  }
+
+  private static TestTemplateInvocationContext createInvocationContext(
+      Object[] arguments,
+      String templateMethodName) {
+
+    return new TestCaseInvocationContext(arguments, templateMethodName);
+  }
+
+  private ArgumentsProvider instantiateArgumentsProvider(Class<? extends ArgumentsProvider> clazz) {
     try {
 
-      return ARGUMENTS_PROVIDER.provideArguments(context)
-          .map(Arguments::get)
-          // length = 3 means input, output, exClass
-          .filter(arguments -> arguments.length == 3)
-          .map(arguments -> {
-
-            invocationCount.incrementAndGet();
-            return createInvocationContext(arguments);
-          })
-          .onClose(() -> {
-
-            if (invocationCount.get() > 0) {
-
-              return;
-            }
-
-            throw configArguments();
-          });
+      return ReflectionUtils.newInstance(clazz);
     } catch (Exception ex) {
 
       throw config(ex);
     }
-
   }
 
-  private static TestTemplateInvocationContext createInvocationContext(Object[] arguments) {
+  private static Stream<? extends Arguments> arguments(
+      ArgumentsProvider provider,
+      ExtensionContext context) {
+    try {
 
-    return new TestCaseInvocationContext(arguments);
+      return provider.provideArguments(context);
+    } catch (Exception ex) {
+
+      throw config(ex);
+    }
   }
-
 }
