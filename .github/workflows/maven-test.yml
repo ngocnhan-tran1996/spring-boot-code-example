@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Create .testcontainers.properties file
+      run: echo "testcontainers.reuse.enable=true" > .testcontainers.properties
     - uses: actions/checkout@v4
     - name: Set up JDK 17
       uses: actions/setup-java@v3
