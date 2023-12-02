@@ -33,6 +33,7 @@ class TestCaseExtension implements TestTemplateInvocationContextProvider {
 
       return ARGUMENTS_PROVIDER.provideArguments(context)
           .map(Arguments::get)
+          // length = 3 means input, output, exClass
           .filter(arguments -> arguments.length == 3)
           .map(arguments -> {
 
