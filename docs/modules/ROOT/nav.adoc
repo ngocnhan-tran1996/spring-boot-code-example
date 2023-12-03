@@ -1,5 +1,6 @@
 * xref:index.adoc[Overview]
 
 .The Modules
+* xref:coverage-report:index.adoc[COVERAGE-REPORT]
 * xref:library:index.adoc[LIBRABRY]
 * xref:rabbitmq:index.adoc[RABBITMQ]

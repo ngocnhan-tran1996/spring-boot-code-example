@@ -6,8 +6,10 @@ include::ROOT:partial$header.adoc[]
 
 [pass]
 <div class="bd-code-snippet">
+  <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+    <strong>Modules</strong>
+  </div>
   <div class="highlight">
-    <span class="text-decoration-underline"><strong>Modules:</strong></span><br/>
     spring-boot-code-example <br/>
     ├── library-tests: contains common test files likes <code>@Testcase</code> annotation<br/>
     └── library: contains common files, etc utils package<br/>
@@ -21,8 +23,10 @@ include::ROOT:partial$header.adoc[]
   <li>
     <p>Create test file and postfix should be named <code>Test</code></p>
     <div class="bd-code-snippet">
+      <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+        <strong>Examples</strong>
+      </div>
       <div class="highlight">
-        <span class="text-decoration-underline"><strong>Examples:</strong></span><br/>
 <pre>
 com.springboot.code.example.utils
 └── CollectionUtilsTest
@@ -33,8 +37,10 @@ com.springboot.code.example.utils
   <li>
     <p>Create testcase file and postfix should be named <code>Arguments</code></p>
     <div class="bd-code-snippet">
+      <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+        <strong>Examples</strong>
+      </div>
       <div class="highlight">
-        <span class="text-decoration-underline"><strong>Examples:</strong></span><br/>
 <pre>
 com.springboot.code.example.utils
 ├── CollectionUtilsTest.java
