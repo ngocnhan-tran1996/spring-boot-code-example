@@ -30,3 +30,7 @@ com.springboot.code.example.rabbitmq
 </pre>
     </div>
 </div>
+
+== Reference
+
+* [x] https://maciejwalkowiak.com/blog/testcontainers-spring-boot-setup/[The best way to use Testcontainers with Spring Boot]
