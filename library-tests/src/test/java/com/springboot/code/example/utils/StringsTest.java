@@ -12,7 +12,7 @@ class StringsTest {
   }
 
   @TestCase
-  void testJoin(String[] input, String expectedOutput) {
+  void testJoin(Object[] input, String expectedOutput) {
 
     assertThat(Strings.join(input)).isEqualTo(expectedOutput);
   }

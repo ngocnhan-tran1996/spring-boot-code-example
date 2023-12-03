@@ -24,7 +24,7 @@ public final class Strings {
         || input.isBlank();
   }
 
-  public static String join(final String... strings) {
+  public static String join(final Object... strings) {
 
     if (strings == null) {
 

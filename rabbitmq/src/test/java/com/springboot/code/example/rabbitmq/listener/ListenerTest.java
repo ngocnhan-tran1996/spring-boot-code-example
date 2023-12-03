@@ -9,12 +9,13 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import com.springboot.code.example.rabbitmq.AbstractIntegrationTest;
+import com.springboot.code.example.rabbitmq.EnableTestcontainers;
 import com.springboot.code.example.testcase.TestCase;
 
 @SpringBootTest
+@EnableTestcontainers
 @Import(ListenerConfig.class)
-class ListenerTest extends AbstractIntegrationTest {
+class ListenerTest {
 
   @Autowired
   RabbitTemplate rabbitTemplate;
