@@ -20,7 +20,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Test with Maven
-      run: mvn -B install --file pom.xml
+      run: mvn --batch-mode --update-snapshots verify
     - name: JaCoCo Code Coverage Report
       uses: PavanMudigonda/jacoco-reporter@v4.9
       with:
