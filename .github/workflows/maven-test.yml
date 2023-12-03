@@ -29,3 +29,9 @@ jobs:
         coverage_report_name: 'Test coverage results'
         github_token: ${{ secrets.GITHUB_TOKEN }}
         minimum_coverage: 80
+    - name: Upload Code Coverage Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: code-coverage-report-markdown
+        path: '*/coverage-results.md'
+        retention-days: 1  
