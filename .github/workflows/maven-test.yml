@@ -30,6 +30,8 @@ jobs:
         coverage_report_name: 'Test coverage results'
         github_token: ${{ secrets.GITHUB_TOKEN }}
         minimum_coverage: 80
+    - name: Add Coverage Job Summary
+      run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
     - name: Upload Code Coverage Artifacts
       uses: actions/upload-artifact@v2
       with:
