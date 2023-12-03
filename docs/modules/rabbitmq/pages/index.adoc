@@ -1,0 +1,32 @@
+:page-module-title: RabbitMQ
+
+include::ROOT:partial$header.adoc[]
+
+== What module `*{page-module-title}*` have
+
+[pass]
+<div class="bd-code-snippet">
+  <div class="highlight">
+    <span class="text-decoration-underline"><strong>Modules:</strong></span><br/>
+    spring-boot-code-example <br/>
+    └── rabbitmq
+  </div>
+</div>
+<div class="bd-example-snippet bd-code-snippet bd-file-ref">
+    <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+      Unit test in module
+    </div>
+    <div class="highlight">
+<pre>
+com.springboot.code.example.rabbitmq
+├── confirms // test Publisher Confirms
+│   ├── ConfirmsReturnsTest.java
+│   ├── testcase
+│   │   └── ConfirmsReturnsTestArguments.java
+└── listener // test simple receive and RPC
+    ├── ListenerTest.java 
+    └── testcase
+        └── ListenerTestArguments.java
+</pre>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+:page-module-title: Library
+
+include::ROOT:partial$header.adoc[]
+
+== What module `*{page-module-title}*` have
+
+[pass]
+<div class="bd-code-snippet">
+  <div class="highlight">
+    <span class="text-decoration-underline"><strong>Modules:</strong></span><br/>
+    spring-boot-code-example <br/>
+    ├── library-tests: contains common test files likes <code>@Testcase</code> annotation<br/>
+    └── library: contains common files, etc utils package<br/>
+  </div>
+</div>
+
+=== How to use `@Testcase` annotation
+
+[pass]
+<ol>
+  <li>
+    <p>Create test file and postfix should be named <code>Test</code></p>
+    <div class="bd-code-snippet">
+      <div class="highlight">
+        <span class="text-decoration-underline"><strong>Examples:</strong></span><br/>
+<pre>
+com.springboot.code.example.utils
+└── CollectionUtilsTest
+</pre>
+      </div>
+    </div>
+  </li>
+  <li>
+    <p>Create testcase file and postfix should be named <code>Arguments</code></p>
+    <div class="bd-code-snippet">
+      <div class="highlight">
+        <span class="text-decoration-underline"><strong>Examples:</strong></span><br/>
+<pre>
+com.springboot.code.example.utils
+├── CollectionUtilsTest.java
+└── testcase
+    └── CollectionUtilsTestArguments.java
+</pre>
+      </div>
+    </div>
+  </li>
+  <li>
+    <p>Enjoy it!</p>
+  </li>
+</ol>
+
+=== Example
+
+Please take a look `library-tests/src/test/java/com/springboot/code/example/utils` in source package
