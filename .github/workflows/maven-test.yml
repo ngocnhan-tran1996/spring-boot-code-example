@@ -10,8 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      checks: write
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -22,19 +20,3 @@ jobs:
         cache: maven
     - name: Test with Maven
       run: mvn --batch-mode --update-snapshots verify
-    - name: JaCoCo Code Coverage Report
-      uses: PavanMudigonda/jacoco-reporter@v4.9
-      with:
-        coverage_results_path: 'target/site/jacoco/jacoco.xml'
-        coverage_report_title: 'Test coverage results'
-        coverage_report_name: 'Test coverage results'
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        minimum_coverage: 80
-    - name: Add Coverage Job Summary
-      run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY
-    - name: Upload Code Coverage Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: code-coverage-report-markdown
-        path: '*/coverage-results.md'
-        retention-days: 1  
