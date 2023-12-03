@@ -30,7 +30,7 @@ class StringsTest {
   }
 
   @TestCase("com.springboot.code.example.utils.testcase.StringsTestArguments#testIsBlankArguments")
-  void testIsNotBlank_ByNegativeTestIsBlankArguments(String input, boolean expectedOutput) {
+  void testIsNotBlank_ByNotOutputTestIsBlankArguments(String input, boolean expectedOutput) {
 
     assertThat(Strings.isNotBlank(input)).isNotEqualTo(expectedOutput);
   }

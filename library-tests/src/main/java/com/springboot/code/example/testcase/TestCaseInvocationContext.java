@@ -21,7 +21,7 @@ class TestCaseInvocationContext implements TestTemplateInvocationContext {
 
     var input = Strings.toSafeString(this.arguments[0]);
     var expectedOutput = Strings.toSafeString(this.arguments[1]);
-    if (templateMethodName.contains("_ByNegative")
+    if (templateMethodName.contains("_ByNotOutput")
         && this.arguments[1] instanceof Boolean value) {
 
       expectedOutput = Strings.toSafeString(!value);
