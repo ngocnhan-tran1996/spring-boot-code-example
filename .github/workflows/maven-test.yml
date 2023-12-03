@@ -20,9 +20,8 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Test with Maven
-      run: mvn --batch-mode --update-snapshots verify
+      run: mvn -B install --file pom.xml
     - name: JaCoCo Code Coverage Report
-      id: jacoco_reporter
       uses: PavanMudigonda/jacoco-reporter@v4.9
       with:
         coverage_results_path: 'target/site/jacoco/jacoco.xml'
