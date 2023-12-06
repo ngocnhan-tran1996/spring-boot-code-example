@@ -7,6 +7,7 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.BatchingRabbitTemplate;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 @TestConfiguration
@@ -18,6 +19,7 @@ class BatchConfig {
     return new AnonymousQueue();
   }
 
+  @Profile("batch")
   @Bean
   BatchingRabbitTemplate batchingRabbitTemplate(ConnectionFactory connectionFactory) {
 
@@ -30,6 +32,13 @@ class BatchConfig {
         500);
 
     return new BatchingRabbitTemplate(connectionFactory, batchingStrategy, scheduler);
+  }
+
+  @Profile("annotation-batch")
+  @Bean
+  AnnotationBatch annotationBatch() {
+
+    return new AnnotationBatch();
   }
 
 }

@@ -1,0 +1,6 @@
+spring:
+  rabbitmq:
+    listener:
+      simple:
+        consumer-batch-enabled: true
+        batch-size: 10

@@ -1,18 +1,13 @@
 package com.springboot.code.example.rabbitmq.batch;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.junit.jupiter.api.AfterEach;
-import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.core.BatchingRabbitTemplate;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -20,62 +15,52 @@ import org.springframework.test.context.ActiveProfiles;
 import com.springboot.code.example.rabbitmq.EnableTestcontainers;
 import com.springboot.code.example.testcase.TestCase;
 
-@ActiveProfiles("batch")
+@ActiveProfiles("annotation-batch")
 @SpringBootTest
 @EnableTestcontainers
 @Import(BatchConfig.class)
-class BatchTest {
+class AnnotationBatchTest {
 
   @Autowired
   RabbitAdmin rabbitAdmin;
 
   @Autowired
-  BatchingRabbitTemplate batchingRabbitTemplate;
+  RabbitTemplate rabbitTemplate;
 
   @Autowired
   Queue batchQueue;
 
+  @Autowired
+  AnnotationBatch annotationBatch;
+
   final CountDownLatch latch = new CountDownLatch(1);
 
-  @TestCase
-  void testBatch(
+  @TestCase("com.springboot.code.example.rabbitmq.batch.testcase.BatchTestArguments#testBatchArguments")
+  void testAnnotationBatch(
       List<String> input,
       int expectedOutput)
       throws Exception {
 
     String queueName = batchQueue.getName();
-    input.forEach(msg -> batchingRabbitTemplate.convertAndSend(queueName, msg));
+    input.forEach(msg -> rabbitTemplate.convertAndSend(queueName, msg));
 
     latch.await(500, TimeUnit.MILLISECONDS);
-    var actualOutput = batchingRabbitTemplate.receive(queueName);
-    assertThat(extractMessages(new String(actualOutput.getBody()))).hasSize(10);
+    assertThat(annotationBatch.receiveMsg).hasSize(10);
+    annotationBatch.receiveMsg.clear();
 
     latch.await(500, TimeUnit.MILLISECONDS);
-    var actualRemainedOutput = Optional.ofNullable(batchingRabbitTemplate.receive(queueName))
-        .map(Message::getBody)
-        .map(String::new)
-        .map(this::extractMessages)
-        .orElse(List.of());
-    assertThat(actualRemainedOutput).hasSize(expectedOutput);
+    if (input.size() > 10) {
+
+      assertThat(annotationBatch.receiveMsg).containsExactly("Even Msg 11");
+    }
+    assertThat(annotationBatch.receiveMsg).hasSize(expectedOutput);
+    annotationBatch.receiveMsg.clear();
   }
 
   @AfterEach
   void tearDown() {
 
     rabbitAdmin.purgeQueue(batchQueue.getName());
-  }
-
-  private List<String> extractMessages(final String text) {
-
-    var messages = new ArrayList<String>();
-
-    Pattern p = Pattern.compile("([A-z ]+[0-9]{1,2})");
-    Matcher matcher = p.matcher(text);
-    while (matcher.find()) {
-      messages.add(matcher.group());
-    }
-
-    return messages;
   }
 
 }

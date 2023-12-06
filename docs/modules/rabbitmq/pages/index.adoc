@@ -36,3 +36,4 @@ com.springboot.code.example.rabbitmq
 == Reference
 
 * [x] https://maciejwalkowiak.com/blog/testcontainers-spring-boot-setup/[The best way to use Testcontainers with Spring Boot]
+* [x] https://stackoverflow.com/questions/73609912/spring-amqp-batchingrabbittemplate[Spring AMQP (BatchingRabbitTemplate)]
