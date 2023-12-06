@@ -22,7 +22,7 @@ import com.springboot.code.example.utils.Strings;
 @ActiveProfiles("confirms")
 @SpringBootTest
 @EnableTestcontainers
-@Import(ConfirmsReturnsListenerConfig.class)
+@Import(ConfirmsReturnsConfig.class)
 class ConfirmsReturnsTest {
 
   @Autowired
