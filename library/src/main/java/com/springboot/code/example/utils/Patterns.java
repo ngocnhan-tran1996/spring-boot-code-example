@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Patterns {
 
-  private static final String PACKAGE_PATTERN = "([\\w.]+)#(\\w+)";
+  private static final String PACKAGE_PATTERN = "([A-z.]+)#([A-z]+)$";
 
   public static String[] getClassNameAndVariableName(final String input) {
 
