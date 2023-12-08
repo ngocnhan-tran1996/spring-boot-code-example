@@ -17,13 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
+import com.springboot.code.example.rabbitmq.BaseConfig;
 import com.springboot.code.example.rabbitmq.EnableTestcontainers;
 import com.springboot.code.example.testcase.TestCase;
 
 @ActiveProfiles("batch")
 @SpringBootTest
 @EnableTestcontainers
-@Import(BatchConfig.class)
+@Import({BaseConfig.class, BatchConfig.class})
 class BatchTest {
 
   @Autowired
@@ -33,7 +34,7 @@ class BatchTest {
   BatchingRabbitTemplate batchingRabbitTemplate;
 
   @Autowired
-  Queue batchQueue;
+  Queue queue;
 
   final CountDownLatch latch = new CountDownLatch(1);
 
@@ -43,7 +44,7 @@ class BatchTest {
       int expectedOutput)
       throws Exception {
 
-    String queueName = batchQueue.getName();
+    String queueName = queue.getName();
     input.forEach(msg -> batchingRabbitTemplate.convertAndSend(queueName, msg));
 
     latch.await(500, TimeUnit.MILLISECONDS);
@@ -62,7 +63,7 @@ class BatchTest {
   @AfterEach
   void tearDown() {
 
-    rabbitAdmin.purgeQueue(batchQueue.getName());
+    rabbitAdmin.purgeQueue(queue.getName());
   }
 
   private List<String> extractMessages(final String text) {

@@ -1,9 +1,8 @@
-package com.springboot.code.example.rabbitmq.listener;
+package com.springboot.code.example.rabbitmq.rpc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +27,19 @@ class ListenerTest {
   Queue queue;
 
   @TestCase
-  void testReceive(String input, String output, Class<Throwable> exClass) throws Exception {
+  void testRPC(String input, String output, Class<Throwable> exClass) throws Exception {
 
     if (Objects.nonNull(exClass)) {
 
       assertThatExceptionOfType(exClass)
-          .isThrownBy(() -> rabbitTemplate.convertAndSend(queue.getName(), input));
+          .isThrownBy(() -> rabbitTemplate.convertSendAndReceive(queue.getName(), input));
       return;
     }
 
-    rabbitTemplate.convertAndSend(queue.getName(), input);
-    this.listener.latch.await(100, TimeUnit.MILLISECONDS);
-    assertThat(listener.receiveMsg).isEqualTo(output);
+    String actualOutput = (String) rabbitTemplate.convertSendAndReceive(
+        queue.getName(),
+        input);
+    assertThat(actualOutput).isEqualTo(output);
   }
 
 }

@@ -1,4 +1,4 @@
-package com.springboot.code.example.rabbitmq.listener;
+package com.springboot.code.example.rabbitmq.rpc;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
+import com.springboot.code.example.rabbitmq.BaseConfig;
 import com.springboot.code.example.rabbitmq.EnableTestcontainers;
 import com.springboot.code.example.rabbitmq.confirms.testcase.ConfirmsReturnsTestArguments.ConfirmsReturnsArgumentsInput;
 import com.springboot.code.example.rabbitmq.confirms.testcase.ConfirmsReturnsTestArguments.ConfirmsReturnsArgumentsOutput;
@@ -22,7 +23,7 @@ import com.springboot.code.example.utils.Strings;
 @ActiveProfiles("confirms")
 @SpringBootTest
 @EnableTestcontainers
-@Import(ConfirmsReturnsConfig.class)
+@Import(BaseConfig.class)
 class ConfirmsReturnsTest {
 
   @Autowired
@@ -32,7 +33,7 @@ class ConfirmsReturnsTest {
   RabbitTemplate rabbitTemplate;
 
   @Autowired
-  Queue confirmsQueue;
+  Queue queue;
 
   @TestCase
   void testConfirmsReturns(
@@ -40,7 +41,7 @@ class ConfirmsReturnsTest {
       ConfirmsReturnsArgumentsOutput expectedOutput)
       throws Exception {
 
-    String queueName = Strings.getIfNotBlank(input.queueName(), confirmsQueue.getName());
+    String queueName = Strings.getIfNotBlank(input.queueName(), queue.getName());
 
     var correlationData = new CorrelationData(input.message());
     this.rabbitTemplate.convertAndSend(

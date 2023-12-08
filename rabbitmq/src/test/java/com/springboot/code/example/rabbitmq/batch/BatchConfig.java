@@ -1,7 +1,5 @@
 package com.springboot.code.example.rabbitmq.batch;
 
-import org.springframework.amqp.core.AnonymousQueue;
-import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.batch.SimpleBatchingStrategy;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.BatchingRabbitTemplate;
@@ -12,12 +10,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 @TestConfiguration
 class BatchConfig {
-
-  @Bean
-  Queue batchQueue() {
-
-    return new AnonymousQueue();
-  }
 
   @Profile("batch")
   @Bean
@@ -36,9 +28,9 @@ class BatchConfig {
 
   @Profile("annotation-batch")
   @Bean
-  AnnotationBatch annotationBatch() {
+  AnnotationBatchListener annotationBatchListener() {
 
-    return new AnnotationBatch();
+    return new AnnotationBatchListener();
   }
 
 }

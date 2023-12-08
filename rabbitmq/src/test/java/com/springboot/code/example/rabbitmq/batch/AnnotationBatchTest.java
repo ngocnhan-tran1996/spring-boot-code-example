@@ -12,13 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
+import com.springboot.code.example.rabbitmq.BaseConfig;
 import com.springboot.code.example.rabbitmq.EnableTestcontainers;
 import com.springboot.code.example.testcase.TestCase;
 
 @ActiveProfiles("annotation-batch")
 @SpringBootTest
 @EnableTestcontainers
-@Import(BatchConfig.class)
+@Import({BaseConfig.class, BatchConfig.class})
 class AnnotationBatchTest {
 
   @Autowired
@@ -28,10 +29,10 @@ class AnnotationBatchTest {
   RabbitTemplate rabbitTemplate;
 
   @Autowired
-  Queue batchQueue;
+  Queue queue;
 
   @Autowired
-  AnnotationBatch annotationBatch;
+  AnnotationBatchListener annotationBatchListener;
 
   final CountDownLatch latch = new CountDownLatch(1);
 
@@ -41,26 +42,26 @@ class AnnotationBatchTest {
       int expectedOutput)
       throws Exception {
 
-    String queueName = batchQueue.getName();
+    String queueName = queue.getName();
     input.forEach(msg -> rabbitTemplate.convertAndSend(queueName, msg));
 
     latch.await(500, TimeUnit.MILLISECONDS);
-    assertThat(annotationBatch.receiveMsg).hasSize(10);
-    annotationBatch.receiveMsg.clear();
+    assertThat(annotationBatchListener.receiveMsg).hasSize(10);
+    annotationBatchListener.receiveMsg.clear();
 
     latch.await(500, TimeUnit.MILLISECONDS);
     if (input.size() > 10) {
 
-      assertThat(annotationBatch.receiveMsg).containsExactly("Even Msg 11");
+      assertThat(annotationBatchListener.receiveMsg).containsExactly("Even Msg 11");
     }
-    assertThat(annotationBatch.receiveMsg).hasSize(expectedOutput);
-    annotationBatch.receiveMsg.clear();
+    assertThat(annotationBatchListener.receiveMsg).hasSize(expectedOutput);
+    annotationBatchListener.receiveMsg.clear();
   }
 
   @AfterEach
   void tearDown() {
 
-    rabbitAdmin.purgeQueue(batchQueue.getName());
+    rabbitAdmin.purgeQueue(queue.getName());
   }
 
 }

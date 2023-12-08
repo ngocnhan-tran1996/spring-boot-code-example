@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
-class AnnotationBatch {
+class AnnotationBatchListener {
 
   List<String> receiveMsg = new ArrayList<>();
 
-  @RabbitListener(queues = "#{batchQueue.name}")
+  @RabbitListener(queues = "#{queue.name}")
   void receive(List<String> msg) {
 
     this.receiveMsg.addAll(msg);
