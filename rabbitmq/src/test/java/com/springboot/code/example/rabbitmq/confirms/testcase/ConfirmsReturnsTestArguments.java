@@ -5,8 +5,6 @@ import java.util.UUID;
 import org.springframework.amqp.rabbit.connection.CorrelationData.Confirm;
 import com.springboot.code.example.testcase.TestArguments;
 import com.springboot.code.example.utils.Strings;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 public class ConfirmsReturnsTestArguments {
 
@@ -40,21 +38,10 @@ public class ConfirmsReturnsTestArguments {
         TestArguments.of(nackArgsInput, nackArgsOutput));
   }
 
-  @Getter
-  @RequiredArgsConstructor
-  public static class ConfirmsReturnsArgumentsInput {
-
-    private final String exchange;
-    private final String queueName;
-    private final String message;
+  public record ConfirmsReturnsArgumentsInput(String exchange, String queueName, String message) {
   }
 
-  @Getter
-  @RequiredArgsConstructor
-  public static class ConfirmsReturnsArgumentsOutput {
-
-    private final Integer messageCount;
-    private final Confirm confirm;
+  public record ConfirmsReturnsArgumentsOutput(Integer messageCount, Confirm confirm) {
   }
 
 }

@@ -77,7 +77,7 @@ class TestCaseProvider implements ArgumentsProvider, AnnotationConsumer<TestCase
 
     if (item instanceof TestArguments<?, ?> args) {
 
-      return arguments(args.getInput(), args.getExpectedOutput(), args.getExceptionClass());
+      return arguments(args.input(), args.output(), args.exceptionClass());
     }
 
     throw loadArguments(item);

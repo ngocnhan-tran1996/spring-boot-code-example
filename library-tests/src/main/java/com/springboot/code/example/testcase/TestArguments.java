@@ -1,30 +1,18 @@
 package com.springboot.code.example.testcase;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class TestArguments<I, O> {
-
-  private final I input;
-  private final O expectedOutput;
-  private final Class<? extends Throwable> exceptionClass;
+public record TestArguments<I, O>(I input, O output, Class<? extends Throwable> exceptionClass) {
 
   public static <I, O> TestArguments<I, O> of(
       I input,
-      O expectedOutput,
+      O output,
       Class<? extends Throwable> exceptionClass) {
 
-    return new TestArguments<>(input, expectedOutput, exceptionClass);
+    return new TestArguments<>(input, output, exceptionClass);
   }
 
-  public static <I, O> TestArguments<I, O> of(I input, O expectedOutput) {
+  public static <I, O> TestArguments<I, O> of(I input, O output) {
 
-    return of(input, expectedOutput, null);
+    return of(input, output, null);
   }
 
   public static <I> TestArguments<I, I> ofSame(I input) {

@@ -40,25 +40,25 @@ class ConfirmsReturnsTest {
       ConfirmsReturnsArgumentsOutput expectedOutput)
       throws Exception {
 
-    String queueName = Strings.getIfNotBlank(input.getQueueName(), confirmsQueue.getName());
+    String queueName = Strings.getIfNotBlank(input.queueName(), confirmsQueue.getName());
 
-    var correlationData = new CorrelationData(input.getMessage());
+    var correlationData = new CorrelationData(input.message());
     this.rabbitTemplate.convertAndSend(
-        input.getExchange(),
+        input.exchange(),
         queueName,
-        input.getMessage(),
+        input.message(),
         correlationData);
     var confirm = correlationData.getFuture().get(1, TimeUnit.SECONDS);
     assertThat(confirm)
         .usingRecursiveComparison()
-        .isEqualTo(expectedOutput.getConfirm());
+        .isEqualTo(expectedOutput.confirm());
 
     var queueInfo = this.rabbitAdmin.getQueueInfo(queueName);
     Integer messageCount = Optional.ofNullable(queueInfo)
         .map(QueueInformation::getMessageCount)
         .orElse(-1); // -1 means message do not exist, avoid compare null integer value
     assertThat(messageCount)
-        .isEqualTo(expectedOutput.getMessageCount());
+        .isEqualTo(expectedOutput.messageCount());
 
     var msg = Optional.ofNullable(queueInfo)
         .map(QueueInformation::getName)
@@ -66,8 +66,8 @@ class ConfirmsReturnsTest {
         .map(Message::getBody)
         .map(String::new)
         .orElse(null);
-    var expectedMsg = expectedOutput.getMessageCount() > 0
-        ? input.getMessage()
+    var expectedMsg = expectedOutput.messageCount() > 0
+        ? input.message()
         : null;
     assertThat(msg)
         .isEqualTo(expectedMsg);
