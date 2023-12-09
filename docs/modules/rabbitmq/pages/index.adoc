@@ -21,11 +21,26 @@ include::ROOT:partial$header.adoc[]
     <div class="highlight">
 <pre>
 com.springboot.code.example.rabbitmq
-├── confirms // test Publisher Confirms
+├── batch // <strong>test send and receive batch</strong>
+│   ├── AnnotationBatchTest.java // <strong>use <code>@RabbitListener</code></strong>
+│   ├── BatchTest.java // <strong>use <code>BatchingRabbitTemplate.java</code></strong>
+│   ├── testcase
+│   │   └── BatchTestArguments.java
+├── confirms // <strong>test Publisher Confirms</strong>
 │   ├── ConfirmsReturnsTest.java
 │   ├── testcase
 │   │   └── ConfirmsReturnsTestArguments.java
-└── listener // test simple receive and RPC
+├── listener // <strong>test simple listener</strong>
+│   ├── ListenerTest.java 
+│   └── testcase
+│   │   └── ListenerTestArguments.java
+├── reply // <strong>test request reply</strong>
+│   ├── ReplyAddressTest.java // <strong>use <code>RabbitTemplate.setReplyAddress</code></strong>
+│   ├── ReplySendToTest.java // <strong>use <code>@SendTo</code></strong>
+│   ├── ReplyTest.java // <strong>set message properties</strong>
+│   └── testcase
+│   │   └── ReplyTestArguments.java
+└── rpc // <strong>test RPC</strong>
     ├── ListenerTest.java 
     └── testcase
         └── ListenerTestArguments.java
@@ -37,3 +52,4 @@ com.springboot.code.example.rabbitmq
 
 * [x] https://maciejwalkowiak.com/blog/testcontainers-spring-boot-setup/[The best way to use Testcontainers with Spring Boot]
 * [x] https://stackoverflow.com/questions/73609912/spring-amqp-batchingrabbittemplate[Spring AMQP (BatchingRabbitTemplate)]
+* [x] https://github.com/spring-projects/spring-amqp/blob/main/spring-rabbit/src/test/java/org/springframework/amqp/rabbit/listener/JavaConfigFixedReplyQueueTests.java[JavaConfigFixedReplyQueueTests.java]
