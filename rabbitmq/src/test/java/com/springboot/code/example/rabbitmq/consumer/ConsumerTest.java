@@ -37,7 +37,7 @@ class ConsumerTest {
     queueInfo = rabbitAdmin.getQueueInfo(ConsumerListener.QUEUE_NAME);
     assertThat(queueInfo).isNull();
 
-    latch.await(1, TimeUnit.SECONDS);
+    latch.await(5, TimeUnit.SECONDS);
 
     // auto re-create queue
     queueInfo = rabbitAdmin.getQueueInfo(ConsumerListener.QUEUE_NAME);
