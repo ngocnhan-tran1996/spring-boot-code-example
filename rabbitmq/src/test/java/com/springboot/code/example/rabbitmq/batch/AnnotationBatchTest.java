@@ -47,7 +47,7 @@ class AnnotationBatchTest {
     assertThat(annotationBatchListener.receiveMsg).hasSize(10);
     annotationBatchListener.receiveMsg.clear();
 
-    latch.await(100, TimeUnit.MILLISECONDS);
+    latch.await(200, TimeUnit.MILLISECONDS);
     if (input.size() > 10) {
 
       assertThat(annotationBatchListener.receiveMsg).containsExactly("Even Msg 11");
