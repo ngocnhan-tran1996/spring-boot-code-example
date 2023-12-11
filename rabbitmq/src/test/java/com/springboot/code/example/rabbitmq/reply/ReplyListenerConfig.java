@@ -38,6 +38,7 @@ class ReplyListenerConfig {
 
     var template = new RabbitTemplate(connectionFactory);
     template.setReplyAddress(replyQueue().getName());
+    template.setUseDirectReplyToContainer(false);
     return template;
   }
 

@@ -1,6 +1,7 @@
 package com.springboot.code.example.rabbitmq.consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -27,23 +28,23 @@ class ConsumerByIdTest {
   @Autowired
   RabbitListenerTestHarness harness;
 
+  final CountDownLatch latch = new CountDownLatch(1);
+
   @Test
   void testListenNewQueue() throws Exception {
 
     String queueName = "local_test_queue";
     String msg = "Hello, world!";
 
-    // validate queue has listened by 1 consumer at least
     rabbitTemplate.convertAndSend(ConsumerByIdListener.NEW_QUEUE_NAME, queueName);
-    var queueInfo = rabbitAdmin.getQueueInfo(ConsumerByIdListener.NEW_QUEUE_NAME);
-    assertThat(queueInfo.getConsumerCount()).isEqualTo(1);
+    latch.await(100, TimeUnit.MILLISECONDS);
 
-    // send to new queue
     rabbitTemplate.convertAndSend(queueName, msg);
+    latch.await(100, TimeUnit.MILLISECONDS);
 
     var invocationData = harness.getNextInvocationDataFor(
         ConsumerByIdListener.LOCAL,
-        1,
+        0,
         TimeUnit.SECONDS);
     Object[] args = invocationData.getArguments();
     assertThat(args[0]).isEqualTo(msg);

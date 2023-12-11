@@ -8,7 +8,7 @@ class AnnotationBatchListener {
 
   List<String> receiveMsg = new ArrayList<>();
 
-  @RabbitListener(queues = "#{queue.name}")
+  @RabbitListener(queues = "#{queue.name}", containerFactory = "consumerBatchContainerFactory")
   void receive(List<String> msg) {
 
     this.receiveMsg.addAll(msg);
