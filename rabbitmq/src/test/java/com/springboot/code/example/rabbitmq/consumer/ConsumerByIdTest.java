@@ -49,6 +49,7 @@ class ConsumerByIdTest {
     assertThat(args[0]).isEqualTo(msg);
 
     this.rabbitAdmin.deleteQueue(queueName);
+    this.rabbitAdmin.deleteQueue(ConsumerByIdListener.NEW_QUEUE_NAME);
   }
 
 }
