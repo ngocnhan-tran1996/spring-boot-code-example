@@ -11,7 +11,6 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import com.springboot.code.example.rabbitmq.BaseConfig;
 import com.springboot.code.example.rabbitmq.EnableTestcontainers;
@@ -21,9 +20,8 @@ import com.springboot.code.example.testcase.TestCase;
 import com.springboot.code.example.utils.Strings;
 
 @ActiveProfiles("confirms")
-@SpringBootTest
+@SpringBootTest(classes = BaseConfig.class)
 @EnableTestcontainers
-@Import(BaseConfig.class)
 class ConfirmsReturnsTest {
 
   @Autowired

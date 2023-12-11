@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration name="Library">
+<Configuration name="Library Test">
 
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">
@@ -10,7 +10,7 @@
   </Appenders>
 
   <Loggers>
-    <Root level="info">
+    <Root level="all">
       <AppenderRef ref="Console" />
     </Root>
   </Loggers>

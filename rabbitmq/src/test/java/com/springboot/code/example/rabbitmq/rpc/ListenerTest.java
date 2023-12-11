@@ -7,14 +7,12 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import com.springboot.code.example.rabbitmq.BaseConfig;
 import com.springboot.code.example.rabbitmq.EnableTestcontainers;
 import com.springboot.code.example.testcase.TestCase;
 
-@SpringBootTest
+@SpringBootTest(classes = {BaseConfig.class, ListenerConfig.class})
 @EnableTestcontainers
-@Import({BaseConfig.class, ListenerConfig.class})
 class ListenerTest {
 
   @Autowired
