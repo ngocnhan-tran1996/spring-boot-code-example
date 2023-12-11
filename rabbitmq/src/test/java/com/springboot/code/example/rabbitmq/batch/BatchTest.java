@@ -45,11 +45,11 @@ class BatchTest {
     String queueName = queue.getName();
     input.forEach(msg -> batchingRabbitTemplate.convertAndSend(queueName, msg));
 
-    latch.await(500, TimeUnit.MILLISECONDS);
+    latch.await(100, TimeUnit.MILLISECONDS);
     var actualOutput = batchingRabbitTemplate.receive(queueName);
     assertThat(extractMessages(new String(actualOutput.getBody()))).hasSize(10);
 
-    latch.await(500, TimeUnit.MILLISECONDS);
+    latch.await(200, TimeUnit.MILLISECONDS);
     var actualRemainedOutput = Optional.ofNullable(batchingRabbitTemplate.receive(queueName))
         .map(Message::getBody)
         .map(String::new)

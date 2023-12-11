@@ -21,7 +21,7 @@ class BatchConfig {
     var batchingStrategy = new SimpleBatchingStrategy(
         10,
         Integer.MAX_VALUE,
-        500);
+        100);
 
     return new BatchingRabbitTemplate(connectionFactory, batchingStrategy, scheduler);
   }

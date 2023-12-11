@@ -35,7 +35,7 @@ class ReplySendToTest {
       throws Exception {
 
     this.rabbitTemplate.convertAndSend(queue.getName(), input);
-    latch.await(1, TimeUnit.SECONDS);
+    latch.await(100, TimeUnit.MILLISECONDS);
 
     String actualOutput = (String) this.rabbitTemplate.receiveAndConvert(replyQueue.getName());
     assertThat(actualOutput).isEqualTo(expectedOutput);
