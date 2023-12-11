@@ -10,6 +10,9 @@
   </Appenders>
 
   <Loggers>
+
+    <Logger name="com.springboot.code.example" level="trace" />
+
     <Root level="info">
       <AppenderRef ref="Console" />
     </Root>
