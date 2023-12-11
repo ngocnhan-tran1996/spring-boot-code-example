@@ -30,6 +30,8 @@ com.springboot.code.example.rabbitmq
 │   ├── ConfirmsReturnsTest.java
 │   ├── testcase
 │   │   └── ConfirmsReturnsTestArguments.java
+├── consumer // <strong>test event auto create queue</strong>
+│   └── ConsumerTest.java
 ├── listener // <strong>test simple listener</strong>
 │   ├── ListenerTest.java 
 │   └── testcase
