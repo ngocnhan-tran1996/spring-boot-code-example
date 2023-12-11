@@ -1,9 +1,11 @@
 package com.springboot.code.example.rabbitmq.consumer;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
+@RequiredArgsConstructor
 class ConsumerListener {
 
   static final String QUEUE_NAME = "consumer.queue.test";
