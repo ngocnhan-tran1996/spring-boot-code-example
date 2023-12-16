@@ -12,8 +12,16 @@ class TransactionProducer {
   private final Queue queue;
   private final RabbitTemplate rabbitTemplate;
 
-  void send() {
+  void sendWithTransaction() {
 
+    rabbitTemplate.setChannelTransacted(true);
+    this.rabbitTemplate.convertAndSend(queue.getName(), "test");
+    throw new RuntimeException();
+  }
+
+  void sendWithoutTransaction() {
+
+    rabbitTemplate.setChannelTransacted(false);
     this.rabbitTemplate.convertAndSend(queue.getName(), "test");
     throw new RuntimeException();
   }

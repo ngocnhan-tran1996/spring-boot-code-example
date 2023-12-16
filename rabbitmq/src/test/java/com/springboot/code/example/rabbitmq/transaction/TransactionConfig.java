@@ -20,7 +20,6 @@ class TransactionConfig {
   @Bean
   TransactionProducer transactionProducer(Queue queue, RabbitTemplate rabbitTemplate) {
 
-    rabbitTemplate.setChannelTransacted(true);
     return new TransactionProducer(queue, rabbitTemplate);
   }
 

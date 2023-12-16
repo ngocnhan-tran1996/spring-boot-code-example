@@ -1,6 +1,7 @@
 package com.springboot.code.example.rabbitmq.transaction;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import java.util.concurrent.CountDownLatch;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.Queue;
@@ -30,20 +31,23 @@ class TransactionTest {
   final CountDownLatch latch = new CountDownLatch(1);
 
   @Test
-  void testTransaction() throws Exception {
+  void testSendWithTransaction() throws Exception {
 
-    try {
+    assertThatExceptionOfType(RuntimeException.class)
+        .isThrownBy(transactionProducer::sendWithTransaction);
+    var msgCount = rabbitAdmin.getQueueInfo(queue.getName())
+        .getMessageCount();
+    assertThat(msgCount).isZero();
+  }
 
-      transactionProducer.send();
-    } catch (Exception e) {
+  @Test
+  void testSendWithoutTransaction() throws Exception {
 
-      // do nothing
-    } finally {
-
-      var msgCount = rabbitAdmin.getQueueInfo(queue.getName())
-          .getMessageCount();
-      assertThat(msgCount).isZero();
-    }
+    assertThatExceptionOfType(RuntimeException.class)
+        .isThrownBy(transactionProducer::sendWithoutTransaction);
+    var msgCount = rabbitAdmin.getQueueInfo(queue.getName())
+        .getMessageCount();
+    assertThat(msgCount).isEqualTo(1);
   }
 
 }
