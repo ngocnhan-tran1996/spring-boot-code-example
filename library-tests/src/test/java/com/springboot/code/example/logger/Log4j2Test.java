@@ -1,4 +1,4 @@
-package com.springboot.code.example;
+package com.springboot.code.example.logger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.apache.logging.log4j.Level;

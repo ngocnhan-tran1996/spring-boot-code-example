@@ -1,7 +1,8 @@
-package com.springboot.code.example.testcase;
+package com.springboot.code.example.logger.testcase;
 
 import java.util.List;
 import org.apache.logging.log4j.Level;
+import com.springboot.code.example.testcase.TestArguments;
 
 class Log4j2TestArguments {
 

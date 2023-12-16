@@ -43,14 +43,15 @@ com.springboot.code.example.utils
       <div class="highlight">
 <pre>
 com.springboot.code.example
-├── Log4j2Test.java
+├── logger
+│   ├── Log4j2Test.java
 │   ├── testcase.java
 │   │   └── Log4j2TestArguments.java
-├── utils
-│   ├── CollectionUtilsTest.java
-│   ├── PatternsTest.java
-│   ├── StringsTest.java
-│   └── testcase
+└── utils
+    ├── CollectionUtilsTest.java
+    ├── PatternsTest.java
+    ├── StringsTest.java
+    └── testcase
         ├── CollectionUtilsTestArguments.java
         ├── PatternsTestArguments.java
         └── StringsTestArguments.java
