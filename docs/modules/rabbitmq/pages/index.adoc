@@ -42,10 +42,12 @@ com.springboot.code.example.rabbitmq
 │   ├── ReplyTest.java // <strong>set message properties</strong>
 │   └── testcase
 │   │   └── ReplyTestArguments.java
-└── rpc // <strong>test RPC</strong>
-    ├── ListenerTest.java 
-    └── testcase
-        └── ListenerTestArguments.java
+├── rpc // <strong>test RPC</strong>
+│   ├── ListenerTest.java 
+│   │   └── testcase
+│   │       └── ListenerTestArguments.java
+└── transaction // <strong>test RabbitTransactionManager</strong>
+    └── TransactionTest.java 
 </pre>
     </div>
 </div>
