@@ -11,15 +11,15 @@ import com.springboot.code.example.rabbitmq.BaseConfig;
 import com.springboot.code.example.rabbitmq.EnableTestcontainers;
 import com.springboot.code.example.testcase.TestCase;
 
-@SpringBootTest(classes = {BaseConfig.class, ListenerConfig.class})
+@SpringBootTest(classes = {BaseConfig.class, RPCListenerConfig.class})
 @EnableTestcontainers
-class ListenerTest {
+class RPCListenerTest {
 
   @Autowired
   RabbitTemplate rabbitTemplate;
 
   @Autowired
-  Listener listener;
+  RPCListener listener;
 
   @Autowired
   Queue queue;

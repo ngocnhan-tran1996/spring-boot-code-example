@@ -4,12 +4,12 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 @TestConfiguration
-class ListenerConfig {
+class RPCListenerConfig {
 
   @Bean
-  Listener listener() {
+  RPCListener listener() {
 
-    return new Listener();
+    return new RPCListener();
   }
 
 }
