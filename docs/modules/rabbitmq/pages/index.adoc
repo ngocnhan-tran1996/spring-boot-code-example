@@ -1,0 +1,59 @@
+:page-module-title: RabbitMQ
+
+include::ROOT:partial$header.adoc[]
+
+== What module `*{page-module-title}*` have
+
+[pass]
+<div class="bd-code-snippet">
+  <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+    <strong>Modules</strong>
+  </div>
+  <div class="highlight">
+    spring-boot-code-example <br/>
+    └── rabbitmq
+  </div>
+</div>
+<div class="bd-example-snippet bd-code-snippet bd-file-ref">
+    <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+      <strong>Unit test in module</strong>
+    </div>
+    <div class="highlight">
+<pre>
+com.springboot.code.example.rabbitmq
+├── batch // <strong>test send and receive batch</strong>
+│   ├── AnnotationBatchTest.java // <strong>use <code>@RabbitListener</code></strong>
+│   ├── BatchTest.java // <strong>use <code>BatchingRabbitTemplate.java</code></strong>
+│   ├── testcase
+│   │   └── BatchTestArguments.java
+├── confirms // <strong>test Publisher Confirms</strong>
+│   ├── ConfirmsReturnsTest.java
+│   ├── testcase
+│   │   └── ConfirmsReturnsTestArguments.java
+├── consumer // <strong>test event auto create queue and listen by id</strong>
+│   └── ConsumerTest.java
+├── listener // <strong>test simple listener</strong>
+│   ├── ListenerTest.java 
+│   └── testcase
+│   │   └── ListenerTestArguments.java
+├── reply // <strong>test request reply</strong>
+│   ├── ReplyAddressTest.java // <strong>use <code>RabbitTemplate.setReplyAddress</code></strong>
+│   ├── ReplySendToTest.java // <strong>use <code>@SendTo</code></strong>
+│   ├── ReplyTest.java // <strong>set message properties</strong>
+│   └── testcase
+│   │   └── ReplyTestArguments.java
+├── rpc // <strong>test RPC</strong>
+│   ├── ListenerTest.java 
+│   │   └── testcase
+│   │       └── ListenerTestArguments.java
+└── transaction // <strong>test RabbitTransactionManager</strong>
+    └── TransactionTest.java 
+</pre>
+    </div>
+</div>
+
+== Reference
+
+* [x] https://maciejwalkowiak.com/blog/testcontainers-spring-boot-setup/[The best way to use Testcontainers with Spring Boot]
+* [x] https://stackoverflow.com/questions/73609912/spring-amqp-batchingrabbittemplate[Spring AMQP (BatchingRabbitTemplate)]
+* [x] https://github.com/spring-projects/spring-amqp/blob/main/spring-rabbit/src/test/java/org/springframework/amqp/rabbit/listener/JavaConfigFixedReplyQueueTests.java[JavaConfigFixedReplyQueueTests.java]

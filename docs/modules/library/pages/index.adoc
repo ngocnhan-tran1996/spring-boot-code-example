@@ -1,0 +1,69 @@
+:page-module-title: Library
+
+include::ROOT:partial$header.adoc[]
+
+== What module `*{page-module-title}*` have
+
+[pass]
+<div class="bd-code-snippet">
+  <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+    <strong>Modules</strong>
+  </div>
+  <div class="highlight">
+    spring-boot-code-example <br/>
+    ├── library-tests: contains common test files likes <code>@Testcase</code> annotation<br/>
+    └── library: contains common files, etc utils package<br/>
+  </div>
+</div>
+
+=== How to use `@Testcase` annotation
+
+[pass]
+<ol>
+  <li>
+    <p>Create test file and postfix should be named <code>Test</code></p>
+    <div class="bd-code-snippet">
+      <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+        <strong>Examples</strong>
+      </div>
+      <div class="highlight">
+<pre>
+com.springboot.code.example.utils
+└── CollectionUtilsTest
+</pre>
+      </div>
+    </div>
+  </li>
+  <li>
+    <p>Create testcase file and postfix should be named <code>Arguments</code></p>
+    <div class="bd-code-snippet">
+      <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+        <strong>Examples</strong>
+      </div>
+      <div class="highlight">
+<pre>
+com.springboot.code.example
+├── logger
+│   ├── Log4j2Test.java
+│   ├── testcase.java
+│   │   └── Log4j2TestArguments.java
+└── utils
+    ├── CollectionUtilsTest.java
+    ├── PatternsTest.java
+    ├── StringsTest.java
+    └── testcase
+        ├── CollectionUtilsTestArguments.java
+        ├── PatternsTestArguments.java
+        └── StringsTestArguments.java
+</pre>
+      </div>
+    </div>
+  </li>
+  <li>
+    <p>Enjoy it!</p>
+  </li>
+</ol>
+
+=== Example
+
+Please take a look `library-tests/src/test/java/com/springboot/code/example/utils` in source package

@@ -1,0 +1,32 @@
+:page-module-title: Coverage-Report
+
+include::ROOT:partial$header.adoc[]
+
+== What module `*{page-module-title}*` have
+
+This module have only pom that contains all module for exporting jacoco
+
+[pass]
+<div class="bd-code-snippet">
+  <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+    <strong>How to export jacoco report</strong>
+  </div>
+  <div class="highlight">
+    spring-boot-code-example <br/>
+    ├── rabbitmq: contains example about Spring Boot and RabbitMQ<br/>
+    ├── library-tests: contains common test files likes <code>@Testcase</code> annotation<br/>
+    └── library: contains common files, etc utils package<br/>
+  </div>
+</div>
+
+[pass]
+<div class="bd-example-snippet bd-code-snippet bd-file-ref">
+    <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+      <strong>How to export jacoco report</strong>
+    </div>
+    <div class="highlight">
+<pre>
+mvn clean verify
+</pre>
+    </div>
+</div>

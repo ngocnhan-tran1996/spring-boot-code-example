@@ -2,11 +2,15 @@
 
 ## About me
 
-Hi, I’m Nhan and I’m a Java developer, so I’m very (x10) lazy. This is why I create a spring boot example, this Spring Boot Code Example for future…​ or maybe I just copy when I feel tired
+Hi, I am Nhan and a Java developer, I think that. I am too lazy to code, but in the real world, I am not clever and that's why this repo was appeared.
+
+This repo that I save "my stupid moment" may be will help me in the future. I hope so.
+
+> Human always think they know everything, but they don't!
 
 ## What You Need
 
 * [Java 17](https://www.oracle.com/java/technologies/downloads/) or higher
+* [Spring Boot version **3.0.x**](https://spring.io/)
 * [Maven 3.8.5](https://maven.apache.org/download.cgi/) or higher
 * [Docker](https://www.docker.com/products/docker-desktop/)
-* [Spring Boot version **3.0.x**](https://spring.io/)
