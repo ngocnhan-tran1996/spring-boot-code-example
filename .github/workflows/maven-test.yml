@@ -3,10 +3,8 @@ name: Java CI with Maven
 on:
   push:
     branches:
-      - '3.0.x'
-      - 'feature/3.0.x/**'
-    paths:
-      - ".github/workflows/maven-test.yml"
+      - '*'
+      - '!main'
   pull_request:
     branches: [ '3.0.x' ]
   workflow_dispatch:
