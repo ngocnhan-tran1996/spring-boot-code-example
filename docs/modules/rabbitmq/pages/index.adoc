@@ -61,3 +61,4 @@ com.springboot.code.example.rabbitmq
 * [x] https://maciejwalkowiak.com/blog/testcontainers-spring-boot-setup/[The best way to use Testcontainers with Spring Boot]
 * [x] https://stackoverflow.com/questions/73609912/spring-amqp-batchingrabbittemplate[Spring AMQP (BatchingRabbitTemplate)]
 * [x] https://github.com/spring-projects/spring-amqp/blob/main/spring-rabbit/src/test/java/org/springframework/amqp/rabbit/listener/JavaConfigFixedReplyQueueTests.java[JavaConfigFixedReplyQueueTests.java]
+* [x] https://gist.github.com/garyrussell/6594677[RabbitTransactionManager ]
