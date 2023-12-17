@@ -1,5 +1,6 @@
 package com.springboot.code.example.utils;
 
+import java.util.Map;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,17 @@ public final class CollectionUtils {
 
     return objects == null
         || objects.length == 0;
+  }
+
+  public static boolean isEmpty(final Map<?, ?> map) {
+
+    return map == null
+        || map.isEmpty();
+  }
+
+  public static boolean isNotEmpty(final Map<?, ?> map) {
+
+    return !isEmpty(map);
   }
 
 }

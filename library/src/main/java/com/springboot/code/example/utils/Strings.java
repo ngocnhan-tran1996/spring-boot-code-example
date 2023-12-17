@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 public final class Strings {
 
   public static final String EMPTY = "";
+  public static final String SPACE = " ";
+  public static final String DOT = ".";
+  public static final String SLASH = "/";
 
   private static final ObjectMapper MAPPER = JsonMapper.builder()
       .findAndAddModules()
