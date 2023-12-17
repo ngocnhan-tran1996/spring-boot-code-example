@@ -2,7 +2,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ 'refactor/3.0.x' ]
+    branches: [ 'feature/3.0.x/**' ]
   pull_request:
     branches: [ '3.0.x' ]
   workflow_dispatch:
