@@ -32,6 +32,10 @@ com.springboot.code.example.rabbitmq
 │   │   └── ConfirmsReturnsTestArguments.java
 ├── consumer // <strong>test event auto create queue and listen by id</strong>
 │   └── ConsumerTest.java
+├── json // <strong>test send message with JSON format</strong>
+│   ├── JsonListenerTest.java
+│   ├── testcase
+│   │   └── JsonListenerTestArguments.java
 ├── listener // <strong>test simple listener</strong>
 │   ├── ListenerTest.java 
 │   └── testcase
