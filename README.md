@@ -8,7 +8,7 @@ This repo that I save "my stupid moment" may be will help me in the future. I ho
 
 > Human always think they know everything, but they don't!
 
-### [**My Resume**](https://ngocnhan-tran1996.github.io/)
+This is [**my resume**](https://ngocnhan-tran1996.github.io/) if you need more information about me
 
 ## What You Need
 
