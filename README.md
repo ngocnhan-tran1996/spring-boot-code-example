@@ -8,6 +8,8 @@ This repo that I save "my stupid moment" may be will help me in the future. I ho
 
 > Human always think they know everything, but they don't!
 
+### [**My Resume**](https://ngocnhan-tran1996.github.io/)
+
 ## What You Need
 
 * [Java 17](https://www.oracle.com/java/technologies/downloads/) or higher
