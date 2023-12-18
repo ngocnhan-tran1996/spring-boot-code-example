@@ -13,7 +13,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @TestConfiguration
 class BatchConfig {
 
-  @Profile("batch")
+  @Profile({"batch", "config-batch"})
   @Bean
   BatchingRabbitTemplate batchingRabbitTemplate(ConnectionFactory connectionFactory) {
 
@@ -28,7 +28,7 @@ class BatchConfig {
     return new BatchingRabbitTemplate(connectionFactory, batchingStrategy, scheduler);
   }
 
-  @Profile("annotation-batch")
+  @Profile({"annotation-batch", "config-batch"})
   @Bean
   AnnotationBatchListener annotationBatchListener() {
 
@@ -46,4 +46,19 @@ class BatchConfig {
     factory.setReceiveTimeout(100L);
     return factory;
   }
+
+  @Profile("config-batch")
+  @Bean("consumerBatchContainerFactory")
+  SimpleRabbitListenerContainerFactory batchContainerFactory(
+      SimpleRabbitListenerContainerFactoryConfigurer configurer,
+      ConnectionFactory connectionFactory) {
+
+    var factory = new SimpleRabbitListenerContainerFactory();
+    configurer.configure(factory, connectionFactory);
+    factory.setBatchListener(true); // configures a BatchMessageListenerAdapter
+    factory.setBatchSize(10);
+    factory.setReceiveTimeout(100L);
+    return factory;
+  }
+
 }
