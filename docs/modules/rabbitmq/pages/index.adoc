@@ -52,8 +52,10 @@ com.springboot.code.example.rabbitmq
 │   ├── ListenerTest.java 
 │   │   └── testcase
 │   │       └── ListenerTestArguments.java
-└── transaction // <strong>test RabbitTransactionManager</strong>
-    └── TransactionTest.java 
+├── transaction // <strong>test RabbitTransactionManager</strong>
+│   └── TransactionTest.java 
+└── validation // <strong>test validation on consumer</strong>
+    └── ValidationTest.java
 </pre>
     </div>
 </div>
