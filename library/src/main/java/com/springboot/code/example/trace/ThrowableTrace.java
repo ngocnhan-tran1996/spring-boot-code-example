@@ -72,7 +72,7 @@ public class ThrowableTrace implements Serializable {
                     "%s %s%s",
                     target,
                     entry.getKey(),
-                    String.join(DOUBLE_SPACE, entry.getValue()));
+                    Strings.join(DOUBLE_SPACE, entry.getValue()));
               })
               .collect(Collectors.joining(
                   System.lineSeparator() + TAB_INDENTATION,
