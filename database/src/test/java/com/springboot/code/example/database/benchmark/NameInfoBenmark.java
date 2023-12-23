@@ -54,9 +54,9 @@ public class NameInfoBenmark extends BenchmarkConfig {
   }
 
   @Benchmark
-  public Page<NamePrefixProjection> executeNameInfoLoop() {
+  public Page<NamePrefixProjection> executeNameInfo() {
 
-    return namePrefixRepository.executeNameInfoLoop(
+    return namePrefixRepository.executeNameInfo(
         "2023-12-18",
         "2023-12-20",
         PageRequest.of(499, 100));
@@ -72,9 +72,9 @@ public class NameInfoBenmark extends BenchmarkConfig {
   }
 
   @Benchmark
-  public Page<NamePrefixProjection> executeNameInfo() {
+  public Page<NamePrefixProjection> executeNameInfoLoop() {
 
-    return namePrefixRepository.executeNameInfo(
+    return namePrefixRepository.executeNameInfoLoop(
         "2023-12-18",
         "2023-12-20",
         PageRequest.of(499, 100));
