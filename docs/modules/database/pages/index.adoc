@@ -1,0 +1,36 @@
+:page-module-title: Database
+
+include::ROOT:partial$header.adoc[]
+
+== What module `*{page-module-title}*` have
+
+[pass]
+<div class="bd-code-snippet">
+  <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+    <strong>Modules</strong>
+  </div>
+  <div class="highlight">
+    spring-boot-code-example <br/>
+    └── database
+  </div>
+</div>
+<div class="bd-example-snippet bd-code-snippet bd-file-ref">
+    <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+      <strong>Unit test in module</strong>
+    </div>
+    <div class="highlight">
+<pre>
+com.springboot.code.example.rabbitmq
+└── benchmark // <strong>Benchmark for structure TABLE(rows here...)</strong>
+    └── NameInfoBenmark.java
+</pre>
+    </div>
+</div>
+
+== Reference
+
+* [x] https://stackoverflow.com/questions/31267274/spring-boot-programmatically-setting-profiles[Spring Boot Programmatically setting profiles]
+* [x] https://www.oracle.com/technical-resources/articles/java/architect-benchmarking.html[Avoiding Benchmarking Pitfalls on the JVM]
+* [x] https://github.com/openjdk/jmh[Java Microbenchmark Harness (JMH)]
+* [x] https://blogs.oracle.com/connect/post/on-rownum-and-limiting-results[On ROWNUM and Limiting Results]
+* [x] https://dzone.com/articles/jmh-benchmark-rest-apis[JMH: Benchmark REST APIs]

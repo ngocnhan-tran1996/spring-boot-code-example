@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/db_test
+    username: user_nhan
+    password: ngocnhan
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      schema: user_nhan
+      minimum-idle: 1
+      maximum-pool-size: 1
