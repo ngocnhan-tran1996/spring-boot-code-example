@@ -85,17 +85,17 @@ public interface NamePrefixRepository extends JpaRepository<NamePrefixEntity, Bi
       int page,
       int size);
 
-  @Query(value = "SELECT n FROM NamePrefixEntity n WHERE n.age = :id OR :id IS NULL")
-  List<NamePrefixEntity> bindNullParameter(BigDecimal id);
+  @Query(value = "SELECT n FROM NamePrefixEntity n WHERE n.age = :age OR :age IS NULL")
+  List<NamePrefixEntity> bindNullParameter(BigDecimal age);
 
-  @Query(value = "SELECT n FROM NamePrefixEntity n WHERE n.age = :id")
-  List<NamePrefixEntity> bindParameter(BigDecimal id);
+  @Query(value = "SELECT n FROM NamePrefixEntity n WHERE n.age = :age")
+  List<NamePrefixEntity> bindParameter(BigDecimal age);
 
-  @Query(value = "SELECT n.* FROM NAME_PREFIX c WHERE n.id = :id OR :id IS NULL",
+  @Query(value = "SELECT n.* FROM NAME_PREFIX n WHERE n.age = :age OR :age IS NULL",
       nativeQuery = true)
-  List<Object[]> bindNullParameterNative(BigDecimal id);
+  List<Object[]> bindNullParameterNative(BigDecimal age);
 
-  @Query(value = "SELECT n.* FROM NAME_PREFIX c WHERE n.id = :id", nativeQuery = true)
-  List<Object[]> bindParameterNative(BigDecimal id);
+  @Query(value = "SELECT n.* FROM NAME_PREFIX n WHERE n.age = :age", nativeQuery = true)
+  List<Object[]> bindParameterNative(BigDecimal age);
 
 }

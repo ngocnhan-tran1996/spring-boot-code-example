@@ -1,11 +1,14 @@
-package com.springboot.code.example.database.function.testcase;
+package com.springboot.code.example.database.repository.testcase;
 
+import java.math.BigDecimal;
 import java.util.List;
 import com.springboot.code.example.testcase.TestArguments;
 
-public class NameInfoTestArguments {
+public class NamePrefixRepositoryTestArguments {
 
   static List<TestArguments<NameInfoInput, Integer>> testExecuteNameInfoArguments;
+  static List<TestArguments<BigDecimal, Integer>> testBindParameterArguments = List.of(
+      TestArguments.of(BigDecimal.TEN, 20));
 
   static {
 
@@ -16,6 +19,7 @@ public class NameInfoTestArguments {
         TestArguments.of(firstPage, 100),
         TestArguments.of(specificPage, 100));
   }
+
 
   public record NameInfoInput(String startDate, String toDate, int page, int size) {
 
