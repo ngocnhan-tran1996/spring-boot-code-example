@@ -31,7 +31,9 @@ class TestCaseProvider implements ArgumentsProvider, AnnotationConsumer<TestCase
     Class<?> testClass = context.getRequiredTestClass();
     String testMethodName = context.getRequiredTestMethod()
         .getName();
-    return Stream.ofNullable(findValue(testClass, testMethodName))
+    return Stream.ofNullable(this.findValue(testClass, testMethodName))
+        .filter(obj -> obj instanceof TestArguments)
+        .map(obj -> ((TestArguments) obj).getArguments())
         .flatMap(org.junit.platform.commons.util.CollectionUtils::toStream)
         .map(TestCaseProvider::toArguments);
   }
@@ -75,7 +77,7 @@ class TestCaseProvider implements ArgumentsProvider, AnnotationConsumer<TestCase
 
   private static Arguments toArguments(Object item) {
 
-    if (item instanceof TestArguments<?, ?> args) {
+    if (item instanceof TestArgument<?, ?> args) {
 
       return arguments(args.input(), args.output(), args.exceptionClass());
     }

@@ -1,15 +1,13 @@
 package com.springboot.code.example.aspect.testcase;
 
-import java.util.List;
 import com.springboot.code.example.testcase.TestArguments;
 
 class AspectTestArguments {
 
-  static List<TestArguments<Throwable, Class<? extends Throwable>>> testAspectArguments =
-      List.of(
-          TestArguments.of(new RuntimeException("Test"), RuntimeException.class),
-          TestArguments.of(new NullPointerException(), NullPointerException.class),
-          TestArguments.of(new MyException(), MyException.class));
+  static TestArguments testAspectArguments = TestArguments
+      .params(new RuntimeException("Test"), RuntimeException.class)
+      .nextParams(new NullPointerException(), NullPointerException.class)
+      .nextParams(new MyException(), MyException.class);
 
   static class MyException extends RuntimeException {
 

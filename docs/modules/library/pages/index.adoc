@@ -80,3 +80,4 @@ Please take a look `library-tests/src/test/java/com/springboot/code/example/util
 * [x] https://logging.apache.org/log4j/2.x/manual/json-template-layout.html[JSON Template Layout]
 * [x] https://petrepopescu.tech/2022/02/masking-log-output-in-log4j2/[Masking log output in Log4j2]
 * [x] https://petrepopescu.tech/logmasker-log-masking-library-for-log4j-and-logback/[LOGMASKER – LOG MASKING LIBRARY FOR LOG4J AND LOGBACK]
+* [x] https://www.baeldung.com/parameterized-tests-junit-5[Guide to JUnit 5 Parameterized Tests]

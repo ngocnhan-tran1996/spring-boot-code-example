@@ -1,13 +1,12 @@
 package com.springboot.code.example.rabbitmq.batch.testcase;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.IntStream;
 import com.springboot.code.example.testcase.TestArguments;
 
 class BatchTestArguments {
 
-  static List<TestArguments<List<String>, Integer>> testBatchArguments;
+  static TestArguments testBatchArguments;
 
   static {
 
@@ -26,9 +25,9 @@ class BatchTestArguments {
 
     oddMessage.add("Even Msg 11");
 
-    testBatchArguments = List.of(
-        TestArguments.of(evenMessage, 0),
-        TestArguments.of(oddMessage, 1));
+    testBatchArguments = TestArguments
+        .params(evenMessage, 0)
+        .nextParams(oddMessage, 1);
   }
 
 }

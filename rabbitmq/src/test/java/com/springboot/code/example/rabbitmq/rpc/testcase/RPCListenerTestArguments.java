@@ -1,13 +1,12 @@
 package com.springboot.code.example.rabbitmq.rpc.testcase;
 
-import java.util.List;
 import com.springboot.code.example.testcase.TestArguments;
 
 class RPCListenerTestArguments {
 
-  static List<TestArguments<String, String>> testRPCArguments = List.of(
-      TestArguments.of("Hello from RabbitMQ!", "Hello from RabbitMQ!_RPC"),
-      TestArguments.of(null, "NPE was raised", NullPointerException.class),
-      TestArguments.of("", "_RPC"));
+  static TestArguments testRPCArguments = TestArguments
+      .params("Hello from RabbitMQ!", "Hello from RabbitMQ!_RPC")
+      .nextParams(null, "NPE was raised", NullPointerException.class)
+      .nextParams("", "_RPC");
 
 }

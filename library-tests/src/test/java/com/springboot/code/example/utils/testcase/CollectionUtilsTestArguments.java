@@ -1,25 +1,24 @@
 package com.springboot.code.example.utils.testcase;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import com.springboot.code.example.testcase.TestArguments;
 
 class CollectionUtilsTestArguments {
 
-  static List<TestArguments<Object[], Boolean>> testIsEmptyObjectArrayArguments = List.of(
-      TestArguments.of(null, true),
-      TestArguments.of(new String[0], true),
-      TestArguments.of(new String[] {"Hello", "World"}, false),
-      TestArguments.of(new String[] {null, null}, false),
-      TestArguments.of(new Object[0], true),
-      TestArguments.of(new Object[] {null, null}, false),
-      TestArguments.of(new Object[] {1, "true", null}, false));
+  static TestArguments testIsEmptyObjectArrayArguments = TestArguments
+      .params(null, true)
+      .nextParams(new String[0], true)
+      .nextParams(new String[] {"Hello", "World"}, false)
+      .nextParams(new String[] {null, null}, false)
+      .nextParams(new Object[0], true)
+      .nextParams(new Object[] {null, null}, false)
+      .nextParams(new Object[] {1, "true", null}, false);
 
-  static List<TestArguments<Map<?, ?>, Boolean>> testIsEmptyMapArguments = List.of(
-      TestArguments.of(null, true),
-      TestArguments.of(Map.of(), true),
-      TestArguments.of(new HashMap<>(), true),
-      TestArguments.of(Map.of("1", "1"), false));
+  static TestArguments testIsEmptyMapArguments = TestArguments
+      .params(null, true)
+      .nextParams(Map.of(), true)
+      .nextParams(new HashMap<>(), true)
+      .nextParams(Map.of("1", "1"), false);
 
 }

@@ -1,6 +1,5 @@
 package com.springboot.code.example.rabbitmq.confirms.testcase;
 
-import java.util.List;
 import java.util.UUID;
 import org.springframework.amqp.rabbit.connection.CorrelationData.Confirm;
 import com.springboot.code.example.testcase.TestArguments;
@@ -8,7 +7,7 @@ import com.springboot.code.example.utils.Strings;
 
 public class ConfirmsReturnsTestArguments {
 
-  static List<TestArguments<ConfirmsReturnsArgumentsInput, ConfirmsReturnsArgumentsOutput>> testConfirmsReturnsArguments;
+  static TestArguments testConfirmsReturnsArguments;
 
   static {
 
@@ -32,10 +31,10 @@ public class ConfirmsReturnsTestArguments {
             .formatted(id);
     var nackArgsOutput = new ConfirmsReturnsArgumentsOutput(0, new Confirm(false, reason));
 
-    testConfirmsReturnsArguments = List.of(
-        TestArguments.of(argsInput, new ConfirmsReturnsArgumentsOutput(1, ackConfirm)),
-        TestArguments.of(noRouteArgsInput, new ConfirmsReturnsArgumentsOutput(-1, ackConfirm)),
-        TestArguments.of(nackArgsInput, nackArgsOutput));
+    testConfirmsReturnsArguments = TestArguments
+        .params(argsInput, new ConfirmsReturnsArgumentsOutput(1, ackConfirm))
+        .nextParams(noRouteArgsInput, new ConfirmsReturnsArgumentsOutput(-1, ackConfirm))
+        .nextParams(nackArgsInput, nackArgsOutput);
   }
 
   public record ConfirmsReturnsArgumentsInput(String exchange, String queueName, String message) {

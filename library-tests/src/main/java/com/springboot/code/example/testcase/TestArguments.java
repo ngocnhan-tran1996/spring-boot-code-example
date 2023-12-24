@@ -1,23 +1,53 @@
 package com.springboot.code.example.testcase;
 
-public record TestArguments<I, O>(I input, O output, Class<? extends Throwable> exceptionClass) {
+import java.util.ArrayList;
+import java.util.List;
+import lombok.Getter;
+import lombok.experimental.Delegate;
 
-  public static <I, O> TestArguments<I, O> of(
+public class TestArguments implements List<TestArgument<Object, Object>> {
+
+  @Getter
+  @Delegate
+  private List<TestArgument<Object, Object>> arguments = new ArrayList<>();
+
+  public static <I, O> TestArguments params(
       I input,
       O output,
       Class<? extends Throwable> exceptionClass) {
 
-    return new TestArguments<>(input, output, exceptionClass);
+    var testArguments = new TestArguments();
+    testArguments.getArguments().add(TestArgument.of(input, output, exceptionClass));
+    return testArguments;
   }
 
-  public static <I, O> TestArguments<I, O> of(I input, O output) {
+  public static <I, O> TestArguments params(I input, O output) {
 
-    return of(input, output, null);
+    return params(input, output, null);
   }
 
-  public static <I> TestArguments<I, I> ofSame(I input) {
+  public static <I> TestArguments params(I input) {
 
-    return of(input, input);
+    return params(input, input);
+  }
+
+  public <I, O> TestArguments nextParams(
+      I input,
+      O output,
+      Class<? extends Throwable> exceptionClass) {
+
+    this.getArguments().add(TestArgument.of(input, output, exceptionClass));
+    return this;
+  }
+
+  public <I, O> TestArguments nextParams(I input, O output) {
+
+    return this.nextParams(input, output, null);
+  }
+
+  public <I> TestArguments nextParams(I input) {
+
+    return this.nextParams(input, null);
   }
 
 }

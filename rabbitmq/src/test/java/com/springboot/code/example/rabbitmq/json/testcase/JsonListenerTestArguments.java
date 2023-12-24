@@ -7,9 +7,9 @@ import com.springboot.code.example.testcase.TestArguments;
 
 class JsonListenerTestArguments {
 
-  static List<TestArguments<Employee, Integer>> testListenArguments;
-  static List<TestArguments<List<Employee>, Integer>> testListenBatchArguments;
-  static List<TestArguments<Chairman, Integer>> testReceiveArguments;
+  static TestArguments testListenArguments;
+  static TestArguments testListenBatchArguments;
+  static TestArguments testReceiveArguments;
 
   static {
 
@@ -20,17 +20,17 @@ class JsonListenerTestArguments {
     var emp = new Employee();
     emp.setFirstName("Nhan");
     emp.setLastName("Ngoc");
-    testListenArguments = List.of(
-        TestArguments.of(anonymous, 0),
-        TestArguments.of(emp, 0));
+    testListenArguments = TestArguments
+        .params(anonymous, 0)
+        .nextParams(emp, 0);
 
-    testListenBatchArguments = List.of(
-        TestArguments.of(List.of(anonymous, emp), 0));
+    testListenBatchArguments = TestArguments
+        .params(List.of(anonymous, emp), 0);
 
     var chairman = new Chairman();
     chairman.setFullName("Tran Ngoc Nhan");
     chairman.setAge(18);
-    testReceiveArguments = List.of(
-        TestArguments.of(chairman, 0));
+    testReceiveArguments = TestArguments
+        .params(chairman, 0);
   }
 }
