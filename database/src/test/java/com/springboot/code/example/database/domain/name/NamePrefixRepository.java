@@ -29,34 +29,33 @@ public interface NamePrefixRepository extends JpaRepository<NamePrefixEntity, Bi
           """)
   Page<Object[]> executeNameInfoLoop(String fromDate, String toDate, Pageable page);
 
-  // @Query(nativeQuery = true, value = """
-  // SELECT
-  // *
-  // FROM
-  // (
-  // SELECT
-  // a.*,
-  // ROWNUM rnum
-  // FROM
-  // (
-  // SELECT
-  // t.*,
-  // COUNT(*) OVER() result_count
-  // FROM
-  // TABLE ( example_pack.name_info_func(:fromDate, :toDate) ) t
-  // ) a
-  // WHERE
-  // ROWNUM <= :size
-  // )
-  // WHERE
-  // rnum > :page
-  // """)
-  // List<AnimationProjection> getSomething3(
-  // @Param("fromDate") String fromDate,
-  // @Param("toDate") String toDate,
-  // @Param("page") Integer pageZ,
-  // @Param("size") Integer size);
-
+  @Query(nativeQuery = true, value = """
+      SELECT
+          *
+      FROM
+          (
+              SELECT
+                  t.*,
+                  ROWNUM row_index
+              FROM
+                  (
+                      SELECT
+                          t.*,
+                          COUNT(*) OVER() result_count
+                      FROM
+                          TABLE ( example_pack.name_info_func(:fromDate, :toDate) ) t
+                  ) t
+              WHERE
+                  ROWNUM <= :size
+          )
+      WHERE
+          row_index > :page
+      """)
+  List<Object[]> paginateNameInfo(
+      String fromDate,
+      String toDate,
+      int page,
+      int size);
 
   @Query(nativeQuery = true, value = """
       SELECT

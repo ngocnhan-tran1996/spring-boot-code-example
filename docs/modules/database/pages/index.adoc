@@ -21,6 +21,10 @@ include::ROOT:partial$header.adoc[]
     <div class="highlight">
 <pre>
 com.springboot.code.example.rabbitmq
+├── function // <strong>test function in example_pack</strong>
+│   ├── NameInfoTest.java // <strong>test method in <code>NamePrefixRepository.java</code></strong>
+│   ├── testcase
+│   │   └── NameInfoTestArguments.java
 └── benchmark // <strong>Benchmark for structure TABLE(rows here...)</strong>
     └── NameInfoBenmark.java
 </pre>

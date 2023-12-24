@@ -84,6 +84,26 @@ public class NameInfoBenmark extends BenchmarkConfig {
   }
 
   @Benchmark
+  public List<Object[]> paginateNameInfoFirstPage() {
+
+    return namePrefixRepository.paginateNameInfo(
+        START_DATE,
+        TO_DATE,
+        0,
+        100);
+  }
+
+  @Benchmark
+  public List<Object[]> paginateNameInfo() {
+
+    return namePrefixRepository.paginateNameInfo(
+        START_DATE,
+        TO_DATE,
+        49_900,
+        50_000);
+  }
+
+  @Benchmark
   public List<Object[]> paginateNameInfoLoopFirstPage() {
 
     return namePrefixRepository.paginateNameInfoLoop(

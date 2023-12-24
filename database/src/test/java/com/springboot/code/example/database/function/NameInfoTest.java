@@ -37,6 +37,19 @@ class NameInfoTest {
   }
 
   @TestCase("com.springboot.code.example.database.function.testcase.NameInfoTestArguments#testExecuteNameInfoArguments")
+  void testPaginateNameInfo(NameInfoInput input, int output) {
+
+    int fromIndex = input.page() * input.size();
+    int toIndex = fromIndex + input.size();
+    var actualOutput = namePrefixRepository.paginateNameInfo(
+        input.startDate(),
+        input.toDate(),
+        fromIndex,
+        toIndex);
+    assertThat(actualOutput.size()).isEqualTo(output);
+  }
+
+  @TestCase("com.springboot.code.example.database.function.testcase.NameInfoTestArguments#testExecuteNameInfoArguments")
   void testPaginateNameInfoLoop(NameInfoInput input, int output) {
 
     int fromIndex = input.page() * input.size();
