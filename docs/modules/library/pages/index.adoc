@@ -48,8 +48,10 @@ com.springboot.code.example
 │   ├── testcase.java
 │   │   └── AspectTestArguments.java
 ├── logger
+│   ├── Log4j2RewriteTest.java // <strong>test rewrite policy Log4j2</strong>
 │   ├── Log4j2Test.java
 │   ├── testcase.java
+│   │   ├── Log4j2RewriteTestArguments.java
 │   │   └── Log4j2TestArguments.java
 └── utils
     ├── CollectionUtilsTest.java
@@ -71,3 +73,10 @@ com.springboot.code.example
 === Example
 
 Please take a look `library-tests/src/test/java/com/springboot/code/example/utils` in source package
+
+== Reference
+
+* [x] https://logging.apache.org/log4j/2.x/manual/appenders.html#RewriteAppender[RewriteAppender]
+* [x] https://logging.apache.org/log4j/2.x/manual/json-template-layout.html[JSON Template Layout]
+* [x] https://petrepopescu.tech/2022/02/masking-log-output-in-log4j2/[Masking log output in Log4j2]
+* [x] https://petrepopescu.tech/logmasker-log-masking-library-for-log4j-and-logback/[LOGMASKER – LOG MASKING LIBRARY FOR LOG4J AND LOGBACK]
