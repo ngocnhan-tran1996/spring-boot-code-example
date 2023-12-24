@@ -4,7 +4,6 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.TearDown;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.core.env.AbstractEnvironment;
 import com.springboot.code.example.database.DatabaseApplication;
 
 abstract class BenchmarkConfig {
@@ -14,8 +13,9 @@ abstract class BenchmarkConfig {
   @Setup
   public void init() {
 
-    System.setProperty(AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, setProfile());
-    this.applicationContext = SpringApplication.run(DatabaseApplication.class);
+    var application = new SpringApplication(DatabaseApplication.class);
+    application.setAdditionalProfiles("benchmark");
+    this.applicationContext = application.run();
     var factory = this.applicationContext.getAutowireCapableBeanFactory();
     factory.autowireBean(this);
   }
@@ -25,7 +25,5 @@ abstract class BenchmarkConfig {
 
     this.applicationContext.close();
   }
-
-  abstract String setProfile();
 
 }

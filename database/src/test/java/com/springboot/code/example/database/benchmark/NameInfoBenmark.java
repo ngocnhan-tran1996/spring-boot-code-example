@@ -35,12 +35,6 @@ public class NameInfoBenmark extends BenchmarkConfig {
     new Runner(opt).run();
   }
 
-  @Override
-  String setProfile() {
-
-    return "benchmark";
-  }
-
   @Autowired
   NamePrefixRepository namePrefixRepository;
 
