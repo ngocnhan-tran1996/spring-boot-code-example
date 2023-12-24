@@ -17,7 +17,7 @@ public interface NamePrefixRepository extends JpaRepository<NamePrefixEntity, Bi
           SELECT COUNT(*)
           FROM TABLE(user_nhan.example_pack.name_info_func(:fromDate, :toDate)) t
           """)
-  Page<NamePrefixProjection> executeNameInfo(String fromDate, String toDate, Pageable page);
+  Page<Object[]> executeNameInfo(String fromDate, String toDate, Pageable page);
 
   @Query(nativeQuery = true, value = """
       SELECT *
@@ -27,7 +27,7 @@ public interface NamePrefixRepository extends JpaRepository<NamePrefixEntity, Bi
           SELECT COUNT(*)
           FROM TABLE(user_nhan.example_pack.name_info_loop_func(:fromDate, :toDate)) t
           """)
-  Page<NamePrefixProjection> executeNameInfoLoop(String fromDate, String toDate, Pageable page);
+  Page<Object[]> executeNameInfoLoop(String fromDate, String toDate, Pageable page);
 
   // @Query(nativeQuery = true, value = """
   // SELECT
@@ -80,7 +80,7 @@ public interface NamePrefixRepository extends JpaRepository<NamePrefixEntity, Bi
       WHERE
           row_index > :page
       """)
-  List<NamePrefixProjection> paginateNameInfoLoop(
+  List<Object[]> paginateNameInfoLoop(
       String fromDate,
       String toDate,
       int page,

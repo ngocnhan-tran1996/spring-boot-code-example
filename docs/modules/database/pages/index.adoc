@@ -34,3 +34,4 @@ com.springboot.code.example.rabbitmq
 * [x] https://github.com/openjdk/jmh[Java Microbenchmark Harness (JMH)]
 * [x] https://blogs.oracle.com/connect/post/on-rownum-and-limiting-results[On ROWNUM and Limiting Results]
 * [x] https://dzone.com/articles/jmh-benchmark-rest-apis[JMH: Benchmark REST APIs]
+* [x] https://www.baeldung.com/java-exceptions-performance[Performance Effects of Exceptions in Java]
