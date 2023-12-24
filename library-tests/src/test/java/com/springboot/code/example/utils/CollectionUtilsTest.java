@@ -7,7 +7,7 @@ import com.springboot.code.example.testcase.TestCase;
 class CollectionUtilsTest {
 
   @TestCase
-  void testIsEmptyStringArray(String[] input, boolean expectedOutput) {
+  void testIsEmptyObjectArray(Object[] input, boolean expectedOutput) {
 
     assertThat(CollectionUtils.isEmpty(input)).isEqualTo(expectedOutput);
   }

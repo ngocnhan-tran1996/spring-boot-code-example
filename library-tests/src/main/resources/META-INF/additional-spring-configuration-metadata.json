@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "log4j.configurationFile",
+      "type": "java.lang.String",
+      "description": "Config external xml file for Log4j2"
+    },
+    {
+      "name": "app.mask.sensitive-keywords",
+      "type": "java.lang.String",
+      "description": "Keywords which is marked for sensitive data"
+    }
+  ]
+}

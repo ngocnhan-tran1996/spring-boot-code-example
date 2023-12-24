@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration name="Mask Library Test" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                disableAnsi="false"
+                pattern="%style{%d{DEFAULT}}{black} %highlight{%-5level}[%style{%t}{bright,blue}] %style{%c{1.}}{bright,yellow}: %m%n%throwable" />
+        </Console>
+
+        <RollingFile name="RollingFile"
+            filePattern="logs/${spring:spring.application.name}-%d{yyyy-MM-dd-HH-mm}.log">
+            <JsonTemplateLayout eventTemplateUri="classpath:EcsLayout.json" />
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+        </RollingFile>
+
+        <Rewrite name="Rewrite">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFile" />
+            <MaskRewritePolicy keywords="${spring:app.mask.sensitive-keywords:-}">
+                <xi:include href="log4j2-mask-pattern.xml">
+                    <xi:fallback />
+                </xi:include>
+            </MaskRewritePolicy>
+        </Rewrite>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Rewrite" />
+        </Root>
+    </Loggers>
+</Configuration>

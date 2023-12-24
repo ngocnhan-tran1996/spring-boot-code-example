@@ -7,11 +7,14 @@ import com.springboot.code.example.testcase.TestArguments;
 
 class CollectionUtilsTestArguments {
 
-  static List<TestArguments<String[], Boolean>> testIsEmptyStringArrayArguments = List.of(
+  static List<TestArguments<Object[], Boolean>> testIsEmptyObjectArrayArguments = List.of(
       TestArguments.of(null, true),
       TestArguments.of(new String[0], true),
       TestArguments.of(new String[] {"Hello", "World"}, false),
-      TestArguments.of(new String[] {null, null}, false));
+      TestArguments.of(new String[] {null, null}, false),
+      TestArguments.of(new Object[0], true),
+      TestArguments.of(new Object[] {null, null}, false),
+      TestArguments.of(new Object[] {1, "true", null}, false));
 
   static List<TestArguments<Map<?, ?>, Boolean>> testIsEmptyMapArguments = List.of(
       TestArguments.of(null, true),

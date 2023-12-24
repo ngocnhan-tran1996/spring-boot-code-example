@@ -16,6 +16,7 @@ public final class Strings {
   public static final String SPACE = " ";
   public static final String DOT = ".";
   public static final String SLASH = "/";
+  public static final String COMMA = ",";
 
   private static final ObjectMapper MAPPER = JsonMapper.builder()
       .findAndAddModules()

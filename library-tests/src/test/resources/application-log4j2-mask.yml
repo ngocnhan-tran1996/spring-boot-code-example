@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: rewrite-test-app
+
+# keyword that was marked sensitive data
+app:
+  mask:
+    sensitive-keywords: password
+
+# config file log4j2
+log4j:
+  configurationFile: classpath:log4j2-mask.xml
