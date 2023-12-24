@@ -47,7 +47,7 @@ public class TestArguments implements List<TestArgument<Object, Object>> {
 
   public <I> TestArguments nextParams(I input) {
 
-    return this.nextParams(input, null);
+    return this.nextParams(input, input);
   }
 
 }
