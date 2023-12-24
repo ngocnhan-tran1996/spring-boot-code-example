@@ -14,7 +14,6 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import com.springboot.code.example.database.domain.name.NamePrefixProjection;
 import com.springboot.code.example.database.domain.name.NamePrefixRepository;
 
 @BenchmarkMode(Mode.AverageTime)
@@ -27,8 +26,9 @@ public class NameInfoBenmark extends BenchmarkConfig {
     var opt = new OptionsBuilder()
         .include(NameInfoBenmark.class.getSimpleName())
         .warmupIterations(1)
-        .measurementIterations(3)
+        .measurementIterations(5)
         .forks(1)
+        .warmupForks(1)
         .threads(1)
         .build();
 
@@ -44,58 +44,61 @@ public class NameInfoBenmark extends BenchmarkConfig {
   @Autowired
   NamePrefixRepository namePrefixRepository;
 
+  private static final String START_DATE = "2023-12-22";
+  private static final String TO_DATE = "2023-12-24";
+
   @Benchmark
-  public Page<NamePrefixProjection> executeNameInfoFirstPage() {
+  public Page<Object[]> executeNameInfoFirstPage() {
 
     return namePrefixRepository.executeNameInfo(
-        "2023-12-18",
-        "2023-12-20",
+        START_DATE,
+        TO_DATE,
         PageRequest.of(0, 100));
   }
 
   @Benchmark
-  public Page<NamePrefixProjection> executeNameInfo() {
+  public Page<Object[]> executeNameInfo() {
 
     return namePrefixRepository.executeNameInfo(
-        "2023-12-18",
-        "2023-12-20",
+        START_DATE,
+        TO_DATE,
         PageRequest.of(499, 100));
   }
 
   @Benchmark
-  public Page<NamePrefixProjection> executeNameInfoLoopFirstPage() {
+  public Page<Object[]> executeNameInfoLoopFirstPage() {
 
     return namePrefixRepository.executeNameInfoLoop(
-        "2023-12-18",
-        "2023-12-20",
+        START_DATE,
+        TO_DATE,
         PageRequest.of(0, 100));
   }
 
   @Benchmark
-  public Page<NamePrefixProjection> executeNameInfoLoop() {
+  public Page<Object[]> executeNameInfoLoop() {
 
     return namePrefixRepository.executeNameInfoLoop(
-        "2023-12-18",
-        "2023-12-20",
+        START_DATE,
+        TO_DATE,
         PageRequest.of(499, 100));
   }
 
   @Benchmark
-  public List<NamePrefixProjection> paginateNameInfoLoopFirstPage() {
+  public List<Object[]> paginateNameInfoLoopFirstPage() {
 
     return namePrefixRepository.paginateNameInfoLoop(
-        "2023-12-18",
-        "2023-12-20",
+        START_DATE,
+        TO_DATE,
         0,
         100);
   }
 
   @Benchmark
-  public List<NamePrefixProjection> paginateNameInfoLoop() {
+  public List<Object[]> paginateNameInfoLoop() {
 
     return namePrefixRepository.paginateNameInfoLoop(
-        "2023-12-18",
-        "2023-12-20",
+        START_DATE,
+        TO_DATE,
         49_900,
         50_000);
   }

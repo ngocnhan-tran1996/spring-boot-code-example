@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "NAME_PREFIX")
-public class NamePrefixEntity {
+class NamePrefixEntity {
 
   @Id
   @Column(name = "id")
