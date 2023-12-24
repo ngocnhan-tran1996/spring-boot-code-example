@@ -29,6 +29,7 @@
     <module>library-tests</module>
     <module>rabbitmq</module>
     <module>coverage-report</module>
+    <module>database</module>
   </modules>
 
   <dependencyManagement>

@@ -13,6 +13,7 @@
 
   <properties>
     <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+    <maven.test.skip>true</maven.test.skip>
   </properties>
 
   <dependencies>
