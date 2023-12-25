@@ -43,6 +43,12 @@
       <artifactId>jmh-generator-annprocess</artifactId>
       <version>${jmh.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-jpamodelgen</artifactId>
+      <version>6.4.1.Final</version>
+    </dependency>
   </dependencies>
 
   <build>
