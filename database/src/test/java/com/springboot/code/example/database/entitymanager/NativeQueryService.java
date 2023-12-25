@@ -3,6 +3,9 @@ package com.springboot.code.example.database.entitymanager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Tuple;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.SimpleTypeConverter;
 import org.springframework.core.MethodParameter;
@@ -12,9 +15,6 @@ import org.springframework.util.Assert;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 import com.springboot.code.example.database.domain.name.NamePrefixResponse;
 import com.springboot.code.example.utils.Strings;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Tuple;
 import lombok.RequiredArgsConstructor;
 
 @Service
