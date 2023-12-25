@@ -13,7 +13,7 @@ This is [**my resume**](https://ngocnhan-tran1996.github.io/) if you need more i
 ## What this repo have
 
 This repo includes Spring Boot version:
-1. [~~Spring version 2.7.x~~](https://github.com/ngocnhan-tran1996/spring-boot-code-example/tree/2.7.x)
+1. [Spring version 2.7.x](https://github.com/ngocnhan-tran1996/spring-boot-code-example/tree/2.7.x)
 2. [Spring version 3.0.x](https://github.com/ngocnhan-tran1996/spring-boot-code-example/tree/3.0.x)
 
 with some code example about what I have read spring documents or real cases that I haven't seen before.
