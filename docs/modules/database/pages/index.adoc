@@ -21,6 +21,8 @@ include::ROOT:partial$header.adoc[]
     <div class="highlight">
 <pre>
 com.springboot.code.example.rabbitmq
+├── entitymanager // <strong>test EntityManager</strong>
+│   └── TypedQueryPaginationTest.java // <strong>retrieve native query from TypedQuery</code></strong>
 ├── repository // <strong>test function in example_pack</strong>
 │   ├── NamePrefixRepositoryTest.java // <strong>test method in <code>NamePrefixRepository.java</code></strong>
 │   ├── testcase
