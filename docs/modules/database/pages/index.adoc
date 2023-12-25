@@ -42,3 +42,5 @@ com.springboot.code.example.rabbitmq
 * [x] https://blogs.oracle.com/connect/post/on-rownum-and-limiting-results[On ROWNUM and Limiting Results]
 * [x] https://dzone.com/articles/jmh-benchmark-rest-apis[JMH: Benchmark REST APIs]
 * [x] https://www.baeldung.com/java-exceptions-performance[Performance Effects of Exceptions in Java]
+* [x] https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/criteria-api-construct.html[JPA Criteria API - Selecting User defined Objects using CriteriaBuilder#construct()]
+* [x] https://stackoverflow.com/questions/11170609/how-to-count-a-group-by-result-with-jpa-and-criteriabuilder[How to count a group by result with JPA and CriteriaBuilder?]
