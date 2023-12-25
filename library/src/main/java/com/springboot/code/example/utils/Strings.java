@@ -17,6 +17,7 @@ public final class Strings {
   public static final String DOT = ".";
   public static final String SLASH = "/";
   public static final String COMMA = ",";
+  public static final String NULL_VALUE = "null";
 
   private static final ObjectMapper MAPPER = JsonMapper.builder()
       .findAndAddModules()
@@ -46,7 +47,7 @@ public final class Strings {
 
     if (object == null) {
 
-      return "null";
+      return NULL_VALUE;
     }
 
     if (object instanceof String text) {
@@ -59,7 +60,7 @@ public final class Strings {
       return MAPPER.writeValueAsString(object);
     } catch (JsonProcessingException e) {
 
-      return "null";
+      return NULL_VALUE;
     }
   }
 
