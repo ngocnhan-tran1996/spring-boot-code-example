@@ -12,7 +12,7 @@ class TransactionProducer {
   private final Queue queue;
   private final RabbitTemplate rabbitTemplate;
 
-  void send(boolean hasTransaction) {
+  public void send(boolean hasTransaction) {
 
     rabbitTemplate.setChannelTransacted(hasTransaction);
     this.rabbitTemplate.convertAndSend(queue.getName(), "test");

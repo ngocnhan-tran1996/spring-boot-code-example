@@ -43,6 +43,7 @@ class BatchConfig {
 
     var factory = new SimpleRabbitListenerContainerFactory();
     configurer.configure(factory, connectionFactory);
+    factory.setBatchListener(true);
     factory.setReceiveTimeout(100L);
     return factory;
   }

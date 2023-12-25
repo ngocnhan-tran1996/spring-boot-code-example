@@ -1,8 +1,8 @@
 package com.springboot.code.example.rabbitmq.validation;
 
+import javax.validation.Valid;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Payload;
-import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
