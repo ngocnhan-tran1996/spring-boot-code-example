@@ -63,7 +63,7 @@ public class TypedQueryPaginationService {
         .getSingleResult();
   }
 
-  long extractQueryNamePrefix() {
+  public long extractQueryNamePrefix() {
 
     final var query = entityManager.createQuery(criteriaQuery())
         .unwrap(Query.class);
