@@ -18,7 +18,7 @@ import com.springboot.code.example.utils.CollectionUtils;
 import com.springboot.code.example.utils.Strings;
 
 @Plugin(name = "MaskRewritePolicy", category = Core.CATEGORY_NAME, elementType = "rewritePolicy")
-public final class MaskRewritePolicy extends AbstractMaskRewritePolicy {
+final class MaskRewritePolicy extends AbstractMaskRewritePolicy {
 
   private static final Pattern FIELD_NAME_PATTERN = Pattern.compile("^\\w+(?:,\\w+)*+$");
 
