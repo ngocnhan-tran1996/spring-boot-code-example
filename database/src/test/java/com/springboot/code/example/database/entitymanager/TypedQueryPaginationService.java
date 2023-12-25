@@ -1,28 +1,21 @@
 package com.springboot.code.example.database.entitymanager;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import org.hibernate.query.sqm.internal.QuerySqmImpl;
-import org.hibernate.query.sqm.sql.SqmTranslator;
-import org.hibernate.query.sqm.sql.StandardSqmTranslatorFactory;
-import org.hibernate.query.sqm.tree.expression.SqmJpaCriteriaParameterWrapper;
-import org.hibernate.query.sqm.tree.select.SqmSelectStatement;
-import org.hibernate.sql.ast.SqlAstTranslator;
-import org.hibernate.sql.ast.spi.StandardSqlAstTranslatorFactory;
-import org.hibernate.sql.ast.tree.select.SelectStatement;
-import org.hibernate.sql.exec.spi.JdbcParameterBinder;
-import org.hibernate.sql.exec.spi.JdbcSelect;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaQuery;
+import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory;
+import org.hibernate.hql.spi.QueryTranslatorFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.springboot.code.example.database.domain.name.NamePrefixEntity;
 import com.springboot.code.example.database.domain.name.NamePrefixEntity_;
 import com.springboot.code.example.database.domain.name.NamePrefixResponse;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.CriteriaQuery;
+import com.springboot.code.example.utils.Strings;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -72,53 +65,29 @@ public class TypedQueryPaginationService {
 
   long extractQueryNamePrefix() {
 
-    final QuerySqmImpl<?> querySqmImpl = this.entityManager.createQuery(criteriaQuery())
-        .unwrap(QuerySqmImpl.class);
+    final var query = entityManager.createQuery(criteriaQuery())
+        .unwrap(Query.class);
 
-    // copy from ConcreteSqmSelectQueryPlan
-    final var sessionFactory = querySqmImpl.getSessionFactory();
-    final var queryOptions = querySqmImpl.getQueryOptions();
-    final var domainParameterXref = querySqmImpl.getDomainParameterXref();
-    final SqmTranslator<SelectStatement> sqmTranslator = new StandardSqmTranslatorFactory()
-        .createSelectTranslator(
-            (SqmSelectStatement<?>) querySqmImpl.getSqmStatement(),
-            queryOptions,
-            domainParameterXref,
-            querySqmImpl.getQueryParameterBindings(),
-            querySqmImpl.getSession().getLoadQueryInfluencers(),
-            sessionFactory,
-            true);
-    final SqlAstTranslator<JdbcSelect> sqlAstTranslator = new StandardSqlAstTranslatorFactory()
-        .buildSelectTranslator(sessionFactory, sqmTranslator.translate().getSqlAst());
-    final JdbcSelect jdbcSelect = sqlAstTranslator.translate(null, queryOptions);
+    String hqlQueryString = query.getQueryString();
+    QueryTranslatorFactory queryTranslatorFactory = new ASTQueryTranslatorFactory();
+    var queryTranslator = queryTranslatorFactory.createQueryTranslator(
+        Strings.EMPTY,
+        hqlQueryString,
+        Collections.emptyMap(),
+        entityManager.unwrap(SessionImplementor.class).getFactory(),
+        null);
+    queryTranslator.compile(Collections.emptyMap(), false);
 
-    // arrange params
-    final List<JdbcParameterBinder> parameterBinders = jdbcSelect.getParameterBinders();
-    final Map<JdbcParameterBinder, Integer> indexByparameterBinders = IntStream.range(0,
-        parameterBinders.size())
-        .boxed()
-        .collect(Collectors.toMap(
-            index -> parameterBinders.get(index),
-            Function.identity()));
+    String sqlQueryString = queryTranslator.getSQLString();
+    var nativeQuery = entityManager.createNativeQuery(sqlQueryString);
 
-    // set params
-    var nativeQuery = this.entityManager.createNativeQuery(jdbcSelect.getSql());
-    sqmTranslator.getJdbcParamsBySqmParam()
-        .entrySet()
-        .stream()
-        .forEach(entry -> entry.getValue()
-            .forEach(values -> values
-                .stream()
-                .filter(value -> indexByparameterBinders.containsKey(value.getParameterBinder()))
-                .findFirst()
-                .ifPresent(value -> {
-
-                  var index = indexByparameterBinders.get(value.getParameterBinder());
-                  var object = (SqmJpaCriteriaParameterWrapper<?>) entry.getKey();
-                  var objectValue = object.getJpaCriteriaParameter()
-                      .getValue();
-                  nativeQuery.setParameter(index + 1, objectValue);
-                })));
+    // set parameter
+    query.getParameterMetadata()
+        .getNamedParameters()
+        .forEach(namedParameter -> Arrays.stream(namedParameter.getSourceLocations())
+            .forEach(location -> nativeQuery.setParameter(
+                location + 1,
+                query.getParameterValue(namedParameter.getName()))));
 
     return nativeQuery.getResultList().size();
   }
