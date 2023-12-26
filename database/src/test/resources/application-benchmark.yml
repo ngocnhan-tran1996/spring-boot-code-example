@@ -3,7 +3,7 @@ spring:
     url: jdbc:oracle:thin:@localhost:1521/db_test
     username: user_nhan
     password: ngocnhan
-    driver-class-name: oracle.jdbc.OracleDriver
+    driver-class-name: oracle.jdbc.driver.OracleDriver
     hikari:
       schema: user_nhan
       minimum-idle: 1
