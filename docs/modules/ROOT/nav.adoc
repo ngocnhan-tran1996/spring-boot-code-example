@@ -4,3 +4,4 @@
 * xref:coverage-report:index.adoc[COVERAGE-REPORT]
 * xref:library:index.adoc[LIBRABRY]
 * xref:rabbitmq:index.adoc[RABBITMQ]
+* xref:database:index.adoc[DATABASE]
