@@ -46,6 +46,18 @@ docker run -p 1521:1521 -e ORACLE_PASSWORD=ngocnhan -e ORACLE_DATABASE=db_test -
     </div>
 </div>
 
+<div class="bd-example-snippet bd-code-snippet bd-file-ref">
+    <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+      <strong>Run SQL for testing</strong>
+    </div>
+    <div class="highlight">
+<pre>
+com.springboot.code.example.rabbitmq.test.resources
+└── scripts // <strong>All scripts for testing this module</strong>
+</pre>
+    </div>
+</div>
+
 == Reference
 
 * [x] https://stackoverflow.com/questions/31267274/spring-boot-programmatically-setting-profiles[Spring Boot Programmatically setting profiles]
