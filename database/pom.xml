@@ -49,6 +49,11 @@
       <artifactId>hibernate-jpamodelgen</artifactId>
       <version>${hibernate.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
