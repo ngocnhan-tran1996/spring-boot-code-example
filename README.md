@@ -13,6 +13,6 @@ This is [**my resume**](https://ngocnhan-tran1996.github.io/) if you need more i
 ## What You Need
 
 * [Java 17](https://www.oracle.com/java/technologies/downloads/) or higher
-* [Spring Boot version **3.0.x**](https://spring.io/)
+* [Spring Boot version **2.7.x**](https://spring.io/)
 * [Maven 3.8.5](https://maven.apache.org/download.cgi/) or higher
 * [Docker](https://www.docker.com/products/docker-desktop/)
