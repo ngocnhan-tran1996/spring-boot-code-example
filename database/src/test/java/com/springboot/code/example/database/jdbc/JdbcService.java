@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 import com.springboot.code.example.database.domain.name.NamePrefixRecordInput;
-import com.springboot.code.example.database.support.oracle.input.OracleArrayValue;
+import com.springboot.code.example.database.support.oracle.in.OracleArrayValue;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -35,6 +35,17 @@ class JdbcService {
 
     return simpleJdbcCall.execute(sqlParameterSource);
   }
+
+  void executeComplexTypeOutProc() {
+
+    jdbcTemplate.setResultsMapCaseInsensitive(true);
+    var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+        .withCatalogName("jdbc_example_pack")
+        .withFunctionName("complex_type_out_proc");
+
+    simpleJdbcCall.execute(new MapSqlParameterSource());
+  }
+
 
   @SuppressWarnings("unchecked")
   List<NamePrefixRecordInput> executeNameInfoFunc() {
