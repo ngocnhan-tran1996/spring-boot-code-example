@@ -29,10 +29,10 @@ public final class OracleTypeUtils {
 
   public static void throwMessage(final String message) {
 
-    throw new OracleTypeException(message);
+    throw withMessage(message);
   }
 
-  public static OracleTypeException throwException(final String message) {
+  public static OracleTypeException withMessage(final String message) {
 
     return new OracleTypeException(message);
   }

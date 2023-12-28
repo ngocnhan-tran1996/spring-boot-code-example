@@ -1,5 +1,6 @@
 package com.springboot.code.example.database.jdbc;
 
+import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 import com.springboot.code.example.database.dto.NamePrefixRecordInput;
-import com.springboot.code.example.database.support.oracle.in.OracleArrayValue;
 import com.springboot.code.example.database.support.oracle.out.OracleReturnType;
 import lombok.RequiredArgsConstructor;
 
@@ -19,11 +19,7 @@ class JdbcService {
 
   private final JdbcTemplate jdbcTemplate;
 
-  Map<String, Object> excuteConcatNameProc() {
-
-    var data = OracleArrayValue.withTypeName("jdbc_example_pack.name_array")
-        .value(new Object[] {"Nhan", "Ngoc"})
-        .value(new Object[] {"Ngoc", "Nhan"});
+  Map<String, Object> excuteConcatNameProc(Object data) {
 
     jdbcTemplate.setResultsMapCaseInsensitive(true);
     var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
@@ -56,7 +52,6 @@ class JdbcService {
     return simpleJdbcCall.execute(new MapSqlParameterSource());
   }
 
-
   @SuppressWarnings("unchecked")
   List<NamePrefixRecordInput> executeNameInfoFunc() {
 
@@ -68,6 +63,20 @@ class JdbcService {
 
     return (List<NamePrefixRecordInput>) simpleJdbcCall.execute(new MapSqlParameterSource())
         .get("return");
+  }
+
+  Map<String, Object> executePlusOneFunc() {
+
+    jdbcTemplate.setResultsMapCaseInsensitive(true);
+    var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+        .withCatalogName("jdbc_example_pack")
+        .withFunctionName("plus_one_func");
+
+    var sqlParameterSource = new MapSqlParameterSource()
+        .addValue("in_number", BigDecimal.ONE)
+        .addValue("out_nbr", BigDecimal.TEN);
+
+    return simpleJdbcCall.execute(sqlParameterSource);
   }
 
 }

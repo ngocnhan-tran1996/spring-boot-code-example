@@ -33,7 +33,6 @@ CREATE OR REPLACE PACKAGE user_nhan.jdbc_example_pack IS
 
 END jdbc_example_pack;
 /
-
 CREATE OR REPLACE PACKAGE BODY user_nhan.jdbc_example_pack IS
 
     PROCEDURE concat_name_proc (
@@ -44,7 +43,7 @@ CREATE OR REPLACE PACKAGE BODY user_nhan.jdbc_example_pack IS
     BEGIN
         FOR i IN in_names.first..in_names.last LOOP
             IF ( out_msg IS NULL ) THEN
-                out_msg := ' NAME: '
+                out_msg := 'NAME: '
                            || in_names(i).first_name
                            || ' '
                            || in_names(i).last_name;
@@ -52,7 +51,7 @@ CREATE OR REPLACE PACKAGE BODY user_nhan.jdbc_example_pack IS
             ELSE
                 out_msg := out_msg
                            || ' AND '
-                           || ' NAME: '
+                           || 'NAME: '
                            || in_names(i).first_name
                            || ' '
                            || in_names(i).last_name;

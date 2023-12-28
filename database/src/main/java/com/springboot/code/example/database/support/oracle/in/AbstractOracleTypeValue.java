@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.support.AbstractSqlTypeValue;
 import com.springboot.code.example.database.support.oracle.exception.OracleTypeException;
 import com.springboot.code.example.database.support.oracle.utils.Strings;
 
-public abstract class AbstractOracleTypeValue extends AbstractSqlTypeValue {
+abstract class AbstractOracleTypeValue extends AbstractSqlTypeValue {
 
   /**
    * The implementation for this specific type. This method is called internally by the

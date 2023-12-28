@@ -9,7 +9,7 @@ import org.springframework.core.MethodParameter;
 import org.springframework.core.convert.TypeDescriptor;
 import com.springboot.code.example.database.support.oracle.utils.OracleTypeUtils;
 
-public class RecordMapper<T> extends PojoMapper<T> {
+class RecordMapper<T> extends PojoMapper<T> {
 
   private Constructor<T> mappedConstructor;
 
@@ -64,7 +64,7 @@ public class RecordMapper<T> extends PojoMapper<T> {
     if (this.constructorParameterNames == null
         || this.constructorParameterTypes == null) {
 
-      OracleTypeUtils.throwException("Mapped constructor was not initialized");
+      throw OracleTypeUtils.withMessage("Mapped constructor was not initialized");
     }
 
     Object[] args = new Object[this.constructorParameterNames.length];
@@ -83,6 +83,14 @@ public class RecordMapper<T> extends PojoMapper<T> {
         });
 
     return BeanUtils.instantiateClass(this.mappedConstructor, args);
+  }
+
+  @Override
+  protected Object[] createStruct(int columns, Map<String, Integer> columnNameByIndex,
+      BeanWrapperImpl bw) {
+
+    super.extractParameterNames();
+    return super.createStruct(columns, columnNameByIndex, bw);
   }
 
 }

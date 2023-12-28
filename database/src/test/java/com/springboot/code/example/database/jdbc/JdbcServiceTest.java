@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 import com.springboot.code.example.database.dto.NamePrefixInput;
 import com.springboot.code.example.database.dto.NamePrefixRecordInput;
+import com.springboot.code.example.database.support.oracle.in.OracleTypeValue;
 
 @ActiveProfiles("entity-manager")
 @SpringBootTest
@@ -22,10 +23,37 @@ class JdbcServiceTest {
   @Test
   void testExcuteConcatNameProc() {
 
+    var data = OracleTypeValue.withTypeName("jdbc_example_pack.name_array")
+        .value(new Object[] {"Nhan", "Ngoc"})
+        .value(new Object[] {"Ngoc", "Nhan"})
+        .toTypeValue();
+
     var expectOutput = Map.of(
         "IN_NAME", "Nhan",
-        "OUT_MSG", "IN_NAME = Nhan AND IN_PARAMS =  NAME: Nhan Ngoc AND  NAME: Ngoc Nhan");
-    assertThat(jdbcService.excuteConcatNameProc())
+        "OUT_MSG", "IN_NAME = Nhan AND IN_PARAMS = NAME: Nhan Ngoc AND NAME: Ngoc Nhan");
+    assertThat(jdbcService.excuteConcatNameProc(data))
+        .isEqualTo(expectOutput);
+
+    var classData = OracleTypeValue.withTypeName(
+        NamePrefixInput.class,
+        "jdbc_example_pack.name_array")
+        .withStructType("jdbc_example_pack.name_record")
+        .value(new NamePrefixInput("Nhan", "Ngoc"))
+        .value(new NamePrefixInput("Ngoc", "Nhan"))
+        .toTypeValue();
+
+    assertThat(jdbcService.excuteConcatNameProc(classData))
+        .isEqualTo(expectOutput);
+
+    var recordData = OracleTypeValue.withTypeName(
+        NamePrefixRecordInput.class,
+        "jdbc_example_pack.name_array")
+        .withStructType("jdbc_example_pack.name_record")
+        .value(new NamePrefixRecordInput("Nhan", "Ngoc"))
+        .value(new NamePrefixRecordInput("Ngoc", "Nhan"))
+        .toTypeValue();
+
+    assertThat(jdbcService.excuteConcatNameProc(recordData))
         .isEqualTo(expectOutput);
   }
 
@@ -81,6 +109,18 @@ class JdbcServiceTest {
         new NamePrefixRecordInput("JXuIRlycFbZSwroIxhuM", "pvtlcdgzhvqjlliqfiqr"),
         new NamePrefixRecordInput("mJvVEQRUMwSyAEOOfHIf", "oqxozvzeelvsvvqsdcvi"));
     assertThat(jdbcService.executeNameInfoFunc())
+        .isEqualTo(expectOutput);
+  }
+
+  @Test
+  void testExecutePlusOneFunc() {
+
+    var expectOutput = Map.of(
+        "OUT_MSG", "Not negative number",
+        "OUT_NBR", BigDecimal.ONE,
+        "return", BigDecimal.valueOf(2));
+
+    assertThat(jdbcService.executePlusOneFunc())
         .isEqualTo(expectOutput);
   }
 
