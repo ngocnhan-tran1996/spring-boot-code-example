@@ -30,8 +30,7 @@ public final class Strings {
   public static boolean isBlank(final String... values) {
 
     return values == null
-        ? true
-        : Arrays.stream(values)
+        || Arrays.stream(values)
             .allMatch(Strings::isBlank);
   }
 
@@ -39,6 +38,11 @@ public final class Strings {
 
     return value == null
         || value.isBlank();
+  }
+
+  public static boolean notEquals(final String input, final String compareInput) {
+
+    return !Objects.equals(input, compareInput);
   }
 
 }

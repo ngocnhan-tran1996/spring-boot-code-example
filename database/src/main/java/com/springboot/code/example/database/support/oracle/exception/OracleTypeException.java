@@ -1,10 +1,10 @@
 package com.springboot.code.example.database.support.oracle.exception;
 
-public class OracleTypeValueException extends RuntimeException {
+public class OracleTypeException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
 
-  public OracleTypeValueException(String msg) {
+  public OracleTypeException(String msg) {
     super(msg);
   }
 

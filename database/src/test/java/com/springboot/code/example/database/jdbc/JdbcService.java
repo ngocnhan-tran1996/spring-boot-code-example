@@ -8,8 +8,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
-import com.springboot.code.example.database.domain.name.NamePrefixRecordInput;
+import com.springboot.code.example.database.dto.NamePrefixRecordInput;
 import com.springboot.code.example.database.support.oracle.in.OracleArrayValue;
+import com.springboot.code.example.database.support.oracle.out.OracleReturnType;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -21,8 +22,8 @@ class JdbcService {
   Map<String, Object> excuteConcatNameProc() {
 
     var data = OracleArrayValue.withTypeName("jdbc_example_pack.name_array")
-        .data(new Object[] {"Nhan", "Ngoc"})
-        .data(new Object[] {"Ngoc", "Nhan"});
+        .value(new Object[] {"Nhan", "Ngoc"})
+        .value(new Object[] {"Ngoc", "Nhan"});
 
     jdbcTemplate.setResultsMapCaseInsensitive(true);
     var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
@@ -36,14 +37,23 @@ class JdbcService {
     return simpleJdbcCall.execute(sqlParameterSource);
   }
 
-  void executeComplexTypeOutProc() {
+  <T> Map<String, Object> executeComplexTypeOutProc(Class<T> clazz) {
 
     jdbcTemplate.setResultsMapCaseInsensitive(true);
     var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
         .withCatalogName("jdbc_example_pack")
-        .withFunctionName("complex_type_out_proc");
+        .withProcedureName("complex_type_out_proc")
+        .declareParameters(
+            OracleReturnType.withParameterName(
+                clazz,
+                "out_names")
+                .withTypeName("jdbc_example_pack.name_array")
+                .toSqlOutParameter(),
+            OracleReturnType.withParameterName("out_numbers")
+                .withTypeName("jdbc_example_pack.number_array")
+                .toSqlOutParameter());
 
-    simpleJdbcCall.execute(new MapSqlParameterSource());
+    return simpleJdbcCall.execute(new MapSqlParameterSource());
   }
 
 

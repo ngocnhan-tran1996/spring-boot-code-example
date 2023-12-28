@@ -24,6 +24,8 @@ com.springboot.code.example.rabbitmq
 ├── entitymanager // <strong>test EntityManager</strong>
 │   ├── NativeQueryServiceTest.java // <strong>convert Tuple to POJO using <code>EntityManager.createNativeQuery</code></strong>
 │   └── TypedQueryPaginationTest.java // <strong>retrieve native query from <code>TypedQuery</code></strong>
+├── jdbc // <strong>test EntityManager</strong>
+│   └── JdbcServiceTest.java // <strong>test call function or procedure using <code>SimpleJdbcCall</code></strong>
 ├── repository // <strong>test function in example_pack</strong>
 │   ├── NamePrefixRepositoryTest.java // <strong>test method in <code>NamePrefixRepository.java</code></strong>
 │   ├── testcase

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import com.springboot.code.example.database.support.oracle.utils.OracleTypeUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import oracle.jdbc.driver.OracleConnection;
@@ -22,9 +22,9 @@ public class OracleArrayValue<T> extends AbstractOracleTypeValue {
     return new OracleArrayValue<>(arrayTypeName);
   }
 
-  public OracleArrayValue<T> data(T value) {
+  public OracleArrayValue<T> value(T value) {
 
-    this.values.add(Objects.requireNonNull(value, "data must not be null!"));
+    this.values.add(OracleTypeUtils.throwIfNull(value));
     return this;
   }
 

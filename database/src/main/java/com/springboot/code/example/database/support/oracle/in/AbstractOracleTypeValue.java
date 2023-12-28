@@ -3,7 +3,7 @@ package com.springboot.code.example.database.support.oracle.in;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.support.AbstractSqlTypeValue;
-import com.springboot.code.example.database.support.oracle.exception.OracleTypeValueException;
+import com.springboot.code.example.database.support.oracle.exception.OracleTypeException;
 import com.springboot.code.example.database.support.oracle.utils.Strings;
 
 public abstract class AbstractOracleTypeValue extends AbstractSqlTypeValue {
@@ -21,7 +21,7 @@ public abstract class AbstractOracleTypeValue extends AbstractSqlTypeValue {
 
     if (Strings.isBlank(this.getTypeName(), typeName)) {
 
-      throw new OracleTypeValueException("The typeName is null in this context");
+      throw new OracleTypeException("The typeName is null in this context");
     }
 
     var defaultTypeName = Strings.getIfNotBlank(this.getTypeName(), typeName);
