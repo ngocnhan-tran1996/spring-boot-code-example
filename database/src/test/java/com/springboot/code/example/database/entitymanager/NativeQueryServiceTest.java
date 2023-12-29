@@ -24,7 +24,7 @@ class NativeQueryServiceTest {
             new NamePrefixResponse(
                 "EBfTRJOyiKhZklCONAaA",
                 "tshbpckypydpxztdrvkn",
-                BigDecimal.valueOf(1.0)));
+                BigDecimal.ONE));
   }
 
 
