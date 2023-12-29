@@ -54,7 +54,7 @@ docker run -p 1521:1521 -e ORACLE_PASSWORD=ngocnhan -e ORACLE_DATABASE=db_test -
     </div>
     <div class="highlight">
 <pre>
-com.springboot.code.example.rabbitmq.test.resources
+com.springboot.code.example.database.test.resources
 └── scripts // <strong>All scripts for testing this module</strong>
 </pre>
     </div>
