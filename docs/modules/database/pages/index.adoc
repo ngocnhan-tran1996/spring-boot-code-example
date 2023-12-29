@@ -69,3 +69,4 @@ com.springboot.code.example.database.test.resources
 * [x] https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/criteria-api-construct.html[JPA Criteria API - Selecting User defined Objects using CriteriaBuilder#construct()]
 * [x] https://stackoverflow.com/questions/11170609/how-to-count-a-group-by-result-with-jpa-and-criteriabuilder[How to count a group by result with JPA and CriteriaBuilder?]
 * [x] https://stackoverflow.com/questions/5423937/how-do-i-count-the-number-of-rows-returned-by-subquery/66323540#66323540[How do I count the number of rows returned by subquery?]
+* [x] https://github.com/spring-attic/spring-data-jdbc-ext[spring-data-jdbc-ext]
