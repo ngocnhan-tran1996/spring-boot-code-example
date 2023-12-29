@@ -20,7 +20,7 @@ include::ROOT:partial$header.adoc[]
     </div>
     <div class="highlight">
 <pre>
-com.springboot.code.example.rabbitmq
+com.springboot.code.example.database
 ├── entitymanager // <strong>test EntityManager</strong>
 │   ├── NativeQueryServiceTest.java // <strong>convert Tuple to POJO using <code>EntityManager.createNativeQuery</code></strong>
 │   └── TypedQueryPaginationTest.java // <strong>retrieve native query from <code>TypedQuery</code></strong>
@@ -36,7 +36,6 @@ com.springboot.code.example.rabbitmq
 </pre>
     </div>
 </div>
-
 <div class="bd-example-snippet bd-code-snippet bd-file-ref">
     <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
       <strong>Run Oracle Database on Docker for testing</strong>
@@ -47,7 +46,6 @@ docker run -p 1521:1521 -e ORACLE_PASSWORD=ngocnhan -e ORACLE_DATABASE=db_test -
 </pre>
     </div>
 </div>
-
 <div class="bd-example-snippet bd-code-snippet bd-file-ref">
     <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
       <strong>Run SQL for testing</strong>
