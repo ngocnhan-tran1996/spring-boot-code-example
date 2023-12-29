@@ -16,7 +16,7 @@ app:
           hibernate:
             '[show_sql]': true
             '[format_sql]': true
-            '[hbm2ddl.auto]': update
+            '[hbm2ddl.auto]': create-drop
 
     db-postgres:
       url: jdbc:postgresql://localhost:5432/postgres
@@ -33,4 +33,4 @@ app:
           hibernate:
             '[show_sql]': true
             '[format_sql]': true
-            '[hbm2ddl.auto]': create
+            '[hbm2ddl.auto]': create-drop
