@@ -1,12 +1,14 @@
 package com.springboot.code.example.database.jdbc;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 import com.springboot.code.example.database.dto.NamePrefixInput;
@@ -122,6 +124,13 @@ class JdbcServiceTest {
 
     assertThat(jdbcService.executePlusOneFunc())
         .isEqualTo(expectOutput);
+  }
+
+  @Test
+  void testExecuteNameInfoTableFunc() {
+
+    assertThatExceptionOfType(BadSqlGrammarException.class)
+        .isThrownBy(jdbcService::executeNameInfoTableFunc);
   }
 
 }

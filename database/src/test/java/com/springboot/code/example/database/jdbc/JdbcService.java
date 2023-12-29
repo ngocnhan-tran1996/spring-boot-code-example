@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
+import com.springboot.code.example.database.dto.NamePrefixInput;
 import com.springboot.code.example.database.dto.NamePrefixRecordInput;
 import com.springboot.code.example.database.support.oracle.out.OracleReturnType;
 import lombok.RequiredArgsConstructor;
@@ -40,9 +41,7 @@ class JdbcService {
         .withCatalogName("jdbc_example_pack")
         .withProcedureName("complex_type_out_proc")
         .declareParameters(
-            OracleReturnType.withParameterName(
-                clazz,
-                "out_names")
+            OracleReturnType.withParameterName(clazz, "out_names")
                 .withTypeName("jdbc_example_pack.name_array")
                 .toSqlOutParameter(),
             OracleReturnType.withParameterName("out_numbers")
@@ -78,5 +77,23 @@ class JdbcService {
 
     return simpleJdbcCall.execute(sqlParameterSource);
   }
+
+  /**
+   * simpleJdbcCall can not call Function which has function pipeline format
+   */
+  void executeNameInfoTableFunc() {
+
+    jdbcTemplate.setResultsMapCaseInsensitive(true);
+    var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+        .withCatalogName("jdbc_example_pack")
+        .withFunctionName("name_info_table_func")
+        .declareParameters(
+            OracleReturnType.withParameterName(NamePrefixInput.class, "return")
+                .withTypeName("jdbc_example_pack.name_array")
+                .toSqlOutParameter());
+
+    simpleJdbcCall.execute(new MapSqlParameterSource());
+  }
+
 
 }
