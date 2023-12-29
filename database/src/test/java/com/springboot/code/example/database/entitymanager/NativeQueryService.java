@@ -3,12 +3,9 @@ package com.springboot.code.example.database.entitymanager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-<<<<<<< HEAD
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Tuple;
-=======
->>>>>>> feature/3.1.x/database
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.SimpleTypeConverter;
 import org.springframework.core.MethodParameter;
