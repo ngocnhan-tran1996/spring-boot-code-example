@@ -26,6 +26,8 @@ com.springboot.code.example.database
 │   └── TypedQueryPaginationTest.java // <strong>retrieve native query from <code>TypedQuery</code></strong>
 ├── jdbc // <strong>test EntityManager</strong>
 │   └── JdbcServiceTest.java // <strong>test call function or procedure using <code>SimpleJdbcCall</code></strong>
+├── poly.datasource // <strong>test multiple data source</strong>
+│   └── PolyDataSourceTest.java
 ├── repository // <strong>test function in example_pack</strong>
 │   ├── NamePrefixRepositoryTest.java // <strong>test method in <code>NamePrefixRepository.java</code></strong>
 │   ├── testcase
@@ -43,6 +45,16 @@ com.springboot.code.example.database
     <div class="highlight">
 <pre>
 docker run -p 1521:1521 -e ORACLE_PASSWORD=ngocnhan -e ORACLE_DATABASE=db_test -d --name oracle-db gvenzl/oracle-free:slim-faststart
+</pre>
+    </div>
+</div>
+<div class="bd-example-snippet bd-code-snippet bd-file-ref">
+    <div class="d-flex align-items-center highlight-toolbar ps-3 pe-2 py-1 border-bottom">
+      <strong>Run PostgreSQL Database on Docker for testing</strong>
+    </div>
+    <div class="highlight">
+<pre>
+docker run -p 5432:5432 -e POSTGRES_PASSWORD=ngocnhan -d --name postgres postgres
 </pre>
     </div>
 </div>
