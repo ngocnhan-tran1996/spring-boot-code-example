@@ -3,10 +3,10 @@ name: Java CI with Maven
 on:
   push:
     branches:
-      - '3.0.x'
-      - 'feature/3.0.x/**'
+      - '*.x'
+      - 'feature/*.x/**'
   pull_request:
-    branches: [ '3.0.x' ]
+    branches: [ '*.x' ]
   workflow_dispatch:
 
 jobs:
