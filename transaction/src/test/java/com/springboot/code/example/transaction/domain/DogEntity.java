@@ -12,18 +12,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "dog")
 public class DogEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private String species;
-
-  public DogEntity(String species) {
-
-    this.species = species;
-  }
 
 }
