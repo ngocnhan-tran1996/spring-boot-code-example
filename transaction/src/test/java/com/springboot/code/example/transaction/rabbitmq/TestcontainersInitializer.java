@@ -1,4 +1,4 @@
-package com.springboot.code.example.rabbitmq;
+package com.springboot.code.example.transaction.rabbitmq;
 
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;

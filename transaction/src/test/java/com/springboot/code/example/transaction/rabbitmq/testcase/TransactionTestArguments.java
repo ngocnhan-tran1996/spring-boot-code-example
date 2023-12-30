@@ -1,4 +1,4 @@
-package com.springboot.code.example.rabbitmq.transaction.testcase;
+package com.springboot.code.example.transaction.rabbitmq.testcase;
 
 import com.springboot.code.example.testcase.TestArguments;
 
