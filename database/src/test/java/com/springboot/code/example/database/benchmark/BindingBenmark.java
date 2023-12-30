@@ -13,8 +13,8 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.springboot.code.example.database.domain.name.NamePrefixEntity;
-import com.springboot.code.example.database.domain.name.NamePrefixRepository;
+import com.springboot.code.example.database.domain.NamePrefixEntity;
+import com.springboot.code.example.database.domain.NamePrefixRepository;
 
 @BenchmarkMode(Mode.AverageTime)
 @State(Scope.Benchmark)
