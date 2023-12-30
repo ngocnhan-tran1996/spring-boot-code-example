@@ -14,7 +14,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import com.springboot.code.example.database.domain.name.NamePrefixRepository;
+import com.springboot.code.example.database.domain.NamePrefixRepository;
 
 @BenchmarkMode(Mode.AverageTime)
 @State(Scope.Benchmark)

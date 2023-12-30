@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
-import com.springboot.code.example.database.domain.name.NamePrefixResponse;
+import com.springboot.code.example.database.domain.NamePrefixResponse;
 import com.springboot.code.example.database.support.oracle.mapper.DelegateOracleMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
