@@ -27,5 +27,4 @@ class NativeQueryServiceTest {
                 BigDecimal.ONE));
   }
 
-
 }

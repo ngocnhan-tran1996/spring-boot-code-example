@@ -39,7 +39,7 @@ abstract class AbstractOracleMapper<T> implements OracleMapper<T> {
     ResultSetMetaData rsmd = this.getResultSetMetaData(oracleTypeMetaData);
     Object[] objects = this.createStruct(
         rsmd.getColumnCount(),
-        this.extractColumnNameByIndex(rsmd),
+        this.extractIndexByColumnName(rsmd),
         new BeanWrapperImpl(source));
     return connection.unwrap(OracleConnection.class)
         .createStruct(typeName, objects);
@@ -60,7 +60,7 @@ abstract class AbstractOracleMapper<T> implements OracleMapper<T> {
       ResultSetMetaData rsmd = this.getResultSetMetaData(struct.getOracleMetaData());
       Object[] values = struct.getAttributes();
       var valueByName = new LinkedCaseInsensitiveMap<Object>();
-      this.extractColumnNameByIndex(rsmd)
+      this.extractIndexByColumnName(rsmd)
           .forEach((columnName, index) -> valueByName.put(columnName, values[index]));
 
       return this.constructMappedInstance(valueByName, new BeanWrapperImpl());
@@ -68,6 +68,18 @@ abstract class AbstractOracleMapper<T> implements OracleMapper<T> {
 
       return null;
     }
+  }
+
+  @Override
+  public T convert(Map<String, Object> source) {
+
+    OracleTypeUtils.throwIfNull(source);
+    var valueByName = new LinkedCaseInsensitiveMap<Object>();
+    source.forEach((columnName, value) -> this.putValueByColumnName(
+        valueByName,
+        columnName,
+        value));
+    return this.constructMappedInstance(valueByName, new BeanWrapperImpl());
   }
 
   protected abstract Object[] createStruct(
@@ -83,24 +95,31 @@ abstract class AbstractOracleMapper<T> implements OracleMapper<T> {
     return ((OracleTypeMetaData.Struct) struct).getMetaData();
   }
 
-  private Map<String, Integer> extractColumnNameByIndex(ResultSetMetaData rsmd)
+  private Map<String, Integer> extractIndexByColumnName(ResultSetMetaData rsmd)
       throws SQLException {
 
-    Map<String, Integer> columnNameByIndex = new LinkedCaseInsensitiveMap<>();
+    Map<String, Integer> indexByColumnName = new LinkedCaseInsensitiveMap<>();
     var columns = rsmd.getColumnCount();
     for (int i = 0; i < columns; i++) {
 
       String columnName = JdbcUtils.lookupColumnName(rsmd, i + 1);
-      columnNameByIndex.put(columnName, i);
-
-      String propertyName = JdbcUtils.convertUnderscoreNameToPropertyName(columnName);
-      if (Strings.notEquals(columnName, propertyName)) {
-
-        columnNameByIndex.put(propertyName, i);
-      }
+      this.putValueByColumnName(indexByColumnName, columnName, i);
     }
 
-    return columnNameByIndex;
+    return indexByColumnName;
+  }
+
+  private <V> void putValueByColumnName(
+      Map<String, V> valuexByColumnName,
+      String columnName,
+      V value) {
+
+    valuexByColumnName.put(columnName, value);
+    String propertyName = JdbcUtils.convertUnderscoreNameToPropertyName(columnName);
+    if (Strings.notEquals(columnName, propertyName)) {
+
+      valuexByColumnName.put(propertyName, value);
+    }
   }
 
 }
