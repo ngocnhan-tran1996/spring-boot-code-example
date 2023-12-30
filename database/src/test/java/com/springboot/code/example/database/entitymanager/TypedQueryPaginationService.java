@@ -12,9 +12,9 @@ import org.hibernate.hql.spi.QueryTranslatorFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.springboot.code.example.database.domain.name.NamePrefixEntity;
-import com.springboot.code.example.database.domain.name.NamePrefixEntity_;
-import com.springboot.code.example.database.domain.name.NamePrefixResponse;
+import com.springboot.code.example.database.domain.NamePrefixEntity;
+import com.springboot.code.example.database.domain.NamePrefixEntity_;
+import com.springboot.code.example.database.domain.NamePrefixResponse;
 import com.springboot.code.example.utils.Strings;
 import lombok.RequiredArgsConstructor;
 

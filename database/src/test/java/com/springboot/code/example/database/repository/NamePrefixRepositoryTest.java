@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
-import com.springboot.code.example.database.domain.name.NamePrefixRepository;
+import com.springboot.code.example.database.domain.NamePrefixRepository;
 import com.springboot.code.example.database.repository.testcase.NamePrefixRepositoryTestArguments.NameInfoInput;
 import com.springboot.code.example.testcase.TestCase;
 

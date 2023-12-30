@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Tuple;
 import org.springframework.stereotype.Service;
-import com.springboot.code.example.database.domain.name.NamePrefixResponse;
+import com.springboot.code.example.database.domain.NamePrefixResponse;
 import com.springboot.code.example.database.support.oracle.mapper.DelegateOracleMapper;
 import lombok.RequiredArgsConstructor;
 
