@@ -30,8 +30,8 @@ class JdbcTest {
     assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, "dog"))
         .isZero();
     this.jdbcTemplate.update(
-        "INSERT INTO DOG (species) VALUES (?)",
-        "Chihuahua");
+        "INSERT INTO DOG (id, species) VALUES (?, ?)",
+        1, "Chihuahua");
     assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, "dog"))
         .isEqualTo(1);
   }
@@ -84,6 +84,12 @@ class JdbcTest {
     this.jdbcTemplate.update(
         "UPDATE DOG SET species = ?",
         "Anana 1");
+
+    List<Map<String, Object>> result2 = this.jdbcTemplate.queryForList("SELECT * FROM dog");
+    assertThat(result2)
+        .isEqualTo(List.of(Map.of(
+            "id", 1,
+            "species", "Anana 1")));
   }
 
   @Test
