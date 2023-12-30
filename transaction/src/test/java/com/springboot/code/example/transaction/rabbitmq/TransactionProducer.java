@@ -1,4 +1,4 @@
-package com.springboot.code.example.rabbitmq.transaction;
+package com.springboot.code.example.transaction.rabbitmq;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
