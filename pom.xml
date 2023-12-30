@@ -30,6 +30,7 @@
     <module>rabbitmq</module>
     <module>coverage-report</module>
     <module>database</module>
+    <module>transaction</module>
   </modules>
 
   <dependencyManagement>
