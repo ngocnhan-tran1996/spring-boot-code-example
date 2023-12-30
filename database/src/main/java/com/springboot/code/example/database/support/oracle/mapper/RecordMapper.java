@@ -51,11 +51,10 @@ class RecordMapper<T> extends PojoMapper<T> {
     }
 
     this.constructorParameterNames = BeanUtils.getParameterNames(this.mappedConstructor);
-    this.constructorParameterTypes = new TypeDescriptor[paramCount];
-    for (int i = 0; i < paramCount; i++) {
-      this.constructorParameterTypes[i] = new TypeDescriptor(
-          new MethodParameter(this.mappedConstructor, i));
-    }
+    this.constructorParameterTypes = IntStream.range(0, paramCount)
+        .boxed()
+        .map(i -> new TypeDescriptor(new MethodParameter(this.mappedConstructor, i)))
+        .toArray(TypeDescriptor[]::new);
   }
 
   @Override
