@@ -21,11 +21,13 @@ include::ROOT:partial$header.adoc[]
     <div class="highlight">
 <pre>
 com.springboot.code.example.transaction
+├── datasource.rabbitmq // <strong>test RPC</strong>
+│   └── DataSourceRabbitMQTest.java // <strong>test transaction between jpa and rabbitMQ</strong>
 ├── jdbc // <strong>test RPC</strong>
 │   └── JdbcTest.java // <strong>test CRUD using <code>JdbcTemplate</code> with and without Transactional annotation</strong>
 ├── jpa // <strong>test RPC</strong>
 │   └── JpaTest.java // <strong>test CRUD using <code>Repository</code> with and without Transactional annotation</strong>
-└──  rabbitmq // <strong>test RabbitTransactionManager</strong>
+└── rabbitmq // <strong>test RabbitTransactionManager</strong>
     └── TransactionTest.java
 </pre>
     </div>

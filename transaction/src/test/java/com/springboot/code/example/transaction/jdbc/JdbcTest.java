@@ -13,14 +13,26 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
+import com.springboot.code.example.container.EnableTestcontainers;
+import com.springboot.code.example.container.PostgreSQLContainerInitializer;
 
 @ActiveProfiles("postgres")
 @SpringBootTest
+@EnableTestcontainers(PostgreSQLContainerInitializer.class)
 @TestMethodOrder(OrderAnnotation.class)
 class JdbcTest {
 
   @Autowired
   JdbcTemplate jdbcTemplate;
+
+  @Test
+  @Order(0)
+  void testDeleteAll() {
+
+    this.jdbcTemplate.update("DELETE FROM DOG");
+    assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, "dog"))
+        .isZero();
+  }
 
   @Test
   @Order(1)

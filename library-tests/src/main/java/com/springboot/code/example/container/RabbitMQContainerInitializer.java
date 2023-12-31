@@ -1,4 +1,4 @@
-package com.springboot.code.example.rabbitmq;
+package com.springboot.code.example.container;
 
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
@@ -6,7 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.testcontainers.containers.RabbitMQContainer;
 import com.springboot.code.example.utils.Strings;
 
-class TestcontainersInitializer implements
+public class RabbitMQContainerInitializer implements
     ApplicationContextInitializer<ConfigurableApplicationContext> {
 
   private static final String RABBIT = "rabbitmq";
