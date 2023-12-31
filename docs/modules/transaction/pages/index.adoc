@@ -23,6 +23,8 @@ include::ROOT:partial$header.adoc[]
 com.springboot.code.example.transaction
 ├── jdbc // <strong>test RPC</strong>
 │   └── JdbcTest.java // <strong>test CRUD using <code>JdbcTemplate</code> with and without Transactional annotation</strong>
+├── jpa // <strong>test RPC</strong>
+│   └── JpaTest.java // <strong>test CRUD using <code>Repository</code> with and without Transactional annotation</strong>
 └──  rabbitmq // <strong>test RabbitTransactionManager</strong>
     └── TransactionTest.java
 </pre>
