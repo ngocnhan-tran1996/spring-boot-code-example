@@ -12,16 +12,15 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import com.springboot.code.example.container.BrokerContainer;
 import com.springboot.code.example.rabbitmq.BaseConfig;
-import com.springboot.code.example.rabbitmq.EnableTestcontainers;
 import com.springboot.code.example.rabbitmq.confirms.testcase.ConfirmsReturnsTestArguments.ConfirmsReturnsArgumentsInput;
 import com.springboot.code.example.rabbitmq.confirms.testcase.ConfirmsReturnsTestArguments.ConfirmsReturnsArgumentsOutput;
 import com.springboot.code.example.testcase.TestCase;
 import com.springboot.code.example.utils.Strings;
 
 @ActiveProfiles("confirms")
-@SpringBootTest(classes = BaseConfig.class)
-@EnableTestcontainers
+@SpringBootTest(classes = {BaseConfig.class, BrokerContainer.class})
 class ConfirmsReturnsTest {
 
   @Autowired

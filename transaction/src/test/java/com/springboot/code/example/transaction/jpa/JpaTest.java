@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-import com.springboot.code.example.transaction.container.DatabaseContainer;
+import com.springboot.code.example.container.DatabaseContainer;
 import com.springboot.code.example.transaction.domain.DogEntity;
 import com.springboot.code.example.transaction.domain.DogRepo;
 

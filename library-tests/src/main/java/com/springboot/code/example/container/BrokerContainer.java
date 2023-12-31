@@ -1,4 +1,4 @@
-package com.springboot.code.example.transaction.container;
+package com.springboot.code.example.container;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
@@ -12,12 +12,13 @@ public class BrokerContainer {
 
   @Bean
   @ServiceConnection
-  public RabbitMQContainer rabbit() {
+  RabbitMQContainer rabbit() {
 
     try (var rabbitMQContainer = new RabbitMQContainer(RABBIT)) {
 
       return rabbitMQContainer
-          .withCreateContainerCmdModifier(cmd -> cmd.withName(RABBIT));
+          .withCreateContainerCmdModifier(cmd -> cmd.withName(RABBIT))
+          .withReuse(true);
     }
   }
 

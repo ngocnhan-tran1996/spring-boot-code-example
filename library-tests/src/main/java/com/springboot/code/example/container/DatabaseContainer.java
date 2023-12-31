@@ -1,4 +1,4 @@
-package com.springboot.code.example.transaction.container;
+package com.springboot.code.example.container;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
@@ -10,11 +10,12 @@ public class DatabaseContainer {
 
   @Bean
   @ServiceConnection
-  public PostgreSQLContainer<?> postgres() {
+  PostgreSQLContainer<?> postgres() {
 
     try (var postgreSQLContainer = new PostgreSQLContainer<>("postgres:15-alpine")) {
 
       return postgreSQLContainer
+          .withCreateContainerCmdModifier(cmd -> cmd.withName("postgres"))
           .withReuse(true);
     }
   }

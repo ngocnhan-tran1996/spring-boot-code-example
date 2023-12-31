@@ -9,11 +9,10 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import com.springboot.code.example.rabbitmq.EnableTestcontainers;
+import com.springboot.code.example.container.BrokerContainer;
 
 @ActiveProfiles("event")
-@SpringBootTest(classes = ConsumerConfig.class)
-@EnableTestcontainers
+@SpringBootTest(classes = {ConsumerConfig.class, BrokerContainer.class})
 class ConsumerTest {
 
   @Autowired

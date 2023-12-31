@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import com.springboot.code.example.container.BrokerContainer;
 import com.springboot.code.example.testcase.TestCase;
-import com.springboot.code.example.transaction.container.BrokerContainer;
 
 @EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 @SpringBootTest(classes = {BaseConfig.class, BrokerContainer.class, TransactionConfig.class})

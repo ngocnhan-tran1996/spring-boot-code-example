@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
-import com.springboot.code.example.transaction.container.DatabaseContainer;
+import com.springboot.code.example.container.DatabaseContainer;
 
 @ActiveProfiles("postgres")
 @SpringBootTest(classes = DatabaseContainer.class)

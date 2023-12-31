@@ -8,13 +8,12 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import com.springboot.code.example.container.BrokerContainer;
 import com.springboot.code.example.rabbitmq.BaseConfig;
-import com.springboot.code.example.rabbitmq.EnableTestcontainers;
 import com.springboot.code.example.testcase.TestCase;
 
 @ActiveProfiles("send-to")
-@SpringBootTest(classes = {BaseConfig.class, ReplyListenerConfig.class})
-@EnableTestcontainers
+@SpringBootTest(classes = {BaseConfig.class, ReplyListenerConfig.class, BrokerContainer.class})
 class ReplySendToTest {
 
   @Autowired

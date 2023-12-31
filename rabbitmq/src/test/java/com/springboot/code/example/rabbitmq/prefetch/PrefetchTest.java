@@ -10,11 +10,10 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import com.springboot.code.example.container.BrokerContainer;
 import com.springboot.code.example.rabbitmq.BaseConfig;
-import com.springboot.code.example.rabbitmq.EnableTestcontainers;
 
-@SpringBootTest(classes = {BaseConfig.class, PrefetchConfig.class})
-@EnableTestcontainers
+@SpringBootTest(classes = {BaseConfig.class, PrefetchConfig.class, BrokerContainer.class})
 class PrefetchTest {
 
   @Autowired

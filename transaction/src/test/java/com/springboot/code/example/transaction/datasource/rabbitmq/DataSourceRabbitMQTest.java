@@ -8,9 +8,9 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import com.springboot.code.example.container.BrokerContainer;
+import com.springboot.code.example.container.DatabaseContainer;
 import com.springboot.code.example.testcase.TestCase;
-import com.springboot.code.example.transaction.container.BrokerContainer;
-import com.springboot.code.example.transaction.container.DatabaseContainer;
 import com.springboot.code.example.transaction.rabbitmq.BaseConfig;
 
 @ActiveProfiles("postgres")
