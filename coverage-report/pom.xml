@@ -38,6 +38,12 @@
       <artifactId>database</artifactId>
       <version>${revision}</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.springboot.code</groupId>
+      <artifactId>transaction</artifactId>
+      <version>${revision}</version>
+    </dependency>
   </dependencies>
 
   <build>

@@ -16,7 +16,8 @@ This module have only pom that contains all module for exporting jacoco
     ├── database: contains example about Spring Boot and Database (Oracle, Postgre)<br/>
     ├── rabbitmq: contains example about Spring Boot and RabbitMQ<br/>
     ├── library-tests: contains common test files likes <code>@Testcase</code> annotation<br/>
-    └── library: contains common files, etc utils package<br/>
+    ├── library: contains common files, etc utils package<br/>
+    └── transaction: contains example about <code>@Transactional</code><br/>
   </div>
 </div>
 
