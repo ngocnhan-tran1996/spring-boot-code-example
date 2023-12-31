@@ -9,10 +9,12 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.springboot.code.example.container.BrokerContainer;
+import com.springboot.code.example.container.EnableTestcontainers;
+import com.springboot.code.example.container.RabbitMQContainerInitializer;
 import com.springboot.code.example.rabbitmq.BaseConfig;
 
-@SpringBootTest(classes = {BaseConfig.class, ValidationConfig.class, BrokerContainer.class})
+@SpringBootTest(classes = {BaseConfig.class, ValidationConfig.class})
+@EnableTestcontainers(RabbitMQContainerInitializer.class)
 class ValidationTest {
 
   @Autowired

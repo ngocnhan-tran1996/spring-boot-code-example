@@ -11,10 +11,12 @@ import org.springframework.amqp.rabbit.test.RabbitListenerTestHarness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import com.springboot.code.example.container.BrokerContainer;
+import com.springboot.code.example.container.EnableTestcontainers;
+import com.springboot.code.example.container.RabbitMQContainerInitializer;
 
 @ActiveProfiles("byId")
-@SpringBootTest(classes = {ConsumerConfig.class, BrokerContainer.class})
+@SpringBootTest(classes = ConsumerConfig.class)
+@EnableTestcontainers(RabbitMQContainerInitializer.class)
 @RabbitListenerTest(spy = false, capture = true)
 class ConsumerByIdTest {
 

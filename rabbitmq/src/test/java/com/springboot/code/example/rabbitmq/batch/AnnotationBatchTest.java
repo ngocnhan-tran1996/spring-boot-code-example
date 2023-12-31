@@ -11,12 +11,14 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import com.springboot.code.example.container.BrokerContainer;
+import com.springboot.code.example.container.EnableTestcontainers;
+import com.springboot.code.example.container.RabbitMQContainerInitializer;
 import com.springboot.code.example.rabbitmq.BaseConfig;
 import com.springboot.code.example.testcase.TestCase;
 
 @ActiveProfiles("annotation-batch")
-@SpringBootTest(classes = {BaseConfig.class, BatchConfig.class, BrokerContainer.class})
+@SpringBootTest(classes = {BaseConfig.class, BatchConfig.class})
+@EnableTestcontainers(RabbitMQContainerInitializer.class)
 class AnnotationBatchTest {
 
   @Autowired

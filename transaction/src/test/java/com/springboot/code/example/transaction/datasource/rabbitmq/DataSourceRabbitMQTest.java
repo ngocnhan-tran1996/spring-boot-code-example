@@ -8,18 +8,18 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import com.springboot.code.example.container.BrokerContainer;
-import com.springboot.code.example.container.DatabaseContainer;
+import com.springboot.code.example.container.EnableTestcontainers;
+import com.springboot.code.example.container.PostgreSQLContainerInitializer;
+import com.springboot.code.example.container.RabbitMQContainerInitializer;
 import com.springboot.code.example.testcase.TestCase;
 import com.springboot.code.example.transaction.rabbitmq.BaseConfig;
 
 @ActiveProfiles("postgres")
 @SpringBootTest(classes = {
     BaseConfig.class,
-    BrokerContainer.class,
-    DatabaseContainer.class,
     DataSourceRabbitMQConfig.class
 })
+@EnableTestcontainers({PostgreSQLContainerInitializer.class, RabbitMQContainerInitializer.class})
 class DataSourceRabbitMQTest {
 
   @Autowired
