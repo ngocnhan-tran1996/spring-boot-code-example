@@ -13,12 +13,6 @@ import org.springframework.transaction.TransactionManager;
 class TransactionConfig {
 
   @Bean
-  Queue queue() {
-
-    return new AnonymousQueue();
-  }
-
-  @Bean
   TransactionManager transactionManager(ConnectionFactory connectionFactory) {
 
     return new RabbitTransactionManager(connectionFactory);

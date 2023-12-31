@@ -1,0 +1,7 @@
+logging:
+  level:
+     org:
+      springframework:
+        '[orm.jpa]': ERROR
+        '[jdbc.core]': ERROR
+        '[transaction]': ERROR
