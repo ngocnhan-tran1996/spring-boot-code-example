@@ -9,12 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import com.springboot.code.example.testcase.TestCase;
-import com.springboot.code.example.transaction.container.EnableTestcontainers;
+import com.springboot.code.example.transaction.container.BrokerContainer;
+import com.springboot.code.example.transaction.container.DatabaseContainer;
 import com.springboot.code.example.transaction.rabbitmq.BaseConfig;
 
 @ActiveProfiles("postgres")
-@SpringBootTest(classes = {BaseConfig.class, DataSourceRabbitMQConfig.class})
-@EnableTestcontainers
+@SpringBootTest(classes = {
+    BaseConfig.class,
+    BrokerContainer.class,
+    DatabaseContainer.class,
+    DataSourceRabbitMQConfig.class
+})
 class DataSourceRabbitMQTest {
 
   @Autowired

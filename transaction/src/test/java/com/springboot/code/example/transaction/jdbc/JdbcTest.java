@@ -13,9 +13,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
+import com.springboot.code.example.transaction.container.DatabaseContainer;
 
 @ActiveProfiles("postgres")
-@SpringBootTest
+@SpringBootTest(classes = DatabaseContainer.class)
 @TestMethodOrder(OrderAnnotation.class)
 class JdbcTest {
 
