@@ -25,6 +25,15 @@ class JpaTest {
   DogRepo dogRepo;
 
   @Test
+  @Order(0)
+  void testDeleteAll() {
+
+    this.dogRepo.deleteAll();;
+    assertThat(this.dogRepo.findAll())
+        .isEmpty();
+  }
+
+  @Test
   @Order(1)
   @Transactional
   void testInsertWithTransaction() {
