@@ -8,4 +8,8 @@ class TransactionTestArguments {
       .params(true, 0)
       .nextParams(false, 1);
 
+  static TestArguments testSendWithCloneArguments = TestArguments
+      .params(true, 1)
+      .nextParams(false, 1);
+
 }

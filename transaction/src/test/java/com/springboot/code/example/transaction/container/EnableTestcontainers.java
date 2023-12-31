@@ -1,4 +1,4 @@
-package com.springboot.code.example.transaction.rabbitmq;
+package com.springboot.code.example.transaction.container;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
