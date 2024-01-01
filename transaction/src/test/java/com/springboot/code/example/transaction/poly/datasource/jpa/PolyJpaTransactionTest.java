@@ -11,9 +11,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import com.springboot.code.example.container.EnableTestcontainers;
-import com.springboot.code.example.container.PolyOracleContainerInitializer;
-import com.springboot.code.example.container.PolyPostgreSQLContainerInitializer;
 import com.springboot.code.example.transaction.domain.DogEntity;
 import com.springboot.code.example.transaction.domain.DogRepo;
 import com.springboot.code.example.transaction.poly.datasource.config.OracleDataSourceConfig;
@@ -23,8 +20,6 @@ import com.springboot.code.example.transaction.poly.datasource.oracle.CatRepo;
 
 @ActiveProfiles("poly-datasource")
 @SpringBootTest(classes = {PostgresDataSourceConfig.class, OracleDataSourceConfig.class})
-@EnableTestcontainers({PolyPostgreSQLContainerInitializer.class,
-    PolyOracleContainerInitializer.class})
 class PolyJpaTransactionTest {
 
   @Autowired

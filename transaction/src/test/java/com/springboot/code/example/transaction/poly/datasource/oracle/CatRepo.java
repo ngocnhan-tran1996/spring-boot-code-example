@@ -11,7 +11,7 @@ public interface CatRepo extends CrudRepository<CatEntity, Integer> {
   void insert(int id, String species);
 
   @Modifying
-  @Query(value = "INSERT INTO CAT VALUES (2, 'Test');COMMIT", nativeQuery = true)
+  @Query(value = "INSERT INTO DOG VALUES (2, 'Test');COMMIT", nativeQuery = true)
   void insert();
 
 }
