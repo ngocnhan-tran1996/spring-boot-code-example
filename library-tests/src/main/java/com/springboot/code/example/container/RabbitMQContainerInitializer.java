@@ -11,20 +11,20 @@ public class RabbitMQContainerInitializer implements
 
   private static final String RABBIT = "rabbitmq";
 
-  static final RabbitMQContainer RABBIT_MQ_CONTAINER = new RabbitMQContainer(RABBIT)
+  static final RabbitMQContainer rabbitmq = new RabbitMQContainer(RABBIT)
       .withCreateContainerCmdModifier(cmd -> cmd.withName(RABBIT));
 
   static {
-    RABBIT_MQ_CONTAINER.start();
+    rabbitmq.start();
   }
 
   @Override
   public void initialize(ConfigurableApplicationContext ctx) {
     TestPropertyValues.of(
-        Strings.join("spring.rabbitmq.host=", RABBIT_MQ_CONTAINER.getHost()),
-        Strings.join("spring.rabbitmq.port=", RABBIT_MQ_CONTAINER.getAmqpPort()),
-        Strings.join("spring.rabbitmq.username=", RABBIT_MQ_CONTAINER.getAdminUsername()),
-        Strings.join("spring.rabbitmq.password=", RABBIT_MQ_CONTAINER.getAdminPassword()))
+        Strings.join("spring.rabbitmq.host=", rabbitmq.getHost()),
+        Strings.join("spring.rabbitmq.port=", rabbitmq.getAmqpPort()),
+        Strings.join("spring.rabbitmq.username=", rabbitmq.getAdminUsername()),
+        Strings.join("spring.rabbitmq.password=", rabbitmq.getAdminPassword()))
         .applyTo(ctx.getEnvironment());
   }
 

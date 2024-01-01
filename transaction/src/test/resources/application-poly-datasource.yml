@@ -1,0 +1,28 @@
+app:
+  datasource:
+    oracle:
+      hikari:
+        pool-name: oracle-pool-name
+        schema: test
+        minimum-idle: 1
+        maximum-pool-size: 1
+      jpa:
+        show-sql: true
+        properties:
+          hibernate:
+            '[show_sql]': true
+            '[format_sql]': true
+            '[hbm2ddl.auto]': update
+
+    postgres:
+      hikari:
+        pool-name: postgresql-pool-name
+        schema: public
+        minimum-idle: 1
+        maximum-pool-size: 1
+      jpa:
+        properties:
+          hibernate:
+            '[show_sql]': true
+            '[format_sql]': true
+            '[hbm2ddl.auto]': update
