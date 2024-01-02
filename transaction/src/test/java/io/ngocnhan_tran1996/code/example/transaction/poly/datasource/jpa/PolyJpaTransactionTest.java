@@ -6,20 +6,21 @@ import static org.assertj.core.util.Lists.list;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import io.ngocnhan_tran1996.code.example.transaction.domain.DogEntity;
 import io.ngocnhan_tran1996.code.example.transaction.domain.DogRepo;
+import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.ChainedTransactionManagerConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.OracleDataSourceConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.PostgresDataSourceConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.oracle.CatEntity;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.oracle.CatRepo;
 
 @ActiveProfiles("poly-datasource")
-@SpringBootTest(classes = {PostgresDataSourceConfig.class, OracleDataSourceConfig.class})
+@SpringBootTest(classes = {PostgresDataSourceConfig.class, OracleDataSourceConfig.class,
+    ChainedTransactionManagerConfig.class, UnexpectedRollbackTransaction.class})
 class PolyJpaTransactionTest {
 
   @Autowired
@@ -97,16 +98,14 @@ class PolyJpaTransactionTest {
   @Transactional(OracleDataSourceConfig.TRANSACTION_MANAGER)
   void testSavePostgresWithOracleTransaction() {
 
-    assertThatExceptionOfType(InvalidDataAccessApiUsageException.class)
-        .isThrownBy(this::testSavePostgres);
+    this.testSavePostgres();
   }
 
   @Test
   @Transactional(PostgresDataSourceConfig.TRANSACTION_MANAGER)
   void testSaveOracleWithPostgresTransaction() {
 
-    assertThatExceptionOfType(InvalidDataAccessApiUsageException.class)
-        .isThrownBy(this::testSaveOracle);
+    this.testSaveOracle();
   }
 
   @Test
@@ -114,8 +113,7 @@ class PolyJpaTransactionTest {
   void testSaveAllWithOracleTransaction() {
 
     this.testSaveOracle();
-    assertThatExceptionOfType(InvalidDataAccessApiUsageException.class)
-        .isThrownBy(this::testSavePostgres);
+    this.testSavePostgres();
   }
 
   @Test
@@ -123,8 +121,7 @@ class PolyJpaTransactionTest {
   void testSaveAllWithPostgresTransaction() {
 
     this.testSavePostgres();
-    assertThatExceptionOfType(InvalidDataAccessApiUsageException.class)
-        .isThrownBy(this::testSaveOracle);
+    this.testSaveOracle();
   }
 
   @Test

@@ -13,12 +13,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
-import io.ngocnhan_tran1996.code.example.container.EnableTestcontainers;
-import io.ngocnhan_tran1996.code.example.container.PostgreSQLContainerInitializer;
 
 @ActiveProfiles("postgres")
 @SpringBootTest
-@EnableTestcontainers(PostgreSQLContainerInitializer.class)
 @TestMethodOrder(OrderAnnotation.class)
 class JdbcTest {
 

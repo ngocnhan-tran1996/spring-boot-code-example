@@ -10,14 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-import io.ngocnhan_tran1996.code.example.container.EnableTestcontainers;
-import io.ngocnhan_tran1996.code.example.container.PostgreSQLContainerInitializer;
 import io.ngocnhan_tran1996.code.example.transaction.domain.DogEntity;
 import io.ngocnhan_tran1996.code.example.transaction.domain.DogRepo;
 
 @ActiveProfiles("postgres")
 @SpringBootTest
-@EnableTestcontainers(PostgreSQLContainerInitializer.class)
 @TestMethodOrder(OrderAnnotation.class)
 class JpaTest {
 

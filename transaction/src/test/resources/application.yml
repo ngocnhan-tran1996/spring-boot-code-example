@@ -2,6 +2,6 @@ logging:
   level:
      org:
       springframework:
-        '[orm.jpa]': ERROR
-        '[jdbc.core]': ERROR
-        '[transaction]': ERROR
+        '[orm.jpa]': TRACE
+        '[jdbc.core]': TRACE
+        '[transaction]': TRACE

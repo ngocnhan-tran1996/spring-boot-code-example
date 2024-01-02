@@ -1,12 +1,12 @@
 package io.ngocnhan_tran1996.code.example.transaction.poly.datasource.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import io.ngocnhan_tran1996.code.example.transaction.domain.DogRepo;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.oracle.CatRepo;
 
-@Service
+@TestConfiguration
 class UnexpectedRollbackTransaction {
 
   @Autowired
@@ -15,33 +15,15 @@ class UnexpectedRollbackTransaction {
   @Autowired
   CatRepo catRepo;
 
-  void savePostgres() {
+  @Transactional(value = "chainedTransactionManager")
+  void saveAllWithChainedTransactionWithException() {
 
     // reset all
     this.dogRepo.deleteAll();
-
-    // create
-    dogRepo.insert(1, "Dog 1");
-    dogRepo.insert(2, "Dog 2");
-
-    // update
-    dogRepo.findById(1)
-        .ifPresent(dog -> {
-
-          dog.setSpecies("Dog changed");
-          dogRepo.save(dog);
-        });
-
-    // delete
-    dogRepo.deleteById(2);
-  }
-
-  void saveOracle() {
-
-    // reset all
     this.catRepo.deleteAll();
 
     // create
+    this.dogRepo.insert(1, "Dog 1");
     catRepo.insert(1, "Cat 1");
     catRepo.insert(2, "Cat 2");
 
@@ -55,13 +37,8 @@ class UnexpectedRollbackTransaction {
 
     // delete
     catRepo.deleteById(2);
-  }
 
-  @Transactional(value = "chainedTransactionManager")
-  void saveAllWithChainedTransactionWithException() {
-
-    this.savePostgres();
-    this.saveOracle();
+    // intend to throw exception
     this.catRepo.insert();
   }
 

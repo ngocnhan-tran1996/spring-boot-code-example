@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import com.zaxxer.hikari.HikariDataSource;
@@ -79,6 +80,13 @@ public class PostgresDataSourceConfig extends AbstractDataSourceConfig {
       LocalContainerEntityManagerFactoryBean entityManager) {
 
     return super.transactionManager(entityManager);
+  }
+
+  @Primary
+  @Bean
+  JdbcTemplate jdbcTemplate(HikariDataSource datasource) {
+
+    return new JdbcTemplate(datasource);
   }
 
 }
