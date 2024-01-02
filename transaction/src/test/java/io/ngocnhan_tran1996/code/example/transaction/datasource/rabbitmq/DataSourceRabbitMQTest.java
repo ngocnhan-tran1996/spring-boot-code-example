@@ -14,7 +14,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import io.ngocnhan_tran1996.code.example.container.EnableTestcontainers;
-import io.ngocnhan_tran1996.code.example.container.PostgreSQLContainerInitializer;
 import io.ngocnhan_tran1996.code.example.container.RabbitMQContainerInitializer;
 import io.ngocnhan_tran1996.code.example.testcase.TestCase;
 import io.ngocnhan_tran1996.code.example.transaction.domain.DogRepo;
@@ -27,7 +26,7 @@ import jakarta.persistence.TransactionRequiredException;
     BaseConfig.class,
     DataSourceRabbitMQConfig.class
 })
-@EnableTestcontainers({PostgreSQLContainerInitializer.class, RabbitMQContainerInitializer.class})
+@EnableTestcontainers(RabbitMQContainerInitializer.class)
 @TestMethodOrder(OrderAnnotation.class)
 class DataSourceRabbitMQTest {
 
