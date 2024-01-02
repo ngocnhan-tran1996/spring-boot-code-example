@@ -11,7 +11,7 @@
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>com.springboot.code</groupId>
+  <groupId>io.ngocnhan_tran1996.code</groupId>
   <artifactId>example</artifactId>
   <version>${revision}</version>
   <packaging>pom</packaging>
@@ -35,13 +35,13 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.springboot.code</groupId>
+        <groupId>io.ngocnhan_tran1996.code</groupId>
         <artifactId>library</artifactId>
         <version>${revision}</version>
       </dependency>
 
       <dependency>
-        <groupId>com.springboot.code</groupId>
+        <groupId>io.ngocnhan_tran1996.code</groupId>
         <artifactId>library-tests</artifactId>
         <version>${revision}</version>
         <scope>test</scope>

@@ -28,7 +28,7 @@ include::ROOT:partial$header.adoc[]
       </div>
       <div class="highlight">
 <pre>
-com.springboot.code.example.utils
+io.ngocnhan_tran1996.code.example.utils
 └── CollectionUtilsTest
 </pre>
       </div>
@@ -42,7 +42,7 @@ com.springboot.code.example.utils
       </div>
       <div class="highlight">
 <pre>
-com.springboot.code.example
+io.ngocnhan_tran1996.code.example
 ├── aspect
 │   ├── AspectTest.java
 │   ├── testcase.java

@@ -1,0 +1,36 @@
+app:
+  datasource:
+    oracle:
+      url: jdbc:oracle:thin:@localhost:1521/db_test
+      username: user_nhan
+      password: ngocnhan
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      hikari:
+        pool-name: oracle-pool-name
+        schema: user_nhan
+        minimum-idle: 1
+        maximum-pool-size: 1
+      jpa:
+        show-sql: true
+        properties:
+          hibernate:
+            '[show_sql]': true
+            '[format_sql]': true
+            '[hbm2ddl.auto]': create-drop
+
+    postgres:
+      url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: ngocnhan
+      driver-class-name: org.postgresql.Driver
+      hikari:
+        pool-name: postgresql-pool-name
+        schema: public
+        minimum-idle: 1
+        maximum-pool-size: 1
+      jpa:
+        properties:
+          hibernate:
+            '[show_sql]': true
+            '[format_sql]': true
+            '[hbm2ddl.auto]': create-drop

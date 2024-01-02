@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.springboot.code</groupId>
+    <groupId>io.ngocnhan_tran1996.code</groupId>
     <artifactId>example</artifactId>
     <version>${revision}</version>
   </parent>
@@ -18,29 +18,29 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.springboot.code</groupId>
+      <groupId>io.ngocnhan_tran1996.code</groupId>
       <artifactId>library</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>com.springboot.code</groupId>
+      <groupId>io.ngocnhan_tran1996.code</groupId>
       <artifactId>library-tests</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>com.springboot.code</groupId>
+      <groupId>io.ngocnhan_tran1996.code</groupId>
       <artifactId>rabbitmq</artifactId>
       <version>${revision}</version>
     </dependency>
 
     <dependency>
-      <groupId>com.springboot.code</groupId>
+      <groupId>io.ngocnhan_tran1996.code</groupId>
       <artifactId>database</artifactId>
       <version>${revision}</version>
     </dependency>
 
     <dependency>
-      <groupId>com.springboot.code</groupId>
+      <groupId>io.ngocnhan_tran1996.code</groupId>
       <artifactId>transaction</artifactId>
       <version>${revision}</version>
     </dependency>

@@ -20,7 +20,7 @@ include::ROOT:partial$header.adoc[]
     </div>
     <div class="highlight">
 <pre>
-com.springboot.code.example.rabbitmq
+io.ngocnhan_tran1996.code.example.rabbitmq
 ├── batch // <strong>test send and receive batch</strong>
 │   ├── AnnotationBatchTest.java // <strong>use <code>@RabbitListener</code></strong>
 │   ├── BatchTest.java // <strong>use <code>BatchingRabbitTemplate.java</code></strong>

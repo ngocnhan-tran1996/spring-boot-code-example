@@ -20,7 +20,7 @@ include::ROOT:partial$header.adoc[]
     </div>
     <div class="highlight">
 <pre>
-com.springboot.code.example.database
+io.ngocnhan_tran1996.code.example.database
 ├── entitymanager // <strong>test EntityManager</strong>
 │   ├── NativeQueryServiceTest.java // <strong>convert Tuple to POJO using <code>EntityManager.createNativeQuery</code></strong>
 │   └── TypedQueryPaginationTest.java // <strong>retrieve native query from <code>TypedQuery</code></strong>
@@ -64,7 +64,7 @@ docker run -p 5432:5432 -e POSTGRES_PASSWORD=ngocnhan -d --name postgres postgre
     </div>
     <div class="highlight">
 <pre>
-com.springboot.code.example.database.test.resources
+io.ngocnhan_tran1996.code.example.database.test.resources
 └── scripts // <strong>All scripts for testing this module</strong>
 </pre>
     </div>
