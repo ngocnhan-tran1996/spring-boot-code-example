@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.springboot.code</groupId>
+    <groupId>io.ngocnhan_tran1996.code</groupId>
     <artifactId>example</artifactId>
     <version>${revision}</version>
   </parent>
@@ -27,7 +27,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.springboot.code</groupId>
+      <groupId>io.ngocnhan_tran1996.code</groupId>
       <artifactId>library-tests</artifactId>
     </dependency>
 

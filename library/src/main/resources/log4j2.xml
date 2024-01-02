@@ -11,7 +11,7 @@
 
   <Loggers>
 
-    <Logger name="com.springboot.code.example" level="info" additivity="false">
+    <Logger name="io.ngocnhan_tran1996.code.example" level="info" additivity="false">
       <AppenderRef ref="Console" />
     </Logger>
 

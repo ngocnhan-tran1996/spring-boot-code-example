@@ -20,15 +20,24 @@ include::ROOT:partial$header.adoc[]
     </div>
     <div class="highlight">
 <pre>
-com.springboot.code.example.transaction
+io.ngocnhan_tran1996.code.example.transaction
 ├── datasource.rabbitmq // <strong>test RPC</strong>
 │   └── DataSourceRabbitMQTest.java // <strong>test transaction between jpa and rabbitMQ</strong>
 ├── jdbc // <strong>test RPC</strong>
 │   └── JdbcTest.java // <strong>test CRUD using <code>JdbcTemplate</code> with and without Transactional annotation</strong>
 ├── jpa // <strong>test RPC</strong>
 │   └── JpaTest.java // <strong>test CRUD using <code>Repository</code> with and without Transactional annotation</strong>
+├── poly.datasource // <strong>test with <code>@Transactional</code> with multiple database, it is relevant with module database</strong>
+│   └── PolyJpaTransactionTest.java
 └── rabbitmq // <strong>test RabbitTransactionManager</strong>
     └── TransactionTest.java
 </pre>
     </div>
 </div>
+
+== Reference
+
+* [x] https://www.infoworld.com/article/2077963/distributed-transactions-in-spring--with-and-without-xa.html[Distributed transactions in Spring, with and without XA]
+* [x] https://www.atomikos.com/Documentation/SpringIntegration[Spring Integration]
+* [x] https://www.atomikos.com/Blog/DistributedTransactionsWithMultipleDatabasesSpringBootSpringDataJPAAndAtomikos[Distributed transactions with multiple databases, Spring Boot, Spring Data JPA and Atomikos]
+* [x] https://www.atomikos.com/Blog/SpringJTAMultipleResourceTransactionsInTomcatWithAtomikosExample[Spring JTA multiple resource transactions in Tomcat with Atomikos example]
