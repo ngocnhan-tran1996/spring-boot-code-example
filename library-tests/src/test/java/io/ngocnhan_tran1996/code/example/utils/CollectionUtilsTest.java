@@ -3,7 +3,6 @@ package io.ngocnhan_tran1996.code.example.utils;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Map;
 import io.ngocnhan_tran1996.code.example.testcase.TestCase;
-import io.ngocnhan_tran1996.code.example.utils.CollectionUtils;
 
 class CollectionUtilsTest {
 
