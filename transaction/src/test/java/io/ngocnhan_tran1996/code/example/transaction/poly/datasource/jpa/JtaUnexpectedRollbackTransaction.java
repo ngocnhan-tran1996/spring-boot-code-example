@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import io.ngocnhan_tran1996.code.example.transaction.poly.jta.datasource.oracle.CatRepo;
-import io.ngocnhan_tran1996.code.example.transaction.poly.jta.datasource.postgres.DogRepo;
+import io.ngocnhan_tran1996.code.example.transaction.poly.jta.datasource.postgres.DogJtaRepo;
 
 @TestConfiguration
 class JtaUnexpectedRollbackTransaction {
 
   @Autowired
-  DogRepo dogRepo;
+  DogJtaRepo dogRepo;
 
   @Autowired
   CatRepo catRepo;

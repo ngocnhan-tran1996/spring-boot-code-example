@@ -1,4 +1,4 @@
-package io.ngocnhan_tran1996.code.example.transaction.poly.jta.datasource.postgres;
+package io.ngocnhan_tran1996.code.example.transaction.poly.datasource.postgres;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "dog")
-public class DogEntity {
+public class DogPolyEntity {
 
   @Id
   private int id;

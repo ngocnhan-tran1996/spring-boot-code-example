@@ -3,14 +3,14 @@ package io.ngocnhan_tran1996.code.example.transaction.poly.datasource.jpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import io.ngocnhan_tran1996.code.example.transaction.domain.DogRepo;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.oracle.CatRepo;
+import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.postgres.DogPolyRepo;
 
 @TestConfiguration
 class UnexpectedRollbackTransaction {
 
   @Autowired
-  DogRepo dogRepo;
+  DogPolyRepo dogRepo;
 
   @Autowired
   CatRepo catRepo;

@@ -10,13 +10,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import io.ngocnhan_tran1996.code.example.transaction.domain.DogEntity;
-import io.ngocnhan_tran1996.code.example.transaction.domain.DogRepo;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.ChainedTransactionManagerConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.OracleDataSourceConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.PostgresDataSourceConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.oracle.CatEntity;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.oracle.CatRepo;
+import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.postgres.DogPolyEntity;
+import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.postgres.DogPolyRepo;
 
 @ActiveProfiles("poly-datasource")
 @SpringBootTest(classes = {PostgresDataSourceConfig.class, OracleDataSourceConfig.class,
@@ -24,7 +24,7 @@ import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.oracle.CatR
 class PolyJpaTransactionTest {
 
   @Autowired
-  DogRepo dogRepo;
+  DogPolyRepo dogRepo;
 
   @Autowired
   CatRepo catRepo;
@@ -59,7 +59,7 @@ class PolyJpaTransactionTest {
     dogRepo.deleteById(2);
     assertThat(dogRepo.findAll())
         .hasSize(1)
-        .extracting(DogEntity::getSpecies)
+        .extracting(DogPolyEntity::getSpecies)
         .isEqualTo(list("Dog changed"));
   }
 

@@ -9,11 +9,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import io.ngocnhan_tran1996.code.example.transaction.domain.DogEntity;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.ChainedTransactionManagerConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.OracleDataSourceConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.PostgresDataSourceConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.oracle.CatEntity;
+import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.postgres.DogPolyEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TransactionRequiredException;
@@ -37,38 +37,41 @@ class PolyEntityManagerTransactionTest {
   void testSavePostgres() {
 
     // reset all
-    this.entityManager.createQuery("DELETE FROM DogEntity")
+    this.entityManager.createQuery("DELETE FROM DogPolyEntity")
         .executeUpdate();
-    assertThat(this.entityManager.createQuery("FROM DogEntity", DogEntity.class).getResultList())
-        .isEmpty();
+    assertThat(this.entityManager.createQuery("FROM DogPolyEntity", DogPolyEntity.class)
+        .getResultList())
+            .isEmpty();
 
     // create
-    this.entityManager.createQuery("INSERT INTO DogEntity (id, species) VALUES (?1, ?2)")
+    this.entityManager.createQuery("INSERT INTO DogPolyEntity (id, species) VALUES (?1, ?2)")
         .setParameter(1, 1)
         .setParameter(2, "Dog 1")
         .executeUpdate();
-    this.entityManager.createQuery("INSERT INTO DogEntity (id, species) VALUES (?1, ?2)")
+    this.entityManager.createQuery("INSERT INTO DogPolyEntity (id, species) VALUES (?1, ?2)")
         .setParameter(1, 2)
         .setParameter(2, "Dog 2")
         .executeUpdate();
 
     // read
-    assertThat(this.entityManager.createQuery("FROM DogEntity", DogEntity.class).getResultList())
-        .hasSize(2);
+    assertThat(this.entityManager.createQuery("FROM DogPolyEntity", DogPolyEntity.class)
+        .getResultList())
+            .hasSize(2);
 
     // update
-    this.entityManager.createQuery("UPDATE DogEntity SET species = ?1 WHERE id = ?2")
+    this.entityManager.createQuery("UPDATE DogPolyEntity SET species = ?1 WHERE id = ?2")
         .setParameter(1, "Dog Changed")
         .setParameter(2, 1)
         .executeUpdate();
 
     // delete
-    this.entityManager.createQuery("DELETE FROM DogEntity WHERE id = ?1")
+    this.entityManager.createQuery("DELETE FROM DogPolyEntity WHERE id = ?1")
         .setParameter(1, 1)
         .executeUpdate();
 
-    assertThat(this.entityManager.createQuery("FROM DogEntity", DogEntity.class).getResultList())
-        .hasSize(1);
+    assertThat(this.entityManager.createQuery("FROM DogPolyEntity", DogPolyEntity.class)
+        .getResultList())
+            .hasSize(1);
   }
 
   @Test
@@ -109,7 +112,7 @@ class PolyEntityManagerTransactionTest {
         .setParameter(1, 1)
         .executeUpdate();
 
-    assertThat(this.oracleEntityManager.createQuery("FROM CatEntity", DogEntity.class)
+    assertThat(this.oracleEntityManager.createQuery("FROM CatEntity", DogPolyEntity.class)
         .getResultList())
             .hasSize(1);
   }

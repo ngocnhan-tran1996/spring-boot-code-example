@@ -14,8 +14,8 @@ import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.JtaP
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.TransactionManagerConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.jta.datasource.oracle.CatEntity;
 import io.ngocnhan_tran1996.code.example.transaction.poly.jta.datasource.oracle.CatRepo;
-import io.ngocnhan_tran1996.code.example.transaction.poly.jta.datasource.postgres.DogEntity;
-import io.ngocnhan_tran1996.code.example.transaction.poly.jta.datasource.postgres.DogRepo;
+import io.ngocnhan_tran1996.code.example.transaction.poly.jta.datasource.postgres.DogJtaEntity;
+import io.ngocnhan_tran1996.code.example.transaction.poly.jta.datasource.postgres.DogJtaRepo;
 
 @ActiveProfiles("poly-datasource")
 @SpringBootTest(classes = {
@@ -26,7 +26,7 @@ import io.ngocnhan_tran1996.code.example.transaction.poly.jta.datasource.postgre
 class JtaPolyJpaTransactionTest {
 
   @Autowired
-  DogRepo dogRepo;
+  DogJtaRepo dogRepo;
 
   @Autowired
   CatRepo catRepo;
@@ -61,7 +61,7 @@ class JtaPolyJpaTransactionTest {
     dogRepo.deleteById(2);
     assertThat(dogRepo.findAll())
         .hasSize(1)
-        .extracting(DogEntity::getSpecies)
+        .extracting(DogJtaEntity::getSpecies)
         .isEqualTo(list("Dog changed"));
   }
 

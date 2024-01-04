@@ -19,17 +19,17 @@ class UnexpectedRollbackTransaction {
   void saveAllWithChainedTransactionWithException() {
 
     // reset all
-    this.entityManager.createQuery("DELETE FROM DogEntity")
+    this.entityManager.createQuery("DELETE FROM DogPolyEntity")
         .executeUpdate();
     this.oracleEntityManager.createQuery("DELETE FROM CatEntity")
         .executeUpdate();
 
     // create
-    this.entityManager.createQuery("INSERT INTO DogEntity (id, species) VALUES (?1, ?2)")
+    this.entityManager.createQuery("INSERT INTO DogPolyEntity (id, species) VALUES (?1, ?2)")
         .setParameter(1, 1)
         .setParameter(2, "Dog 1")
         .executeUpdate();
-    this.entityManager.createQuery("INSERT INTO DogEntity (id, species) VALUES (?1, ?2)")
+    this.entityManager.createQuery("INSERT INTO DogPolyEntity (id, species) VALUES (?1, ?2)")
         .setParameter(1, 2)
         .setParameter(2, "Dog 2")
         .executeUpdate();
