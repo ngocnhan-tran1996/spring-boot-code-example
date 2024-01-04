@@ -1,6 +1,7 @@
 package io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config;
 
 import java.util.Objects;
+import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -8,6 +9,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import com.atomikos.jdbc.AtomikosDataSourceBean;
 import com.zaxxer.hikari.HikariDataSource;
 
 abstract class AbstractDataSourceConfig implements DataSourceConfig {
@@ -19,7 +21,7 @@ abstract class AbstractDataSourceConfig implements DataSourceConfig {
   }
 
   @Override
-  public HikariDataSource datasource(DataSourceProperties dataSourceProperties) {
+  public DataSource datasource(DataSourceProperties dataSourceProperties) {
 
     return dataSourceProperties
         .initializeDataSourceBuilder()
@@ -35,7 +37,7 @@ abstract class AbstractDataSourceConfig implements DataSourceConfig {
 
   @Override
   public LocalContainerEntityManagerFactoryBean entityManager(
-      HikariDataSource datasource,
+      DataSource datasource,
       JpaProperties jpaProperties) {
 
     var builder = new EntityManagerFactoryBuilder(
@@ -46,6 +48,7 @@ abstract class AbstractDataSourceConfig implements DataSourceConfig {
     return builder.dataSource(datasource)
         .packages(this.scanPackages())
         .persistenceUnit(this.persistenceUnit())
+        .jta(datasource instanceof AtomikosDataSourceBean)
         .build();
   }
 

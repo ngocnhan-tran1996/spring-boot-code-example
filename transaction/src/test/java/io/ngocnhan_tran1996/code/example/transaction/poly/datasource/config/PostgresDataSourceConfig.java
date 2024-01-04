@@ -1,5 +1,6 @@
 package io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config;
 
+import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,7 +21,7 @@ import com.zaxxer.hikari.HikariDataSource;
 public class PostgresDataSourceConfig extends AbstractDataSourceConfig {
 
   public static final String BASE_PACKAGE =
-      "io.ngocnhan_tran1996.code.example.transaction.domain";
+      "io.ngocnhan_tran1996.code.example.transaction.poly.datasource.postgres";
   public static final String PERSISTENCE_UNIT = "postgresEntityManager";
   public static final String TRANSACTION_MANAGER = "postgresTransactionManager";
 
@@ -49,7 +50,7 @@ public class PostgresDataSourceConfig extends AbstractDataSourceConfig {
   @Bean
   @ConfigurationProperties("app.datasource.postgres.hikari")
   @Override
-  public HikariDataSource datasource(DataSourceProperties dataSourceProperties) {
+  public DataSource datasource(DataSourceProperties dataSourceProperties) {
 
     return super.datasource(dataSourceProperties);
   }
@@ -67,7 +68,7 @@ public class PostgresDataSourceConfig extends AbstractDataSourceConfig {
   @Bean(PERSISTENCE_UNIT)
   @Override
   public LocalContainerEntityManagerFactoryBean entityManager(
-      HikariDataSource datasource,
+      DataSource datasource,
       JpaProperties jpaProperties) {
 
     return super.entityManager(datasource, jpaProperties);

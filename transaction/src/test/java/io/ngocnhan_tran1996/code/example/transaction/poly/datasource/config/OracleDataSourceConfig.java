@@ -1,5 +1,6 @@
 package io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config;
 
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -47,7 +48,7 @@ public class OracleDataSourceConfig extends AbstractDataSourceConfig {
   @Bean("oracleDataSource")
   @ConfigurationProperties("app.datasource.oracle.hikari")
   @Override
-  public HikariDataSource datasource(
+  public DataSource datasource(
       @Qualifier("oracleDataSourceProperties") DataSourceProperties dataSourceProperties) {
 
     return super.datasource(dataSourceProperties);
@@ -64,7 +65,7 @@ public class OracleDataSourceConfig extends AbstractDataSourceConfig {
   @Bean(PERSISTENCE_UNIT)
   @Override
   public LocalContainerEntityManagerFactoryBean entityManager(
-      @Qualifier("oracleDataSource") HikariDataSource datasource,
+      @Qualifier("oracleDataSource") DataSource datasource,
       @Qualifier("oracleJpaProperties") JpaProperties jpaProperties) {
 
     return super.entityManager(datasource, jpaProperties);
