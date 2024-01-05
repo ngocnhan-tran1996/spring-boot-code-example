@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: ngocnhan
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      pool-name: postgresql-pool-name
+      schema: public
+      minimum-idle: 1
+      maximum-pool-size: 1
+  jpa:
+    properties:
+      hibernate:
+        '[show_sql]': false
+        '[format_sql]': false
+        '[hbm2ddl.auto]': create-drop
