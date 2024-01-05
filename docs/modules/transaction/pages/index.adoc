@@ -21,26 +21,33 @@ include::ROOT:partial$header.adoc[]
     <div class="highlight">
 <pre>
 io.ngocnhan_tran1996.code.example.transaction
-├── datasource.rabbitmq // <strong>test transaction between jpa and rabbitMQ</strong>
-│   └── DataSourceRabbitMQTest.java
-├── jdbc // <strong>test CRUD using <code>JdbcTemplate</code> with and without Transactional annotation</strong>
-│   └── JdbcTest.java
-├── jpa // <strong>test CRUD using <code>Repository</code> with and without Transactional annotation</strong>
-│   └── JpaTest.java
-├── entitymanager // <strong>test CRUD using <code>Entitymanager</code> with and without Transactional annotation</strong>
-│   └── EntityManagerTest.java
-├── poly.datasource // <strong>test with <code>@Transactional</code> with multiple database, it is relevant with module database</strong>
-│   ├── jdbc // <strong>test CRUD using <code>JdbcTemplate</code> with multiple database</strong>
-│   │   ├── PolyJdbcTransactionTest.java
-│   │   └── JtaPolyJdbcTransactionTest.java // use atomikos
-│   ├── jpa // <strong>test CRUD using <code>Repository</code> with multiple database</strong>
-│   │   ├── PolyJpaTransactionTest.java
-│   │   └── JtaPolyJpaTransactionTest.java // use atomikos
-│   ├── entitymanager // <strong>test CRUD using <code>Entitymanager</code> with multiple database</strong>
-│   │   ├── PolyEntityManagerTransactionTest.java
-│   │   └── JtaPolyEntityManagerTransactionTest.java // use atomikos
-└── rabbitmq // <strong>test RabbitTransactionManager</strong>
-    └── TransactionTest.java
+├── <strong>simple</strong>
+│   ├── datasource.rabbitmq // <strong>test transaction between jpa and rabbitMQ</strong>
+│   │   └── DataSourceRabbitMQTest.java
+│   ├── jdbc // <strong>test CRUD using <code>JdbcTemplate</code> with and without Transactional annotation</strong>
+│   │   └── JdbcTest.java
+│   ├── jpa // <strong>test CRUD using <code>Repository</code> with and without Transactional annotation</strong>
+│   │   └── JpaTest.java
+│   ├── entitymanager // <strong>test CRUD using <code>Entitymanager</code> with and without Transactional annotation</strong>
+│   │   └── EntityManagerTest.java
+│   └── rabbitmq // <strong>test RabbitTransactionManager</strong>
+│       └── TransactionTest.java
+├── <strong>multiple</strong>
+│   └── poly.datasource // <strong>test with <code>@Transactional</code> with multiple database, it is relevant with module database</strong>
+│       ├── jdbc // <strong>test CRUD using <code>JdbcTemplate</code> with multiple database</strong>
+│       │   └── PolyJdbcTransactionTest.java
+│       ├── jpa // <strong>test CRUD using <code>Repository</code> with multiple database</strong>
+│       │   └──  PolyJpaTransactionTest.java
+│       └── entitymanager // <strong>test CRUD using <code>Entitymanager</code> with multiple database</strong>
+│           └──  PolyEntityManagerTransactionTest.java
+└── <strong>jta</strong>
+    └── poly.datasource // <strong>test with <code>@Transactional</code> with multiple database, it is relevant with module database</strong>
+        ├── jdbc // <strong>test CRUD using <code>JdbcTemplate</code> with multiple database</strong>
+        │   └── JtaPolyJdbcTransactionTest.java // use atomikos
+        ├── jpa // <strong>test CRUD using <code>Repository</code> with multiple database</strong>
+        │   └── JtaPolyJpaTransactionTest.java // use atomikos
+        └── entitymanager // <strong>test CRUD using <code>Entitymanager</code> with multiple database</strong>
+           └── JtaPolyEntityManagerTransactionTest.java // use atomikos
 </pre>
     </div>
 </div>

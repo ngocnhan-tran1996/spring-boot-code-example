@@ -1,7 +1,0 @@
-logging:
-  level:
-     org:
-      springframework:
-        '[orm.jpa]': TRACE
-        '[jdbc.core]': TRACE
-        '[transaction]': TRACE
