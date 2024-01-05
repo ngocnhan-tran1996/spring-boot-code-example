@@ -1,0 +1,34 @@
+app:
+  datasource:
+    oracle:
+      xa-properties:
+        URL: jdbc:oracle:thin:@localhost:1521/db_test
+        user: user_nhan
+        password: ngocnhan
+      xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
+      min-pool-size: 1
+      max-pool-size: 5
+      unique-resource-name: oracle
+      jpa:
+        show-sql: true
+        properties:
+          hibernate:
+            '[show_sql]': true
+            '[format_sql]': true
+            '[hbm2ddl.auto]': update
+
+    postgres:
+      xa-properties:
+        url: jdbc:postgresql://localhost:5432/postgres
+        user: postgres
+        password: ngocnhan
+      xa-data-source-class-name: org.postgresql.xa.PGXADataSource
+      min-pool-size: 1
+      max-pool-size: 1
+      unique-resource-name: postgres
+      jpa:
+        properties:
+          hibernate:
+            '[show_sql]': true
+            '[format_sql]': true
+            '[hbm2ddl.auto]': update
