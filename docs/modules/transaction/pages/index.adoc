@@ -21,23 +21,33 @@ include::ROOT:partial$header.adoc[]
     <div class="highlight">
 <pre>
 io.ngocnhan_tran1996.code.example.transaction
-├── datasource.rabbitmq // <strong>test transaction between jpa and rabbitMQ</strong>
-│   └── DataSourceRabbitMQTest.java
-├── jdbc // <strong>test CRUD using <code>JdbcTemplate</code> with and without Transactional annotation</strong>
-│   └── JdbcTest.java
-├── jpa // <strong>test CRUD using <code>Repository</code> with and without Transactional annotation</strong>
-│   └── JpaTest.java
-├── entitymanager // <strong>test CRUD using <code>Entitymanager</code> with and without Transactional annotation</strong>
-│   └── EntityManagerTest.java
-├── poly.datasource // <strong>test with <code>@Transactional</code> with multiple database, it is relevant with module database</strong>
-│   ├── jdbc // <strong>test CRUD using <code>JdbcTemplate</code> with multiple database</strong>
-│   │   └── PolyJdbcTransactionTest.java
-│   ├── jpa // <strong>test CRUD using <code>Repository</code> with multiple database</strong>
-│   │   └── PolyJpaTransactionTest.java
-│   ├── entitymanager // <strong>test CRUD using <code>Entitymanager</code> with multiple database</strong>
-│   │   └── PolyEntityManagerTransactionTest.java
-└── rabbitmq // <strong>test RabbitTransactionManager</strong>
-    └── TransactionTest.java
+├── <strong>simple</strong>
+│   ├── datasource.rabbitmq // <strong>test transaction between jpa and rabbitMQ</strong>
+│   │   └── DataSourceRabbitMQTest.java
+│   ├── jdbc // <strong>test CRUD using <code>JdbcTemplate</code> with and without Transactional annotation</strong>
+│   │   └── JdbcTest.java
+│   ├── jpa // <strong>test CRUD using <code>Repository</code> with and without Transactional annotation</strong>
+│   │   └── JpaTest.java
+│   ├── entitymanager // <strong>test CRUD using <code>Entitymanager</code> with and without Transactional annotation</strong>
+│   │   └── EntityManagerTest.java
+│   └── rabbitmq // <strong>test RabbitTransactionManager</strong>
+│       └── TransactionTest.java
+├── <strong>multiple</strong>
+│   └── poly.datasource // <strong>test with <code>@Transactional</code> with multiple database, it is relevant with module database</strong>
+│       ├── jdbc // <strong>test CRUD using <code>JdbcTemplate</code> with multiple database</strong>
+│       │   └── PolyJdbcTransactionTest.java
+│       ├── jpa // <strong>test CRUD using <code>Repository</code> with multiple database</strong>
+│       │   └──  PolyJpaTransactionTest.java
+│       └── entitymanager // <strong>test CRUD using <code>Entitymanager</code> with multiple database</strong>
+│           └──  PolyEntityManagerTransactionTest.java
+└── <strong>jta</strong>
+    └── poly.datasource // <strong>test with <code>@Transactional</code> with multiple database, it is relevant with module database</strong>
+        ├── jdbc // <strong>test CRUD using <code>JdbcTemplate</code> with multiple database</strong>
+        │   └── JtaPolyJdbcTransactionTest.java // use atomikos
+        ├── jpa // <strong>test CRUD using <code>Repository</code> with multiple database</strong>
+        │   └── JtaPolyJpaTransactionTest.java // use atomikos
+        └── entitymanager // <strong>test CRUD using <code>Entitymanager</code> with multiple database</strong>
+           └── JtaPolyEntityManagerTransactionTest.java // use atomikos
 </pre>
     </div>
 </div>
@@ -48,3 +58,9 @@ io.ngocnhan_tran1996.code.example.transaction
 * [x] https://www.atomikos.com/Documentation/SpringIntegration[Spring Integration]
 * [x] https://www.atomikos.com/Blog/DistributedTransactionsWithMultipleDatabasesSpringBootSpringDataJPAAndAtomikos[Distributed transactions with multiple databases, Spring Boot, Spring Data JPA and Atomikos]
 * [x] https://www.atomikos.com/Blog/SpringJTAMultipleResourceTransactionsInTomcatWithAtomikosExample[Spring JTA multiple resource transactions in Tomcat with Atomikos example]
+* [x] https://dzone.com/articles/most-common-spring-transactional-mistakes[Spring `@Transactional` Mistakes Everyone Makes]
+* [x] https://github.com/spring-projects/spring-data-commons/issues/2232[Deprecate ChainedTransactionManager]
+* [x] https://www.atomikos.com/Documentation/ConfiguringOracleForXA[Configuring Oracle for XA]
+* [x] https://spring.io/blog/2011/08/15/configuring-spring-and-jta-without-full-java-ee/[Configuring Spring and JTA without full Java EE]
+* [x] https://www.fabiomaffioletti.me/blog/2014/04/15/distributed-transactions-multiple-databases-spring-boot-spring-data-jpa-atomikos/[Distributed transactions with multiple databases, Spring Boot, Spring Data JPA and Atomikos]
+* [x] https://medium.com/@inzuael/how-to-use-multiple-datasources-with-springboot-exposed-jpa-6bd705bfe994[How to use multiple datasources with SpringBoot + Exposed/JPA]

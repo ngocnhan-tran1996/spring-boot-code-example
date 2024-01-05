@@ -38,12 +38,6 @@
       <artifactId>database</artifactId>
       <version>${revision}</version>
     </dependency>
-
-    <dependency>
-      <groupId>io.ngocnhan_tran1996.code</groupId>
-      <artifactId>transaction</artifactId>
-      <version>${revision}</version>
-    </dependency>
   </dependencies>
 
   <build>

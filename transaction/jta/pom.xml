@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.ngocnhan_tran1996.code</groupId>
+    <artifactId>transaction</artifactId>
+    <version>${revision}</version>
+  </parent>
+
+  <artifactId>jta</artifactId>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.oracle.database.jdbc</groupId>
+      <artifactId>ojdbc11</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.atomikos</groupId>
+      <artifactId>transactions-spring-boot3-starter</artifactId>
+      <version>6.0.0</version>
+    </dependency>
+  </dependencies>
+  
+    <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <reuseForks>false</reuseForks>
+          <forkCount>1</forkCount>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
