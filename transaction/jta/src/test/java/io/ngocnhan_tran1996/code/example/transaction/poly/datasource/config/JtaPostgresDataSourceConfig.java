@@ -1,7 +1,6 @@
 package io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config;
 
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -52,7 +51,7 @@ public class JtaPostgresDataSourceConfig extends AbstractDataSourceConfig {
   }
 
   @Bean("jtaPostgresJdbcTemplate")
-  JdbcTemplate jdbcTemplate(@Qualifier("jtaPostgresDataSource") DataSource datasource) {
+  JdbcTemplate jdbcTemplate(DataSource datasource) {
 
     return new JdbcTemplate(datasource);
   }
