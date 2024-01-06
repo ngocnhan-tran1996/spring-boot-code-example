@@ -13,12 +13,12 @@ import org.hibernate.query.sqm.tree.select.SqmSelectStatement;
 import org.hibernate.sql.ast.SqlAstTranslator;
 import org.hibernate.sql.ast.spi.StandardSqlAstTranslatorFactory;
 import org.hibernate.sql.ast.tree.select.SelectStatement;
-import org.hibernate.sql.exec.spi.JdbcOperationQuerySelect;
 import org.hibernate.sql.exec.spi.JdbcParameterBinder;
+import org.hibernate.sql.exec.spi.JdbcSelect;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import io.ngocnhan_tran1996.code.example.database.domain.NamePrefixEntity;
 import io.ngocnhan_tran1996.code.example.database.domain.NamePrefixEntity_;
+import io.ngocnhan_tran1996.code.example.database.domain.NamePrefixEntity;
 import io.ngocnhan_tran1996.code.example.database.domain.NamePrefixResponse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -88,10 +88,9 @@ public class TypedQueryPaginationService {
             querySqmImpl.getSession().getLoadQueryInfluencers(),
             sessionFactory,
             true);
-    final SqlAstTranslator<JdbcOperationQuerySelect> sqlAstTranslator =
-        new StandardSqlAstTranslatorFactory()
-            .buildSelectTranslator(sessionFactory, sqmTranslator.translate().getSqlAst());
-    final JdbcOperationQuerySelect jdbcSelect = sqlAstTranslator.translate(null, queryOptions);
+    final SqlAstTranslator<JdbcSelect> sqlAstTranslator = new StandardSqlAstTranslatorFactory()
+        .buildSelectTranslator(sessionFactory, sqmTranslator.translate().getSqlAst());
+    final JdbcSelect jdbcSelect = sqlAstTranslator.translate(null, queryOptions);
 
     // arrange params
     final List<JdbcParameterBinder> parameterBinders = jdbcSelect.getParameterBinders();
@@ -103,7 +102,7 @@ public class TypedQueryPaginationService {
             Function.identity()));
 
     // set params
-    var nativeQuery = this.entityManager.createNativeQuery(jdbcSelect.getSqlString());
+    var nativeQuery = this.entityManager.createNativeQuery(jdbcSelect.getSql());
     sqmTranslator.getJdbcParamsBySqmParam()
         .entrySet()
         .stream()
