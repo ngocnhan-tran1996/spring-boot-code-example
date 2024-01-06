@@ -1,3 +1,8 @@
+CREATE TYPE name_object AS OBJECT (
+    first_name VARCHAR(255),
+    last_name  VARCHAR(255)
+);
+/
 CREATE OR REPLACE PACKAGE user_nhan.jdbc_example_pack IS
     TYPE name_record IS RECORD (
         first_name VARCHAR(255),
@@ -30,6 +35,11 @@ CREATE OR REPLACE PACKAGE user_nhan.jdbc_example_pack IS
 
     FUNCTION name_info_table_func RETURN name_table
         PIPELINED;
+
+    PROCEDURE in_out_object (
+        in_numbers IN number_array,
+        obj        IN OUT name_object
+    );
 
 END jdbc_example_pack;
 /
@@ -142,5 +152,16 @@ CREATE OR REPLACE PACKAGE BODY user_nhan.jdbc_example_pack IS
 
         RETURN;
     END name_info_table_func;
+
+    PROCEDURE in_out_object (
+        in_numbers IN number_array,
+        obj        IN OUT name_object
+    ) AS
+        objnew name_object;
+    BEGIN
+        objnew := NEW name_object(obj.last_name || in_numbers.first, obj.first_name || in_numbers.last);
+
+        obj := objnew;
+    END;
 
 END jdbc_example_pack;

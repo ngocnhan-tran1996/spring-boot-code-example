@@ -9,7 +9,7 @@ import org.springframework.core.MethodParameter;
 import org.springframework.core.convert.TypeDescriptor;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.OracleTypeUtils;
 
-class RecordMapper<T> extends PojoMapper<T> {
+class RecordPropertyMapper<T> extends BeanPropertyMapper<T> {
 
   private Constructor<T> mappedConstructor;
 
@@ -23,9 +23,9 @@ class RecordMapper<T> extends PojoMapper<T> {
    * @param mappedClass
    *        the class that each row should be mapped to
    */
-  public static <T> RecordMapper<T> newInstance(Class<T> mappedClass) {
+  public static <T> RecordPropertyMapper<T> newInstance(Class<T> mappedClass) {
 
-    return new RecordMapper<>(mappedClass);
+    return new RecordPropertyMapper<>(mappedClass);
   }
 
   /**
@@ -34,7 +34,7 @@ class RecordMapper<T> extends PojoMapper<T> {
    * @param mappedClass
    *        the class that each row should be mapped to
    */
-  private RecordMapper(Class<T> mappedClass) {
+  private RecordPropertyMapper(Class<T> mappedClass) {
 
     super(mappedClass);
   }

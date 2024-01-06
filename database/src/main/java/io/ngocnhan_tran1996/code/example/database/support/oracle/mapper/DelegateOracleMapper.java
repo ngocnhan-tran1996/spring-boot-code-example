@@ -15,8 +15,8 @@ public class DelegateOracleMapper<T> {
         && RECORD_CLASS_NAME.equals(mappedClass.getSuperclass().getName());
 
     return isRecord
-        ? RecordMapper.newInstance(mappedClass)
-        : PojoMapper.newInstance(mappedClass);
+        ? RecordPropertyMapper.newInstance(mappedClass)
+        : BeanPropertyMapper.newInstance(mappedClass);
   }
 
 }
