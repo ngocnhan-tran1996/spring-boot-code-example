@@ -11,15 +11,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
+import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.JtaOracleDataSourceConfig;
+import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.JtaPostgresDataSourceConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.TransactionManagerConfig;
 import jakarta.annotation.Resource;
 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 @ActiveProfiles("poly-datasource")
 @SpringBootTest(classes = {
+    JtaPostgresDataSourceConfig.class,
+    JtaOracleDataSourceConfig.class,
     JtaUnexpectedRollbackTransaction.class,
     TransactionManagerConfig.class})
 class JtaPolyJdbcTransactionTest {

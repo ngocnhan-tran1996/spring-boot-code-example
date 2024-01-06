@@ -56,6 +56,12 @@ class DataSourceRabbitMQConfigProducer {
         1, "Chihuahua");
     this.rabbitTemplate.convertAndSend(queue.getName(), Strings.toSafeString(dog));
 
+    try {
+      latch.await(100, TimeUnit.MILLISECONDS);
+    } catch (InterruptedException e) {
+
+      // do nothing
+    }
     throw new RuntimeException("Failure save dog");
   }
 

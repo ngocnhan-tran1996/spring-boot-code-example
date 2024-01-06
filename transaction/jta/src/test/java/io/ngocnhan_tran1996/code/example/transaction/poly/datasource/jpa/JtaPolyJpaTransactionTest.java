@@ -8,19 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.JtaOracleDataSourceConfig;
+import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.JtaPostgresDataSourceConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config.TransactionManagerConfig;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.oracle.CatEntity;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.oracle.CatRepo;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.postgres.DogEntity;
 import io.ngocnhan_tran1996.code.example.transaction.poly.datasource.postgres.DogRepo;
 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 @ActiveProfiles("poly-datasource")
 @SpringBootTest(classes = {
-    JtaUnexpectedRollbackTransaction.class,
-    TransactionManagerConfig.class})
+    JtaPostgresDataSourceConfig.class,
+    JtaOracleDataSourceConfig.class,
+    TransactionManagerConfig.class,
+    JtaUnexpectedRollbackTransaction.class})
 class JtaPolyJpaTransactionTest {
 
   @Autowired
@@ -103,7 +108,7 @@ class JtaPolyJpaTransactionTest {
   }
 
   @Test
-  @Transactional(value = "jtaTransactionManager")
+  @Transactional("jtaTransactionManager")
   void testSaveAllWithJtaTransactionWithException() {
 
     assertThatExceptionOfType(JpaSystemException.class)

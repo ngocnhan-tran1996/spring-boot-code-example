@@ -4,18 +4,15 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
 
-@Configuration
-@EnableTransactionManagement
-
+@TestConfiguration
 @EnableJpaRepositories(
     basePackages = JtaPostgresDataSourceConfig.BASE_PACKAGE,
     entityManagerFactoryRef = JtaPostgresDataSourceConfig.PERSISTENCE_UNIT,
@@ -27,7 +24,7 @@ public class JtaPostgresDataSourceConfig extends AbstractDataSourceConfig {
   public static final String PERSISTENCE_UNIT = "jtaPostgresEntityManager";
 
   @Primary
-  @Bean(name = "jtaPostgresDataSource")
+  @Bean
   @ConfigurationProperties("app.datasource.postgres")
   @Override
   public AtomikosDataSourceBean datasource() {
@@ -36,7 +33,7 @@ public class JtaPostgresDataSourceConfig extends AbstractDataSourceConfig {
   }
 
   @Primary
-  @Bean("postgresJpaProperties")
+  @Bean
   @ConfigurationProperties("app.datasource.postgres.jpa")
   @Override
   public JpaProperties jpaProperties() {
@@ -45,7 +42,7 @@ public class JtaPostgresDataSourceConfig extends AbstractDataSourceConfig {
   }
 
   @Primary
-  @Bean(name = PERSISTENCE_UNIT)
+  @Bean(PERSISTENCE_UNIT)
   @Override
   public LocalContainerEntityManagerFactoryBean entityManager(
       DataSource datasource,

@@ -44,7 +44,7 @@ class JtaUnexpectedRollbackTransaction {
     this.oracleJdbcTemplate.update("DELETE FROM CAT WHERE id = ?", 2);
 
     // intend to throw exception
-    this.oracleJdbcTemplate.update("INSERT INTO DOG VALUES (2, 'Test');COMMIT");
+    this.oracleJdbcTemplate.update("INSERT INTO CAT VALUES (2, 'Test');COMMIT");
   }
 
 }

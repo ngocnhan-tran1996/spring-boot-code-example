@@ -56,7 +56,7 @@ class JtaUnexpectedRollbackTransaction {
         .executeUpdate();
 
     // intend to throw exception
-    this.oracleEntityManager.createNativeQuery("INSERT INTO DOG VALUES (2, 'Test');COMMIT")
+    this.oracleEntityManager.createNativeQuery("INSERT INTO CAT VALUES (2, 'Test');COMMIT")
         .executeUpdate();
   }
 

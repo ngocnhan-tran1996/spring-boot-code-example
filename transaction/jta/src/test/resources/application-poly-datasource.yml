@@ -7,7 +7,7 @@ app:
         password: ngocnhan
       xa-data-source-class-name: oracle.jdbc.xa.client.OracleXADataSource
       min-pool-size: 1
-      max-pool-size: 5
+      max-pool-size: 1
       unique-resource-name: oracle
       jpa:
         show-sql: true

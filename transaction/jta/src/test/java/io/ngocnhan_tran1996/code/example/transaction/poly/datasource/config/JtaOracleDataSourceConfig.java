@@ -4,17 +4,14 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.atomikos.jdbc.AtomikosDataSourceBean;
 
-@Configuration
-@EnableTransactionManagement
-
+@TestConfiguration
 @EnableJpaRepositories(
     basePackages = JtaOracleDataSourceConfig.BASE_PACKAGE,
     entityManagerFactoryRef = JtaOracleDataSourceConfig.PERSISTENCE_UNIT,
@@ -44,8 +41,8 @@ public class JtaOracleDataSourceConfig extends AbstractDataSourceConfig {
   @Bean(name = PERSISTENCE_UNIT)
   @Override
   public LocalContainerEntityManagerFactoryBean entityManager(
-      DataSource datasource,
-      JpaProperties jpaProperties) {
+      @Qualifier("jtaOracleDataSource") DataSource datasource,
+      @Qualifier("oracleJpaProperties") JpaProperties jpaProperties) {
 
     return super.entityManager(datasource, jpaProperties);
   }
