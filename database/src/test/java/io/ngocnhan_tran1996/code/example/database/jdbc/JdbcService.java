@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 import io.ngocnhan_tran1996.code.example.database.dto.NamePrefixInput;
 import io.ngocnhan_tran1996.code.example.database.dto.NamePrefixRecordInput;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.in.OracleTypeValue;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.out.OracleReturnType;
 import lombok.RequiredArgsConstructor;
 
@@ -95,5 +96,32 @@ class JdbcService {
     simpleJdbcCall.execute(new MapSqlParameterSource());
   }
 
+  <T> T executeInOutObject(Class<T> clazz, T data) {
 
+    jdbcTemplate.setResultsMapCaseInsensitive(true);
+    var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+        .withSchemaName("user_nhan")
+        .withCatalogName("jdbc_example_pack")
+        .withProcedureName("in_out_object")
+        .declareParameters(
+            OracleReturnType.withParameterName(clazz, "obj")
+                .withTypeName("user_nhan.name_object")
+                .structType()
+                .toSqlInOutParameter());
+
+    var sqlParameterSource = new MapSqlParameterSource()
+        .addValue("obj",
+            OracleTypeValue.withStructTypeName(clazz, "user_nhan.name_object")
+                .value(data)
+                .toTypeValue(),
+            Types.STRUCT)
+        .addValue("in_numbers",
+            OracleTypeValue.withTypeName("user_nhan.jdbc_example_pack.number_array")
+                .value(1)
+                .value(2)
+                .toTypeValue(),
+            Types.ARRAY);
+
+    return simpleJdbcCall.executeObject(clazz, sqlParameterSource);
+  }
 }

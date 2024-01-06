@@ -30,22 +30,28 @@ class StructArrayReturnType<T> extends ArrayReturnType {
     List<T> values = new ArrayList<>();
     var structValues = (Object[]) array.getArray();
 
-    for (Object struct : structValues) {
+    for (Object object : structValues) {
 
-      if (struct instanceof Struct) {
+      if (object instanceof Struct struct) {
 
-        values.add(this.getOracleMapper().fromStruct((OracleStruct) struct));
+        values.add(this.convertStruct(struct));
         continue;
       }
 
-      String errorMsg = struct == null
+      String errorMsg = object == null
           ? null
-          : struct.getClass().getName();
+          : object.getClass().getName();
       OracleTypeUtils.throwMessage(String.format("Expected STRUCT but got '%s'", errorMsg));
     }
 
     // type array for easier converting
     return values.toArray();
+  }
+
+  @Override
+  protected T convertStruct(Struct struct) throws SQLException {
+
+    return this.getOracleMapper().fromStruct((OracleStruct) struct);
   }
 
 }

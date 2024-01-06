@@ -133,4 +133,22 @@ class JdbcServiceTest {
         .isThrownBy(jdbcService::executeNameInfoTableFunc);
   }
 
+  @Test
+  void testExecuteInOutObject() {
+
+    var input = new NamePrefixInput("Nhan", "Ngoc");
+    var result = jdbcService.executeInOutObject(NamePrefixInput.class, input);
+    var output = new NamePrefixInput("Ngoc0", "Nhan1");
+    assertThat(result)
+        .usingRecursiveComparison()
+        .isEqualTo(output);
+
+    // record class
+    var recordInput = new NamePrefixRecordInput("EBfTRJOyiKhZklCONAaA", "tshbpckypydpxztdrvkn");
+    var recordResult = jdbcService.executeInOutObject(NamePrefixRecordInput.class, recordInput);
+    assertThat(recordResult)
+        .usingRecursiveComparison()
+        .isEqualTo(new NamePrefixRecordInput("tshbpckypydpxztdrvkn0", "EBfTRJOyiKhZklCONAaA1"));
+  }
+
 }

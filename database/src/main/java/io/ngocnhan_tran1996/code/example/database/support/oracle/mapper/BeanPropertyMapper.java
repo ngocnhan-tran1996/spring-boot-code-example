@@ -8,7 +8,7 @@ import org.springframework.util.LinkedCaseInsensitiveMap;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.OracleTypeUtils;
 import lombok.Getter;
 
-class PojoMapper<T> extends AbstractOracleMapper<T> {
+class BeanPropertyMapper<T> extends AbstractOracleMapper<T> {
 
   /** The class we are mapping to. */
   @Getter
@@ -24,8 +24,8 @@ class PojoMapper<T> extends AbstractOracleMapper<T> {
    * @param mappedClass
    *        the class that each row should be mapped to
    */
-  public static <T> PojoMapper<T> newInstance(Class<T> mappedClass) {
-    return new PojoMapper<>(mappedClass);
+  public static <T> BeanPropertyMapper<T> newInstance(Class<T> mappedClass) {
+    return new BeanPropertyMapper<>(mappedClass);
   }
 
   /**
@@ -34,7 +34,7 @@ class PojoMapper<T> extends AbstractOracleMapper<T> {
    * @param mappedClass
    *        the class that each row should be mapped to.
    */
-  protected PojoMapper(Class<T> mappedClass) {
+  protected BeanPropertyMapper(Class<T> mappedClass) {
 
     this.initialize(mappedClass);
   }

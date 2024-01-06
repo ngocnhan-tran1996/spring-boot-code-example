@@ -12,6 +12,7 @@ import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
 import lombok.Getter;
 import oracle.jdbc.driver.OracleConnection;
 
+@Getter
 class StructArrayTypeValue<T> extends ArrayTypeValue<T> {
 
   StructArrayTypeValue(String arrayTypeName, List<T> values, String structTypeName) {
@@ -28,7 +29,6 @@ class StructArrayTypeValue<T> extends ArrayTypeValue<T> {
   /** The type name of the STRUCT **/
   private final String structTypeName;
 
-  @Getter
   private OracleMapper<T> oracleMapper;
 
   @Override
