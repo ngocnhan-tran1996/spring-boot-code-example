@@ -2,10 +2,14 @@ package io.ngocnhan_tran1996.code.example.database.support.oracle.mapper;
 
 import java.beans.PropertyDescriptor;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.util.LinkedCaseInsensitiveMap;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.annotation.OracleColumn;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.OracleTypeUtils;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
 import lombok.Getter;
 
 class BeanPropertyMapper<T> extends AbstractOracleMapper<T> {
@@ -18,7 +22,7 @@ class BeanPropertyMapper<T> extends AbstractOracleMapper<T> {
   private Map<String, PropertyDescriptor> mappedProperties;
 
   /**
-   * Static factory method to create a new PojoMapper
+   * Static factory method to create a new BeanPropertyMapper
    * (with the mapped class specified only once).
    * 
    * @param mappedClass
@@ -29,7 +33,7 @@ class BeanPropertyMapper<T> extends AbstractOracleMapper<T> {
   }
 
   /**
-   * Create a new PojoMapper.
+   * Create a new BeanPropertyMapper.
    * 
    * @param mappedClass
    *        the class that each row should be mapped to.
@@ -64,7 +68,21 @@ class BeanPropertyMapper<T> extends AbstractOracleMapper<T> {
         OracleTypeUtils.throwMessage(String.format("Field %s already exists", name));
       }
 
-      this.mappedProperties.put(name, pd);
+      try {
+
+        var oracleColumn = this.mappedClass.getField(name)
+            .getAnnotation(OracleColumn.class);
+        Optional.ofNullable(oracleColumn)
+            .map(OracleColumn::value)
+            .filter(Predicate.not(Strings::isBlank))
+            .filter(Predicate.not(name::equals))
+            .ifPresentOrElse(
+                fieldName -> this.mappedProperties.put(fieldName, pd),
+                () -> this.mappedProperties.put(name, pd));
+      } catch (Exception e) {
+
+        // do nothing
+      } ;
     }
 
   }

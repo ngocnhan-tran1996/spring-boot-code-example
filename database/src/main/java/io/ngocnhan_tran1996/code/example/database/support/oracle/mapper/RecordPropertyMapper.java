@@ -18,7 +18,7 @@ class RecordPropertyMapper<T> extends BeanPropertyMapper<T> {
   private TypeDescriptor[] constructorParameterTypes;
 
   /**
-   * Static factory method to create a new {@code RecordMapper}.
+   * Static factory method to create a new {@code RecordPropertyMapper}.
    * 
    * @param mappedClass
    *        the class that each row should be mapped to
@@ -29,7 +29,7 @@ class RecordPropertyMapper<T> extends BeanPropertyMapper<T> {
   }
 
   /**
-   * Create a new {@code RecordMapper}.
+   * Create a new {@code RecordPropertyMapper}.
    * 
    * @param mappedClass
    *        the class that each row should be mapped to
