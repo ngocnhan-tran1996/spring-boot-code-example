@@ -70,8 +70,8 @@ class BeanPropertyMapper<T> extends AbstractOracleMapper<T> {
 
       try {
 
-        var oracleColumn = this.mappedClass.getField(name)
-            .getAnnotation(OracleColumn.class);
+        var oracleColumn = this.mappedClass.getDeclaredField(name)
+            .getDeclaredAnnotation(OracleColumn.class);
         Optional.ofNullable(oracleColumn)
             .map(OracleColumn::value)
             .filter(Predicate.not(Strings::isBlank))
@@ -82,7 +82,7 @@ class BeanPropertyMapper<T> extends AbstractOracleMapper<T> {
       } catch (Exception e) {
 
         // do nothing
-      } ;
+      }
     }
 
   }

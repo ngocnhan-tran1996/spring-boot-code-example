@@ -2,12 +2,16 @@ package io.ngocnhan_tran1996.code.example.database.support.oracle.mapper;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.convert.TypeDescriptor;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.annotation.OracleColumn;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.OracleTypeUtils;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
 
 class RecordPropertyMapper<T> extends BeanPropertyMapper<T> {
 
@@ -70,15 +74,27 @@ class RecordPropertyMapper<T> extends BeanPropertyMapper<T> {
     IntStream.range(0, args.length)
         .forEach(i -> {
 
-          String name = this.constructorParameterNames[i];
+          try {
 
-          var value = valueByName.get(name);
-          if (value == null) {
-            return;
+            var name = this.constructorParameterNames[i];
+            var oracleColumn = this.getMappedClass().getDeclaredField(name)
+                .getDeclaredAnnotation(OracleColumn.class);
+            var fieldName = Optional.ofNullable(oracleColumn)
+                .map(OracleColumn::value)
+                .filter(Predicate.not(Strings::isBlank))
+                .orElse(name);
+
+            var value = valueByName.get(fieldName);
+            if (value == null) {
+              return;
+            }
+
+            TypeDescriptor td = this.constructorParameterTypes[i];
+            args[i] = bw.convertIfNecessary(value, td.getType(), td);
+          } catch (Exception e) {
+
+            // do nothing
           }
-
-          TypeDescriptor td = this.constructorParameterTypes[i];
-          args[i] = bw.convertIfNecessary(value, td.getType(), td);
         });
 
     return BeanUtils.instantiateClass(this.mappedConstructor, args);
