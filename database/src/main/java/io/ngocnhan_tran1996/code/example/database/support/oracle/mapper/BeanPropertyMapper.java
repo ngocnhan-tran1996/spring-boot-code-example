@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.annotation.OracleColumn;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.exception.OracleTypeException;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.OracleTypeUtils;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
 import lombok.Getter;
@@ -65,7 +66,7 @@ class BeanPropertyMapper<T> extends AbstractOracleMapper<T> {
 
       if (this.mappedProperties.containsKey(name)) {
 
-        OracleTypeUtils.throwMessage(String.format("Field %s already exists", name));
+        throw new OracleTypeException(String.format("Field %s already exists", name));
       }
 
       try {

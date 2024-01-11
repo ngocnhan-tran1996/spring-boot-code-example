@@ -3,10 +3,12 @@ package io.ngocnhan_tran1996.code.example.database.support.oracle.in;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.springframework.jdbc.core.support.AbstractSqlTypeValue;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.OracleMapperAccessor;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.exception.OracleTypeException;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
 
-abstract class AbstractOracleTypeValue extends AbstractSqlTypeValue {
+abstract class AbstractOracleTypeValue<T> extends AbstractSqlTypeValue implements
+    OracleMapperAccessor<AbstractOracleTypeValue<T>> {
 
   /**
    * The implementation for this specific type. This method is called internally by the
@@ -25,8 +27,7 @@ abstract class AbstractOracleTypeValue extends AbstractSqlTypeValue {
     }
 
     var defaultTypeName = Strings.getIfNotBlank(this.getTypeName(), typeName);
-    var upperCaseTypeName = Strings.toUpperCase(defaultTypeName);
-    return this.createTypeValue(connection, upperCaseTypeName);
+    return this.createTypeValue(connection, defaultTypeName);
   }
 
   protected abstract String getTypeName();

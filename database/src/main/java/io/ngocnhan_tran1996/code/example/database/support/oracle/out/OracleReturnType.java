@@ -1,60 +1,79 @@
 package io.ngocnhan_tran1996.code.example.database.support.oracle.out;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.jdbc.core.SqlInOutParameter;
 import org.springframework.jdbc.core.SqlOutParameter;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.OracleValue;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public final class OracleReturnType<T> {
+public final class OracleReturnType<T> extends OracleValue<T, OracleReturnType<T>> {
 
-  private final Class<T> clazz;
   private final String parameterName;
-  private String typeName;
   private boolean isStructType = false;
 
-  public static OracleReturnType<Object> withParameterName(String parameterName) {
+  private OracleReturnType(Class<T> clazz, String parameterName) {
 
-    return withParameterName(null, parameterName);
+    this.clazz = clazz;
+    this.parameterName = parameterName;
   }
 
-  public static <T> OracleReturnType<T> withParameterName(Class<T> clazz, String parameterName) {
+  public static OracleReturnType<Object> withArrayParameterName(String parameterName) {
+
+    return withArrayParameterName(null, parameterName);
+  }
+
+  public static <T> OracleReturnType<T> withArrayParameterName(Class<T> clazz,
+      String parameterName) {
 
     return new OracleReturnType<>(clazz, parameterName);
   }
 
-  public OracleReturnType<T> withTypeName(String typeName) {
+  public static <T> OracleReturnType<T> withStructParameterName(Class<T> clazz,
+      String parameterName) {
 
-    this.typeName = typeName;
-    return this;
+    var oracleReturnType = withArrayParameterName(clazz, parameterName);
+    oracleReturnType.isStruct();
+    return oracleReturnType;
   }
 
-  public OracleReturnType<T> structType() {
+  private void isStruct() {
 
     this.isStructType = true;
-    return this;
   }
 
   public SqlOutParameter toSqlOutParameter() {
 
-    return returnType().toSqlOutParameter();
+    var returnType = this.returnType();
+    return new SqlOutParameter(
+        this.parameterName,
+        returnType.sqlType(),
+        Strings.toUpperCase(this.typeName),
+        returnType);
   }
 
   public SqlInOutParameter toSqlInOutParameter() {
 
-    return returnType().toSqlInOutParameter();
+    var returnType = this.returnType();
+    return new SqlInOutParameter(
+        this.parameterName,
+        returnType.sqlType(),
+        Strings.toUpperCase(this.typeName),
+        returnType);
   }
 
-  protected AbstractSqlReturnType returnType() {
+  protected AbstractSqlReturnType<T> returnType() {
 
-    if (this.clazz == null) {
+    if (this.clazz == null
+        || BeanUtils.isSimpleValueType(this.clazz)) {
 
-      return new ArrayReturnType(this.parameterName, this.typeName);
+      return new ArrayReturnType<>();
     }
 
     return isStructType
-        ? new StructReturnType<>(this.parameterName, this.typeName, clazz)
-        : new StructArrayReturnType<>(this.parameterName, this.typeName, clazz);
+        ? new StructReturnType<T>()
+            .setOracleMapper(this.getOracleMapper(this.clazz))
+        : new StructArrayReturnType<T>()
+            .setOracleMapper(this.getOracleMapper(this.clazz));
   }
 
 }

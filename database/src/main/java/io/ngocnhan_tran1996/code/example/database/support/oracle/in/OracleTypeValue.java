@@ -2,47 +2,38 @@ package io.ngocnhan_tran1996.code.example.database.support.oracle.in;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.BeanUtils;
 import org.springframework.jdbc.core.SqlTypeValue;
-import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.OracleValue;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public final class OracleTypeValue<T> {
+public final class OracleTypeValue<T> extends OracleValue<T, OracleTypeValue<T>> {
 
   private List<T> values = new ArrayList<>();
-
-  private final Class<T> clazz;
 
   /** The type name of the ARRAY **/
   private final String arrayTypeName;
 
-  /** The type name of the STRUCT **/
-  private String structTypeName;
+  private OracleTypeValue(Class<T> clazz, String arrayTypeName) {
 
-  public static OracleTypeValue<Object> withTypeName(String typeName) {
-
-    return withTypeName(null, typeName);
+    this.clazz = clazz;
+    this.arrayTypeName = arrayTypeName;
   }
 
-  public static <T> OracleTypeValue<T> withTypeName(Class<T> clazz, String typeName) {
+  public static OracleTypeValue<Object> withArray(String arrayTypeName) {
 
-    return new OracleTypeValue<>(clazz, typeName);
+    return withArray(null, arrayTypeName);
   }
 
-  public static <T> OracleTypeValue<T> withStructTypeName(Class<T> clazz, String typeName) {
+  public static <T> OracleTypeValue<T> withArray(Class<T> clazz, String arrayTypeName) {
 
-    var oracleTypeValue = withTypeName(clazz, null);
-    oracleTypeValue.withStructType(typeName);
-    return oracleTypeValue;
+    return new OracleTypeValue<>(clazz, arrayTypeName);
   }
 
-  public OracleTypeValue<T> withStructType(String structTypeName) {
+  public static <T> OracleTypeValue<T> withStruct(Class<T> clazz, String typeName) {
 
-    this.structTypeName = structTypeName;
-    return this;
+    var oracleTypeValue = withArray(clazz, ArrayTypeValue.STRUCT_TYPE);
+    return oracleTypeValue.withTypeName(typeName);
   }
-
 
   public OracleTypeValue<T> value(T value) {
 
@@ -52,16 +43,17 @@ public final class OracleTypeValue<T> {
 
   public SqlTypeValue toTypeValue() {
 
-    if (Strings.isBlank(this.arrayTypeName)) {
+    if (this.clazz == null
+        || BeanUtils.isSimpleValueType(this.clazz)) {
 
-      return new StructTypeValue<>(this.values, this.structTypeName)
-          .setOracleMapper(this.clazz);
+      return new ArrayTypeValue<>(this.arrayTypeName, this.values);
     }
 
-    return clazz == null
-        ? new ArrayTypeValue<>(this.arrayTypeName, this.values)
-        : new StructArrayTypeValue<>(this.arrayTypeName, this.values, this.structTypeName)
-            .setOracleMapper(this.clazz);
+    var sqlTypeValue = ArrayTypeValue.STRUCT_TYPE.equals(this.arrayTypeName)
+        ? new StructTypeValue<>(this.values, this.typeName)
+        : new StructArrayTypeValue<>(this.arrayTypeName, this.values, this.typeName);
+
+    return sqlTypeValue.setOracleMapper(this.getOracleMapper(this.clazz));
   }
 
 }

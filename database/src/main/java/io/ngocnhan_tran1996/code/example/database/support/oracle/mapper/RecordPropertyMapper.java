@@ -10,6 +10,7 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.convert.TypeDescriptor;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.annotation.OracleColumn;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.exception.OracleTypeException;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.OracleTypeUtils;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
 
@@ -67,7 +68,7 @@ class RecordPropertyMapper<T> extends BeanPropertyMapper<T> {
     if (this.constructorParameterNames == null
         || this.constructorParameterTypes == null) {
 
-      throw OracleTypeUtils.withMessage("Mapped constructor was not initialized");
+      throw new OracleTypeException("Mapped constructor was not initialized");
     }
 
     Object[] args = new Object[this.constructorParameterNames.length];
