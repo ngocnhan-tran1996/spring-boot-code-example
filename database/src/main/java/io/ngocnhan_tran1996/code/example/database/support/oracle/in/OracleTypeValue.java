@@ -26,9 +26,7 @@ public final class OracleTypeValue<T> extends OracleValue<T, OracleTypeValue<T>>
 
   public static <T> OracleTypeValue<T> withArray(Class<T> clazz, String arrayTypeName) {
 
-    var oracleTypeValue = withTypeName(clazz, null);
-    oracleTypeValue.withStructType(typeName);
-    return oracleTypeValue;
+    return new OracleTypeValue<>(clazz, arrayTypeName);
   }
 
   public static <T> OracleTypeValue<T> withStruct(Class<T> clazz, String typeName) {

@@ -35,6 +35,4 @@ abstract class AbstractSqlReturnType<T> implements SqlReturnType,
 
   protected abstract int sqlType();
 
-  protected abstract int sqlType();
-
 }
