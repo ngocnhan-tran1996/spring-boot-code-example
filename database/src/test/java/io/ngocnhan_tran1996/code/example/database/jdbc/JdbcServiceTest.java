@@ -25,7 +25,7 @@ class JdbcServiceTest {
   @Test
   void testExcuteConcatNameProc() {
 
-    var data = OracleTypeValue.withTypeName("jdbc_example_pack.name_array")
+    var data = OracleTypeValue.withArray("jdbc_example_pack.name_array")
         .value(new Object[] {"Nhan", "Ngoc"})
         .value(new Object[] {"Ngoc", "Nhan"})
         .toTypeValue();
@@ -36,10 +36,8 @@ class JdbcServiceTest {
     assertThat(jdbcService.excuteConcatNameProc(data))
         .isEqualTo(expectOutput);
 
-    var classData = OracleTypeValue.withTypeName(
-        NamePrefixInput.class,
-        "jdbc_example_pack.name_array")
-        .withStructType("jdbc_example_pack.name_record")
+    var classData = OracleTypeValue.withArray(NamePrefixInput.class, "jdbc_example_pack.name_array")
+        .withTypeName("jdbc_example_pack.name_record")
         .value(new NamePrefixInput("Nhan", "Ngoc"))
         .value(new NamePrefixInput("Ngoc", "Nhan"))
         .toTypeValue();
@@ -47,10 +45,9 @@ class JdbcServiceTest {
     assertThat(jdbcService.excuteConcatNameProc(classData))
         .isEqualTo(expectOutput);
 
-    var recordData = OracleTypeValue.withTypeName(
-        NamePrefixRecordInput.class,
+    var recordData = OracleTypeValue.withArray(NamePrefixRecordInput.class,
         "jdbc_example_pack.name_array")
-        .withStructType("jdbc_example_pack.name_record")
+        .withTypeName("jdbc_example_pack.name_record")
         .value(new NamePrefixRecordInput("Nhan", "Ngoc"))
         .value(new NamePrefixRecordInput("Ngoc", "Nhan"))
         .toTypeValue();

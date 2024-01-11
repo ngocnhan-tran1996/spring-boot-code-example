@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.util.LinkedCaseInsensitiveMap;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.exception.OracleTypeException;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.OracleTypeUtils;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
 import oracle.jdbc.OracleDatabaseMetaData;
@@ -25,7 +26,7 @@ abstract class AbstractOracleMapper<T> implements OracleMapper<T> {
    * @see java.sql.ResultSetMetaData
    */
   @Override
-  public Struct toStruct(T source, Connection connection, String typeName) throws SQLException {
+  public Struct toStruct(Connection connection, T source, String typeName) throws SQLException {
 
     var oracleTypeMetaData = connection.getMetaData()
         .unwrap(OracleDatabaseMetaData.class)
@@ -33,7 +34,7 @@ abstract class AbstractOracleMapper<T> implements OracleMapper<T> {
 
     if (oracleTypeMetaData.getKind() != OracleTypeMetaData.Kind.STRUCT) {
 
-      OracleTypeUtils.throwMessage(String.format("%s is not struct", typeName));
+      throw new OracleTypeException(String.format("%s is not struct", typeName));
     }
 
     ResultSetMetaData rsmd = this.getResultSetMetaData(oracleTypeMetaData);

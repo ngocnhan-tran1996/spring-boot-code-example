@@ -42,10 +42,10 @@ class JdbcService {
         .withCatalogName("jdbc_example_pack")
         .withProcedureName("complex_type_out_proc")
         .declareParameters(
-            OracleReturnType.withParameterName(clazz, "out_names")
+            OracleReturnType.withArrayParameterName(clazz, "out_names")
                 .withTypeName("jdbc_example_pack.name_array")
                 .toSqlOutParameter(),
-            OracleReturnType.withParameterName("out_numbers")
+            OracleReturnType.withArrayParameterName("out_numbers")
                 .withTypeName("jdbc_example_pack.number_array")
                 .toSqlOutParameter());
 
@@ -89,7 +89,7 @@ class JdbcService {
         .withCatalogName("jdbc_example_pack")
         .withFunctionName("name_info_table_func")
         .declareParameters(
-            OracleReturnType.withParameterName(NamePrefixInput.class, "return")
+            OracleReturnType.withArrayParameterName(NamePrefixInput.class, "return")
                 .withTypeName("jdbc_example_pack.name_array")
                 .toSqlOutParameter());
 
@@ -104,19 +104,18 @@ class JdbcService {
         .withCatalogName("jdbc_example_pack")
         .withProcedureName("in_out_object")
         .declareParameters(
-            OracleReturnType.withParameterName(clazz, "obj")
+            OracleReturnType.withStructParameterName(clazz, "obj")
                 .withTypeName("user_nhan.name_object")
-                .structType()
                 .toSqlInOutParameter());
 
     var sqlParameterSource = new MapSqlParameterSource()
         .addValue("obj",
-            OracleTypeValue.withStructTypeName(clazz, "user_nhan.name_object")
+            OracleTypeValue.withStruct(clazz, "user_nhan.name_object")
                 .value(data)
                 .toTypeValue(),
             Types.STRUCT)
         .addValue("in_numbers",
-            OracleTypeValue.withTypeName("user_nhan.jdbc_example_pack.number_array")
+            OracleTypeValue.withArray("user_nhan.jdbc_example_pack.number_array")
                 .value(1)
                 .value(2)
                 .toTypeValue(),

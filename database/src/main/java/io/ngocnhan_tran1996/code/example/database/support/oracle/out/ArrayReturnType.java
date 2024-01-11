@@ -4,26 +4,13 @@ import java.sql.Array;
 import java.sql.SQLException;
 import java.sql.Struct;
 import java.sql.Types;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@Getter
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class ArrayReturnType extends AbstractSqlReturnType {
-
-  private final String parameterName;
-  private final String typeName;
+class ArrayReturnType<T> extends AbstractSqlReturnType<T> {
 
   @Override
   protected Object convertArray(Array array) throws SQLException {
 
     return array.getArray();
-  }
-
-  @Override
-  protected ArrayReturnType getHandler() {
-    return this;
   }
 
   @Override
@@ -33,7 +20,7 @@ class ArrayReturnType extends AbstractSqlReturnType {
   }
 
   @Override
-  protected Object convertStruct(Struct struct) throws SQLException {
+  protected T convertStruct(Struct struct) throws SQLException {
     return null;
   }
 

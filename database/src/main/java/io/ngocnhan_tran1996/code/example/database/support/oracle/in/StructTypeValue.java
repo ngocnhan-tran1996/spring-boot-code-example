@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.CollectionUtils;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.OracleTypeUtils;
-import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
 
 class StructTypeValue<T> extends StructArrayTypeValue<T> {
 
@@ -16,15 +15,9 @@ class StructTypeValue<T> extends StructArrayTypeValue<T> {
   @Override
   protected Object createTypeValue(Connection connection, String typeName) throws SQLException {
 
-    var uperCaseStructType = Strings.toUpperCase(typeName);
-    var value = CollectionUtils.getByIndex(super.getValues(), 0);
-    if (value == null) {
-
-      OracleTypeUtils.throwMessage("Value must not be null!");
-    }
-
+    var value = OracleTypeUtils.throwIfNull(CollectionUtils.getByIndex(super.getValues(), 0));
     return this.getOracleMapper()
-        .toStruct(value, connection, uperCaseStructType);
+        .toStruct(connection, value, this.getStructTypeName());
   }
 
 }

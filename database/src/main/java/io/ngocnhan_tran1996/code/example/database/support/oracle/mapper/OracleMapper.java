@@ -8,7 +8,7 @@ import oracle.jdbc.OracleStruct;
 
 public interface OracleMapper<T> {
 
-  Struct toStruct(T source, Connection connection, String typeName) throws SQLException;
+  Struct toStruct(Connection connection, T source, String typeName) throws SQLException;
 
   T fromStruct(OracleStruct struct);
 

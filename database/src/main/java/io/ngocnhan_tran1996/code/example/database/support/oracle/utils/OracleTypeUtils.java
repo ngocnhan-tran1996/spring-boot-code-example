@@ -27,14 +27,4 @@ public final class OracleTypeUtils {
     return value;
   }
 
-  public static void throwMessage(final String message) {
-
-    throw withMessage(message);
-  }
-
-  public static OracleTypeException withMessage(final String message) {
-
-    return new OracleTypeException(message);
-  }
-
 }
