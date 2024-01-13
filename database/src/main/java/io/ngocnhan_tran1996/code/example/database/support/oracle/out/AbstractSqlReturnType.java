@@ -7,9 +7,14 @@ import java.sql.Struct;
 import java.sql.Types;
 import org.springframework.jdbc.core.SqlReturnType;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.OracleMapperAccessor;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.mapper.DelegateOracleMapper;
+import lombok.Getter;
 
 abstract class AbstractSqlReturnType<T> implements SqlReturnType,
     OracleMapperAccessor<AbstractSqlReturnType<T>> {
+
+  @Getter
+  private DelegateOracleMapper delegateOracleMapper = new DelegateOracleMapper();
 
   @Override
   public Object getTypeValue(CallableStatement cs, int paramIndex, int sqlType, String typeName)

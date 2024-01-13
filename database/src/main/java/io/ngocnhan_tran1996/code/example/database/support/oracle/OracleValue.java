@@ -1,9 +1,14 @@
 package io.ngocnhan_tran1996.code.example.database.support.oracle;
 
-public abstract class OracleValue<T, S extends OracleValue<T, S>> implements
+import io.ngocnhan_tran1996.code.example.database.support.oracle.mapper.DelegateOracleMapper;
+import lombok.Getter;
+
+public abstract class OracleValue<S extends OracleValue<S>> implements
     OracleMapperAccessor<S> {
 
-  protected Class<T> clazz;
+  protected Class<?> clazz;
+  @Getter
+  private DelegateOracleMapper delegateOracleMapper = new DelegateOracleMapper();
 
   /** The type name of the STRUCT **/
   protected String typeName;
