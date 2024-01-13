@@ -15,8 +15,6 @@ import oracle.jdbc.driver.OracleConnection;
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class ArrayTypeValue<T> extends AbstractOracleTypeValue<T> {
 
-  protected static final String STRUCT_TYPE = "STRUCT";
-
   /** The type name of the ARRAY **/
   private final String arrayTypeName;
   private final List<T> values;

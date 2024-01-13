@@ -31,7 +31,7 @@ public final class OracleTypeValue<T> extends OracleValue<OracleTypeValue<T>> {
 
   public static <T> OracleTypeValue<T> withStruct(Class<T> clazz, String typeName) {
 
-    var oracleTypeValue = withArray(clazz, ArrayTypeValue.STRUCT_TYPE);
+    var oracleTypeValue = withArray(clazz, StructTypeValue.STRUCT_TYPE);
     return oracleTypeValue.withTypeName(typeName);
   }
 
@@ -49,7 +49,7 @@ public final class OracleTypeValue<T> extends OracleValue<OracleTypeValue<T>> {
       return new ArrayTypeValue<>(this.arrayTypeName, this.values);
     }
 
-    var sqlTypeValue = ArrayTypeValue.STRUCT_TYPE.equals(this.arrayTypeName)
+    var sqlTypeValue = StructTypeValue.STRUCT_TYPE.equals(this.arrayTypeName)
         ? new StructTypeValue<>(this.values, this.typeName)
         : new StructArrayTypeValue<>(this.arrayTypeName, this.values, this.typeName);
 
