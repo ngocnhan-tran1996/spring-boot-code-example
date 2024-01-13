@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.SqlOutParameter;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.OracleValue;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
 
-public final class OracleReturnType<T> extends OracleValue<T, OracleReturnType<T>> {
+public final class OracleReturnType<T> extends OracleValue<OracleReturnType<T>> {
 
   private final String parameterName;
   private boolean isStructType = false;

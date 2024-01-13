@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.jdbc.core.SqlTypeValue;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.OracleValue;
 
-public final class OracleTypeValue<T> extends OracleValue<T, OracleTypeValue<T>> {
+public final class OracleTypeValue<T> extends OracleValue<OracleTypeValue<T>> {
 
   private List<T> values = new ArrayList<>();
 

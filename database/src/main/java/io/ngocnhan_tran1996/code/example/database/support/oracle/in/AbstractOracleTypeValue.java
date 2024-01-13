@@ -5,10 +5,15 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.support.AbstractSqlTypeValue;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.OracleMapperAccessor;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.exception.OracleTypeException;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.mapper.DelegateOracleMapper;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
+import lombok.Getter;
 
 abstract class AbstractOracleTypeValue<T> extends AbstractSqlTypeValue implements
     OracleMapperAccessor<AbstractOracleTypeValue<T>> {
+
+  @Getter
+  private DelegateOracleMapper delegateOracleMapper = new DelegateOracleMapper();
 
   /**
    * The implementation for this specific type. This method is called internally by the
