@@ -22,9 +22,7 @@ class ArrayTypeValue<T> extends AbstractOracleTypeValue<T> {
   @Override
   protected String getTypeName() {
 
-    return STRUCT_TYPE.equals(this.arrayTypeName)
-        ? null
-        : Strings.toUpperCase(OracleTypeUtils.throwIfBlank(this.arrayTypeName));
+    return Strings.toUpperCase(OracleTypeUtils.throwIfBlank(this.arrayTypeName));
   }
 
   @Override
