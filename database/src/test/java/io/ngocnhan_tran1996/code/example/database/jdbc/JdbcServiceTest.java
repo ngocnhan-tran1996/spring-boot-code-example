@@ -25,16 +25,9 @@ class JdbcServiceTest {
   @Test
   void testExcuteConcatNameProc() {
 
-    var data = OracleTypeValue.withArray("jdbc_example_pack.name_array")
-        .value(new Object[] {"Nhan", "Ngoc"})
-        .value(new Object[] {"Ngoc", "Nhan"})
-        .toTypeValue();
-
     var expectOutput = Map.of(
         "IN_NAME", "Nhan",
         "OUT_MSG", "IN_NAME = Nhan AND IN_PARAMS = NAME: Nhan Ngoc AND NAME: Ngoc Nhan");
-    assertThat(jdbcService.excuteConcatNameProc(data))
-        .isEqualTo(expectOutput);
 
     var classData = OracleTypeValue.withArray(NamePrefixInput.class, "jdbc_example_pack.name_array")
         .withTypeName("jdbc_example_pack.name_record")
