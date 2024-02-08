@@ -159,8 +159,11 @@ CREATE OR REPLACE PACKAGE BODY user_nhan.jdbc_example_pack IS
     ) AS
         objnew name_object;
     BEGIN
-        objnew := NEW name_object(obj.last_name || in_numbers.first, obj.first_name || in_numbers.last);
-
+        IF obj IS NULL THEN
+            objnew := NEW name_object('NGOC', 'NHAN');
+        ELSE
+            objnew := NEW name_object(obj.last_name || in_numbers.first, obj.first_name || in_numbers.last);
+        END IF;
         obj := objnew;
     END;
 
