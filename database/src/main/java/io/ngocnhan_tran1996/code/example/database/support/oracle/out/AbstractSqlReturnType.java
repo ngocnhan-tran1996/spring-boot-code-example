@@ -10,7 +10,7 @@ import io.ngocnhan_tran1996.code.example.database.support.oracle.OracleMapperAcc
 import io.ngocnhan_tran1996.code.example.database.support.oracle.mapper.DelegateOracleMapper;
 import lombok.Getter;
 
-abstract class AbstractSqlReturnType<T> implements SqlReturnType,
+public abstract class AbstractSqlReturnType<T> implements SqlReturnType,
     OracleMapperAccessor<AbstractSqlReturnType<T>> {
 
   @Getter
@@ -38,6 +38,6 @@ abstract class AbstractSqlReturnType<T> implements SqlReturnType,
 
   protected abstract Object convertArray(Array array) throws SQLException;
 
-  protected abstract int sqlType();
+  public abstract int sqlType();
 
 }

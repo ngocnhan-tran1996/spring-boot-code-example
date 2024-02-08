@@ -8,7 +8,7 @@ import java.util.List;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.exception.OracleTypeException;
 import oracle.jdbc.OracleStruct;
 
-class StructArrayReturnType<T> extends ArrayReturnType<T> {
+public class StructArrayReturnType<T> extends ArrayReturnType<T> {
 
   @Override
   protected Object convertArray(Array array) throws SQLException {
