@@ -23,6 +23,36 @@ class Log4j2RewriteTestArguments {
       .nextParams("\\\"password\\\" : \\\"test\\\"", "\\\"password\\\" : \\\"****\\\"")
       .nextParams("\"password\":\\\"test\\\"", "\"password\":\\\"****\\\"")
       .nextParams("\\\"password\\\": \\\"test\\\"", "\\\"password\\\": \\\"****\\\"")
-      .nextParams("\\\"password\\\" :\\\"test\\\"", "\\\"password\\\" :\\\"****\\\"");
+      .nextParams("\\\"password\\\" :\\\"test\\\"", "\\\"password\\\" :\\\"****\\\"")
+      .nextParams(
+          "{\"password\":\"Test\",\"obj\":{\"password\":\"Test\",\"list\":[{\"password\":\"Test\"}]}}",
+          "{\"password\":\"****\",\"obj\":{\"password\":\"****\",\"list\":[{\"password\":\"****\"}]}}")
+      .nextParams(
+          """
+              {
+                "password": "Test",
+                "obj": {
+                  "password": "Test",
+                  "list": [
+                    {
+                      "password": "Test"
+                    }
+                  ]
+                }
+              }
+              """,
+          """
+              {
+                "password": "****",
+                "obj": {
+                  "password": "****",
+                  "list": [
+                    {
+                      "password": "****"
+                    }
+                  ]
+                }
+              }
+              """);
 
 }
