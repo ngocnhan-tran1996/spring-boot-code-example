@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.Struct;
 import java.sql.Types;
 
-class ArrayReturnType<T> extends AbstractSqlReturnType<T> {
+public class ArrayReturnType<T> extends AbstractSqlReturnType<T> {
 
   @Override
   protected Object convertArray(Array array) throws SQLException {
@@ -14,7 +14,7 @@ class ArrayReturnType<T> extends AbstractSqlReturnType<T> {
   }
 
   @Override
-  protected int sqlType() {
+  public int sqlType() {
 
     return Types.ARRAY;
   }

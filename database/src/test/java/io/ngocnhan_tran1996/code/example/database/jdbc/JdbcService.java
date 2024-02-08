@@ -42,10 +42,10 @@ class JdbcService {
         .withCatalogName("jdbc_example_pack")
         .withProcedureName("complex_type_out_proc")
         .declareParameters(
-            OracleReturnType.withArrayParameterName(clazz, "out_names")
+            OracleReturnType.withArray(clazz, "out_names")
                 .withTypeName("jdbc_example_pack.name_array")
                 .toSqlOutParameter(),
-            OracleReturnType.withArrayParameterName("out_numbers")
+            OracleReturnType.withArray("out_numbers")
                 .withTypeName("jdbc_example_pack.number_array")
                 .toSqlOutParameter());
 
@@ -89,31 +89,33 @@ class JdbcService {
         .withCatalogName("jdbc_example_pack")
         .withFunctionName("name_info_table_func")
         .declareParameters(
-            OracleReturnType.withArrayParameterName(NamePrefixInput.class, "return")
+            OracleReturnType.withArray(NamePrefixInput.class, "return")
                 .withTypeName("jdbc_example_pack.name_array")
                 .toSqlOutParameter());
 
     simpleJdbcCall.execute(new MapSqlParameterSource());
   }
 
-  <T> T executeInOutObject(Class<T> clazz, T data) {
+  <T> T executeInOutObject(Class<T> clazz, T data, boolean hasNull) {
 
+    var struct = OracleTypeValue.withStruct(clazz, "user_nhan.name_object");
     jdbcTemplate.setResultsMapCaseInsensitive(true);
     var simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
         .withSchemaName("user_nhan")
         .withCatalogName("jdbc_example_pack")
         .withProcedureName("in_out_object")
         .declareParameters(
-            OracleReturnType.withStructParameterName(clazz, "obj")
-                .withTypeName("user_nhan.name_object")
+            struct
+                .withParameterName("obj")
                 .toSqlInOutParameter());
 
+    var objValue = hasNull
+        ? null
+        : struct.value(data)
+            .toTypeValue();
+
     var sqlParameterSource = new MapSqlParameterSource()
-        .addValue("obj",
-            OracleTypeValue.withStruct(clazz, "user_nhan.name_object")
-                .value(data)
-                .toTypeValue(),
-            Types.STRUCT)
+        .addValue("obj", objValue)
         .addValue("in_numbers",
             OracleTypeValue.withArray("user_nhan.jdbc_example_pack.number_array")
                 .value(1)

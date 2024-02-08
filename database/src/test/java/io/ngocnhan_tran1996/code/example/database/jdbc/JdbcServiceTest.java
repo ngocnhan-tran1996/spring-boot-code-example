@@ -134,7 +134,7 @@ class JdbcServiceTest {
   void testExecuteInOutObject() {
 
     var input = new NamePrefixInput("Nhan", "Ngoc");
-    var result = jdbcService.executeInOutObject(NamePrefixInput.class, input);
+    var result = jdbcService.executeInOutObject(NamePrefixInput.class, input, false);
     var output = new NamePrefixInput("Ngoc0", "Nhan1");
     assertThat(result)
         .usingRecursiveComparison()
@@ -142,10 +142,18 @@ class JdbcServiceTest {
 
     // record class
     var recordInput = new NamePrefixRecordInput("EBfTRJOyiKhZklCONAaA", "tshbpckypydpxztdrvkn");
-    var recordResult = jdbcService.executeInOutObject(NamePrefixRecordInput.class, recordInput);
+    var recordResult = jdbcService.executeInOutObject(NamePrefixRecordInput.class, recordInput,
+        false);
     assertThat(recordResult)
         .usingRecursiveComparison()
         .isEqualTo(new NamePrefixRecordInput("tshbpckypydpxztdrvkn0", "EBfTRJOyiKhZklCONAaA1"));
+
+    // null obj
+    result = jdbcService.executeInOutObject(NamePrefixInput.class, input, true);
+    output = new NamePrefixInput("NGOC", "NHAN");
+    assertThat(result)
+        .usingRecursiveComparison()
+        .isEqualTo(output);
   }
 
 }
