@@ -1,17 +1,17 @@
 package io.ngocnhan_tran1996.code.example.database.support.oracle.out;
 
 import java.sql.Array;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.exception.OracleTypeException;
-import oracle.jdbc.OracleStruct;
 
 public class StructArrayReturnType<T> extends ArrayReturnType<T> {
 
   @Override
-  protected Object convertArray(Array array) throws SQLException {
+  protected Object convertArray(Connection connection, Array array) throws SQLException {
 
     var objects = (Object[]) array.getArray();
     List<T> values = new ArrayList<>(objects.length);
@@ -20,7 +20,7 @@ public class StructArrayReturnType<T> extends ArrayReturnType<T> {
 
       if (object instanceof Struct struct) {
 
-        values.add(this.convertStruct(struct));
+        values.add(this.convertStruct(connection, struct));
         continue;
       }
 
@@ -36,9 +36,9 @@ public class StructArrayReturnType<T> extends ArrayReturnType<T> {
 
   @SuppressWarnings("unchecked")
   @Override
-  protected T convertStruct(Struct struct) throws SQLException {
+  protected T convertStruct(Connection connection, Struct struct) throws SQLException {
 
-    return (T) super.getOracleMapper().fromStruct((OracleStruct) struct);
+    return (T) super.getOracleMapper().fromStruct(connection, struct);
   }
 
 }

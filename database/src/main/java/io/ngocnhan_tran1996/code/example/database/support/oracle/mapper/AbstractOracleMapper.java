@@ -12,7 +12,6 @@ import io.ngocnhan_tran1996.code.example.database.support.oracle.exception.Oracl
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.OracleTypeUtils;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
 import oracle.jdbc.OracleDatabaseMetaData;
-import oracle.jdbc.OracleStruct;
 import oracle.jdbc.OracleTypeMetaData;
 import oracle.jdbc.driver.OracleConnection;
 
@@ -54,11 +53,21 @@ abstract class AbstractOracleMapper<T> implements OracleMapper<T> {
    * @see java.sql.ResultSetMetaData
    */
   @Override
-  public T fromStruct(OracleStruct struct) {
+  public T fromStruct(Connection connection, Struct struct) {
 
     try {
 
-      ResultSetMetaData rsmd = this.getResultSetMetaData(struct.getOracleMetaData());
+      var typeName = struct.getSQLTypeName();
+      var oracleTypeMetaData = connection.getMetaData()
+          .unwrap(OracleDatabaseMetaData.class)
+          .getOracleTypeMetaData("USER_NHAN.JDBC_EXAMPLE_PACK.NAME_RECORD");
+
+      if (oracleTypeMetaData.getKind() != OracleTypeMetaData.Kind.STRUCT) {
+
+        throw new OracleTypeException(String.format("%s is not struct", typeName));
+      }
+
+      ResultSetMetaData rsmd = this.getResultSetMetaData(oracleTypeMetaData);
       Object[] values = struct.getAttributes();
       var valueByName = new LinkedCaseInsensitiveMap<Object>();
       this.extractIndexByColumnName(rsmd)

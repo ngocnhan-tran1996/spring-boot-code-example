@@ -2,6 +2,7 @@ package io.ngocnhan_tran1996.code.example.database.support.oracle.out;
 
 import java.sql.Array;
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Struct;
 import java.sql.Types;
@@ -20,23 +21,23 @@ public abstract class AbstractSqlReturnType<T> implements SqlReturnType,
   public Object getTypeValue(CallableStatement cs, int paramIndex, int sqlType, String typeName)
       throws SQLException {
 
-    if (sqlType() == Types.STRUCT) {
+    if (this.sqlType() == Types.STRUCT) {
 
       var struct = (Struct) cs.getObject(paramIndex);
       return struct == null
           ? null
-          : this.convertStruct(struct);
+          : this.convertStruct(cs.getConnection(), struct);
     }
 
     Array array = cs.getArray(paramIndex);
     return array == null
         ? null
-        : this.convertArray(array);
+        : this.convertArray(cs.getConnection(), array);
   }
 
-  protected abstract T convertStruct(Struct struct) throws SQLException;
+  protected abstract T convertStruct(Connection connection, Struct struct) throws SQLException;
 
-  protected abstract Object convertArray(Array array) throws SQLException;
+  protected abstract Object convertArray(Connection connection, Array array) throws SQLException;
 
   public abstract int sqlType();
 
