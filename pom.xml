@@ -30,6 +30,7 @@
     <module>coverage-report</module>
     <module>database</module>
     <module>transaction</module>
+    <module>https</module>
   </modules>
 
   <dependencyManagement>
