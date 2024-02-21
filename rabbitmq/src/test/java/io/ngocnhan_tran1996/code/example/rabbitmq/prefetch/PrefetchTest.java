@@ -2,6 +2,9 @@ package io.ngocnhan_tran1996.code.example.rabbitmq.prefetch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.ngocnhan_tran1996.code.example.container.EnableTestcontainers;
+import io.ngocnhan_tran1996.code.example.container.RabbitMQContainerInitializer;
+import io.ngocnhan_tran1996.code.example.rabbitmq.BaseConfig;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,9 +14,6 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import io.ngocnhan_tran1996.code.example.container.EnableTestcontainers;
-import io.ngocnhan_tran1996.code.example.container.RabbitMQContainerInitializer;
-import io.ngocnhan_tran1996.code.example.rabbitmq.BaseConfig;
 
 @SpringBootTest(classes = {BaseConfig.class, PrefetchConfig.class})
 @EnableTestcontainers(RabbitMQContainerInitializer.class)
