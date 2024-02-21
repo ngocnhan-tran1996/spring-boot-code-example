@@ -6,11 +6,11 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 interface DataSourceConfig {
 
-  DataSource datasource();
+    DataSource datasource();
 
-  JpaProperties jpaProperties();
+    JpaProperties jpaProperties();
 
-  LocalContainerEntityManagerFactoryBean entityManager(
-      DataSource datasource,
-      JpaProperties jpaProperties);
+    LocalContainerEntityManagerFactoryBean entityManager(
+        DataSource datasource,
+        JpaProperties jpaProperties);
 }

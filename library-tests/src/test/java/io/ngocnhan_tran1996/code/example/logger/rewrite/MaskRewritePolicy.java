@@ -1,5 +1,7 @@
 package io.ngocnhan_tran1996.code.example.logger.rewrite;
 
+import io.ngocnhan_tran1996.code.example.utils.CollectionUtils;
+import io.ngocnhan_tran1996.code.example.utils.Strings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,92 +16,90 @@ import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 import org.apache.logging.log4j.core.config.plugins.PluginValue;
-import io.ngocnhan_tran1996.code.example.utils.CollectionUtils;
-import io.ngocnhan_tran1996.code.example.utils.Strings;
 
 @Plugin(name = "MaskRewritePolicy", category = Core.CATEGORY_NAME, elementType = "rewritePolicy")
 final class MaskRewritePolicy extends AbstractMaskRewritePolicy {
 
-  private static final Pattern FIELD_NAME_PATTERN = Pattern.compile("^\\w+(?:,\\w+)*+$");
+    private static final Pattern FIELD_NAME_PATTERN = Pattern.compile("^\\w+(?:,\\w+)*+$");
 
-  // regex pattern: \\?"?(?:password)\\?"?\s*[:=]\s*\\?"?([^\\"]*)
-  private static final String FIELD_NAME_REGEX =
-      "\\\\?\"?(?:%s)\\\\?\"?\\s*[:=]\\s*\\\\?\"?([^\\\\\"]*)";
+    // regex pattern: \\?"?(?:password)\\?"?\s*[:=]\s*\\?"?([^\\"]*)
+    private static final String FIELD_NAME_REGEX =
+        "\\\\?\"?(?:%s)\\\\?\"?\\s*[:=]\\s*\\\\?\"?([^\\\\\"]*)";
 
-  private final List<Pattern> patterns = new ArrayList<>();
+    private final List<Pattern> patterns = new ArrayList<>();
 
-  public MaskRewritePolicy(List<Pattern> patterns) {
+    public MaskRewritePolicy(List<Pattern> patterns) {
 
-    this.patterns.addAll(patterns);
-  }
-
-  @PluginFactory
-  public static MaskRewritePolicy createMaskRewritePolicy(
-      @PluginValue("keywords") final String keywords,
-      @PluginElement("MaskPattern") final MaskPatternPlugin[] patterns) {
-
-    if (Strings.isBlank(keywords)
-        && CollectionUtils.isEmpty(patterns)) {
-
-      return null;
+        this.patterns.addAll(patterns);
     }
 
-    List<Pattern> regexPatterns = new ArrayList<>();
+    @PluginFactory
+    public static MaskRewritePolicy createMaskRewritePolicy(
+        @PluginValue("keywords") final String keywords,
+        @PluginElement("MaskPattern") final MaskPatternPlugin[] patterns) {
 
-    Optional.ofNullable(keywords)
-        .map(FIELD_NAME_PATTERN::matcher)
-        .map(Matcher::matches)
-        .filter(Boolean::booleanValue)
-        .ifPresent(result -> {
+        if (Strings.isBlank(keywords)
+            && CollectionUtils.isEmpty(patterns)) {
 
-          var keywordRegex = String.format(
-              FIELD_NAME_REGEX,
-              keywords.replace(Strings.COMMA, "|"));
+            return null;
+        }
 
-          addRegexPattern(keywordRegex, regexPatterns);
+        List<Pattern> regexPatterns = new ArrayList<>();
+
+        Optional.ofNullable(keywords)
+            .map(FIELD_NAME_PATTERN::matcher)
+            .map(Matcher::matches)
+            .filter(Boolean::booleanValue)
+            .ifPresent(result -> {
+
+                var keywordRegex = String.format(
+                    FIELD_NAME_REGEX,
+                    keywords.replace(Strings.COMMA, "|"));
+
+                addRegexPattern(keywordRegex, regexPatterns);
+            });
+
+        Arrays.stream(patterns)
+            .filter(Objects::nonNull)
+            .filter(pattern -> Strings.isNotBlank(pattern.getValue()))
+            .forEach(pattern -> addRegexPattern(pattern.getValue(), regexPatterns));
+
+        return regexPatterns.isEmpty()
+            ? null
+            : new MaskRewritePolicy(regexPatterns);
+    }
+
+    private static void addRegexPattern(String regex, List<Pattern> patterns) {
+
+        try {
+
+            patterns.add(Pattern.compile(regex));
+        } catch (PatternSyntaxException e) {
+            // do nothing
+        }
+    }
+
+    @Override
+    protected void mask(StringBuilder stringBuilder) {
+
+        this.patterns.forEach(pattern -> {
+
+            var matcher = pattern.matcher(stringBuilder);
+
+            while (matcher.find()) {
+
+                IntStream.rangeClosed(1, matcher.groupCount())
+                    .filter(group -> matcher.group(group) != null)
+                    .forEach(group -> IntStream.range(matcher.start(group), matcher.end(group))
+                        .forEach(i -> stringBuilder.setCharAt(i, this.getMaskCharacter())));
+            }
         });
-
-    Arrays.stream(patterns)
-        .filter(Objects::nonNull)
-        .filter(pattern -> Strings.isNotBlank(pattern.getValue()))
-        .forEach(pattern -> addRegexPattern(pattern.getValue(), regexPatterns));
-
-    return regexPatterns.isEmpty()
-        ? null
-        : new MaskRewritePolicy(regexPatterns);
-  }
-
-  @Override
-  protected void mask(StringBuilder stringBuilder) {
-
-    this.patterns.forEach(pattern -> {
-
-      var matcher = pattern.matcher(stringBuilder);
-
-      while (matcher.find()) {
-
-        IntStream.rangeClosed(1, matcher.groupCount())
-            .filter(group -> matcher.group(group) != null)
-            .forEach(group -> IntStream.range(matcher.start(group), matcher.end(group))
-                .forEach(i -> stringBuilder.setCharAt(i, this.getMaskCharacter())));
-      }
-    });
-  }
-
-  @Override
-  protected char getMaskCharacter() {
-
-    return '*';
-  }
-
-  private static void addRegexPattern(String regex, List<Pattern> patterns) {
-
-    try {
-
-      patterns.add(Pattern.compile(regex));
-    } catch (PatternSyntaxException e) {
-      // do nothing
     }
-  }
+
+    @Override
+    protected char getMaskCharacter() {
+
+        return '*';
+    }
 
 }

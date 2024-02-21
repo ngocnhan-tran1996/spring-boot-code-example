@@ -1,5 +1,6 @@
 package io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config;
 
+import com.zaxxer.hikari.HikariDataSource;
 import java.util.Objects;
 import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -9,56 +10,55 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-import com.zaxxer.hikari.HikariDataSource;
 
 abstract class AbstractDataSourceConfig implements DataSourceConfig {
 
-  @Override
-  public DataSourceProperties dataSourceProperties() {
+    @Override
+    public DataSourceProperties dataSourceProperties() {
 
-    return new DataSourceProperties();
-  }
+        return new DataSourceProperties();
+    }
 
-  @Override
-  public DataSource datasource(DataSourceProperties dataSourceProperties) {
+    @Override
+    public DataSource datasource(DataSourceProperties dataSourceProperties) {
 
-    return dataSourceProperties
-        .initializeDataSourceBuilder()
-        .type(HikariDataSource.class)
-        .build();
-  }
+        return dataSourceProperties
+            .initializeDataSourceBuilder()
+            .type(HikariDataSource.class)
+            .build();
+    }
 
-  @Override
-  public JpaProperties jpaProperties() {
+    @Override
+    public JpaProperties jpaProperties() {
 
-    return new JpaProperties();
-  }
+        return new JpaProperties();
+    }
 
-  @Override
-  public LocalContainerEntityManagerFactoryBean entityManager(
-      DataSource datasource,
-      JpaProperties jpaProperties) {
+    @Override
+    public LocalContainerEntityManagerFactoryBean entityManager(
+        DataSource datasource,
+        JpaProperties jpaProperties) {
 
-    var builder = new EntityManagerFactoryBuilder(
-        new HibernateJpaVendorAdapter(),
-        jpaProperties.getProperties(),
-        null);
+        var builder = new EntityManagerFactoryBuilder(
+            new HibernateJpaVendorAdapter(),
+            jpaProperties.getProperties(),
+            null);
 
-    return builder.dataSource(datasource)
-        .packages(this.scanPackages())
-        .persistenceUnit(this.persistenceUnit())
-        .build();
-  }
+        return builder.dataSource(datasource)
+            .packages(this.scanPackages())
+            .persistenceUnit(this.persistenceUnit())
+            .build();
+    }
 
-  @Override
-  public PlatformTransactionManager transactionManager(
-      LocalContainerEntityManagerFactoryBean entityManager) {
+    @Override
+    public PlatformTransactionManager transactionManager(
+        LocalContainerEntityManagerFactoryBean entityManager) {
 
-    return new JpaTransactionManager(Objects.requireNonNull(entityManager.getObject()));
-  }
+        return new JpaTransactionManager(Objects.requireNonNull(entityManager.getObject()));
+    }
 
-  protected abstract String[] scanPackages();
+    protected abstract String[] scanPackages();
 
-  protected abstract String persistenceUnit();
+    protected abstract String persistenceUnit();
 
 }

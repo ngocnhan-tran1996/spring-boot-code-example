@@ -4,39 +4,41 @@ import java.util.function.Predicate;
 
 public final class DelegateOracleMapper {
 
-  private static final String RECORD_CLASS_NAME = "java.lang.Record";
-  private static final Predicate<Class<?>> recordClassPredicate = mappedClass -> mappedClass != null
-      && mappedClass.getSuperclass() != null
-      && RECORD_CLASS_NAME.equals(mappedClass.getSuperclass().getName());
+    private static final String RECORD_CLASS_NAME = "java.lang.Record";
+    private static final Predicate<Class<?>> recordClassPredicate = mappedClass ->
+        mappedClass != null
+            && mappedClass.getSuperclass() != null
+            && RECORD_CLASS_NAME.equals(mappedClass.getSuperclass().getName());
 
-  private OracleMapper<?> oracleMapper;
+    private OracleMapper<?> oracleMapper;
 
-  public <T> OracleMapper<T> getOracleMapper(Class<T> mappedClass) {
+    public static <T> OracleMapper<T> get(Class<T> mappedClass) {
 
-    return getDefault(mappedClass);
-  }
+        return getDefault(mappedClass);
+    }
 
-  @SuppressWarnings("unchecked")
-  public <T> OracleMapper<T> getOracleMapper() {
+    private static <T> OracleMapper<T> getDefault(Class<T> mappedClass) {
 
-    return (OracleMapper<T>) this.oracleMapper;
-  }
+        return recordClassPredicate.test(mappedClass)
+            ? RecordPropertyMapper.newInstance(mappedClass)
+            : BeanPropertyMapper.newInstance(mappedClass);
+    }
 
-  public <T> void setOracleMapper(OracleMapper<T> oracleMapper) {
+    public <T> OracleMapper<T> getOracleMapper(Class<T> mappedClass) {
 
-    if (oracleMapper != null)
-      this.oracleMapper = oracleMapper;
-  }
+        return getDefault(mappedClass);
+    }
 
-  public static <T> OracleMapper<T> get(Class<T> mappedClass) {
+    @SuppressWarnings("unchecked")
+    public <T> OracleMapper<T> getOracleMapper() {
 
-    return getDefault(mappedClass);
-  }
+        return (OracleMapper<T>) this.oracleMapper;
+    }
 
-  private static <T> OracleMapper<T> getDefault(Class<T> mappedClass) {
+    public <T> void setOracleMapper(OracleMapper<T> oracleMapper) {
 
-    return recordClassPredicate.test(mappedClass)
-        ? RecordPropertyMapper.newInstance(mappedClass)
-        : BeanPropertyMapper.newInstance(mappedClass);
-  }
+        if (oracleMapper != null) {
+            this.oracleMapper = oracleMapper;
+        }
+    }
 }

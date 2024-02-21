@@ -11,16 +11,16 @@ import org.springframework.transaction.TransactionManager;
 @TestConfiguration
 class TransactionConfig {
 
-  @Bean
-  TransactionManager transactionManager(ConnectionFactory connectionFactory) {
+    @Bean
+    TransactionManager transactionManager(ConnectionFactory connectionFactory) {
 
-    return new RabbitTransactionManager(connectionFactory);
-  }
+        return new RabbitTransactionManager(connectionFactory);
+    }
 
-  @Bean
-  TransactionProducer transactionProducer(Queue queue, RabbitTemplate rabbitTemplate) {
+    @Bean
+    TransactionProducer transactionProducer(Queue queue, RabbitTemplate rabbitTemplate) {
 
-    return new TransactionProducer(queue, rabbitTemplate);
-  }
+        return new TransactionProducer(queue, rabbitTemplate);
+    }
 
 }

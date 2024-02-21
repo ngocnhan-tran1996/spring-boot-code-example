@@ -5,25 +5,25 @@ import org.springframework.messaging.handler.annotation.SendTo;
 
 interface ReplyListener {
 
-  static class Reply implements ReplyListener {
+    static class Reply implements ReplyListener {
 
-    @RabbitListener(queues = "#{queue.name}")
-    String reply(String msg) {
+        @RabbitListener(queues = "#{queue.name}")
+        String reply(String msg) {
 
-      return msg + "_Reply";
+            return msg + "_Reply";
+        }
+
     }
 
-  }
+    static class Send implements ReplyListener {
 
-  static class Send implements ReplyListener {
+        @RabbitListener(queues = "#{queue.name}")
+        @SendTo("#{replyQueue.name}")
+        String sendTo(String msg) {
 
-    @RabbitListener(queues = "#{queue.name}")
-    @SendTo("#{replyQueue.name}")
-    String sendTo(String msg) {
+            return msg + "_Reply";
+        }
 
-      return msg + "_Reply";
     }
-
-  }
 
 }

@@ -1,6 +1,7 @@
 package io.ngocnhan_tran1996.code.example.rabbitmq.prefetch;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,32 +19,32 @@ import io.ngocnhan_tran1996.code.example.rabbitmq.BaseConfig;
 @EnableTestcontainers(RabbitMQContainerInitializer.class)
 class PrefetchTest {
 
-  @Autowired
-  RabbitAdmin rabbitAdmin;
+    @Autowired
+    RabbitAdmin rabbitAdmin;
 
-  @Autowired
-  RabbitTemplate rabbitTemplate;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
-  @Autowired
-  Queue queue;
+    @Autowired
+    Queue queue;
 
-  @Autowired
-  PrefetchListener prefetchListener;
+    @Autowired
+    PrefetchListener prefetchListener;
 
-  @BeforeEach
-  void init() {
+    @BeforeEach
+    void init() {
 
-    IntStream.rangeClosed(1, 300)
-        .boxed()
-        .forEach(i -> rabbitTemplate.convertAndSend(queue.getName(), "Hello world " + i));
-  }
+        IntStream.rangeClosed(1, 300)
+            .boxed()
+            .forEach(i -> rabbitTemplate.convertAndSend(queue.getName(), "Hello world " + i));
+    }
 
-  @Test
-  void testPrefetch() throws Exception {
+    @Test
+    void testPrefetch() throws Exception {
 
-    this.prefetchListener.latch.await(100, TimeUnit.MILLISECONDS);
-    assertThat(rabbitAdmin.getQueueInfo(queue.getName()).getMessageCount())
-        .isEqualTo(49);
-  }
+        this.prefetchListener.latch.await(100, TimeUnit.MILLISECONDS);
+        assertThat(rabbitAdmin.getQueueInfo(queue.getName()).getMessageCount())
+            .isEqualTo(49);
+    }
 
 }

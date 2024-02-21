@@ -13,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration
 public @interface EnableTestcontainers {
 
-  @AliasFor(annotation = ContextConfiguration.class, attribute = "initializers")
-  Class<? extends ApplicationContextInitializer<?>>[] value() default {};
+    @AliasFor(annotation = ContextConfiguration.class, attribute = "initializers")
+    Class<? extends ApplicationContextInitializer>[] value() default {};
 
 }

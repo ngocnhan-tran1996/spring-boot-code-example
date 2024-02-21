@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Bean;
 @TestConfiguration
 public class BaseConfig {
 
-  @Bean
-  Queue queue() {
+    @Bean
+    Queue queue() {
 
-    return new AnonymousQueue();
-  }
+        return new AnonymousQueue();
+    }
 
 }

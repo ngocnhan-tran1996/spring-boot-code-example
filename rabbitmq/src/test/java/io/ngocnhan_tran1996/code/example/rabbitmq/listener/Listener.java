@@ -8,13 +8,13 @@ import org.springframework.messaging.handler.annotation.Payload;
 
 class Listener {
 
-  String receiveMsg = "";
-  final CountDownLatch latch = new CountDownLatch(1);
+    final CountDownLatch latch = new CountDownLatch(1);
+    String receiveMsg = "";
 
-  @RabbitListener(queues = "#{queue.name}")
-  void receive(@Payload String msg, @Header(AmqpHeaders.CONSUMER_QUEUE) String queueName) {
+    @RabbitListener(queues = "#{queue.name}")
+    void receive(@Payload String msg, @Header(AmqpHeaders.CONSUMER_QUEUE) String queueName) {
 
-    this.receiveMsg = msg;
-  }
+        this.receiveMsg = msg;
+    }
 
 }

@@ -4,10 +4,10 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
 class RPCListener {
 
-  @RabbitListener(queues = "#{queue.name}")
-  String rpc(String msg) {
+    @RabbitListener(queues = "#{queue.name}")
+    String rpc(String msg) {
 
-    return msg + "_RPC";
-  }
+        return msg + "_RPC";
+    }
 
 }

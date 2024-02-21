@@ -4,9 +4,9 @@ import java.sql.Types;
 
 public class StructReturnType<T> extends StructArrayReturnType<T> {
 
-  @Override
-  public int sqlType() {
-    return Types.STRUCT;
-  }
+    @Override
+    public int sqlType() {
+        return Types.STRUCT;
+    }
 
 }

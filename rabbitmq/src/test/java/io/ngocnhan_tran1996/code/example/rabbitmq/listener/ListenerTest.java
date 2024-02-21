@@ -2,6 +2,7 @@ package io.ngocnhan_tran1996.code.example.rabbitmq.listener;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import org.springframework.amqp.core.Queue;
@@ -17,28 +18,28 @@ import io.ngocnhan_tran1996.code.example.rabbitmq.BaseConfig;
 @EnableTestcontainers(RabbitMQContainerInitializer.class)
 class ListenerTest {
 
-  @Autowired
-  RabbitTemplate rabbitTemplate;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
-  @Autowired
-  Listener listener;
+    @Autowired
+    Listener listener;
 
-  @Autowired
-  Queue queue;
+    @Autowired
+    Queue queue;
 
-  @TestCase
-  void testReceive(String input, String output, Class<Throwable> exClass) throws Exception {
+    @TestCase
+    void testReceive(String input, String output, Class<Throwable> exClass) throws Exception {
 
-    if (Objects.nonNull(exClass)) {
+        if (Objects.nonNull(exClass)) {
 
-      assertThatExceptionOfType(exClass)
-          .isThrownBy(() -> rabbitTemplate.convertAndSend(queue.getName(), input));
-      return;
+            assertThatExceptionOfType(exClass)
+                .isThrownBy(() -> rabbitTemplate.convertAndSend(queue.getName(), input));
+            return;
+        }
+
+        rabbitTemplate.convertAndSend(queue.getName(), input);
+        this.listener.latch.await(100, TimeUnit.MILLISECONDS);
+        assertThat(listener.receiveMsg).isEqualTo(output);
     }
-
-    rabbitTemplate.convertAndSend(queue.getName(), input);
-    this.listener.latch.await(100, TimeUnit.MILLISECONDS);
-    assertThat(listener.receiveMsg).isEqualTo(output);
-  }
 
 }

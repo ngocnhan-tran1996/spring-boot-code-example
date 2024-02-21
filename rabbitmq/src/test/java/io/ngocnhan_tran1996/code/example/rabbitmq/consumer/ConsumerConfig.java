@@ -9,32 +9,32 @@ import org.springframework.context.annotation.Profile;
 @TestConfiguration
 class ConsumerConfig {
 
-  @Profile("event")
-  @Bean
-  ConsumerListener consumerListener() {
+    @Profile("event")
+    @Bean
+    ConsumerListener consumerListener() {
 
-    return new ConsumerListener();
-  }
+        return new ConsumerListener();
+    }
 
-  @Profile("event")
-  @Bean
-  ConsumerEvent consumerEvent(AmqpAdmin amqpAdmin) {
+    @Profile("event")
+    @Bean
+    ConsumerEvent consumerEvent(AmqpAdmin amqpAdmin) {
 
-    return new ConsumerEvent(amqpAdmin);
-  }
+        return new ConsumerEvent(amqpAdmin);
+    }
 
-  @Profile("byId")
-  @Bean
-  ConsumerByIdListener consumerByIdListener() {
+    @Profile("byId")
+    @Bean
+    ConsumerByIdListener consumerByIdListener() {
 
-    return new ConsumerByIdListener();
-  }
+        return new ConsumerByIdListener();
+    }
 
-  @Profile("byId")
-  @Bean
-  Queue queue() {
+    @Profile("byId")
+    @Bean
+    Queue queue() {
 
-    return new Queue(ConsumerByIdListener.NEW_QUEUE_NAME);
-  }
+        return new Queue(ConsumerByIdListener.NEW_QUEUE_NAME);
+    }
 
 }

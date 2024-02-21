@@ -8,17 +8,17 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 interface DataSourceConfig {
 
-  DataSourceProperties dataSourceProperties();
+    DataSourceProperties dataSourceProperties();
 
-  DataSource datasource(DataSourceProperties dataSourceProperties);
+    DataSource datasource(DataSourceProperties dataSourceProperties);
 
-  JpaProperties jpaProperties();
+    JpaProperties jpaProperties();
 
-  LocalContainerEntityManagerFactoryBean entityManager(
-      DataSource datasource,
-      JpaProperties jpaProperties);
+    LocalContainerEntityManagerFactoryBean entityManager(
+        DataSource datasource,
+        JpaProperties jpaProperties);
 
-  PlatformTransactionManager transactionManager(
-      LocalContainerEntityManagerFactoryBean entityManager);
+    PlatformTransactionManager transactionManager(
+        LocalContainerEntityManagerFactoryBean entityManager);
 
 }

@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Bean;
 @TestConfiguration
 class RPCListenerConfig {
 
-  @Bean
-  RPCListener listener() {
+    @Bean
+    RPCListener listener() {
 
-    return new RPCListener();
-  }
+        return new RPCListener();
+    }
 
 }

@@ -9,12 +9,12 @@ import org.springframework.transaction.PlatformTransactionManager;
 @TestConfiguration
 public class ChainedTransactionManagerConfig {
 
-  @Bean(name = "chainedTransactionManager")
-  ChainedTransactionManager chainedTransactionManager(
-      @Qualifier(OracleDataSourceConfig.TRANSACTION_MANAGER) PlatformTransactionManager oracleTransactionManager,
-      @Qualifier(PostgresDataSourceConfig.TRANSACTION_MANAGER) PlatformTransactionManager postgresTransactionManager) {
+    @Bean(name = "chainedTransactionManager")
+    ChainedTransactionManager chainedTransactionManager(
+        @Qualifier(OracleDataSourceConfig.TRANSACTION_MANAGER) PlatformTransactionManager oracleTransactionManager,
+        @Qualifier(PostgresDataSourceConfig.TRANSACTION_MANAGER) PlatformTransactionManager postgresTransactionManager) {
 
-    return new ChainedTransactionManager(postgresTransactionManager, oracleTransactionManager);
-  }
+        return new ChainedTransactionManager(postgresTransactionManager, oracleTransactionManager);
+    }
 
 }

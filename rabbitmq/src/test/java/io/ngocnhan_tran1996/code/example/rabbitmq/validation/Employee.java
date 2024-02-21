@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 class Employee {
 
-  @NotBlank
-  private String name;
+    @NotBlank
+    private String name;
 
 }

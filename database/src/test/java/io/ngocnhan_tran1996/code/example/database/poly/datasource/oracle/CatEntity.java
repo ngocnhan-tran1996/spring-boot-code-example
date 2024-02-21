@@ -16,14 +16,14 @@ import lombok.Setter;
 @Table(name = "cat")
 public class CatEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-  private String species;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String species;
 
-  public CatEntity(String species) {
+    public CatEntity(String species) {
 
-    this.species = species;
-  }
+        this.species = species;
+    }
 
 }

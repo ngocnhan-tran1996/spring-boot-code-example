@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional("jtaTransactionManager")
 public interface DogRepo extends CrudRepository<DogEntity, Integer> {
 
-  @Modifying
-  @Query(value = "INSERT INTO DOG VALUES (:id, :species)", nativeQuery = true)
-  void insert(int id, String species);
+    @Modifying
+    @Query(value = "INSERT INTO DOG VALUES (:id, :species)", nativeQuery = true)
+    void insert(int id, String species);
 
 }

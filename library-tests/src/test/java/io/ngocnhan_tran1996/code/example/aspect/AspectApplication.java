@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = "io.ngocnhan_tran1996.code.example.aspect")
 public class AspectApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(AspectApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(AspectApplication.class, args);
+    }
 
 }

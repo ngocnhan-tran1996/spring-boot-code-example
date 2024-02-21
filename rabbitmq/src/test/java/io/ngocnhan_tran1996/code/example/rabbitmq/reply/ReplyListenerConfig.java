@@ -12,44 +12,44 @@ import org.springframework.context.annotation.Profile;
 @TestConfiguration
 class ReplyListenerConfig {
 
-  @Bean
-  Queue replyQueue() {
+    @Bean
+    Queue replyQueue() {
 
-    return new AnonymousQueue();
-  }
+        return new AnonymousQueue();
+    }
 
-  @Profile("!send-to")
-  @Bean
-  ReplyListener listener() {
+    @Profile("!send-to")
+    @Bean
+    ReplyListener listener() {
 
-    return new ReplyListener.Reply();
-  }
+        return new ReplyListener.Reply();
+    }
 
-  @Profile("send-to")
-  @Bean
-  ReplyListener sendListener() {
+    @Profile("send-to")
+    @Bean
+    ReplyListener sendListener() {
 
-    return new ReplyListener.Send();
-  }
+        return new ReplyListener.Send();
+    }
 
-  @Profile("replyAddress")
-  @Bean
-  RabbitTemplate replyRabbitTemplate(ConnectionFactory connectionFactory) {
+    @Profile("replyAddress")
+    @Bean
+    RabbitTemplate replyRabbitTemplate(ConnectionFactory connectionFactory) {
 
-    var template = new RabbitTemplate(connectionFactory);
-    template.setReplyAddress(replyQueue().getName());
-    template.setUseDirectReplyToContainer(false);
-    return template;
-  }
+        var template = new RabbitTemplate(connectionFactory);
+        template.setReplyAddress(replyQueue().getName());
+        template.setUseDirectReplyToContainer(false);
+        return template;
+    }
 
-  @Profile("replyAddress")
-  @Bean
-  SimpleMessageListenerContainer messageListenerContainer(ConnectionFactory connectionFactory) {
+    @Profile("replyAddress")
+    @Bean
+    SimpleMessageListenerContainer messageListenerContainer(ConnectionFactory connectionFactory) {
 
-    var container = new SimpleMessageListenerContainer(connectionFactory);
-    container.setQueues(replyQueue());
-    container.setMessageListener(replyRabbitTemplate(connectionFactory));
-    return container;
-  }
+        var container = new SimpleMessageListenerContainer(connectionFactory);
+        container.setQueues(replyQueue());
+        container.setMessageListener(replyRabbitTemplate(connectionFactory));
+        return container;
+    }
 
 }
