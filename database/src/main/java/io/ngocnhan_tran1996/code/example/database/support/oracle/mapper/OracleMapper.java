@@ -7,10 +7,10 @@ import java.util.Map;
 
 public interface OracleMapper<T> {
 
-  Struct toStruct(Connection connection, T source, String typeName) throws SQLException;
+    Struct toStruct(Connection connection, T source, String typeName) throws SQLException;
 
-  T fromStruct(Connection connection, Struct struct);
+    T fromStruct(Connection connection, Struct struct);
 
-  T convert(Map<String, Object> source);
+    T convert(Map<String, Object> source);
 
 }

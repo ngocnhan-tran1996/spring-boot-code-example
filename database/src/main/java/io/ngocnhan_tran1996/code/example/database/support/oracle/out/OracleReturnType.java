@@ -1,55 +1,55 @@
 package io.ngocnhan_tran1996.code.example.database.support.oracle.out;
 
-import org.springframework.jdbc.core.SqlOutParameter;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.OracleValue;
 import io.ngocnhan_tran1996.code.example.database.support.oracle.utils.Strings;
+import org.springframework.jdbc.core.SqlOutParameter;
 
 public final class OracleReturnType<T> extends OracleValue<OracleReturnType<T>> {
 
-  private boolean isStructType = false;
+    private boolean isStructType = false;
 
-  private OracleReturnType(Class<T> clazz, String parameterName) {
+    private OracleReturnType(Class<T> clazz, String parameterName) {
 
-    this.clazz = clazz;
-    super.parameterName = parameterName;
-  }
+        this.clazz = clazz;
+        super.parameterName = parameterName;
+    }
 
-  public static OracleReturnType<Object> withArray(String parameterName) {
+    public static OracleReturnType<Object> withArray(String parameterName) {
 
-    return withArray(null, parameterName);
-  }
+        return withArray(null, parameterName);
+    }
 
-  public static <T> OracleReturnType<T> withArray(Class<T> clazz, String parameterName) {
+    public static <T> OracleReturnType<T> withArray(Class<T> clazz, String parameterName) {
 
-    return new OracleReturnType<>(clazz, parameterName);
-  }
+        return new OracleReturnType<>(clazz, parameterName);
+    }
 
-  public static <T> OracleReturnType<T> withStruct(Class<T> clazz, String parameterName) {
+    public static <T> OracleReturnType<T> withStruct(Class<T> clazz, String parameterName) {
 
-    var oracleReturnType = withArray(clazz, parameterName);
-    oracleReturnType.isStruct();
-    return oracleReturnType;
-  }
+        var oracleReturnType = withArray(clazz, parameterName);
+        oracleReturnType.isStruct();
+        return oracleReturnType;
+    }
 
-  private void isStruct() {
+    private void isStruct() {
 
-    this.isStructType = true;
-  }
+        this.isStructType = true;
+    }
 
-  public SqlOutParameter toSqlOutParameter() {
+    public SqlOutParameter toSqlOutParameter() {
 
-    var returnType = this.returnType();
-    return new SqlOutParameter(
-        this.parameterName,
-        returnType.sqlType(),
-        Strings.toUpperCase(this.typeName),
-        returnType);
-  }
+        var returnType = this.returnType();
+        return new SqlOutParameter(
+            this.parameterName,
+            returnType.sqlType(),
+            Strings.toUpperCase(this.typeName),
+            returnType);
+    }
 
-  @Override
-  protected boolean isStructType() {
+    @Override
+    protected boolean isStructType() {
 
-    return this.isStructType;
-  }
+        return this.isStructType;
+    }
 
 }

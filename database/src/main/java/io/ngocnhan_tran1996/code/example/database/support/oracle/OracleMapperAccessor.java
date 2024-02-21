@@ -5,22 +5,22 @@ import io.ngocnhan_tran1996.code.example.database.support.oracle.mapper.OracleMa
 
 public interface OracleMapperAccessor<S extends OracleMapperAccessor<S>> extends Self<S> {
 
-  default <T> OracleMapper<T> getOracleMapper() {
+    default <T> OracleMapper<T> getOracleMapper() {
 
-    return this.getDelegateOracleMapper().getOracleMapper();
-  }
+        return this.getDelegateOracleMapper().getOracleMapper();
+    }
 
-  default <T> OracleMapper<T> getOracleMapper(Class<T> mappedClass) {
+    default <T> S setOracleMapper(OracleMapper<T> oracleMapper) {
 
-    return this.getDelegateOracleMapper().getOracleMapper(mappedClass);
-  }
+        this.getDelegateOracleMapper().setOracleMapper(oracleMapper);
+        return self();
+    }
 
-  default <T> S setOracleMapper(OracleMapper<T> oracleMapper) {
+    default <T> OracleMapper<T> getOracleMapper(Class<T> mappedClass) {
 
-    this.getDelegateOracleMapper().setOracleMapper(oracleMapper);
-    return self();
-  }
+        return this.getDelegateOracleMapper().getOracleMapper(mappedClass);
+    }
 
-  DelegateOracleMapper getDelegateOracleMapper();
+    DelegateOracleMapper getDelegateOracleMapper();
 
 }

@@ -1,6 +1,7 @@
 package io.ngocnhan_tran1996.code.example.database.entitymanager;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,18 +11,18 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 class TypedQueryPaginationTest {
 
-  @Autowired
-  TypedQueryPaginationService typedQueryPaginationService;
+    @Autowired
+    TypedQueryPaginationService typedQueryPaginationService;
 
-  @Test
-  void testQueryNamePrefix() {
+    @Test
+    void testQueryNamePrefix() {
 
-    assertThat(typedQueryPaginationService.queryNamePrefix())
-        .hasSize(9);
-    assertThat(typedQueryPaginationService.countQueryNamePrefix())
-        .isEqualTo(9);
-    assertThat(typedQueryPaginationService.extractQueryNamePrefix())
-        .isEqualTo(9);
-  }
+        assertThat(typedQueryPaginationService.queryNamePrefix())
+            .hasSize(9);
+        assertThat(typedQueryPaginationService.countQueryNamePrefix())
+            .isEqualTo(9);
+        assertThat(typedQueryPaginationService.extractQueryNamePrefix())
+            .isEqualTo(9);
+    }
 
 }

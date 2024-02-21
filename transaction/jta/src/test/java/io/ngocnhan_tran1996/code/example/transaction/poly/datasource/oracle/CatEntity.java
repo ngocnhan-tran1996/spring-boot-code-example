@@ -16,8 +16,8 @@ import lombok.Setter;
 @Table(name = "cat")
 public class CatEntity {
 
-  @Id
-  private int id;
-  private String species;
+    @Id
+    private int id;
+    private String species;
 
 }

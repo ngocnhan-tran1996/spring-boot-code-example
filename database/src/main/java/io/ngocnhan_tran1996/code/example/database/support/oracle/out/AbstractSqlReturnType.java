@@ -1,44 +1,44 @@
 package io.ngocnhan_tran1996.code.example.database.support.oracle.out;
 
+import io.ngocnhan_tran1996.code.example.database.support.oracle.OracleMapperAccessor;
+import io.ngocnhan_tran1996.code.example.database.support.oracle.mapper.DelegateOracleMapper;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Struct;
 import java.sql.Types;
-import org.springframework.jdbc.core.SqlReturnType;
-import io.ngocnhan_tran1996.code.example.database.support.oracle.OracleMapperAccessor;
-import io.ngocnhan_tran1996.code.example.database.support.oracle.mapper.DelegateOracleMapper;
 import lombok.Getter;
+import org.springframework.jdbc.core.SqlReturnType;
 
 public abstract class AbstractSqlReturnType<T> implements SqlReturnType,
     OracleMapperAccessor<AbstractSqlReturnType<T>> {
 
-  @Getter
-  private DelegateOracleMapper delegateOracleMapper = new DelegateOracleMapper();
+    @Getter
+    private DelegateOracleMapper delegateOracleMapper = new DelegateOracleMapper();
 
-  @Override
-  public Object getTypeValue(CallableStatement cs, int paramIndex, int sqlType, String typeName)
-      throws SQLException {
+    @Override
+    public Object getTypeValue(CallableStatement cs, int paramIndex, int sqlType, String typeName)
+        throws SQLException {
 
-    if (this.sqlType() == Types.STRUCT) {
+        if (this.sqlType() == Types.STRUCT) {
 
-      var struct = (Struct) cs.getObject(paramIndex);
-      return struct == null
-          ? null
-          : this.convertStruct(cs.getConnection(), struct);
+            var struct = (Struct) cs.getObject(paramIndex);
+            return struct == null
+                ? null
+                : this.convertStruct(cs.getConnection(), struct);
+        }
+
+        Array array = cs.getArray(paramIndex);
+        return array == null
+            ? null
+            : this.convertArray(cs.getConnection(), array);
     }
 
-    Array array = cs.getArray(paramIndex);
-    return array == null
-        ? null
-        : this.convertArray(cs.getConnection(), array);
-  }
+    protected abstract T convertStruct(Connection connection, Struct struct) throws SQLException;
 
-  protected abstract T convertStruct(Connection connection, Struct struct) throws SQLException;
+    protected abstract Object convertArray(Connection connection, Array array) throws SQLException;
 
-  protected abstract Object convertArray(Connection connection, Array array) throws SQLException;
-
-  public abstract int sqlType();
+    public abstract int sqlType();
 
 }

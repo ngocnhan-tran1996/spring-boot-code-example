@@ -1,5 +1,6 @@
 package io.ngocnhan_tran1996.code.example.database.poly.datasource.config;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -9,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
-import com.zaxxer.hikari.HikariDataSource;
 
 @TestConfiguration
 @EnableJpaRepositories(
@@ -18,63 +18,63 @@ import com.zaxxer.hikari.HikariDataSource;
     transactionManagerRef = PostgresDataSourceConfig.TRANSACTION_MANAGER)
 public class PostgresDataSourceConfig extends AbstractDataSourceConfig {
 
-  public static final String BASE_PACKAGE =
-      "io.ngocnhan_tran1996.code.example.database.poly.datasource.postgres";
-  public static final String PERSISTENCE_UNIT = "postgresEntityManager";
-  public static final String TRANSACTION_MANAGER = "postgresTransactionManager";
+    public static final String BASE_PACKAGE =
+        "io.ngocnhan_tran1996.code.example.database.poly.datasource.postgres";
+    public static final String PERSISTENCE_UNIT = "postgresEntityManager";
+    public static final String TRANSACTION_MANAGER = "postgresTransactionManager";
 
-  @Override
-  protected String[] scanPackages() {
+    @Override
+    protected String[] scanPackages() {
 
-    return new String[] {BASE_PACKAGE};
-  }
+        return new String[]{BASE_PACKAGE};
+    }
 
-  @Override
-  protected String persistenceUnit() {
+    @Override
+    protected String persistenceUnit() {
 
-    return PERSISTENCE_UNIT;
-  }
+        return PERSISTENCE_UNIT;
+    }
 
-  @Bean("postgresDataSourceProperties")
-  @ConfigurationProperties("app.datasource.db-postgres")
-  @Override
-  public DataSourceProperties dataSourceProperties() {
+    @Bean("postgresDataSourceProperties")
+    @ConfigurationProperties("app.datasource.db-postgres")
+    @Override
+    public DataSourceProperties dataSourceProperties() {
 
-    return super.dataSourceProperties();
-  }
+        return super.dataSourceProperties();
+    }
 
-  @Bean("postgresDataSource")
-  @ConfigurationProperties("app.datasource.db-postgres.hikari")
-  @Override
-  public HikariDataSource datasource(
-      @Qualifier("postgresDataSourceProperties") DataSourceProperties dataSourceProperties) {
+    @Bean("postgresDataSource")
+    @ConfigurationProperties("app.datasource.db-postgres.hikari")
+    @Override
+    public HikariDataSource datasource(
+        @Qualifier("postgresDataSourceProperties") DataSourceProperties dataSourceProperties) {
 
-    return super.datasource(dataSourceProperties);
-  }
+        return super.datasource(dataSourceProperties);
+    }
 
-  @Bean("postgresJpaProperties")
-  @ConfigurationProperties("app.datasource.db-postgres.jpa")
-  @Override
-  public JpaProperties jpaProperties() {
+    @Bean("postgresJpaProperties")
+    @ConfigurationProperties("app.datasource.db-postgres.jpa")
+    @Override
+    public JpaProperties jpaProperties() {
 
-    return super.jpaProperties();
-  }
+        return super.jpaProperties();
+    }
 
-  @Bean(PERSISTENCE_UNIT)
-  @Override
-  public LocalContainerEntityManagerFactoryBean entityManager(
-      @Qualifier("postgresDataSource") HikariDataSource datasource,
-      @Qualifier("postgresJpaProperties") JpaProperties jpaProperties) {
+    @Bean(PERSISTENCE_UNIT)
+    @Override
+    public LocalContainerEntityManagerFactoryBean entityManager(
+        @Qualifier("postgresDataSource") HikariDataSource datasource,
+        @Qualifier("postgresJpaProperties") JpaProperties jpaProperties) {
 
-    return super.entityManager(datasource, jpaProperties);
-  }
+        return super.entityManager(datasource, jpaProperties);
+    }
 
-  @Bean(TRANSACTION_MANAGER)
-  @Override
-  public PlatformTransactionManager transactionManager(
-      @Qualifier(PERSISTENCE_UNIT) LocalContainerEntityManagerFactoryBean entityManager) {
+    @Bean(TRANSACTION_MANAGER)
+    @Override
+    public PlatformTransactionManager transactionManager(
+        @Qualifier(PERSISTENCE_UNIT) LocalContainerEntityManagerFactoryBean entityManager) {
 
-    return super.transactionManager(entityManager);
-  }
+        return super.transactionManager(entityManager);
+    }
 
 }

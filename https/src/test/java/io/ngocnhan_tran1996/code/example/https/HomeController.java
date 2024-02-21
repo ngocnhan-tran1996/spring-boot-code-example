@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-  @PostMapping("/")
-  Person post(@RequestBody Person person) {
+    @PostMapping("/")
+    Person post(@RequestBody Person person) {
 
-    return person;
-  }
+        return person;
+    }
 
-  public record Person(String name, Integer age) {
+    public record Person(String name, Integer age) {
 
-  }
+    }
 
 }

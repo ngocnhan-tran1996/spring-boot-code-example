@@ -5,6 +5,6 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("book_author")
 class AuthorRef {
 
-  Integer author;
+    Integer author;
 
 }

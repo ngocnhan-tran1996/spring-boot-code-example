@@ -7,15 +7,15 @@ import org.springframework.context.annotation.Bean;
 @TestConfiguration
 class JsonListenerConfig {
 
-  @Bean
-  JsonListener listener() {
+    @Bean
+    JsonListener listener() {
 
-    return new JsonListener();
-  }
+        return new JsonListener();
+    }
 
-  @Bean
-  Jackson2JsonMessageConverter jsonConverter() {
-    return new Jackson2JsonMessageConverter();
-  }
+    @Bean
+    Jackson2JsonMessageConverter jsonConverter() {
+        return new Jackson2JsonMessageConverter();
+    }
 
 }

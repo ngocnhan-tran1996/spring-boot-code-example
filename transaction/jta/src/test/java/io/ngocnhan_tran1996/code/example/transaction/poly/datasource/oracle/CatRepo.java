@@ -8,12 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional("jtaTransactionManager")
 public interface CatRepo extends CrudRepository<CatEntity, Integer> {
 
-  @Modifying
-  @Query(value = "INSERT INTO CAT VALUES (:id, :species)", nativeQuery = true)
-  void insert(int id, String species);
+    @Modifying
+    @Query(value = "INSERT INTO CAT VALUES (:id, :species)", nativeQuery = true)
+    void insert(int id, String species);
 
-  @Modifying
-  @Query(value = "INSERT INTO CAT VALUES (2, 'Test');COMMIT", nativeQuery = true)
-  void insert();
+    @Modifying
+    @Query(value = "INSERT INTO CAT VALUES (2, 'Test');COMMIT", nativeQuery = true)
+    void insert();
 
 }

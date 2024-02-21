@@ -13,33 +13,33 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @TestConfiguration
 class ValidationConfig implements RabbitListenerConfigurer {
 
-  @Autowired
-  private LocalValidatorFactoryBean validator;
+    @Autowired
+    private LocalValidatorFactoryBean validator;
 
-  @Override
-  public void configureRabbitListeners(RabbitListenerEndpointRegistrar registrar) {
-    registrar.setValidator(this.validator);
-  }
+    @Override
+    public void configureRabbitListeners(RabbitListenerEndpointRegistrar registrar) {
+        registrar.setValidator(this.validator);
+    }
 
-  @Bean
-  ValidationConsumer validationConsumer() {
+    @Bean
+    ValidationConsumer validationConsumer() {
 
-    return new ValidationConsumer();
-  }
+        return new ValidationConsumer();
+    }
 
-  @Bean
-  Jackson2JsonMessageConverter jsonConverter() {
-    return new Jackson2JsonMessageConverter();
-  }
+    @Bean
+    Jackson2JsonMessageConverter jsonConverter() {
+        return new Jackson2JsonMessageConverter();
+    }
 
-  @Bean
-  RabbitListenerErrorHandler validationErrorHandler() {
-    return (message, msg, exception) -> {
+    @Bean
+    RabbitListenerErrorHandler validationErrorHandler() {
+        return (message, msg, exception) -> {
 
-      msg.getHeaders().get(AmqpHeaders.CHANNEL, com.rabbitmq.client.Channel.class)
-          .basicReject(msg.getHeaders().get(AmqpHeaders.DELIVERY_TAG, Long.class), false);
-      return null;
-    };
-  }
+            msg.getHeaders().get(AmqpHeaders.CHANNEL, com.rabbitmq.client.Channel.class)
+                .basicReject(msg.getHeaders().get(AmqpHeaders.DELIVERY_TAG, Long.class), false);
+            return null;
+        };
+    }
 
 }

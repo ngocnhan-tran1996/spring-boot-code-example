@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class Chairman {
 
-  private String fullName;
-  private int age;
+    private String fullName;
+    private int age;
 }

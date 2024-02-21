@@ -15,17 +15,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 final class SourceFileVisitor extends SimpleFileVisitor<Path> {
 
-  final Map<String, Set<Path>> pathsByName = new HashMap<>();
+    final Map<String, Set<Path>> pathsByName = new HashMap<>();
 
-  @Override
-  public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
-    String fileName = file.getFileName()
-        .toString();
-    pathsByName.computeIfAbsent(fileName, k -> new HashSet<>())
-        .add(file);
+        String fileName = file.getFileName()
+            .toString();
+        pathsByName.computeIfAbsent(fileName, k -> new HashSet<>())
+            .add(file);
 
-    return super.visitFile(file, attrs);
-  }
+        return super.visitFile(file, attrs);
+    }
 
 }

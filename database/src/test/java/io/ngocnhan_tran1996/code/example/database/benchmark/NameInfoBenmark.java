@@ -1,5 +1,6 @@
 package io.ngocnhan_tran1996.code.example.database.benchmark;
 
+import io.ngocnhan_tran1996.code.example.database.domain.NamePrefixRepository;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -14,107 +15,105 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import io.ngocnhan_tran1996.code.example.database.domain.NamePrefixRepository;
 
 @BenchmarkMode(Mode.AverageTime)
 @State(Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 public class NameInfoBenmark extends BenchmarkConfig {
 
-  public static void main(String[] args) throws RunnerException {
+    private static final String START_DATE = "2023-12-22";
+    private static final String TO_DATE = "2023-12-24";
+    @Autowired
+    NamePrefixRepository namePrefixRepository;
 
-    var opt = new OptionsBuilder()
-        .include(NameInfoBenmark.class.getSimpleName())
-        .warmupIterations(1)
-        .measurementIterations(5)
-        .forks(1)
-        .warmupForks(1)
-        .threads(1)
-        .build();
+    public static void main(String[] args) throws RunnerException {
 
-    new Runner(opt).run();
-  }
+        var opt = new OptionsBuilder()
+            .include(NameInfoBenmark.class.getSimpleName())
+            .warmupIterations(1)
+            .measurementIterations(5)
+            .forks(1)
+            .warmupForks(1)
+            .threads(1)
+            .build();
 
-  @Autowired
-  NamePrefixRepository namePrefixRepository;
+        new Runner(opt).run();
+    }
 
-  private static final String START_DATE = "2023-12-22";
-  private static final String TO_DATE = "2023-12-24";
+    @Benchmark
+    public Page<Object[]> executeNameInfoFirstPage() {
 
-  @Benchmark
-  public Page<Object[]> executeNameInfoFirstPage() {
+        return namePrefixRepository.executeNameInfo(
+            START_DATE,
+            TO_DATE,
+            PageRequest.of(0, 100));
+    }
 
-    return namePrefixRepository.executeNameInfo(
-        START_DATE,
-        TO_DATE,
-        PageRequest.of(0, 100));
-  }
+    @Benchmark
+    public Page<Object[]> executeNameInfo() {
 
-  @Benchmark
-  public Page<Object[]> executeNameInfo() {
+        return namePrefixRepository.executeNameInfo(
+            START_DATE,
+            TO_DATE,
+            PageRequest.of(499, 100));
+    }
 
-    return namePrefixRepository.executeNameInfo(
-        START_DATE,
-        TO_DATE,
-        PageRequest.of(499, 100));
-  }
+    @Benchmark
+    public Page<Object[]> executeNameInfoLoopFirstPage() {
 
-  @Benchmark
-  public Page<Object[]> executeNameInfoLoopFirstPage() {
+        return namePrefixRepository.executeNameInfoLoop(
+            START_DATE,
+            TO_DATE,
+            PageRequest.of(0, 100));
+    }
 
-    return namePrefixRepository.executeNameInfoLoop(
-        START_DATE,
-        TO_DATE,
-        PageRequest.of(0, 100));
-  }
+    @Benchmark
+    public Page<Object[]> executeNameInfoLoop() {
 
-  @Benchmark
-  public Page<Object[]> executeNameInfoLoop() {
+        return namePrefixRepository.executeNameInfoLoop(
+            START_DATE,
+            TO_DATE,
+            PageRequest.of(499, 100));
+    }
 
-    return namePrefixRepository.executeNameInfoLoop(
-        START_DATE,
-        TO_DATE,
-        PageRequest.of(499, 100));
-  }
+    @Benchmark
+    public List<Object[]> paginateNameInfoFirstPage() {
 
-  @Benchmark
-  public List<Object[]> paginateNameInfoFirstPage() {
+        return namePrefixRepository.paginateNameInfo(
+            START_DATE,
+            TO_DATE,
+            0,
+            100);
+    }
 
-    return namePrefixRepository.paginateNameInfo(
-        START_DATE,
-        TO_DATE,
-        0,
-        100);
-  }
+    @Benchmark
+    public List<Object[]> paginateNameInfo() {
 
-  @Benchmark
-  public List<Object[]> paginateNameInfo() {
+        return namePrefixRepository.paginateNameInfo(
+            START_DATE,
+            TO_DATE,
+            49_900,
+            50_000);
+    }
 
-    return namePrefixRepository.paginateNameInfo(
-        START_DATE,
-        TO_DATE,
-        49_900,
-        50_000);
-  }
+    @Benchmark
+    public List<Object[]> paginateNameInfoLoopFirstPage() {
 
-  @Benchmark
-  public List<Object[]> paginateNameInfoLoopFirstPage() {
+        return namePrefixRepository.paginateNameInfoLoop(
+            START_DATE,
+            TO_DATE,
+            0,
+            100);
+    }
 
-    return namePrefixRepository.paginateNameInfoLoop(
-        START_DATE,
-        TO_DATE,
-        0,
-        100);
-  }
+    @Benchmark
+    public List<Object[]> paginateNameInfoLoop() {
 
-  @Benchmark
-  public List<Object[]> paginateNameInfoLoop() {
-
-    return namePrefixRepository.paginateNameInfoLoop(
-        START_DATE,
-        TO_DATE,
-        49_900,
-        50_000);
-  }
+        return namePrefixRepository.paginateNameInfoLoop(
+            START_DATE,
+            TO_DATE,
+            49_900,
+            50_000);
+    }
 
 }

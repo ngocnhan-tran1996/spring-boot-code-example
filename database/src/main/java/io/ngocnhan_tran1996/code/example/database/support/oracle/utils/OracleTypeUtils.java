@@ -7,24 +7,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class OracleTypeUtils {
 
-  public static <T> T throwIfNull(final T value) {
+    public static <T> T throwIfNull(final T value) {
 
-    if (value == null) {
+        if (value == null) {
 
-      throw new OracleTypeException("value must not be null!");
+            throw new OracleTypeException("value must not be null!");
+        }
+
+        return value;
     }
 
-    return value;
-  }
+    public static String throwIfBlank(final String value) {
 
-  public static String throwIfBlank(final String value) {
+        if (Strings.isBlank(value)) {
 
-    if (Strings.isBlank(value)) {
+            throw new OracleTypeException("value must not be blank!");
+        }
 
-      throw new OracleTypeException("value must not be blank!");
+        return value;
     }
-
-    return value;
-  }
 
 }

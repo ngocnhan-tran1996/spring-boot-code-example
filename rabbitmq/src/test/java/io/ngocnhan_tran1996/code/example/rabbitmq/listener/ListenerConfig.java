@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Bean;
 @TestConfiguration
 class ListenerConfig {
 
-  @Bean
-  Listener listener() {
+    @Bean
+    Listener listener() {
 
-    return new Listener();
-  }
+        return new Listener();
+    }
 
 }

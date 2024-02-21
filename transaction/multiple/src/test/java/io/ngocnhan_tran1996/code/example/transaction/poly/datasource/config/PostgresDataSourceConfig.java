@@ -1,5 +1,6 @@
 package io.ngocnhan_tran1996.code.example.transaction.poly.datasource.config;
 
+import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -11,7 +12,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
-import com.zaxxer.hikari.HikariDataSource;
 
 @TestConfiguration
 @EnableJpaRepositories(
@@ -20,74 +20,74 @@ import com.zaxxer.hikari.HikariDataSource;
     transactionManagerRef = PostgresDataSourceConfig.TRANSACTION_MANAGER)
 public class PostgresDataSourceConfig extends AbstractDataSourceConfig {
 
-  public static final String BASE_PACKAGE =
-      "io.ngocnhan_tran1996.code.example.transaction.poly.datasource.postgres";
-  public static final String PERSISTENCE_UNIT = "postgresEntityManager";
-  public static final String TRANSACTION_MANAGER = "postgresTransactionManager";
+    public static final String BASE_PACKAGE =
+        "io.ngocnhan_tran1996.code.example.transaction.poly.datasource.postgres";
+    public static final String PERSISTENCE_UNIT = "postgresEntityManager";
+    public static final String TRANSACTION_MANAGER = "postgresTransactionManager";
 
-  @Override
-  protected String[] scanPackages() {
+    @Override
+    protected String[] scanPackages() {
 
-    return new String[] {BASE_PACKAGE};
-  }
+        return new String[]{BASE_PACKAGE};
+    }
 
-  @Override
-  protected String persistenceUnit() {
+    @Override
+    protected String persistenceUnit() {
 
-    return PERSISTENCE_UNIT;
-  }
+        return PERSISTENCE_UNIT;
+    }
 
-  @Primary
-  @Bean
-  @ConfigurationProperties("app.datasource.postgres")
-  @Override
-  public DataSourceProperties dataSourceProperties() {
+    @Primary
+    @Bean
+    @ConfigurationProperties("app.datasource.postgres")
+    @Override
+    public DataSourceProperties dataSourceProperties() {
 
-    return super.dataSourceProperties();
-  }
+        return super.dataSourceProperties();
+    }
 
-  @Primary
-  @Bean
-  @ConfigurationProperties("app.datasource.postgres.hikari")
-  @Override
-  public DataSource datasource(DataSourceProperties dataSourceProperties) {
+    @Primary
+    @Bean
+    @ConfigurationProperties("app.datasource.postgres.hikari")
+    @Override
+    public DataSource datasource(DataSourceProperties dataSourceProperties) {
 
-    return super.datasource(dataSourceProperties);
-  }
+        return super.datasource(dataSourceProperties);
+    }
 
-  @Primary
-  @Bean("postgresJpaProperties")
-  @ConfigurationProperties("app.datasource.postgres.jpa")
-  @Override
-  public JpaProperties jpaProperties() {
+    @Primary
+    @Bean("postgresJpaProperties")
+    @ConfigurationProperties("app.datasource.postgres.jpa")
+    @Override
+    public JpaProperties jpaProperties() {
 
-    return super.jpaProperties();
-  }
+        return super.jpaProperties();
+    }
 
-  @Primary
-  @Bean(PERSISTENCE_UNIT)
-  @Override
-  public LocalContainerEntityManagerFactoryBean entityManager(
-      DataSource datasource,
-      JpaProperties jpaProperties) {
+    @Primary
+    @Bean(PERSISTENCE_UNIT)
+    @Override
+    public LocalContainerEntityManagerFactoryBean entityManager(
+        DataSource datasource,
+        JpaProperties jpaProperties) {
 
-    return super.entityManager(datasource, jpaProperties);
-  }
+        return super.entityManager(datasource, jpaProperties);
+    }
 
-  @Primary
-  @Bean(TRANSACTION_MANAGER)
-  @Override
-  public PlatformTransactionManager transactionManager(
-      LocalContainerEntityManagerFactoryBean entityManager) {
+    @Primary
+    @Bean(TRANSACTION_MANAGER)
+    @Override
+    public PlatformTransactionManager transactionManager(
+        LocalContainerEntityManagerFactoryBean entityManager) {
 
-    return super.transactionManager(entityManager);
-  }
+        return super.transactionManager(entityManager);
+    }
 
-  @Primary
-  @Bean
-  JdbcTemplate jdbcTemplate(HikariDataSource datasource) {
+    @Primary
+    @Bean
+    JdbcTemplate jdbcTemplate(HikariDataSource datasource) {
 
-    return new JdbcTemplate(datasource);
-  }
+        return new JdbcTemplate(datasource);
+    }
 
 }

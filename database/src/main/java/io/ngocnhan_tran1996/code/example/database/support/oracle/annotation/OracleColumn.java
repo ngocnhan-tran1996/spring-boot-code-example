@@ -11,6 +11,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface OracleColumn {
 
-  String value() default "";
+    String value() default "";
 
 }

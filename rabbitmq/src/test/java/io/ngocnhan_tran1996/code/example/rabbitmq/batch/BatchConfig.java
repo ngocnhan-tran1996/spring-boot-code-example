@@ -13,52 +13,52 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @TestConfiguration
 class BatchConfig {
 
-  @Profile({"batch", "config-batch"})
-  @Bean
-  BatchingRabbitTemplate batchingRabbitTemplate(ConnectionFactory connectionFactory) {
+    @Profile({"batch", "config-batch"})
+    @Bean
+    BatchingRabbitTemplate batchingRabbitTemplate(ConnectionFactory connectionFactory) {
 
-    var scheduler = new ThreadPoolTaskScheduler();
-    scheduler.initialize();
+        var scheduler = new ThreadPoolTaskScheduler();
+        scheduler.initialize();
 
-    var batchingStrategy = new SimpleBatchingStrategy(
-        10,
-        Integer.MAX_VALUE,
-        100);
+        var batchingStrategy = new SimpleBatchingStrategy(
+            10,
+            Integer.MAX_VALUE,
+            100);
 
-    return new BatchingRabbitTemplate(connectionFactory, batchingStrategy, scheduler);
-  }
+        return new BatchingRabbitTemplate(connectionFactory, batchingStrategy, scheduler);
+    }
 
-  @Profile({"annotation-batch", "config-batch"})
-  @Bean
-  AnnotationBatchListener annotationBatchListener() {
+    @Profile({"annotation-batch", "config-batch"})
+    @Bean
+    AnnotationBatchListener annotationBatchListener() {
 
-    return new AnnotationBatchListener();
-  }
+        return new AnnotationBatchListener();
+    }
 
-  @Profile("annotation-batch")
-  @Bean("consumerBatchContainerFactory")
-  SimpleRabbitListenerContainerFactory consumerBatchContainerFactory(
-      SimpleRabbitListenerContainerFactoryConfigurer configurer,
-      ConnectionFactory connectionFactory) {
+    @Profile("annotation-batch")
+    @Bean("consumerBatchContainerFactory")
+    SimpleRabbitListenerContainerFactory consumerBatchContainerFactory(
+        SimpleRabbitListenerContainerFactoryConfigurer configurer,
+        ConnectionFactory connectionFactory) {
 
-    var factory = new SimpleRabbitListenerContainerFactory();
-    configurer.configure(factory, connectionFactory);
-    factory.setReceiveTimeout(100L);
-    return factory;
-  }
+        var factory = new SimpleRabbitListenerContainerFactory();
+        configurer.configure(factory, connectionFactory);
+        factory.setReceiveTimeout(100L);
+        return factory;
+    }
 
-  @Profile("config-batch")
-  @Bean("consumerBatchContainerFactory")
-  SimpleRabbitListenerContainerFactory batchContainerFactory(
-      SimpleRabbitListenerContainerFactoryConfigurer configurer,
-      ConnectionFactory connectionFactory) {
+    @Profile("config-batch")
+    @Bean("consumerBatchContainerFactory")
+    SimpleRabbitListenerContainerFactory batchContainerFactory(
+        SimpleRabbitListenerContainerFactoryConfigurer configurer,
+        ConnectionFactory connectionFactory) {
 
-    var factory = new SimpleRabbitListenerContainerFactory();
-    configurer.configure(factory, connectionFactory);
-    factory.setBatchListener(true); // configures a BatchMessageListenerAdapter
-    factory.setBatchSize(10);
-    factory.setReceiveTimeout(100L);
-    return factory;
-  }
+        var factory = new SimpleRabbitListenerContainerFactory();
+        configurer.configure(factory, connectionFactory);
+        factory.setBatchListener(true); // configures a BatchMessageListenerAdapter
+        factory.setBatchSize(10);
+        factory.setReceiveTimeout(100L);
+        return factory;
+    }
 
 }

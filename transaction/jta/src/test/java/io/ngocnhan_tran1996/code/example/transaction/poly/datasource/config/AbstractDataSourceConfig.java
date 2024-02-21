@@ -8,31 +8,31 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 abstract class AbstractDataSourceConfig implements DataSourceConfig {
 
-  @Override
-  public JpaProperties jpaProperties() {
+    @Override
+    public JpaProperties jpaProperties() {
 
-    return new JpaProperties();
-  }
+        return new JpaProperties();
+    }
 
-  @Override
-  public LocalContainerEntityManagerFactoryBean entityManager(
-      DataSource datasource,
-      JpaProperties jpaProperties) {
+    @Override
+    public LocalContainerEntityManagerFactoryBean entityManager(
+        DataSource datasource,
+        JpaProperties jpaProperties) {
 
-    var builder = new EntityManagerFactoryBuilder(
-        new HibernateJpaVendorAdapter(),
-        jpaProperties.getProperties(),
-        null);
+        var builder = new EntityManagerFactoryBuilder(
+            new HibernateJpaVendorAdapter(),
+            jpaProperties.getProperties(),
+            null);
 
-    return builder.dataSource(datasource)
-        .packages(this.scanPackages())
-        .persistenceUnit(this.persistenceUnit())
-        .jta(true)
-        .build();
-  }
+        return builder.dataSource(datasource)
+            .packages(this.scanPackages())
+            .persistenceUnit(this.persistenceUnit())
+            .jta(true)
+            .build();
+    }
 
-  protected abstract String[] scanPackages();
+    protected abstract String[] scanPackages();
 
-  protected abstract String persistenceUnit();
+    protected abstract String persistenceUnit();
 
 }

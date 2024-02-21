@@ -12,8 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class NamePrefixInput {
 
-  @OracleColumn("first_name")
-  private String name;
-  private String lastName;
+    @OracleColumn("first_name")
+    private String name;
+    private String lastName;
 
 }

@@ -9,32 +9,32 @@ import org.springframework.context.annotation.Bean;
 @TestConfiguration
 class PrefetchConfig {
 
-  @Bean("roundRobinContainerFactory")
-  SimpleRabbitListenerContainerFactory roundRobinContainerFactory(
-      SimpleRabbitListenerContainerFactoryConfigurer configurer,
-      ConnectionFactory connectionFactory) {
+    @Bean("roundRobinContainerFactory")
+    SimpleRabbitListenerContainerFactory roundRobinContainerFactory(
+        SimpleRabbitListenerContainerFactoryConfigurer configurer,
+        ConnectionFactory connectionFactory) {
 
-    var factory = new SimpleRabbitListenerContainerFactory();
-    configurer.configure(factory, connectionFactory);
-    factory.setPrefetchCount(250);
-    return factory;
-  }
+        var factory = new SimpleRabbitListenerContainerFactory();
+        configurer.configure(factory, connectionFactory);
+        factory.setPrefetchCount(250);
+        return factory;
+    }
 
-  @Bean("fairContainerFactory")
-  SimpleRabbitListenerContainerFactory fairContainerFactory(
-      SimpleRabbitListenerContainerFactoryConfigurer configurer,
-      ConnectionFactory connectionFactory) {
+    @Bean("fairContainerFactory")
+    SimpleRabbitListenerContainerFactory fairContainerFactory(
+        SimpleRabbitListenerContainerFactoryConfigurer configurer,
+        ConnectionFactory connectionFactory) {
 
-    var factory = new SimpleRabbitListenerContainerFactory();
-    configurer.configure(factory, connectionFactory);
-    factory.setPrefetchCount(1);
-    return factory;
-  }
+        var factory = new SimpleRabbitListenerContainerFactory();
+        configurer.configure(factory, connectionFactory);
+        factory.setPrefetchCount(1);
+        return factory;
+    }
 
-  @Bean
-  PrefetchListener prefetchListener() {
+    @Bean
+    PrefetchListener prefetchListener() {
 
-    return new PrefetchListener();
-  }
+        return new PrefetchListener();
+    }
 
 }

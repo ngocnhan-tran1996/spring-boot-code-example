@@ -17,6 +17,6 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 @ArgumentsSource(TestCaseProvider.class)
 public @interface TestCase {
 
-  String value() default "";
+    String value() default "";
 
 }
