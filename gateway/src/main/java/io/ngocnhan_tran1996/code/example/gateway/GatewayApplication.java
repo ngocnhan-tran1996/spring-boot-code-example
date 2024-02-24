@@ -14,11 +14,21 @@ public class GatewayApplication {
     }
 
     @Bean
-    public RouteLocator myRoutes(RouteLocatorBuilder builder) {
+    public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
-            .route(p -> p
-                .path("/**")
-                .uri("https://catfact.ninja/"))
+            .route(
+                predicateSpec -> predicateSpec
+                    .path("/catfact/**")
+                    .filters(gatewayFilterSpec -> gatewayFilterSpec
+                        .rewritePath("/catfact/(?<segment>.*)", "/${segment}")
+                    )
+                    .uri("https://catfact.ninja")
+            )
+            .route(
+                predicateSpec -> predicateSpec
+                    .path("/api/v1/**")
+                    .uri("https://dummy.restapiexample.com")
+            )
             .build();
     }
 
