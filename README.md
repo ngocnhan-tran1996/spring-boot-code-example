@@ -22,3 +22,5 @@ with some code example about what I have read spring documents or real cases tha
 
 ### Notes
 **EOL** means _**I will not update code in that branch**_, it is not relevant with version whether was supported or not in future
+
+https://docs.google.com/document/d/11tSy-QzxpHcYA9_-4Xx-j-Q_2CtS6xU3DrAnDFcLOUg/edit?usp=sharing
